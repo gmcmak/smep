@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Full Name:*" [(ngModel)]="caName"
-                            formControlName="caName">
+                            formControlName="caName" [ngClass]="displayFieldCss('caName')">
 
                         <div *ngIf="authorizerForm.controls['caName'].hasError('required') && authorizerForm.controls['caName'].touched" class="error">
                             Full name is required !
@@ -28,7 +28,7 @@
 
                     <div class="col-md-6">
                         <input id="caFullName" name="caFullName" class="form-control form-control-sm" type="text" placeholder="Name with Initials:*"
-                            [(ngModel)]="caFullName" formControlName="caFullName">
+                            [(ngModel)]="caFullName" formControlName="caFullName" [ngClass]="displayFieldCss('caFullName')">
 
                         <div *ngIf="authorizerForm.controls['caFullName'].hasError('required') && authorizerForm.controls['caFullName'].touched"
                             class="error">
@@ -43,7 +43,7 @@
                                 <label id="labelGender">Gender:*</label>
                             </div>
                             <div id="gender1" class="col-md-7">
-                                <select id="caGender" name="caGender" class="form-control form-control-sm drop" [(ngModel)]="caGender" formControlName="caGender">
+                                <select id="caGender" name="caGender" class="form-control form-control-sm drop" [(ngModel)]="caGender" formControlName="caGender" [ngClass]="displayFieldCss('caGender')">
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
@@ -57,7 +57,7 @@
 
                     <div class="col-md-6">
                         <input id="caNic" name="caNic" class="form-control form-control-sm" type="text" placeholder="N.I.C:*" [(ngModel)]="caNic"
-                            formControlName="caNic" maxlength="10">
+                            formControlName="caNic" maxlength="10" [ngClass]="displayFieldCss('caNic')">
 
                         <div *ngIf="authorizerForm.controls['caNic'].hasError('required') && authorizerForm.controls['caNic'].touched" class="error">
                             N.I.C is required !
@@ -71,7 +71,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <input id="caDesignation" name="caDesignation" class="form-control form-control-sm" type="text" placeholder="Designation:*"
-                            [(ngModel)]="caDesignation" formControlName="caDesignation">
+                            [(ngModel)]="caDesignation" formControlName="caDesignation" [ngClass]="displayFieldCss('caDesignation')">
 
                         <div *ngIf="authorizerForm.controls['caDesignation'].hasError('required') && authorizerForm.controls['caDesignation'].touched"
                             class="error">
@@ -86,7 +86,7 @@
                             </div>
                             <div id="dob" class="col-md-7">
                                 <input type="text" id="caDob" name="caDob" class="form-control form-control-sm" [(ngModel)]="caDob" placeholder="dd/mm/yy"
-                                    formControlName="caDob">
+                                    formControlName="caDob" [ngClass]="displayFieldCss('caDob')">
 
                                 <div *ngIf="authorizerForm.controls['caDob'].hasError('required') && authorizerForm.controls['caDob'].touched" class="error">
                                     Date of birth is required !
@@ -99,7 +99,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <input type="text" id="caEmail" name="caEmail" class="form-control form-control-sm" type="text" placeholder="Email:*" [(ngModel)]="caEmail"
-                            formControlName="caEmail">
+                            formControlName="caEmail" [ngClass]="displayFieldCss('caEmail')">
 
                         <div *ngIf="authorizerForm.controls['caEmail'].hasError('required') && authorizerForm.controls['caEmail'].touched" class="error">
                             Email is required !
@@ -111,7 +111,7 @@
 
                     <div class="col-md-6">
                         <input id="caMobile" name="caMobile" class="form-control form-control-sm" type="text" placeholder="Contact No:*" maxlength="10"
-                            [(ngModel)]="caMobile" formControlName="caMobile">
+                            [(ngModel)]="caMobile" formControlName="caMobile" [ngClass]="displayFieldCss('caMobile')">
 
                         <div *ngIf="authorizerForm.controls['caMobile'].hasError('required') && authorizerForm.controls['caMobile'].touched" class="error">
                             Contact number is required !

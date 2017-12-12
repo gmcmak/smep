@@ -74,6 +74,17 @@ export class AddAuthorizersComponent implements OnInit{
                 }),
                 check1: new FormControl('', Validators.required)
         });
+
+    public isFieldValid(field: string) {
+        return !this.authorizerForm.get(field).valid && this.authorizerForm.get(field).touched;
+    }
+
+    public displayFieldCss(field: string) {
+        return {
+            'is-invalid': this.isFieldValid(field),
+            'is-valid': this.isFieldValid(field)
+        };
+    }
     
         onSubmit(){
             console.log(this.authorizerForm.value);
