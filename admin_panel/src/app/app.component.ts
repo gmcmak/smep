@@ -61,6 +61,7 @@ export class AppComponent {
             console.log('NO STARTUP DATA');
             // this.router.navigate(['error'], { replaceUrl: true });
         }
+        this.loginTrue();
     }
 
     ngOnDestroy(): any {
@@ -80,5 +81,12 @@ export class AppComponent {
 
     voidButtonClick() {
         return false;
+    }
+
+    /**
+     * check login
+     */
+    loginTrue(){
+        return 0;
     }
 }
