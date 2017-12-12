@@ -1,0 +1,18 @@
+div input{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+div select{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+div textarea{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+#description1{
+    height: 100px;
+}

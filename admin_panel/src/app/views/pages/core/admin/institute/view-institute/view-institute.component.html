@@ -1,0 +1,116 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../individual/view-individual']">Content-Provider</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Institute</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>View Institute</a>
+    </li>
+</ol>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i>&emsp;
+        <b>Content Institutes' List</b>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="instituteTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Institute Name</th>
+                        <th>Reg. No</th>
+                        <th>Reg.Date</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Enable/ Disable</th>
+                        <th data-orderable="false">View</th>
+                        <th data-orderable="false">Delete</th>
+                    </tr>
+                </thead>
+                <tfoot>
+
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>SLIIT</td>
+                        <td>Inst-00001</td>
+                        <td>05-02-1993</td>
+                        <td>sliit@gmail.com</td>
+                        <td>0114789956</td>
+                        <td>No 60, Malabe</td>
+                        <td align="center">
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                        <td align="center">
+                            <a href="">
+                                <li class="fa  fa-1x fa-pencil-square-o"></li>
+                            </a>
+                        </td>
+                        <td align="center">
+                            <a data-toggle="modal" data-target="#deleteModal">
+                                <li class="fa  fa-1x fa-trash"></li>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>NSBM</td>
+                        <td>Inst-00005</td>
+                        <td>05-01-1993</td>
+                        <td>nsbm@gmail.com</td>
+                        <td>0114789444</td>
+                        <td>No 60, Pitipana, Homagama</td>
+                        <td align="center">
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                        <td align="center">
+                            <a href="">
+                                <li class="fa  fa-1x fa-pencil-square-o"></li>
+                            </a>
+                        </td>
+                        <td align="center">
+                            <a data-toggle="modal" data-target="#deleteModal">
+                                <li class="fa  fa-1x fa-trash"></li>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+<br>
+<br>
+
+<!-- Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Do you want to delete this?</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!-- <div class="modal-body">Do you need to delete this?</div> -->
+            <div class="modal-footer">
+                <button class="btn-secondary search_btn" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn-primary search_btn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

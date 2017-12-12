@@ -1,0 +1,59 @@
+<!--<div class="group">
+  
+    <form role="form" (submit)="login()"><br>
+      <md-input-container>
+        <input mdInput type="text" required [value]="user.userName" id="userName" name="userName" >
+        <md-placeholder>
+          <i class="material-icons app-input-icon">face</i>userName
+        </md-placeholder>
+      </md-input-container><br><br>
+      <md-input-container>
+        <input mdInput type="secret" required [value]="user.secret" id="secret" name="secret" >
+        <md-placeholder >
+          <i class="material-icons app-input-icon">lock_open</i>Password
+        </md-placeholder>
+      </md-input-container><br><br>
+      <button md-raised-button color="warn" type="submit" name="action">LOGIN</button><br><br>
+      <span id="err"><small>{{errorMsg}}</small></span>
+      <md-slide-toggle color="primary"><small>Remember me!</small></md-slide-toggle>
+    </form >
+  </div>-->
+  <br>
+  <md-card class="titlecard">
+   <b> Welcome to Imports and Exports Control Department online portal.</b><br><br>
+    To experince application submission for a control license, a debit note or an amendement, please log into the system.<br><br>
+
+    If you are an unregistered user, who wishes to obtain login credentials please follow these steps.<br>
+      1.If the applicant is an <b>individual</b>, click on <b>"New Registration"</b> link and proceed<br>
+      2.If the applicant is a <b>company</b>, please <b>visit Imports and Exports Control Department</b> for Registration<br><br>
+
+      If you are already a registered company and required mre login accounts, click on "Request Login Credentials" link and proceed
+  </md-card>
+
+  <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33" class="card">
+     <md-toolbar class="maintitle">USER LOGIN</md-toolbar>
+      <form role="form" (submit)="login()"><br>
+      <md-input-container class="itemwidth">
+        <input mdInput type="text" required [value]="user.userName" id="userName" name="userName" >
+        <md-placeholder>
+          <i class="material-icons app-input-icon">face</i>userName
+        </md-placeholder>
+      </md-input-container><br><br>
+      <md-input-container class="itemwidth">
+        <input mdInput type="password" required [value]="user.secret" id="secret" name="secret" >
+        <md-placeholder >
+          <i class="material-icons app-input-icon">lock_open</i>Password
+        </md-placeholder>
+      </md-input-container><br><br>
+      <button md-raised-button type="submit" name="action">LOGIN</button><br><br>
+      <span id="err"><small>{{errorMsg}}</small></span>
+      <md-slide-toggle color="primary"><small>Remember me!</small></md-slide-toggle>
+    </form >
+  </md-card>
+  <br><br>
+
+  <button md-button class="btnAlign">Request Additional Login Credentials</button>
+
+
+
+

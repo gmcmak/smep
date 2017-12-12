@@ -1,0 +1,325 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">Admin Panel</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" [routerLink]="['dashboard']">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
+          <a class="nav-link" [routerLink]="['profile']">
+            <i class="fa fa-user-circle-o"></i>
+            <span class="nav-link-text">Profile</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users' Details">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#userList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-users"></i>
+            <span class="nav-link-text" [routerLink]="['users/view-users']">Users</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="userList">
+            <li>
+              <a [routerLink]="['users/view-users']">View Users</a>
+            </li>
+            <li>
+              <a [routerLink]="['users/add-users']">Add Users</a>
+            </li>
+            <!-- <li>
+              <a [routerLink]="['users/change-password']">Change Password</a>
+            </li> -->
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorizers' Details">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#authorizerList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text" [routerLink]="['content-authorizer/view-authorizers']">Content Authorizer</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="authorizerList">
+            <li>
+              <a [routerLink]="['content-authorizer/view-authorizers']">View Authorizers</a>
+            </li>
+            <li>
+              <a [routerLink]="['content-authorizer/add-authorizers']">Add Authorizers</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Providers' Details">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#providerList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text" [routerLink]="['content-provider/view-providers']">Content Provider</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="providerList">
+            <li>
+              <a [routerLink]="['content-provider/view-providers']">View Providers</a>
+            </li>
+            <li>
+              <a [routerLink]="['content-provider/add-providers']">Add Providers</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institute">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#instituteList" data-parent="#exampleAccordion">
+            <i class="fa fa-university"></i>
+            <span class="nav-link-text" [routerLink]="['institute/view-institute']">Institute</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="instituteList">
+            <li>
+              <a [routerLink]="['institute/view-institute']">View Institutes</a>
+            </li>
+            <li>
+              <a [routerLink]="['institute/add-institute']">Add Institutes</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Consumers' Details">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#consumerList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text" [routerLink]="['content-consumer/view-consumers']">Content Consumer</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="consumerList">
+            <li>
+              <a [routerLink]="['content-consumer/view-consumers']">View Consumers</a>
+            </li>
+            <li>
+              <a [routerLink]="['content-consumer/add-consumers']">Add Consumers</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#reportList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file-text"></i>
+            <span class="nav-link-text" [routerLink]="['reports/content-authorizer-report']">Reports</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="reportList">
+            <li>
+              <a [routerLink]="['reports/content-authorizer-report']">Content Authorizer</a>
+            </li>
+            <li>
+              <a [routerLink]="['reports/content-provider-report']">Content Provider</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingList" data-parent="#exampleAccordion">
+            <i class="fa fa-cog"></i>
+            <span class="nav-link-text" [routerLink]="['settings/author/view-author']">Settings</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="settingList">
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Author">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#authorList" data-parent="#settingList">
+                  <i class="fa fa-user-o"></i>
+                  <span class="nav-link-text" [routerLink]="['settings/author/view-author']">Author</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="authorList">
+                  <li>
+                    <a [routerLink]="['settings/author/view-author']">View Author</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/author/add-author']">Add Author</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Category">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#categoryList" data-parent="#settingList">
+                  <i class="fa fa-th-list"></i>
+                  <span class="nav-link-text" [routerLink]="['settings/category/view-category']">Category</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="categoryList">
+                  <li>
+                    <a [routerLink]="['settings/category/view-category']">View Category</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/category/add-category']">Add Category</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Explore">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#exploreList" data-parent="#settingList">
+                  <i class="fa fa-tags"></i>
+                  <span class="nav-link-text" [routerLink]="['settings/explore/view-explore']">Explore</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="exploreList">
+                  <li>
+                    <a [routerLink]="['settings/explore/view-explore']">View Explore</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/explore/add-explore']">Add Explore</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Keyword">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#keywordList" data-parent="#settingList">
+                  <i class="fa fa-language"></i>
+                  <span class="nav-link-text" [routerLink]="['settings/keyword/view-keyword']">Keyword</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="keywordList">
+                  <li>
+                    <a [routerLink]="['settings/keyword/view-keyword']">View Keyword</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/keyword/add-keyword']">Add Keyword</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Role">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#roleList" data-parent="#settingList">
+                  <i class="fa fa-id-badge"></i>
+                  <span class="nav-link-text" [routerLink]="['settings/role/view-role']">Role</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="roleList">
+                  <li>
+                    <a [routerLink]="['settings/role/view-role']">View Role</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/role/add-role']">Add Role</a>
+                  </li>
+                </ul>
+              </li>
+          </ul>
+        </li>
+        
+        <!-- Content Authorizer -->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Authorization">
+          <a class="nav-link" [routerLink]="['ca-content-authorization']">
+            <i class="fa fa-fw fa-pencil-square-o"></i>
+            <span class="nav-link-text">Content Authorization</span>
+          </a>
+        </li>
+        
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorization History">
+          <a class="nav-link" [routerLink]="['ca-authorization-history']">
+            <i class="fa fa-fw fa-history"></i>
+            <span class="nav-link-text">Authorization History</span>
+          </a>
+        </li>
+        
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Providers' List">
+          <a class="nav-link" [routerLink]="['ca-content-providers']">
+            <i class="fa fa-fw fa-info-circle"></i>
+            <span class="nav-link-text">View Content Providers</span>
+          </a>
+        </li>
+
+        <!-- content provider -->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submissions">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#subList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file-text-o"></i>
+            <span class="nav-link-text" [routerLink]="['submissions/cp-single-submission']">Submissions</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="subList">
+            <li>
+              <a [routerLink]="['submissions/cp-single-submission']">Single Submission</a>
+            </li>
+            <li>
+              <a [routerLink]="['submissions/cp-multiple-submission']">Multiple Submission</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="History">
+          <a class="nav-link" [routerLink]="['cp-history']">
+            <i class="fa fa-fw fa-history"></i>
+            <span class="nav-link-text">Submission History</span>
+          </a>
+        </li>
+
+        <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Provider">
+          <a class="nav-link" [routerLink]="['/content-provider']">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Content Provider</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Authorizer">
+          <a class="nav-link" [routerLink]="['/content-authorizer']">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Content Authorizer</span>
+          </a>
+        </li> -->
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <ul class="nav pull-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle logger_name" data-toggle="dropdown">Hi, Deshan
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" style="background:#343a40;">
+              <li>
+                <a class="nav-link" [routerLink]="['users/change-password']">
+                  <i class="fa fa-fw fa-expeditedssl"></i>Change Password</a>
+              </li>
+              <li>
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                  <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ul>
+    </div>
+  </nav>
+    <div class="content-wrapper">
+    
+    <div class="container-fluid" style="margin-top: 55px;">
+        <div class="site">
+            <main class="content">            
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+        <br>
+        <footer class="sticky-footer">
+                <div class="container">
+                    <div class="text-center">
+                    <small>Copyright © Smart Education Platform 2017</small>
+                    </div>
+                </div>
+            </footer>
+    </div>
+
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    
+    
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you logout?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <!-- <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div> -->
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" [routerLink]="['login-page']">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>

@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [ "es2015", "dom" ],
+    "removeComments": false,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "declaration": false,
+    "noEmitHelpers": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+
+  },  
+  "types": [
+      "hammerjs"
+  ],
+  "files": [
+    "src/app/app.module.ts",
+    "src/app/modules/core.module.ts",
+    "src/app/modules/domain-frequent-usage.module.ts",
+    "src/app/modules/domain-high-priority.module.ts",
+    "src/app/modules/domain-normal-usage.module.ts",
+    "src/app/modules/security.module.ts",
+    "src/app/modules/shared.module.ts",
+    // "src/main.aot.ts"
+    "src/main.jit.ts"
+  ],
+ 
+  
+  "awesomeTypescriptLoaderOptions": {
+    "useWebpackText": true
+  },
+  "angularCompilerOptions": {
+    "debug": false,
+    "genDir": "aot",
+    "skipMetadataEmit": true
+  },
+  "compileOnSave": true,
+  "buildOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
+

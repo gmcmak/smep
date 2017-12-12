@@ -1,0 +1,112 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/author/view-author']">Settings</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/explore/view-explore']">Explore</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Add Explore</a>
+    </li>
+</ol>
+
+<form id="exploreForm" [formGroup]="exploreForm">
+    <div class="card mb-3">
+        <div class="card-header">
+            <b>Explore Adding Form</b>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="englishName">English Name
+                        <span class="required">*</span>:</label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="englishName" type="text" name="english_name" formControlName="english_name"
+                        [(ngModel)]="englishName" placeholder="Jhone" [ngClass]="displayFieldCss('english_name')">
+
+                    <div *ngIf="exploreForm.controls['english_name'].hasError('required') && exploreForm.controls['english_name'].touched"
+                        class="error">
+                        English name is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="sinhalaName">Sinhala Name
+                        <span class="required">*</span>:</label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="sinhalaName" type="text" name="sinhala_name" formControlName="sinhala_name"
+                        [(ngModel)]="sinhalaName" placeholder="ජෝන්" [ngClass]="displayFieldCss('sinhala_name')">
+
+                    <div *ngIf="exploreForm.controls['sinhala_name'].hasError('required') && exploreForm.controls['sinhala_name'].touched"
+                        class="error">
+                        Sinhala name is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="tamilName">Tamil Name
+                        <span class="required">*</span>:</label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="tamilName" type="text" name="tamil_name" formControlName="tamil_name" [(ngModel)]="tamilName"
+                        placeholder="ஜான்" [ngClass]="displayFieldCss('tamil_name')">
+
+                    <div *ngIf="exploreForm.controls['tamil_name'].hasError('required') && exploreForm.controls['tamil_name'].touched" class="error">
+                        Tamil name is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="status">Status (Enable/Disable)
+                        <span class="required">*</span>:</label>
+                </div>
+                <div class="col-md-5">
+                    <select id="status" name="status" class="form-control form-control-sm drop" [(ngModel)]="exploreStatus" formControlName="explore_status"
+                        [ngClass]="displayFieldCss('explore_status')">
+                        <!-- <option disabled value="selected">Select the post</option> -->
+                        <option value="1" selected>Enable</option>
+                        <option value="0">Disable</option>
+                    </select>
+                    <div *ngIf="exploreForm.controls['explore_status'].hasError('required') && exploreForm.controls['explore_status'].touched"
+                        class="error">
+                        Select the status !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-5">
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!exploreForm.valid">Submit</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>

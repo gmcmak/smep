@@ -1,0 +1,171 @@
+<div class="row" id="outline">
+  <div class="col-md-10 col-md-offset-1">
+			<div class="col-md-12" id="title">
+								<h3 style="margin-top: 0px;margin-bottom: 0px;padding-top: 10px;padding-bottom: 10px;">{{ 'ADVANCED_SEARCH' | translate}}</h3>
+								<hr/>
+      </div>
+      <form class="main-search"  #advancedSearchForm="ngForm" layout layout-align="center" layout-padding  (ngSubmit)="advancedSearch(advancedSearchForm.value)">       
+      <div class="row">        
+				<div class="col-lg-2" style="margin-top: 10px;">
+					<h5>{{ 'SEARCH_FOR' | translate}}: </h5>
+				</div>
+				<div class="col-lg-6">
+					<input name="searchFor1" [(ngModel)]="searchFor1" class="form-control form-control-sm textone" type="text" placeholder="({{'ENTER_SEARCH_TERM' | translate}})"/>
+				</div>
+				<div class="col-lg-4">
+					<select name="searchForType1" id="searchForType1" class="form-control form-control-sm selectone">
+						<option value="author">Author</option>    
+						<option value="title">Title</option>
+						<option value="keyword">Keyword</option>
+          </select>						
+				</div>
+      </div>
+      <div class="row">
+				<div class="col-lg-2">
+				</div>
+				<div class="col-lg-4">
+					<label class="radio-inline">
+						<input value="AND" type="radio" class="searchForTypeCondition1"  [(ngModel)]="searchForTypeCondition1" name="searchForTypeCondition1">AND
+					</label>
+					<label class="radio-inline">
+						<input value="OR" type="radio" class="searchForTypeCondition1" [(ngModel)]="searchForTypeCondition1" name="searchForTypeCondition1">OR
+					</label>
+					<label class="radio-inline">
+						<input value="NOT" type="radio" class="searchForTypeCondition1" [(ngModel)]="searchForTypeCondition1" name="searchForTypeCondition1">NOT
+					</label>					
+				</div>
+				<div class="col-lg-6"></div>
+    </div>
+      <div class="row">		
+				<div class="col-lg-2" style="margin-top: 10px;">
+					<h5>{{ 'SEARCH_FOR' | translate}}: </h5>
+				</div>
+				<div class="col-lg-6">
+					<input (click)="bindTopElements()" name="searchFor2" [(ngModel)]="searchFor2" class="form-control form-control-sm textone" type="text"  placeholder="({{'ENTER_SEARCH_TERM'  | translate}})">
+				</div>
+				<div class="col-lg-4">
+					<select  [(ngModel)]="searchForType2" name="searchForType2" class="form-control form-control-sm selectone">
+						<option value=""></option>
+						<option value="author">Author</option>    
+						<option value="title">Title</option>
+						<option value="keyword">Keyword</option>
+          </select>						
+        </div>
+      </div>
+      <div class="row">  
+				<div class="col-lg-2">
+				</div>
+				<div class="col-lg-4">
+
+				</div>
+				<div class="col-lg-4">
+				</div>
+				<div class="col-lg-12"><hr></div>
+				
+				<div class="col-lg-2">
+					<h5>{{ 'SEARCH_FOR' | translate}}:</h5>
+				</div>
+				<div class="col-lg-2">
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                <label>
+                        <input class="form-check-input contentType" type="radio" name="contentType" value="All" checked>
+                                {{ 'ALL' | translate}}
+                </label>
+             </div>
+					</div>
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                <label>
+                            <input class="form-check-input contentType" type="radio" name="contentType" value="Article"/>
+                                    Articles
+                </label>  
+            </div>
+					</div>
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                            <input class="form-check-input contentType" type="radio" name="contentType" value="Case Study"/>
+                                    Case Studies
+                        </div>
+					</div>
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                            <input class="form-check-input contentType" type="radio" name="contentType" value="Book"/>
+                                    Books
+                        </div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                            <input class="form-check-input contentDates" type="radio" name="contentDates" value="All" checked (click)="durationController(); datePickerEnable('sepecificDates', 'advanceDatePickers');">
+                            {{ 'ALL_DATES' | translate }}
+                        </div>
+					</div>
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                            <input class="form-check-input contentDates" type="radio" name="contentDates" value="Last 3 Months" (click)="durationController(); datePickerEnable('sepecificDates', 'advanceDatePickers');"/>
+                                   {{ 'LAST_3_MONTHS' | translate }}
+                        </div>
+					</div>
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                            <input class="form-check-input contentDates" type="radio" name="contentDates" value="Last 6 Months" (click)="durationController(); datePickerEnable('sepecificDates', 'advanceDatePickers');"/>
+                                    {{ 'LAST_6_MONTHS' | translate }}
+                        </div>
+          </div>
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+              &nbsp;
+            </div>
+					</div>                      
+					<div class="col-md-12 adsettings">
+						<div class="form-check">
+                            <input class="form-check-input contentDates" type="radio" name="contentDates" id="sepecificDates" (click)="datePickerSetup(); durationController()" value="0"/>
+                                    {{ 'SPECIFIC_DATE' | translate}}:
+                        </div>
+					</div>
+					<div class="col-md-12 adsettings">
+            <div class="row">
+              <div class="col-md-2">
+                <label>{{ 'FROM' | translate}}</label>
+              </div>
+              <div class="col-md-5">
+                <input type="text" name="fromDate" class="advanceDatePickers form-control form-control-sm" id="fromDate" (click)="datePickerSetup()" [(ngModel)]="fromDate"/>
+              </div>
+              <div class="col-md-5">
+                &nbsp;
+              </div>
+              
+            </div>
+					</div>
+					<div class="col-md-12 adsettings">
+              <div class="row">
+              <div class="col-md-2">
+                <label>{{ 'TO' | translate}}</label>
+              </div>
+              <div class="col-md-5">
+                <input type="text" name="toDate" class="advanceDatePickers form-control form-control-sm" id="toDate" (click)="datePickerSetup()" [(ngModel)]="toDate"/>
+              </div>
+              <div class="col-md-5">
+                &nbsp;
+              </div>
+              
+              </div>
+					</div>
+					<div class="col-md-12 adsettings">	
+					</div>
+				</div>
+      </div>
+      <div class="row">
+				<div class="col-lg-4">
+				</div>
+				<div class="col-lg-3 adsettings">
+					<button type="submit" id="search_btn" class="btn btn-primary">{{ 'SEARCH' | translate}}</button>
+				</div>
+				<div class="col-lg-5">
+				</div>
+      </div>
+       </form>
+		</div>	  
+</div>

@@ -1,0 +1,106 @@
+md-sidenav-container, .my-content {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+md-sidenav-layout {
+  background: rgba(0, 0, 0, .03);
+}
+.sidenav {
+  width: 300px;
+}
+.fill-remaining-space {
+  flex: 1 1 auto;
+} 
+
+footer {
+  border-top: 1px solid #cccccc;
+}
+footer ul {
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+footer ul li {
+  display: inline-block;
+}
+footer ul li a {
+  color: inherit;
+  padding: 2px 15px !important;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  text-decoration: none;
+  position: relative;
+  display: block;
+}
+footer ul li a:hover {
+  text-decoration: none;
+}
+footer .copyright {
+  padding: 15px 0;
+  margin: 0;
+}
+footer .copyright .material-icons {
+  font-size: 18px;
+  position: relative;
+  top: 3px;
+}
+footer .btn {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+
+.mat-toolbar-custom-div {
+    min-height: 8vh;
+    height: 8vh;
+}
+.mat-toolbar-custom-div {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px 16px !important;
+    flex-direction: column;
+}
+.mat-toolbar-custom-div {
+    background: #f5f5f5;
+    color: rgba(0,0,0,.87);
+}
+.mat-toolbar-custom-div, .mat-toolbar-custom-div h1, .mat-toolbar-custom-div h2, .mat-toolbar-custom-div h3, .mat-toolbar-custom-div h4, .mat-toolbar-custom-div h5, .mat-toolbar-custom-div h6 {
+    margin: 0;
+}
+
+.mat-toolbar-custom-div .mat-toolbar-row-custom-div {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+}
+.mat-toolbar-row-custom-div {
+    min-height: 2vh;
+    height: 4vh;
+}
+
+.search-text-box-class{
+  font-size: 14px;
+  color: #fff;
+}
+
+
+md-sidenav-container{
+    min-height: 100vh;
+}
+.site{
+    display: flex;
+    flex-direction: column;
+    min-height: 80.5vh;
+    padding: 0px 15px;
+}
+.content{
+    flex: 1;
+}

@@ -1,0 +1,358 @@
+#title{
+    background-color: #58ACFA;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#title1{
+    margin-top:10px;
+}
+
+#label_dob{
+    margin-top: 10px; padding-left: 4px;
+}
+
+#gender1{
+    padding-right:0px;
+}
+
+#gender{
+    margin-top: 7px; width:100%;
+}
+
+#label_dob{
+    margin-top: 10px; padding-left: 4px;
+}
+
+#dob{
+    padding-right:0px;
+}
+
+#highest_quali{
+    width:100%;
+}
+
+.quali1{
+    margin-top: 7px; width:100%; margin-bottom:10px;
+}
+
+.quali2{
+    margin-top: 7px; width:100%;
+}
+
+#add_btn_row2{
+    margin-left: 3px;width: 33.979166px;border-left-width: 0px;
+}
+
+#x1{
+    padding-left: 0px;padding-right: 0px;
+}
+#x2{
+    padding-left: 0px;padding-right: 0px;
+}
+#x3{
+    padding-right: 0px;padding-left: 15px;margin-top: 8px;
+}
+#add_btn_row1{
+    margin-top: 33px;
+}
+#expert_subject2{
+    margin-top: 7px; width:100%; display:none;
+}
+#remove_subject_btn2{
+    margin-top: 5px;float: right;width: 35.979166px; display:none;
+}
+#add_subject_btn2{
+    margin-top: 5px; margin-right:5px; float:right; display:none;
+}
+#expert_subject3{
+    margin-top: 7px; width:100%; display:none;
+}
+#add_subject_btn3{
+    margin-top: 0px; display:none;
+}
+#remove_subject_btn3{
+    margin-top: 5px; width:35.979166px; display:none; float:right;
+}
+#add_subject_btn1{
+    margin-top: 5px; float:right;
+}
+
+#yes_btn_1{
+    margin-top: 6px;
+}
+#no_btn_1{
+    margin-top: 6px;
+}
+
+#courses{
+    margin-top:7px; width:100%; display:none;
+}
+#other-field1{
+    display:none;
+}
+#other-field{
+    display:none;
+}
+#x4{
+    margin-top: 7px;
+}
+#terms{
+    padding-bottom: 14px;
+}
+
+#highest_quali{
+    width:100%;
+}
+
+.drop{
+    margin-top: 7px; width:100%; margin-bottom:10px;
+}
+
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#radio-btn3{
+    margin-top: 7px;   
+}
+
+#radio-btn4{
+    margin-top: 7px;   
+}
+
+#professional-category{
+    display:none;
+}
+#x5{
+    margin-top:18px;
+}
+#x6{
+    margin-top: 10px; padding-left: 4px;
+}
+#x7{
+    padding-right:0px;
+}
+#x8{
+    margin-top: 10px; padding-left: 4px;
+}
+#x9{
+    padding-right:0px;
+}
+#add_sub_btn1{
+    margin-top: 5px; float:right;
+}
+#expert_sub2{
+    display:none;
+}
+#add_sub_btn2{
+    margin-top:5px; float:right; display:none;
+}
+#remove_sub_btn2{
+    margin-top:5px; width: 35.979166px; margin-right:5px; float:right; display:none;
+}
+#expert_sub3{
+    display:none;
+}
+#add_sub_btn3{
+    margin-top: 0px; display:none;
+}
+#remove_sub_btn3{
+    margin-top:5px; width: 35.979166px; float:right; display:none;
+}
+#textarea2{
+    padding-bottom: 14px;
+}
+
+#selection-row{
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: grey;
+}
+
+#specify{
+    color: black;
+    font-weight: normal;
+    margin: 12px 0px 0px 0px;
+}
+
+.form-check-label{
+    margin: 10px 0px 10px 0px;
+    color:#424242;
+}
+
+div input{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+#individual-category{
+    background-color: #F2F5A9;
+    padding-top: 10px;
+}
+
+#radioB1{
+    background-color: #F2F5A9;
+}
+
+#professional-category{
+    background-color: #D0F5A9;
+}
+
+div table{
+    background-color: #E6E6E6;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 50px;
+}
+
+div textarea {
+    overflow-y: scroll;
+    height: 100px;
+    resize: none; /* Remove this if you want the user to resize the textarea */
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    font-style: bold;
+    text-align: right;
+    /* background-color: #acf; */
+ }
+
+ div text {
+     font-size: 12px;
+ }
+
+ div select {
+    font-size: 14px;
+}
+
+#check1{
+
+    margin-top: 5px;
+    width: 15px;
+    height: 15px;
+}
+
+#check2{
+    
+        margin-top: 5px;
+        width: 15px;
+        height: 15px;
+    }
+@media screen and (max-width: 360px){
+    #form1_submit_row{
+        padding-left: 96px;
+    }
+    /* .form-control::-webkit-input-placeholder { 
+        color: transparent;
+    } */
+}
+@media screen and (width: 375px){
+    #form1_submit_row{
+        padding-left: 111px;
+    }
+}
+@media screen and (width: 414px){
+    #form1_submit_row{
+        padding-left: 150px;
+    }
+}
+@media screen and (width: 768px){
+    #form1_submit_row{
+        padding-left: 502px;
+    }
+}
+@media screen and (max-width: 320px){
+    #label_dob{
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 0px;
+    }
+    #dob{
+        width: 50%;
+        padding-right: 0px;
+    }
+    #gender1{
+        width: 50%;
+        padding-right: 0px;
+    }
+    #form1_submit_row{
+        padding-left: 50px;
+    }
+    .form-control::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+}
+
+@media screen and (width: 412px){
+    #label_dob{
+        width: 50%;
+        padding-left: 15px;
+        padding-right: 0px;
+    }
+    #dob{
+        width: 50%;
+        padding-right: 0px;
+    }
+    #gender1{
+        width: 50%;
+        padding-right: 0px;
+    }
+    #form1_submit_row{
+        padding-left: 140px;
+    }
+    #yes_btn_1{
+        width: 50%;
+        padding-left: 45px;
+    }
+    #no_btn_1{
+        width: 50%;
+    }
+}
+
+@media screen and (width: 1024px){
+    .col-lg-9{
+        width:10%;
+    }
+    #label1{
+        display: none;
+    }
+    #label2{
+        display: none;
+    }
+    #label3{
+        display: none;
+    }
+    #label4{
+        display: none;
+    }
+    #label5{
+        display: none;
+    }
+    #label6{
+        display: none;
+    }
+    #label7{
+        display: none;
+    }
+    #label8{
+        display: none;
+    }
+    #label9{
+        display: none;
+    }
+    #label10{
+        display: none;
+    }
+}

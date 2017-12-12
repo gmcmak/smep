@@ -1,0 +1,76 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Users</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>View Users</a>
+    </li>
+</ol>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i>&emsp;<b>Users' List</b></div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th align="center" data-orderable="false">Edit</th>
+                        <th data-orderable="false" align="center">Delete</th>
+                    </tr>
+                </thead>
+                <tfoot>
+        
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Deshan Hasantha</td>
+                        <td>sbdeshan@ymail.com</td>
+                        <td>Admin</td>
+                        <td align="center"><a href=""><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
+                        <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Shahen Hasantha</td>
+                        <td>shahen@gmail.com</td>
+                        <td>Admin2</td>
+                        <td align="center"><a href=""><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
+                        <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+<br>
+<br>
+
+<!-- Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Do you want to delete this?</h6>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!-- <div class="modal-body">Do you need to delete this?</div> -->
+            <div class="modal-footer">
+                <button class="btn-secondary search_btn" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn-primary search_btn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

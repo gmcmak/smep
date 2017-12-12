@@ -1,0 +1,24 @@
+
+    Text:- {{childTest}}
+    <md-input-container>
+        <input mdInput placeholder="Search" type="text" (keyUp)="onSearch()">
+    </md-input-container>
+    <ngx-datatable
+        #tableComponent
+        class="mat-datatable"
+        [rows]="data.rows"
+        [columns]="config.columns"
+        [columnMode]="config.columnMode"
+        [headerHeight]="config.headerHeight"
+        [footerHeight]="config.footerHeight"
+        [rowHeight]="config.rowHeight"
+        [externalSorting]="config.externalSorting"
+        [externalPaging]="config.externalPaging"
+        [loadingIndicator]="config.loadingIndicator"
+        [reorderable]="config.reorderable"
+        [count]="data.page.totalElements"
+        [offset]="data.page.pageNumber"
+        [limit]="data.page.size"
+        (page)='onPage($event)'
+        (sort)="onSort($event)">
+    </ngx-datatable>

@@ -1,0 +1,10 @@
+{
+    "HELLO": "hello {{value}}",
+    "HOME": "Home",
+    "GITHUB_REPOS": "Github Repos",
+    "ABOUT": "About",
+    "CONTACT_US": "Contact Us",
+    "APPLICATION_TITLE": "Angular 2 Template Application",
+    "SELECTED_LANG_IS": "Selected Lang is",
+    "APPLICATION_NAME":"IMPORT AND EXPORTS CONTROL DEPARTMENT"
+}

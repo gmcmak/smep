@@ -1,0 +1,117 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../reports/content-authorizer-report']">Reports</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Content Provider</a>
+    </li>
+</ol>
+    
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i>&emsp;<b>Content Providers' History</b></div>
+    <div class="card-body">
+        <form id="searchProvider" [formGroup]="searchProvider">
+            <div class="row">
+                <div class="col-md-12">
+                    <h6 class="subTitle">Search by : </h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="caName">Provider's Name: </label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-sm" id="cpName" [(ngModel)]="cpName" formControlName="cpName" placeholder="Namal Gunasinghe">
+                </div>
+                <div class="col-md-1">
+                    <label>Status:</label>
+                </div>
+                <div class="col-md-2">
+                    <select id="cpStatus" class="form-control form-control-sm quali1" [(ngModel)]="cpStatus" formControlName="cpStatus">
+                        <option [ngValue]="approved">Approved</option>
+                        <option [ngValue]="rejected">Rejected</option>
+                        <option [ngValue]="pending">Pending</option>
+                    </select>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    <label>From:</label>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-sm" id="cpFromDate" [(ngModel)]="cpFromDate" formControlName="cpFromDate" placeholder="dd/mm/yy">
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    <label>To:</label>
+                </div>
+                <div class="col-md-2">
+                        <input type="text" class="form-control form-control-sm" id="cpToDate" [(ngModel)]="cpToDate" formControlName="cpToDate" placeholder="dd/mm/yy">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                        <button type="submit" class="btn-primary search_btn">Search</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="providerHistoryTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Provider Name</th>
+                            <th>Article</th>
+                            <th>Action</th>
+                            <th>Action Date</th>
+                            <th>Publish Date</th>
+                            <th data-orderable="false">View</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mr. Sunimal Sapumal</td>
+                            <td>Angular 4 tutorial</td>
+                            <td align="center">Approved</td>
+                            <td align="center">2017.10.02</td>
+                            <td align="center">2017.10.25</td>
+                            <td align="center"><a href=""><li class="fa  fa-1x fa-link"></li></a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Mr. Ananda Gunasena</td>
+                            <td>Angular JS tutorial</td>
+                            <td align="center">Rejected</td>
+                            <td align="center">2017.09.02</td>
+                            <td align="center">-</td>
+                            <td align="center"><a href=""><li class="fa  fa-1x fa-link"></li></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+<br>
+<br>

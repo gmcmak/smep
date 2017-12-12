@@ -1,0 +1,103 @@
+#title{
+    background-color: #58ACFA;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#title1{
+    margin-top:10px;
+}
+
+
+.drop{
+    margin-top: 7px; width:100%; margin-bottom:10px;
+}
+
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#radio-btn3{
+    margin-top: 7px;   
+}
+
+#radio-btn4{
+    margin-top: 7px;   
+}
+
+#professional-category{
+    display:none;
+}
+
+#textarea2{
+    padding-bottom: 14px;
+}
+
+#selection-row{
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: grey;
+}
+
+#specify{
+    color: black;
+    font-weight: normal;
+    margin: 12px 0px 0px 0px;
+}
+
+.form-check-label{
+    margin: 10px 0px 10px 0px;
+    color:#424242;
+}
+
+div input{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+#getProviderDetails{
+    background-color: #F2F5A9;
+    padding-top: 10px;
+}
+
+div table{
+    background-color: #E6E6E6;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 50px;
+}
+
+div textarea {
+    overflow-y: scroll;
+    height: 100px;
+    resize: none; /* Remove this if you want the user to resize the textarea */
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    font-style: bold;
+    text-align: right;
+    /* background-color: #acf; */
+ }
+
+ div text {
+     font-size: 12px;
+ }
+
+ div select {
+    font-size: 14px;
+}
+
+#dataTableProviders{
+    background-color: white;
+}

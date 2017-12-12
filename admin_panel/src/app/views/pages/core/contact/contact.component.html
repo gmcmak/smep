@@ -1,0 +1,79 @@
+<h2>Sample Form Page</h2>
+
+<md-input-container>
+  <input mdInput placeholder="Fullname" value="" [formControl]="fullnameControl" [(ngModel)]="fullName">
+   <md-error *ngIf="fullnameControl.hasError('required')">
+      Fullname is <strong>required</strong>
+    </md-error>
+</md-input-container>
+<br/>
+<p>Fullname is{{fullName}}</p>
+<br/>
+<md-select placeholder="Gender" [(ngModel)]="selectedGender">
+  <md-option *ngFor="let gender of genderList" [value]="gender.value">
+    {{ gender.viewValue }}
+  </md-option>
+</md-select>
+<br/>
+<p>Selcted value from dropdown:{{selectedGender}}</p>
+<br/>
+ <md-input-container class="example-full-width">
+    <input mdInput placeholder="Email" [formControl]="emailFormControl">
+    <md-error *ngIf="emailFormControl.hasError('pattern')">
+      Please enter a valid email address
+    </md-error>
+    <md-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </md-error>
+  </md-input-container>
+  <br/>
+  <md-input-container>
+  <input mdInput [mdDatepicker]="picker" placeholder="Choose a date" >
+  <button mdSuffix [mdDatepickerToggle]="picker"></button>
+</md-input-container>
+<md-datepicker #picker></md-datepicker>
+<br/>
+<md-radio-group class="example-radio-group" [(ngModel)]="selectedProgram">
+  <md-radio-button class="example-radio-button" *ngFor="let program of programs" [value]="program">
+    {{program}}
+  </md-radio-button>
+</md-radio-group>
+<div class="example-selected-value">Selcted program from radio button: {{selectedProgram}}</div>
+<br/>
+<div> 
+  Button status:{{clickedStatus}}
+   <button md-button (click)="displayValue()">Click</button> 
+</div> 
+
+    <section class="example-section">
+      <md-checkbox class="example-margin" [(ngModel)]="checked">Checked</md-checkbox>
+      <md-checkbox class="example-margin" [(ngModel)]="indeterminate">Indeterminate</md-checkbox>
+    </section>
+
+     <section class="example-section">
+      <label class="example-margin">Align:</label>
+      <md-radio-group [(ngModel)]="align">
+        <md-radio-button class="example-margin" value="start">Start</md-radio-button>
+        <md-radio-button class="example-margin" value="end">End</md-radio-button>
+      </md-radio-group>
+    </section>
+
+    <section class="example-section">
+      <md-checkbox class="example-margin" [(ngModel)]="disabled">Disabled</md-checkbox>
+    </section>
+
+  <md-card-content>
+    <h2 class="example-h2">Result</h2>
+
+    <section class="example-section">
+      <md-checkbox
+          class="example-margin"
+          [checked]="checked"
+          [indeterminate]="indeterminate"
+          [align]="align"
+          [disabled]="disabled">
+        I'm a checkbox
+      </md-checkbox>
+    </section>
+  </md-card-content>
+

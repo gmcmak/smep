@@ -1,0 +1,625 @@
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Tables</li>
+    </ol>
+    
+        <div id="outline">
+        
+        <div class="row">
+        <div class="col-md-12" id="title">
+            <h5 id="mainTitle">Content Authorizer Registration Screen</h5>
+        </div>
+        </div>
+    
+        <form id="form1" name="form1" method="POST" [formGroup]="authorizerForm" (ngSubmit)="onSubmit()" action="">
+            <div id="individual-category">
+                <br>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Full Name:*"
+                        [(ngModel)]="caName" formControlName="caName">
+                    
+                        <div *ngIf="authorizerForm.controls['caName'].hasError('required') && authorizerForm.controls['caName'].touched" class="error">
+                            Full name is required !
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <input id="caFullName" name="caFullName" class="form-control form-control-sm" type="text" placeholder="Name with Initials:*"
+                         [(ngModel)]="caFullName" formControlName="caFullName">
+                        
+                        <div *ngIf="authorizerForm.controls['caFullName'].hasError('required') && authorizerForm.controls['caFullName'].touched" class="error">
+                            Name with initials is required !
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div id="label_dob" class="col-md-5">
+                                <label id="labelGender">Gender:*</label>
+                            </div>
+                            <div id="gender1" class="col-md-7">
+                                <select id="caGender" name="caGender" class="form-control form-control-sm drop" [(ngModel)]="caGender"
+                                     formControlName="caGender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                                
+                                <div *ngIf="authorizerForm.controls['caGender'].hasError('required') && authorizerForm.controls['caGender'].touched" class="error">
+                                    Gender is required !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <input id="caNic" name="caNic" class="form-control form-control-sm" type="text" placeholder="N.I.C:*" 
+                        [(ngModel)]="caNic" formControlName="caNic" maxlength="10">
+                            
+                        <div *ngIf="authorizerForm.controls['caNic'].hasError('required') && authorizerForm.controls['caNic'].touched" class="error">
+                            N.I.C is required !
+                        </div>
+                        <div *ngIf="authorizerForm.controls['caNic'].hasError('pattern') && authorizerForm.controls['caNic'].touched" class="error">
+                            Invalid N.I.C number !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="caDesignation" name="caDesignation" class="form-control form-control-sm" type="text" placeholder="Designation:*"
+                        [(ngModel)]="caDesignation" formControlName="caDesignation">
+                
+                        <div *ngIf="authorizerForm.controls['caDesignation'].hasError('required') && authorizerForm.controls['caDesignation'].touched"
+                        class="error">
+                            Designation is required !
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div id="label_dob" class="col-md-5">
+                                <label id="labelDob">Date of Birth:*</label>
+                            </div>
+                            <div id="dob" class="col-md-7">
+                                <input type="text" id="caDob" name="caDob" class="form-control form-control-sm"  
+                                [(ngModel)]="caDob" (click)="showCalander1()" formControlName="caDob">
+                                
+                                <div *ngIf="authorizerForm.controls['caDob'].hasError('required') && authorizerForm.controls['caDob'].touched"
+                                    class="error">
+                                    Date of birth is required !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" id="caEmail" name="caEmail" class="form-control form-control-sm" type="text" placeholder="Email:*" 
+                        [(ngModel)]="caEmail" formControlName="caEmail">
+
+                        <div *ngIf="authorizerForm.controls['caEmail'].hasError('required') && authorizerForm.controls['caEmail'].touched" class="error">
+                            Email is required !
+                        </div>
+                        <div *ngIf="authorizerForm.controls['caEmail'].hasError('pattern') && authorizerForm.controls['caEmail'].touched" class="error">
+                            Invalid email !
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <input id="caMobile" name="caMobile" class="form-control form-control-sm" type="text" placeholder="Contact No:*" maxlength="10"
+                         [(ngModel)]="caMobile" formControlName="caMobile">
+                
+                        <div *ngIf="authorizerForm.controls['caMobile'].hasError('required') && authorizerForm.controls['caMobile'].touched" class="error">
+                            Contact number is required !
+                        </div>
+                        <div *ngIf="authorizerForm.controls['caMobile'].hasError('pattern') && authorizerForm.controls['caMobile'].touched" class="error">
+                            Invalid phone number !
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+        
+                <!--Highest education qualification-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="subTitle">Highest education level achieved,</h6>
+                    </div>
+                </div>
+                &emsp;
+                <div formGroupName="highestQulification">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label id="label1">Qualification Achieved</label>
+                        </div>
+                        <div class="row">
+                            <input id="highest_quali" name="highest_quali" class="form-control form-control-sm" type="text" 
+                                [(ngModel)]="highest_quali" formControlName="highest_quali">
+                        </div>
+                        <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_quali'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_quali'].touched" class="error">
+                            Required !
+                        </div>
+                    </div>
+        
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label id="label2">University / Institute</label>
+                        </div>
+                        <div class="row">
+                            <input id="highest_uni" name="highest_uni" class="form-control form-control-sm" type="text" 
+                                [(ngModel)]="highest_uni" formControlName="highest_uni">
+                        </div>
+                        <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_uni'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_uni'].touched"
+                            class="error">
+                            Required !
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label3">Grade recieved</label>
+                        </div>
+                        <div class="row">
+                            <input id="highest_grade" name="highest_grade" class="form-control form-control-sm" type="text" 
+                                [(ngModel)]="highest_grade" formControlName="highest_grade">
+                        </div>
+                        <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_grade'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_grade'].touched" class="error">
+                            Required !
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label4">Country</label>
+                        </div>
+                        <div class="row">
+                            <!-- <?php echo $select_country1; ?> -->
+                            <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="highest_Country" formControlName="highest_Country">
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>England</option>
+                            </select>
+                        </div>
+                        <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_Country'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_Country'].touched" class="error">
+                            Required !
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label5">Year of completion</label>
+                        </div>
+                        <div class="row">
+                            <!-- <?php
+                        //drop down year list for highest education
+                        $selected = "";
+                        echo '<select name="highest_year" id="highest_year" class="form-control form-control-sm" style="margin-top: 7px;">';
+                        $cur_year = date('Y');
+                        echo '<option value="" selected="selected"></option>';
+                        for($year = ($cur_year-25); $year <= ($cur_year); $year++) {
+                            if ($year == $cur_year) {
+                                echo '<option value="'.$year.'">'.$year.'</option>';
+                            } else {
+                                echo '<option value="'.$year.'">'.$year.'</option>';
+                            }
+                        }               
+                        echo '</select>';
+                    ?> -->
+                        <select id="highest_Year" class="form-control form-control-sm quali1" [(ngModel)]="highest_Year" formControlName="highest_Year">
+                            <option>2017</option>
+                            <option>2016</option>
+                            <option>2015</option>
+                        </select>
+                        </div>
+                        <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_Year'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_Year'].touched" class="error">
+                            Required !
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+        
+                <!--Professional qualification-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="subTitle">Professional qualification details,</h6>
+                    </div>
+                </div>
+                
+                <div formGroupName="professionalQualification">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label6">Qualification achieved</label>
+                        </div>
+                        <div class="row">
+                            <!-- <?php echo $select3; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_1">
+                                <option>CIMA</option>
+                                <option>SLIIT</option>
+                                <option>NSBM</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label id="label7">University / Institute</label>
+                        </div>
+                        <div class="row">
+                            <input id="uniName_row0" name="uniName_row[0]" formControlName="pro_institute_1" class="form-control form-control-sm" type="text">
+                        </div>
+                    </div>
+                
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label8">Grade recieved</label>
+                        </div>
+                        <div class="row">
+                            <!-- <?php echo $select4; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_1">
+                                <option>First class</option>
+                                <option>Second Upper</option>
+                                <option>Second Lower</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label9">Year of completion</label>
+                        </div>
+                        <div class="row">
+                            <!-- <?php
+                                            //drop down year list for highest education
+                                            echo '<select name="year_row[0]" id="year_row0" class="form-control form-control-sm" style="margin-top: 7px;">';
+                                            $cur_year = date('Y');
+                                            echo '<option value="" selected="selected"></option>';
+                                            for($year = ($cur_year-25); $year <= ($cur_year); $year++) {
+                                                if ($year == $cur_year) {
+                                                    echo '<option value="'.$year.'">'.$year.'</option>';
+                                                } else {
+                                                    echo '<option value="'.$year.'">'.$year.'</option>';
+                                                }
+                                            }               
+                                            echo '</select>';
+                                        ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_year_1">
+                                <option>2017</option>
+                                <option>2016</option>
+                                <option>2015</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label10">Country</label>
+                        </div>
+                        <div class="row">
+                            <!-- <?php echo $select_country2; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_country_1">
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>England</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-1">
+                        <div class="row">
+                
+                        </div>
+                        <div class="row">
+                            <button id="add_btn_row1" type="button" (click)="show_row2()" class="btn btn-info">+</button>
+                        </div>
+                    </div>
+                </div>
+        
+                <!--second row-->
+                <div id="row_2" class="row" style="display:none; width:100%;">
+                    <div class="col-md-2">
+                        <div class="row">
+                            <!-- <?php echo $select7; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_2">
+                                <option>CIMA</option>
+                                <option>SLIIT</option>
+                                <option>NSBM</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-3">
+                        <div class="row">
+                            <input id="uniName_row1" name="uniName_row[1]" formControlName="pro_institute_2" class="form-control form-control-sm" type="text">
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="row">
+                            <!-- <?php echo $select8; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_2">
+                                <option>First class</option>
+                                <option>Second Upper</option>
+                                <option>Second Lower</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="row">
+                            <!-- <?php
+                                //drop down year list for highest education
+                                echo '<select name="year_row[1]" id="year_row1" class="form-control form-control-sm" style="margin-top: 7px;">';
+                                $cur_year = date('Y');
+                                echo '<option value="" selected="selected"></option>';
+                                for($year = ($cur_year-25); $year <= ($cur_year); $year++) {
+                                    if ($year == $cur_year) {
+                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    } else {
+                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    }
+                                }               
+                                echo '</select>';
+                            ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_year_2">
+                                <option>2017</option>
+                                <option>2016</option>
+                                <option>2015</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                        <div class="row">
+                            <!-- <?php echo $select_country9; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_country_2">
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>England</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <div id="x2" class="col-md-1">
+                        <div class="row">
+                            <button id="remove_btn_row2" (click)="hide_row2()" type="button" class="btn btn-info">-</button>
+                            <button id="add_btn_row2" (click)="show_row3()" type="button" class="btn btn-info">+</button>
+                        </div>
+                    </div>
+                </div>
+        
+                <!--third row-->
+                <div id="row_3" class="row" style="display:none;">
+                    <div class="col-md-2">
+                            <!-- <?php echo $select10; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_3">
+                                <option>CIMA</option>
+                                <option>SLIIT</option>
+                                <option>NSBM</option>
+                            </select>
+                    </div>
+        
+                    <div class="col-md-3">
+                            <input id="uniName_row2" name="uniName_row[2]" formControlName="pro_institute_3" class="form-control form-control-sm" type="text">
+                    </div>
+        
+                    <div class="col-md-2">
+                            <!-- <?php echo $select11; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_3">
+                                <option>First class</option>
+                                <option>Second Upper</option>
+                                <option>Second Lower</option>
+                            </select>
+                    </div>
+        
+                    <div class="col-md-2">
+                            <!-- <?php
+                                //drop down year list for highest education
+                                echo '<select name="year_row[2]" id="year_row2" class="form-control form-control-sm" style="margin-top: 7px;">';
+                                $cur_year = date('Y');
+                                echo '<option value="" selected="selected"></option>';
+                                for($year = ($cur_year-25); $year <= ($cur_year); $year++) {
+                                    if ($year == $cur_year) {
+                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    } else {
+                                        echo '<option value="'.$year.'">'.$year.'</option>';
+                                    }
+                                }               
+                                echo '</select>';
+                            ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_year_3">
+                                <option>2017</option>
+                                <option>2016</option>
+                                <option>2015</option>
+                            </select>
+                    </div>
+        
+                    <div class="col-md-2">
+                            <!-- <?php echo $select_country12; ?> -->
+                            <select class="form-control form-control-sm quali2" formControlName="pro_country_3">
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>England</option>
+                            </select>
+                    </div>
+        
+                    <div id="x1" class="col-md-1">
+                            <button id="remove_btn_row3" type="button" (click)="hide_row3()" class="btn btn-info">-</button>
+                            <!--<button id="add_btn_row3" type="button" class="btn btn-info" style="">-</button>-->
+                    </div>
+                </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+        
+                <br>
+                <!--expertise subject-->
+                <!--Subject fo areas expertise-->
+                <div formGroupName="otherInfo">
+                <div class="row">
+                    <div id="x3" class="col-md-3">
+                        <h6 class="subTitle">Subject Area of Expertise:</h6>
+                    </div>
+        
+                    <div class="col-md-3">
+                        <!-- <?php echo $select_subject1; ?> -->
+                        <select class="form-control form-control-sm quali2" formControlName="expert1">
+                            <option>Management</option>
+                            <option>IT</option>
+                            <option>Science</option>
+                        </select>
+                        <button id="add_subject_btn1" type="button" (click)="add_subject2()" class="btn btn-info">+</button>
+                    </div>
+        
+                    <div class="col-md-3">
+                        <!-- <?php echo $select_subject2; ?> -->
+                        <select id="expert_subject2" class="form-control form-control-sm" formControlName="expert2">
+                            <option>Management</option>
+                            <option>IT</option>
+                            <option>Science</option>
+                        </select>
+                        <button name="remove_subject_btn2" id="remove_subject_btn2" type="button" (click)="remove_subject2()" class="btn btn-info">-</button>
+                        <button id="add_subject_btn2" type="button" (click)="add_subject3()" class="btn btn-info">+</button>
+                    </div>
+        
+                    <div class="col-md-3">
+                        <!-- <?php echo $select_subject3; ?> -->
+                        <select id="expert_subject3" class="form-control form-control-sm" formControlName="expert3">
+                            <option>Management</option>
+                            <option>IT</option>
+                            <option>Science</option>
+                        </select>
+                        <button id="add_subject_btn3" type="button" class="btn btn-info">+</button>
+                        <button name="remove_subject_btn3" id="remove_subject_btn3" type="button" (click)="remove_subject3()" class="btn btn-info">-</button>
+                    </div>
+                </div>
+        
+                <div class="col-md-12">
+                    <hr>
+                </div>
+        
+                <div class="row">
+                    <!--Area you representing an institute / Professional body-->
+                    <div class="col-md-6">
+                        <h6 class="subTitle">Area you representing an institute / Professional body: </h6>
+                    </div>
+                    <div id="yes_btn_1" class="col-md-2">
+                        &emsp;
+                        <input class="form-check-input" type="radio" name="represent" value="1" id="radio_btn3" (click)="show_course()" formControlName="represent">
+                        <label>&emsp;Yes</label>
+                    </div>
+                    <div id="no_btn_1" class="col-md-2">
+                        &emsp;
+                        <input class="form-check-input" type="radio" name="represent" value="0" id="radio-btn4" (click)="hide_course()" checked>
+                        <label>&emsp;No</label>
+                    </div>
+                    <div class="col-md-2">
+                        <!-- <?php echo $select6; ?> -->
+                        <select id="courses" class="form-control form-control-sm" (change)="show_other_institute()">
+                            <option value="CIMA">CIMA</option>
+                            <option value="SLIIT">SLIIT</option>
+                            <option value="NSBM">NSBM</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-4" id="other-field1">
+                        <h6 class="subTitle">If other, please specify:</h6>
+                    </div>
+                    <div class="col-md-4" id="other-field">
+                        <input id="other-details" name="other-details" class="form-control form-control-sm" type="text" formControlName="courses">
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+        
+                <!--Content Provider Identification No:-->
+                <div class="row">
+                    <div id="x4" class="col-md-4">
+                        <h6 class="subTitle">Content Authorizer Identification No:</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <input name="cpId" id="cpId" class="form-control form-control-sm" type="text" value="<?php echo $cp_id; ?>" readonly><br> -->
+                        <input id="cpId" name="cpId" class="form-control form-control-sm" type="text" readonly formControlName="cpId">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+        
+                <!--Terms &amp; conditions-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea id="terms" name="terms" class="form-control" id="exampleFormControlTextarea1" rows="5"
+                            col="1" placeholder="Terms &amp; Conditions" readonly></textarea>
+                        <br>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        &emsp;&emsp;
+                        <input type="checkbox" id="check1" name="check1" class="form-check-input"  [(ngModel)]="checkBox" formControlName="check1">
+                        <label>&nbsp;&nbsp;&nbsp;I hereby acknowledge that I have read and agree to the above terms and conditions</label>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <!-- <div class="error" *ngIf="checkBoxControl.hasError('required')">
+                    Required
+                </div> -->
+        
+                <div id="form1_submit_row" class="row">
+                    <div class="col-md-9">
+                        <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" id="submit1" name="submit1" class="btn btn-primary" [disabled]="!authorizerForm.valid" (click)="submitForm1()">Submit</button>&emsp;
+                        <button type="submit" id="cancel1" name="cancel1" class="btn btn-primary">Cancel</button>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+        
+            </div>
+            <!--end of individual form-->
+        </form>
+        </div>

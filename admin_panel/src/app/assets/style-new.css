@@ -1,0 +1,157 @@
+@import 'indigo-pink.css';
+@import 'toaster-style-material.css';
+
+#outline{
+    border: 2px solid #58ACFA;
+    margin-bottom: 50px;
+    border-radius: .25rem;
+}
+
+input.ng-invalid {border-left: 5px solid lightseagreen;}
+input.ng-valid {border-left: 5px solid green;}
+select.ng-invalid {border-left: 5px solid lightseagreen;}
+select.ng-valid {border-left: 5px solid green;}
+
+#mainTitle{
+    margin-top: 0px;margin-bottom: 0px;padding-top: 10px;padding-bottom: 10px;
+}
+
+#title{
+    background-color: #58ACFA;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+label{
+    font-size: 14px;
+}
+
+.subTitle{
+    font-size: 14px;
+}
+
+button{
+    font-size: 14px;
+}
+
+textarea{
+    font-size: 14px;
+}
+
+div table{
+    font-size: 14px;
+}
+
+.table-delete-button{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+
+.error {
+    color: red;
+    font-size: 13px;
+    font-style: bold;
+    text-align: right;
+    /* background-color: #acf; */
+ }
+
+.required { 
+    color: red;
+}
+
+
+/* hi,welcome topic */
+.logger_name{
+    color:aliceblue;
+}
+.user_drop{
+    background:#343a40;
+}
+
+.enable{
+    width: 62px;
+    border-radius: .25rem;
+}
+
+.search_btn{
+    width: 70px;
+    border-radius: .25rem;
+}
+
+.btn_right{
+    float:center;
+}
+
+/*toggle button css*/
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 20px;
+    margin-bottom: 0px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {display:none;}
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 8px;
+    width: 8px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 10px;
+    height: 18px;
+    width: 42px;
+
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+   /* style for text and button group - authorizer*/
+  .group-text{
+    height:30px;
+  }

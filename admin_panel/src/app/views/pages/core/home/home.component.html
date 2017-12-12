@@ -1,0 +1,54 @@
+<h3>Home Component</h3>
+<p>Welcome to Angular Seed</p>
+
+<div>{{ 'HOME' | translate }}</div>
+
+<div>{{ 'HELLO' | translate:param }}</div>
+<div [translate]="'HELLO'" [translateParams]="{value: 'world'}"></div>
+
+
+<br />
+Date Component
+<md-input-container>
+  <input mdInput [mdDatepicker]="picker" placeholder="Choose a date">
+  <button mdSuffix [mdDatepickerToggle]="picker"></button>
+</md-input-container>
+<md-datepicker #picker></md-datepicker>
+
+<br />
+Tab Component
+<md-tab-group>
+  <md-tab label="Tab 1">Content 1</md-tab>
+  <md-tab label="Tab 2">Content 2</md-tab>
+</md-tab-group>
+
+<br />
+Chart component:-
+   
+   <div>
+      <div style="display: block">
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+   </div>
+<br />
+<div style="clear:both;"></div>
+<div>
+<md-card>
+    <button md-button color="primary" (click)="testStore('Nadeeshani')">Store Value</button>
+    <button md-button color="accent" (click)="testRetrieve('my_first_val')">Get By Key</button>
+    storedValue : {{storedValue}}
+  </md-card>
+</div>
