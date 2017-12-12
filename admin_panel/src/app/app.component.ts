@@ -87,6 +87,6 @@ export class AppComponent {
      * check login
      */
     loginTrue(){
-        return 0;
+        return 1;
     }
 }
