@@ -26,7 +26,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input mdInput type="text" id="cpName" name="cpName" class="form-control form-control-sm" placeholder="Full Name:*" [(ngModel)]="cpName"
+                    <input mdInput type="text" id="cpName" name="cpName" class="form-control form-control-sm" placeholder="Full Name: *" [(ngModel)]="provider.cpName"
                         formControlName="cpName" [ngClass]="displayFieldCss('cpName')">
 
                     <div *ngIf="individualForm.controls['cpName'].hasError('required') && individualForm.controls['cpName'].touched" class="error">
@@ -35,8 +35,8 @@
                 </div>
 
                 <div class="col-md-6">
-                    <input id="cpFullName" name="cpFullName" class="form-control form-control-sm" type="text" placeholder="Name with Initials:*"
-                        [(ngModel)]="cpFullName" formControlName="cpFullName" [ngClass]="displayFieldCss('cpFullName')">
+                    <input id="cpFullName" name="cpFullName" class="form-control form-control-sm" type="text" placeholder="Name with Initials: *"
+                        [(ngModel)]="provider.cpFullName" formControlName="cpFullName" [ngClass]="displayFieldCss('cpFullName')">
 
                     <div *ngIf="individualForm.controls['cpFullName'].hasError('required') && individualForm.controls['cpFullName'].touched"
                         class="error">
@@ -48,10 +48,10 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div id="label_dob" class="col-md-5">
-                            <label id="labelGender">Gender:*</label>
+                            <label id="labelGender">Gender: <span class="required">*</span></label>
                         </div>
                         <div id="gender1" class="col-md-7">
-                            <select id="gender" name="gender" class="form-control form-control-sm" [(ngModel)]="gender" formControlName="gender" [ngClass]="displayFieldCss('gender')">
+                            <select id="gender" name="gender" class="form-control form-control-sm" [(ngModel)]="provider.gender" formControlName="gender" [ngClass]="displayFieldCss('gender')">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <input id="cpNic" name="cpNic" class="form-control form-control-sm" type="text" placeholder="N.I.C:*" [(ngModel)]="cpNic"
+                    <input id="cpNic" name="cpNic" class="form-control form-control-sm" type="text" placeholder="N.I.C: *" [(ngModel)]="provider.cpNic"
                         formControlName="cpNic" maxlength="10" [ngClass]="displayFieldCss('cpNic')">
 
                     <div *ngIf="individualForm.controls['cpNic'].hasError('required') && individualForm.controls['cpNic'].touched" class="error">
@@ -78,8 +78,8 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input id="cpDesignation" name="cpDesignation" class="form-control form-control-sm" type="text" placeholder="Designation:*"
-                        [(ngModel)]="cpDesignation" formControlName="cpDesignation" [ngClass]="displayFieldCss('cpDesignation')">
+                    <input id="cpDesignation" name="cpDesignation" class="form-control form-control-sm" type="text" placeholder="Designation: *"
+                        [(ngModel)]="provider.cpDesignation" formControlName="cpDesignation" [ngClass]="displayFieldCss('cpDesignation')">
 
                     <div *ngIf="individualForm.controls['cpDesignation'].hasError('required') && individualForm.controls['cpDesignation'].touched"
                         class="error">
@@ -90,10 +90,10 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div id="label_dob" class="col-md-5">
-                            <label id="labelDob">Date of Birth:*</label>
+                            <label id="labelDob">Date of Birth: <span class="required">*</span></label>
                         </div>
                         <div id="dob" class="col-md-7">
-                            <input type="text" id="cpDob" name="cpDob" class="form-control form-control-sm" [(ngModel)]="cpDob" formControlName="cpDob"
+                            <input type="text" id="cpDob" name="cpDob" class="form-control form-control-sm" [(ngModel)]="provider.cpDob" formControlName="cpDob"
                                 placeholder="dd/mm/yy" [ngClass]="displayFieldCss('cpDob')">
 
                             <div *ngIf="individualForm.controls['cpDob'].hasError('required') && individualForm.controls['cpDob'].touched" class="error">
@@ -106,7 +106,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input type="text" id="cpEmail" name="cpEmail" class="form-control form-control-sm" type="text" placeholder="Email:*" [(ngModel)]="cpEmail"
+                    <input type="text" id="cpEmail" name="cpEmail" class="form-control form-control-sm" type="text" placeholder="Email: *" [(ngModel)]="provider.cpEmail"
                         formControlName="cpEmail" [ngClass]="displayFieldCss('cpEmail')">
 
                     <div *ngIf="individualForm.controls['cpEmail'].hasError('required') && individualForm.controls['cpEmail'].touched" class="error">
@@ -118,8 +118,8 @@
                 </div>
 
                 <div class="col-md-6">
-                    <input id="cpMobile" name="cpMobile" class="form-control form-control-sm" type="text" placeholder="Contact No:*" maxlength="10"
-                        [(ngModel)]="cpMobile" formControlName="cpMobile" [ngClass]="displayFieldCss('cpMobile')">
+                    <input id="cpMobile" name="cpMobile" class="form-control form-control-sm" type="text" placeholder="Contact No: *" maxlength="10"
+                        [(ngModel)]="provider.cpMobile" formControlName="cpMobile" [ngClass]="displayFieldCss('cpMobile')">
 
                     <div *ngIf="individualForm.controls['cpMobile'].hasError('required') && individualForm.controls['cpMobile'].touched" class="error">
                         Contact number is required !
@@ -135,7 +135,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input id="cpPassword1" name="cpPassword1" class="form-control form-control-sm" type="pasword" placeholder="Password:*" [(ngModel)]="cpPassword1"
+                    <input id="cpPassword1" name="cpPassword1" class="form-control form-control-sm" type="password" placeholder="Password: *" [(ngModel)]="provider.cpPassword1"
                         formControlName="cpPassword1" [ngClass]="displayFieldCss('cpPassword1')">
                 
                     <div *ngIf="individualForm.controls['cpPassword1'].hasError('required') && individualForm.controls['cpPassword1'].touched"
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <input id="cpPassword2" name="cpPassword2" class="form-control form-control-sm" type="pasword" placeholder="Confirm Password:*" [(ngModel)]="cpPassword2"
+                    <input id="cpPassword2" name="cpPassword2" class="form-control form-control-sm" type="password" placeholder="Confirm Password: *" [(ngModel)]="provider.cpPassword2"
                         formControlName="cpPassword2" [ngClass]="displayFieldCss('cpPassword2')">
                 
                     <div *ngIf="individualForm.controls['cpPassword2'].hasError('required') && individualForm.controls['cpPassword2'].touched"
@@ -175,11 +175,11 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="row">
-                            <label id="label1">Qualification Achieved</label>
+                            <label id="label1">Qualification Achieved: <span class="required">*</span></label>
                         </div>
                         <div class="row">
-                            <input id="highest_quali" name="highest_quali" class="form-control form-control-sm" type="text" [(ngModel)]="highest_quali"
-                                formControlName="highest_quali">
+                            <input id="highest_quali" name="highest_quali" class="form-control form-control-sm" type="text" [(ngModel)]="provider.highestQualification.highest_quali"
+                                formControlName="highest_quali" [ngClass]="displayFieldCss('highestQulification.highest_quali')">
                         </div>
                         <div *ngIf="individualForm.controls['highestQulification'].controls['highest_quali'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_quali'].touched"
                             class="error">
@@ -189,10 +189,10 @@
 
                     <div class="col-md-3">
                         <div class="row">
-                            <label id="label2">University / Institute</label>
+                            <label id="label2">University / Institute: <span class="required">*</span></label>
                         </div>
                         <div class="row">
-                            <input id="highest_uni" name="highest_uni" class="form-control form-control-sm" type="text" [(ngModel)]="highest_uni" formControlName="highest_uni">
+                            <input id="highest_uni" name="highest_uni" class="form-control form-control-sm" type="text" [(ngModel)]="provider.highestQualification.highest_uni" formControlName="highest_uni" [ngClass]="displayFieldCss('highestQulification.highest_uni')">
                         </div>
                         <div *ngIf="individualForm.controls['highestQulification'].controls['highest_uni'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_uni'].touched"
                             class="error">
@@ -202,11 +202,11 @@
 
                     <div class="col-md-2">
                         <div class="row">
-                            <label id="label3">Grade recieved</label>
+                            <label id="label3">Grade recieved: <span class="required">*</span></label>
                         </div>
                         <div class="row">
-                            <input id="highest_grade" name="highest_grade" class="form-control form-control-sm" type="text" [(ngModel)]="highest_grade"
-                                formControlName="highest_grade">
+                            <input id="highest_grade" name="highest_grade" class="form-control form-control-sm" type="text" [(ngModel)]="provider.highestQualification.highest_grade"
+                                formControlName="highest_grade" [ngClass]="displayFieldCss('highestQulification.highest_grade')">
                         </div>
                         <div *ngIf="individualForm.controls['highestQulification'].controls['highest_grade'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_grade'].touched"
                             class="error">
@@ -216,10 +216,10 @@
 
                     <div class="col-md-2">
                         <div class="row">
-                            <label id="label4">Country</label>
+                            <label id="label4">Country: <span class="required">*</span></label>
                         </div>
                         <div class="row">
-                            <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="highest_Country" formControlName="highest_Country">
+                            <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="provider.highestQualification.highest_Country" formControlName="highest_Country" [ngClass]="displayFieldCss('highestQulification.highest_Country')">
                                 <option>Sri Lanka</option>
                                 <option>India</option>
                                 <option>England</option>
@@ -233,10 +233,10 @@
 
                     <div class="col-md-2">
                         <div class="row">
-                            <label id="label5">Year of completion</label>
+                            <label id="label5">Year of completion: <span class="required">*</span></label>
                         </div>
                         <div class="row">
-                            <select id="highest_Year" class="form-control form-control-sm quali1" [(ngModel)]="highest_Year" formControlName="highest_Year">
+                            <select id="highest_Year" class="form-control form-control-sm quali1" [(ngModel)]="provider.highestQualification.highest_Year" formControlName="highest_Year" [ngClass]="displayFieldCss('highestQulification.highest_Year')">
                                 <option>2017</option>
                                 <option>2016</option>
                                 <option>2015</option>
@@ -267,7 +267,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="row">
-                            <label id="label6">Qualification achieved</label>
+                            <label id="label6">Qualification achieved:</label>
                         </div>
                         <div class="row">
                             <select class="form-control form-control-sm quali2" formControlName="pro_qualification_1">
@@ -280,7 +280,7 @@
 
                     <div class="col-md-3">
                         <div class="row">
-                            <label id="label7">University / Institute</label>
+                            <label id="label7">University / Institute:</label>
                         </div>
                         <div class="row">
                             <input id="uniName_row0" name="uniName_row[0]" formControlName="pro_institute_1" class="form-control form-control-sm" type="text">
@@ -289,7 +289,7 @@
 
                     <div class="col-md-2">
                         <div class="row">
-                            <label id="label8">Grade recieved</label>
+                            <label id="label8">Grade recieved:</label>
                         </div>
                         <div class="row">
                             <select class="form-control form-control-sm quali2" formControlName="pro_grade_1">
@@ -302,7 +302,7 @@
 
                     <div class="col-md-2">
                         <div class="row">
-                            <label id="label9">Year of completion</label>
+                            <label id="label9">Year of completion:</label>
                         </div>
                         <div class="row">
                             <select class="form-control form-control-sm quali2" formControlName="pro_year_1">
@@ -315,7 +315,7 @@
 
                     <div class="col-md-2">
                         <div class="row">
-                            <label id="label10">Country</label>
+                            <label id="label10">Country:</label>
                         </div>
                         <div class="row">
                             <select class="form-control form-control-sm quali2" formControlName="pro_country_1">

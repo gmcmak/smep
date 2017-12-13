@@ -81,8 +81,8 @@
                     <select id="status" name="status" class="form-control form-control-sm drop" [(ngModel)]="categoryStatus" formControlName="category_status"
                         [ngClass]="displayFieldCss('category_status')">
                         <!-- <option disabled value="selected">Select the post</option> -->
-                        <option value="1" selected>Enable</option>
-                        <option value="0">Disable</option>
+                        <option [ngValue]="1">Enable</option>
+                        <option [ngValue]="0">Disable</option>
                     </select>
                     <div *ngIf="categoryForm.controls['category_status'].hasError('required') && categoryForm.controls['category_status'].touched" class="error">
                         Select the status !

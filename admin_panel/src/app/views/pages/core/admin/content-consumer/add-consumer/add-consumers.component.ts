@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, Validators, FormControl, FormsModule} from '@angular/forms';
+import { FormGroup, Validators,FormBuilder} from '@angular/forms';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
+//import { FormBuilder } from "@angular/forms/src/form_builder";
 
 declare var $: any;
 declare var jQuery: any;
@@ -17,18 +18,43 @@ const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0
 
 export class AddConsumersComponent implements OnInit{
 
-    ngOnInit(): void {
-        //throw new Error("Method not implemented.");
+    public consumer = new Consumer();
+
+    public consumerForm: FormGroup;
+    constructor(private formBuilder: FormBuilder){
 
     }
-        //get individual form input data
-        consumerForm = new FormGroup({
-            caName:  new FormControl('', Validators.required),
-            caWebUrl: new FormControl('', [Validators.required, Validators.pattern(URL_REGEX)]),
-            caPassword: new FormControl('', Validators.required),
-        });
-    
-        onSubmit(){
-            console.log(this.consumerForm.value);
+
+    ngOnInit(): void {
+        this.initializeConsumerForm();
+
+    }
+        private initializeConsumerForm(): void{
+            this.consumerForm = this.formBuilder.group({
+                'caName': [null, Validators.required],
+                'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
+                'caPassword': [null, Validators.required]
+            })
         }
+    
+        private onSubmit(){
+            this.consumer.caName = "deshan";
+        }
+
+    public isFieldValid(field: string) {
+        return !this.consumerForm.get(field).valid && this.consumerForm.get(field).touched;
+    }
+
+    public displayFieldCss(field: string) {
+        return {
+            'is-invalid': this.isFieldValid(field),
+            'is-valid': this.isFieldValid(field)
+        };
+    }
+}
+
+export class Consumer{
+    public caName: string;
+    public caWebUrl: string;
+    public caPassword: string;
 }

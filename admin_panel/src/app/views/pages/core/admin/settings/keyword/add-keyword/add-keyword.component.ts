@@ -11,9 +11,14 @@ declare var jQuery: any;
 })
 
 export class AddKeywordComponent implements OnInit{
-    public englishName: string;
-    public sinhalaName: string;
-    public tamilName: string;
+    
+    public keyword = new Keyword();
+
+    public keywordForm: FormGroup;
+
+    constructor(private formBuilder: FormBuilder) {
+
+    }
 
     ngOnInit(): void {
         this.dataTable();
@@ -26,12 +31,6 @@ export class AddKeywordComponent implements OnInit{
                 "search": "Search by: (English/ Sinhala/ Tamil)"
             }
         });
-    }
-
-    public keywordForm: FormGroup;
-
-    constructor(private formBuilder: FormBuilder) {
-
     }
 
     private initializeKeywordForm(): void {
@@ -67,4 +66,10 @@ export class AddKeywordComponent implements OnInit{
             'is-valid': this.isFieldValid(field)
         };
     }
+}
+
+export class Keyword{
+    public englishName: string;
+    public sinhalaName: string;
+    public tamilName: string;
 }

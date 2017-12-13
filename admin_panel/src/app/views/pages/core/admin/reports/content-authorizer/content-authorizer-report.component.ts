@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {FormGroup, FormControl, Validators, FormsModule} from "@angular/forms";
+import {FormGroup, Validators, FormsModule, FormBuilder} from "@angular/forms";
 
 declare var $: any;
 declare var jQuery: any;
@@ -11,22 +11,32 @@ declare var jQuery: any;
 })
 
 export class ContentAuthorizerReportComponent implements OnInit{
+
+    public authorizerInfo = new AuthorizerInfo();
+
+    public searchAuthorizer: FormGroup;
+
+    constructor(private formBuilder: FormBuilder){
+
+    }
+
     ngOnInit(): void {
-        //throw new Error("Method not implemented.");
+        
+        this.authorizerSearch();
+
         $("#caFromDate").datepicker({
             dateFormat: 'dd/mm/yy',
             changeMonth: true,
             changeYear: true
-        });
+        }).on('change', e => this.authorizerInfo.caFromDate = e.target.value);
 
         $("#caToDate").datepicker({
             dateFormat: 'dd/mm/yy',
             changeMonth: true,
             changeYear: true
-        });
+        }).on('change', e => this.authorizerInfo.caToDate = e.target.value);
 
         this.dataTable();
-    
     }
     //load authorizer history table
     dataTable(){
@@ -38,10 +48,19 @@ export class ContentAuthorizerReportComponent implements OnInit{
         });
     }
 
-    searchAuthorizer = new FormGroup({
-        caName: new FormControl(''),
-        caStatus: new FormControl(''),
-        caFromDate: new FormControl(''),
-        caToDate: new FormControl('')
-    });
+    private authorizerSearch(): void{
+        this.searchAuthorizer = this.formBuilder.group({
+            'caName': [null],
+            'caStatus': [null],
+            'caFromDate': [null],
+            'caToDate': [null]
+        });
+    }
+}
+
+export class AuthorizerInfo{
+    public caName: string;
+    public caStatus: string;
+    public caFromDate: string;
+    public caToDate: string;
 }

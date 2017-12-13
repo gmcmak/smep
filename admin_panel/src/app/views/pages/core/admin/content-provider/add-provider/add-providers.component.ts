@@ -15,7 +15,8 @@ const MOBILE_REGEX = /^[0-9]*$/;
 })
 
 export class AddProvidersComponent implements OnInit{
-    highestQualification: any;
+
+    public provider = new Provider();
    
     public individualForm: FormGroup;
 
@@ -26,22 +27,16 @@ export class AddProvidersComponent implements OnInit{
 
         this.initializeContentProviderForm();
 
-        $("#dateOfReg").datepicker({
-            dateFormat: 'dd/mm/yy',
-            changeMonth: true,
-            changeYear: true
-        });
-
         $("#cpDob").datepicker({
             dateFormat: 'dd/mm/yy',
             changeMonth: true,
             changeYear: true
-        });
+        }).on('change', e => this.provider.cpDob = e.target.value);
     }
 
     private initializeContentProviderForm(): void{
         this.individualForm = this.formBuilder.group({
-            'cpName': [null, Validators.required],
+            cpName: new FormControl('', Validators.required),
             cpFullName: new FormControl('', Validators.required),
             gender: new FormControl('', Validators.required),
             cpNic: new FormControl('', [Validators.required, Validators.pattern(NIC_REGEX)]),
@@ -105,60 +100,6 @@ export class AddProvidersComponent implements OnInit{
             }
         }
     }
-    
-    
-     //get individual form input data
-    //  individualForm = new FormGroup({
-    //     cpName:  new FormControl('', Validators.required),
-    //     cpFullName: new FormControl('', Validators.required),
-    //     gender: new FormControl('', Validators.required),
-    //     cpNic: new FormControl('', [Validators.required,Validators.pattern(NIC_REGEX)]),
-    //     cpDesignation: new FormControl('', Validators.required),
-    //     cpDob: new FormControl('', Validators.required),
-    //     cpEmail: new FormControl('', [Validators.required,Validators.pattern(EMAIL_REGEX)]),
-    //     cpMobile: new FormControl('', [Validators.required,Validators.pattern(MOBILE_REGEX),Validators.minLength(10)]),
-    //     cpPassword1: new FormControl('', [Validators.required]),
-    //      cpPassword2: new FormControl('', [Validators.required]),
-    //         highestQulification: new FormGroup({
-    //             highest_quali: new FormControl('',[Validators.required]),
-    //             highest_uni: new FormControl('',[Validators.required]),
-    //             highest_grade: new FormControl('',[Validators.required]),
-    //             highest_Country: new FormControl('',[Validators.required]),
-    //             highest_Year: new FormControl('',[Validators.required])
-    //         }),
-    //         professionalQualification: new FormGroup({
-                
-    //                 pro_qualification_1: new FormControl(''),
-    //                 pro_institute_1: new FormControl(),
-    //                 pro_grade_1: new FormControl(),
-    //                 pro_year_1: new FormControl(),
-    //                 pro_country_1: new FormControl(),
-               
-    //                 pro_qualification_2: new FormControl(),
-    //                 pro_institute_2: new FormControl(),
-    //                 pro_grade_2: new FormControl(),
-    //                 pro_year_2: new FormControl(),
-    //                 pro_country_2: new FormControl(),
-              
-               
-    //                 pro_qualification_3: new FormControl(),
-    //                 pro_institute_3: new FormControl(),
-    //                 pro_grade_3: new FormControl(),
-    //                 pro_year_3: new FormControl(),
-    //                 pro_country_3: new FormControl()
-    //             }),
-            
-    //             otherInfo: new FormGroup({
-    //                 expert1: new FormControl(),
-    //                 expert2: new FormControl(),
-    //                 expert3: new FormControl(),
-    //                 radioValue: new FormControl(),
-    //                 courses: new FormControl(),
-    //                 cpId: new FormControl(),
-
-    //         }),
-    //         check1: new FormControl('', Validators.required)
-    // });
 
     public isFieldValid(field: string) {
         return !this.individualForm.get(field).valid && this.individualForm.get(field).touched;
@@ -272,4 +213,27 @@ export class AddProvidersComponent implements OnInit{
 
         //this.cpDob = $("#cpDob").val(); 
     }
+}
+
+export class Provider{
+    public cpName: string;
+    public cpFullName: string;
+    public gender: string;
+    public cpNic: string;
+    public cpDesignation: string;
+    public cpDob: string;
+    public cpEmail: string;
+    public cpMobile: number;
+    public cpPassword1: string;
+    public cpPassword2: string;
+
+    public highestQualification = new HighestQualification();
+}
+
+export class HighestQualification{
+    public highest_quali: string;
+    public highest_uni: string;
+    public highest_grade: string;
+    public highest_Country:number;
+    public highest_Year: number;
 }

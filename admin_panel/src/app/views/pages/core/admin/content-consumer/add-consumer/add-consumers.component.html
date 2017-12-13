@@ -18,12 +18,12 @@
             <br>
             <div class="row">
                 <div class="col-md-3">
-                    <label for="caName">Name of the content consumer :*</label>
+                    <label for="caName">Name of the content consumer: <span class="required">*</span></label>
                 </div>
     
                 <div class="col-md-7">
                     <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Nimal Perera" [(ngModel)]="caName"
-                        formControlName="caName">
+                        formControlName="caName" [ngClass]="displayFieldCss('caName')">
                     
                     <div *ngIf="consumerForm.controls['caName'].hasError('required') && consumerForm.controls['caName'].touched" class="error">
                         Name is required !
@@ -33,11 +33,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <label for="caWebUrl">URL :*</label>
+                    <label for="caWebUrl">URL: <span class="required">*</span></label>
                 </div>
                 <div class="col-md-9">
                     <input mdInput type="text" id="caWebUrl" name="caWebUrl" class="form-control form-control-sm" placeholder="https://laravel.com/docs/5.5"
-                        [(ngModel)]="caWebUrl" formControlName="caWebUrl">
+                        [(ngModel)]="caWebUrl" formControlName="caWebUrl" [ngClass]="displayFieldCss('caWebUrl')">
                 
                     <div *ngIf="consumerForm.controls['caWebUrl'].hasError('required') && consumerForm.controls['caWebUrl'].touched" class="error">
                         URL is required !
@@ -49,11 +49,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <label for="caPassword">Authentication Code :*</label>
+                    <label for="caPassword">Authentication Code: <span class="required">*</span></label>
                 </div>
                 <div class="col-md-5">
                     <input mdInput type="password" id="caPassword" name="caPassword" class="form-control form-control-sm" placeholder="sunil123"
-                        [(ngModel)]="caPassword" formControlName="caPassword">
+                        [(ngModel)]="caPassword" formControlName="caPassword" [ngClass]="displayFieldCss('caPassword')">
             
                     <div *ngIf="consumerForm.controls['caPassword'].hasError('required') && consumerForm.controls['caPassword'].touched" class="error">
                         Password is required !

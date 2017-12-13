@@ -9,19 +9,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class AddCategoryComponent implements OnInit{
 
-    public englishName: string;
-    public sinhalaName: string;
-    public tamilName: string;
-    public categoryStatus: boolean;
-
-    ngOnInit(): void {
-        this.initializeCategoryForm();
-    }
+    public category = new Category();
 
     public categoryForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
+    }
+
+    ngOnInit(): void {
+        this.initializeCategoryForm();
     }
 
     private initializeCategoryForm(): void {
@@ -57,6 +54,12 @@ export class AddCategoryComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }
-    
+    }  
+}
+
+export class Category{
+    public englishName: string;
+    public sinhalaName: string;
+    public tamilName: string;
+    public categoryStatus: boolean;
 }

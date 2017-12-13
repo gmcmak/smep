@@ -9,17 +9,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class AddAuthorComponent implements OnInit{
 
-    public englishName: string;
-    public sinhalaName: string;
-    public tamilName: string;
-    ngOnInit(): void {
-        this.initializeAuthorsForm();
-    }
+    public author = new Author();
 
     public authorForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
+    }
+
+    ngOnInit(): void {
+        this.initializeAuthorsForm();
     }
 
     private initializeAuthorsForm(): void {
@@ -54,7 +53,11 @@ export class AddAuthorComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }
+    }   
+}
 
-    
+export class Author{
+    public englishName: string;
+    public sinhalaName: string;
+    public tamilName: string;
 }
