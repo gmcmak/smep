@@ -17,39 +17,72 @@
             <i class="fa fa-file-text-o"></i>&emsp;<b>Single Submission Form</b>
         </div>
         <div class="card-body">
+        <form id="singleSubForm1" [formGroup]="singleSubForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-md-9">
-                    <input class="form-control form-control-sm" id="" name="" type="text" 
-                    placeholder="URL">
+                    <input class="form-control form-control-sm" id="url" name="url" type="text" formControlName="url" [(ngModel)]="singleSubmission.sub_url"
+                    placeholder="URL: *" [ngClass]="displayFieldCss('url')">
+                    <div *ngIf="singleSubForm.controls['url'].hasError('required') && singleSubForm.controls['url'].touched" class="error">
+                        URL is required !
+                    </div>
+                    <div *ngIf="singleSubForm.controls['url'].hasError('pattern') && singleSubForm.controls['url'].touched" class="error">
+                        URL is not valid !
+                    </div>
                 </div>
                 <div class="col-md-3">
-                    <select id="" name="" class="form-control form-control-sm drop">
-                        <option value="" disabled selected>Select the type</option>
-                        <option value="">Article</option>
-                        <option value="">Audio</option>
-                        <option value="">Video</option>
-                    </select>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="type1">Type: <span class="required">*</span></label>
+                        </div>
+                        <div class="col-md-8">
+                            <select id="type1" name="type1" class="form-control form-control-sm drop" formControlName="type1" [(ngModel)]="singleSubmission.sub_type1"
+                                [ngClass]="displayFieldCss('type1')">
+                                <option Value="1">Article</option>
+                                <option Value="2">Audio</option>
+                                <option value="3">Video</option>
+                                <option Value="3">Art</option>
+                            </select>
+                            <div *ngIf="singleSubForm.controls['type1'].hasError('required') && singleSubForm.controls['type1'].touched" class="error">
+                                Type is required !
+                            </div>
+                        </div>
+                    </div>   
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <input class="form-control form-control-sm" id="" name="" type="text" 
-                    placeholder="Title">
+                    <input class="form-control form-control-sm" id="title1" name="title1" type="text" formControlName="title1" [(ngModel)]="singleSubmission.sub_title1"
+                    placeholder="Title: *" [ngClass]="displayFieldCss('title1')">
+                    <div *ngIf="singleSubForm.controls['title1'].hasError('required') && singleSubForm.controls['title1'].touched" class="error">
+                        Title is required !
+                    </div>
 
-                    <input class="form-control form-control-sm" id="" name="" type="text" 
-                    placeholder="Specify key fields / tags">
+                    <input class="form-control form-control-sm" id="keyword" name="keyword" type="text" formControlName="keyword" [(ngModel)]="singleSubmission.sub_keyword"
+                    placeholder="Specify key fields / tags: *"  [ngClass]="displayFieldCss('keyword')">
+                    <div *ngIf="singleSubForm.controls['keyword'].hasError('required') && singleSubForm.controls['keyword'].touched" class="error">
+                        Keywords are required !
+                    </div>
 
-                    <select id="" name="" class="form-control form-control-sm drop">
-                        <option value="" disabled selected>Specify category / subjects</option>
-                        <option Value="">Management</option>
-                        <option Value="">Science</option>
-                        <option Value="">Art</option>
-                    </select>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="category">Specify category / subjects: <span class="required">*</span></label>
+                        </div>
+                        <div class="col-md-7">
+                            <select id="category" name="category" class="form-control form-control-sm drop" formControlName="category" [(ngModel)]="singleSubmission.sub_category"
+                                [ngClass]="displayFieldCss('category')">
+                                <option [ngValue]="1">Management</option>
+                                <option [ngValue]="2">Science</option>
+                                <option [ngValue]="3">Art</option>
+                            </select>
+                            <div *ngIf="singleSubForm.controls['category'].hasError('required') && singleSubForm.controls['category'].touched" class="error">
+                                Category is required !
+                            </div>
+                        </div>
+                    </div>  
                 </div>
                 <div class="col-md-6">
-                    <textarea id="description1" class="form-control form-control-sm" rows="5" id="" name="" type="text" 
-                    placeholder="A brief description of the content"></textarea>
-                    
+                    <textarea id="description" class="form-control form-control-sm" rows="5" id="description" name="description" type="text" formControlName="description" [(ngModel)]="singleSubmission.sub_description"
+                    placeholder="A brief description of the content"></textarea> 
                 </div>
             </div>
 
@@ -189,11 +222,12 @@
             
                 </div>
                 <div class="col-md-2">
-                    &emsp;<button type="submit" id="submit" name="submit" class="btn-primary search_btn">Submit</button>
+                    &emsp;<button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!singleSubForm.valid">Submit</button>
                     <br>
                     <br>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 </form>

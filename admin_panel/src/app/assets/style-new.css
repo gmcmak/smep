@@ -155,3 +155,17 @@ div table{
   .group-text{
     height:30px;
   }
+
+  /*content authorization page - content provider details*/
+ .labelSub{
+    margin-left: 180px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: gray;
+  }
+
+  .group_btn1{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 0px;
+  }

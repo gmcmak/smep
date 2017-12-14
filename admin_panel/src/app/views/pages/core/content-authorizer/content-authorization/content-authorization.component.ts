@@ -11,7 +11,7 @@ export class ContentAuthorizationComponent implements OnInit{
 
     public providerInfo = new ProviderInfo();
 
-    public searchProvider: FormGroup;
+    public searchForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder){
 
@@ -21,9 +21,20 @@ export class ContentAuthorizationComponent implements OnInit{
     }
 
     private initializeProviderSerach(): void{
-        this.searchProvider = this.formBuilder.group({
+        this.searchForm = this.formBuilder.group({
             'providerId': [null, [Validators.required]]
         });
+    }
+
+    public isFieldValid(field: string) {
+        return !this.searchForm.get(field).valid && this.searchForm.get(field).touched;
+    }
+
+    public displayFieldCss(field: string) {
+        return {
+            'is-invalid': this.isFieldValid(field),
+            'is-valid': this.isFieldValid(field)
+        };
     }
 
 }
