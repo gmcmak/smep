@@ -33,7 +33,7 @@ import { AboutComponent } from './views/pages/core/about/about.component';
 import { HomeComponent } from './views/pages/core/home/home.component';
 import { ContactComponent } from './views/pages/core/contact/contact.component';
 import { UserDashboardComponent } from './views/pages/core/userdashboard/userdashboard.component';
-
+import {DataTableModule} from "angular2-datatable";
 
 //import { Content_providerComponent} from './views/forms/content_provider/content_provider.component';
 
@@ -47,6 +47,11 @@ import { DialogsModule } from './services/dialog/dialogs.module';
 
 import { LocalStorageStore } from './services/storage/local-storage.service';
 import { DataTableComponent } from './views/widgets/widget/data-table/data-table.component';
+
+/**
+ * backend connectivity
+ */
+import { UserService } from "./services/businessservices/core/user/user.service";
 
 import 'hammerjs';
 // d3 and nvd3 should be included somewhere
@@ -209,6 +214,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -237,6 +243,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
       deps: [StartupService],
       multi: true
     },
+    UserService,
     ToastService,
     ToastCommunicationService,
     DialogsService,

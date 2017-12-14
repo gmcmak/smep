@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { ActivatedRoute, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { StartupService } from './services/settings/application-startup.service';
 
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { ToastCommunicationService } from './services/toast/toast-communication.service';
+import { UserService } from "./services/businessservices/core/user/user.service";
+
+import { FormGroup, Validators, FormControl} from '@angular/forms';
+import { LocalStorageStore } from './services/storage/local-storage.service';
+
+
+
 
 @Component({
     selector: 'app',
@@ -13,20 +20,31 @@ import { ToastCommunicationService } from './services/toast/toast-communication.
     templateUrl: './app.component.html'
 })
 export class AppComponent {
-    currentDate: Date = new Date();
 
+    currentDate: Date = new Date();
     private static readonly DEFAULT_LANGUAGE: string = "en";
     private sub: any;
     // Position of Ng2ToastyComponent
     public toastyComponentPosition: string;
-
     public edited = false;
-
     languages: Array<string> = [AppComponent.DEFAULT_LANGUAGE, "si"];
     private selectedLang: string = AppComponent.DEFAULT_LANGUAGE;
+    private subscribe:any;
+    private username;
+    private token;
+    loggedInUserList: any[];
+    
 
-    constructor(private translate: TranslateService, private router: Router, private startup: StartupService, private slimLoader: SlimLoadingBarService, 
-                private toastCommunicationService: ToastCommunicationService) {
+    constructor(
+        private translate: TranslateService, 
+        private router: Router, 
+        private startup: StartupService, 
+        private slimLoader: SlimLoadingBarService, 
+        private toastCommunicationService: ToastCommunicationService, 
+        private UserService:UserService,
+        private localStorageService: LocalStorageStore,
+        private activatedRoute: ActivatedRoute
+    ) {
         this.translate.addLangs(this.languages);
         // this language will be used as a fallback when a translation isn't found in the current language
         this.translate.setDefaultLang(AppComponent.DEFAULT_LANGUAGE);
@@ -52,6 +70,7 @@ export class AppComponent {
         }, (error: any) => {
             this.slimLoader.complete();
         });
+
     }
 
     ngOnInit() {
@@ -61,7 +80,33 @@ export class AppComponent {
             console.log('NO STARTUP DATA');
             // this.router.navigate(['error'], { replaceUrl: true });
         }
-       // this.loginTrue();
+        
+
+        this.activatedRoute
+            .queryParams
+            .subscribe(params => {
+                
+            });
+
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        if(this.loggedInUserList){
+            this.username = this.loggedInUserList.name;
+            // if(this.loggedInUserList.token){
+                
+            // }
+        }else{
+            this.router.navigate(['/login']);
+        }
+                    
+
+    }
+
+    /**
+     * logout
+     */
+    logout(){
+        this.localStorageService.remove('userData');
+        this.router.navigate(['/login']);
     }
 
     ngOnDestroy(): any {
@@ -82,6 +127,21 @@ export class AppComponent {
     voidButtonClick() {
         return false;
     }
+
+    loginTrue(loginParam){
+        return loginParam;
+    }
+
+    /**
+     * this is use to display login icons, when click on the login button
+     */
+    loginSettings(){
+        if(this.router.url == '/login'){ 
+            return false;
+        } else { 
+            return true;
+        }        
+    }    
 
 
 }
