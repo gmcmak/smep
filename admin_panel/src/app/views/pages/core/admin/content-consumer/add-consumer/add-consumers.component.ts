@@ -5,7 +5,7 @@ import CustomValidators from '../../../../../../common/validation/CustomValidato
 
 declare var $: any;
 declare var jQuery: any;
-const NIC_REGEX = /^[0-9]{9}[VX]/;
+const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
 const MOBILE_REGEX = /^[0-9]{10}/;
 const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}');

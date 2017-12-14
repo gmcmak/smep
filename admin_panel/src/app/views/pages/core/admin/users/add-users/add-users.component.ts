@@ -4,7 +4,7 @@ import { equalSegments } from "@angular/router/src/url_tree";
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
-const NIC_REGEX = /^[0-9]{9}[VX]/;
+const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 const MOBILE_REGEX = /^[0-9]{10}/;
 
 declare var $: any;

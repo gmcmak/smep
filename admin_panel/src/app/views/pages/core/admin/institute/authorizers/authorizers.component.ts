@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 declare var $: any;
 declare var jQuery: any;
 
-const NIC_REGEX = /^[0-9]{9}[VX]/;
+const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 
 @Component({
     selector: 'authorizers',
