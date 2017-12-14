@@ -8,21 +8,21 @@
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" [routerLink]="['dashboard']">
-            <i class="fa fa-fw fa-dashboard"></i>
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
           <a class="nav-link" [routerLink]="['profile']">
-            <i class="fa fa-user-circle-o"></i>
+            <i class="fa fa-user-circle-o"></i>&nbsp;
             <span class="nav-link-text">Profile</span>
           </a>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users' Details">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#userList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-users"></i>
+            <i class="fa fa-fw fa-users"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['users/view-users']">Users</span>
           </a>
           <ul class="sidenav-second-level collapse" id="userList">
@@ -38,9 +38,9 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorizers' Details">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorizers">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#authorizerList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>
+            <i class="fa fa-fw fa-user"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['content-authorizer/view-authorizers']">Content Authorizer</span>
           </a>
           <ul class="sidenav-second-level collapse" id="authorizerList">
@@ -53,9 +53,9 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Providers' Details">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Providers">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#providerList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>
+            <i class="fa fa-fw fa-user"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['content-provider/view-providers']">Content Provider</span>
           </a>
           <ul class="sidenav-second-level collapse" id="providerList">
@@ -68,9 +68,9 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institute">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#instituteList" data-parent="#exampleAccordion">
-            <i class="fa fa-university"></i>
+            <i class="fa fa-university"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['institute/view-institute']">Institute</span>
           </a>
           <ul class="sidenav-second-level collapse" id="instituteList">
@@ -80,12 +80,18 @@
             <li>
               <a [routerLink]="['institute/add-institute']">Add Institutes</a>
             </li>
+            <li>
+              <a [routerLink]="['institute/authorizers']">Add Authorizers</a>
+            </li>
+            <li>
+              <a [routerLink]="['institute/providers']">Add Providers</a>
+            </li>
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Consumers' Details">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Consumers">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#consumerList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>
+            <i class="fa fa-fw fa-user"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['content-consumer/view-consumers']">Content Consumer</span>
           </a>
           <ul class="sidenav-second-level collapse" id="consumerList">
@@ -100,7 +106,7 @@
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#reportList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file-text"></i>
+            <i class="fa fa-fw fa-file-text"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['reports/content-authorizer-report']">Reports</span>
           </a>
           <ul class="sidenav-second-level collapse" id="reportList">
@@ -115,11 +121,11 @@
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingList" data-parent="#exampleAccordion">
-            <i class="fa fa-cog"></i>
+            <i class="fa fa-cog"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['settings/author/view-author']">Settings</span>
           </a>
           <ul class="sidenav-second-level collapse" id="settingList">
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Author">
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#authorList" data-parent="#settingList">
                   <i class="fa fa-user-o"></i>
                   <span class="nav-link-text" [routerLink]="['settings/author/view-author']">Author</span>
@@ -133,9 +139,9 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Category">
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#categoryList" data-parent="#settingList">
-                  <i class="fa fa-th-list"></i>
+                  <i class="fa fa-th-list"></i>&nbsp;
                   <span class="nav-link-text" [routerLink]="['settings/category/view-category']">Category</span>
                 </a>
                 <ul class="sidenav-third-level collapse" id="categoryList">
@@ -147,9 +153,9 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Explore">
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#exploreList" data-parent="#settingList">
-                  <i class="fa fa-tags"></i>
+                  <i class="fa fa-tags"></i>&nbsp;
                   <span class="nav-link-text" [routerLink]="['settings/explore/view-explore']">Explore</span>
                 </a>
                 <ul class="sidenav-third-level collapse" id="exploreList">
@@ -161,9 +167,9 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Keyword">
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#keywordList" data-parent="#settingList">
-                  <i class="fa fa-language"></i>
+                  <i class="fa fa-language"></i>&nbsp;
                   <span class="nav-link-text" [routerLink]="['settings/keyword/view-keyword']">Keyword</span>
                 </a>
                 <ul class="sidenav-third-level collapse" id="keywordList">
@@ -175,9 +181,9 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Role">
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#roleList" data-parent="#settingList">
-                  <i class="fa fa-id-badge"></i>
+                  <i class="fa fa-id-badge"></i>&nbsp;
                   <span class="nav-link-text" [routerLink]="['settings/role/view-role']">Role</span>
                 </a>
                 <ul class="sidenav-third-level collapse" id="roleList">
@@ -195,21 +201,21 @@
         <!-- Content Authorizer -->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Authorization">
           <a class="nav-link" [routerLink]="['ca-content-authorization']">
-            <i class="fa fa-fw fa-pencil-square-o"></i>
+            <i class="fa fa-fw fa-pencil-square-o"></i>&nbsp;
             <span class="nav-link-text">Content Authorization</span>
           </a>
         </li>
         
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorization History">
           <a class="nav-link" [routerLink]="['ca-authorization-history']">
-            <i class="fa fa-fw fa-history"></i>
+            <i class="fa fa-fw fa-history"></i>&nbsp;
             <span class="nav-link-text">Authorization History</span>
           </a>
         </li>
         
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Providers' List">
           <a class="nav-link" [routerLink]="['ca-content-providers']">
-            <i class="fa fa-fw fa-info-circle"></i>
+            <i class="fa fa-fw fa-info-circle"></i>&nbsp;
             <span class="nav-link-text">View Content Providers</span>
           </a>
         </li>
@@ -217,7 +223,7 @@
         <!-- content provider -->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submissions">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#subList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file-text-o"></i>
+            <i class="fa fa-fw fa-file-text-o"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['submissions/cp-single-submission']">Submissions</span>
           </a>
           <ul class="sidenav-second-level collapse" id="subList">
@@ -230,9 +236,9 @@
           </ul>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="History">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submission History">
           <a class="nav-link" [routerLink]="['cp-history']">
-            <i class="fa fa-fw fa-history"></i>
+            <i class="fa fa-fw fa-history"></i>&nbsp;
             <span class="nav-link-text">Submission History</span>
           </a>
         </li>

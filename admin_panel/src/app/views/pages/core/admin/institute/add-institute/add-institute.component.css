@@ -192,19 +192,6 @@ div textarea{
     font-size: 14px;
 }
 
-/* #individual-category{
-    background-color: #F2F5A9;
-    padding-top: 10px;
-} */
-
-/* #radioB1{
-    background-color: #F2F5A9;
-} */
-
-/* #professional-category{
-    background-color: #D0F5A9;
-} */
-
 div table{
     background-color: #E6E6E6;
 }
@@ -225,14 +212,6 @@ div textarea {
     resize: none; /* Remove this if you want the user to resize the textarea */
 }
 
-.error {
-    color: red;
-    font-size: 13px;
-    font-style: bold;
-    text-align: right;
-    /* background-color: #acf; */
- }
-
  div text {
      font-size: 12px;
  }
@@ -241,122 +220,8 @@ div textarea {
     font-size: 14px;
 }
 
-#check1{
-
-    margin-top: 5px;
-    width: 15px;
-    height: 15px;
-}
-
 #check2{
-    
-        margin-top: 5px;
+        margin-top: 11px;
         width: 15px;
         height: 15px;
     }
-@media screen and (max-width: 360px){
-    #form1_submit_row{
-        padding-left: 96px;
-    }
-    /* .form-control::-webkit-input-placeholder { 
-        color: transparent;
-    } */
-}
-@media screen and (width: 375px){
-    #form1_submit_row{
-        padding-left: 111px;
-    }
-}
-@media screen and (width: 414px){
-    #form1_submit_row{
-        padding-left: 150px;
-    }
-}
-@media screen and (width: 768px){
-    #form1_submit_row{
-        padding-left: 502px;
-    }
-}
-@media screen and (max-width: 320px){
-    #label_dob{
-        width: 50%;
-        padding-left: 15px;
-        padding-right: 0px;
-    }
-    #dob{
-        width: 50%;
-        padding-right: 0px;
-    }
-    #gender1{
-        width: 50%;
-        padding-right: 0px;
-    }
-    #form1_submit_row{
-        padding-left: 50px;
-    }
-    .form-control::-webkit-input-placeholder { /* WebKit browsers */
-        color: transparent;
-    }
-}
-
-@media screen and (width: 412px){
-    #label_dob{
-        width: 50%;
-        padding-left: 15px;
-        padding-right: 0px;
-    }
-    #dob{
-        width: 50%;
-        padding-right: 0px;
-    }
-    #gender1{
-        width: 50%;
-        padding-right: 0px;
-    }
-    #form1_submit_row{
-        padding-left: 140px;
-    }
-    #yes_btn_1{
-        width: 50%;
-        padding-left: 45px;
-    }
-    #no_btn_1{
-        width: 50%;
-    }
-}
-
-@media screen and (width: 1024px){
-    .col-lg-9{
-        width:10%;
-    }
-    #label1{
-        display: none;
-    }
-    #label2{
-        display: none;
-    }
-    #label3{
-        display: none;
-    }
-    #label4{
-        display: none;
-    }
-    #label5{
-        display: none;
-    }
-    #label6{
-        display: none;
-    }
-    #label7{
-        display: none;
-    }
-    #label8{
-        display: none;
-    }
-    #label9{
-        display: none;
-    }
-    #label10{
-        display: none;
-    }
-}

@@ -115,6 +115,8 @@ import { CpBooksHistoryComponent } from './views/pages/core/content-provider/cp-
 import { CpCaseStudyHistoryComponent } from './views/pages/core/content-provider/cp-history/case-study/cp-case-study-history.component';
 import { CpImagesHistoryComponent } from './views/pages/core/content-provider/cp-history/images/cp-images-history.component';
 import { CpVideoClipHistoryComponent } from './views/pages/core/content-provider/cp-history/video-clip/cp-video-clip-history.component';
+import { AuthorizersComponent } from './views/pages/core/admin/institute/authorizers/authorizers.component';
+import { ProvidersComponent } from './views/pages/core/admin/institute/providers/providers.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -148,6 +150,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     //AddIndividualComponent,
     ViewInstituteComponent,
     AddInstituteComponent,
+    AuthorizersComponent,
+    ProvidersComponent,
     ViewConsumersComponent, //admin view content consumers
     AddConsumersComponent, //admin add content consumers
     ContentAuthorizerReportComponent, //admin content authorizer report
