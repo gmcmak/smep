@@ -4,7 +4,7 @@ import { equalSegments } from "@angular/router/src/url_tree";
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
-const NIC_REGEX = /^[0-9]{9}[VX]/;
+const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 const MOBILE_REGEX = /^[0-9]{10}/;
 
 declare var $: any;
@@ -18,18 +18,9 @@ declare var jQuery: any;
 })
 
 export class AddUsersComponent implements OnInit {
-    public admin_level: string;
-    public fullName: string;
-    public nameWithInitials: string;
-    public email: string;
-    public nic: string;
-    public gender: string;
-    public mobile: number;
-    public dob: string; //have to correct the date data type
-    public designation: string;
-    public status: string;
-    public password1: string;
-    public password2: string;
+
+    public user = new User();
+    
 
     public userForm: FormGroup;
 
@@ -44,7 +35,7 @@ export class AddUsersComponent implements OnInit {
             dateFormat: 'dd/mm/yy',
             changeMonth: true,
             changeYear: true
-        });
+        }).on('change', e => this.user.dob = e.target.value);
 
         //this.dob = $("#user_dob").value();
     }
@@ -95,4 +86,19 @@ export class AddUsersComponent implements OnInit {
     }
 
     
+}
+
+export class User{
+    public admin_level: string;
+    public fullName: string;
+    public nameWithInitials: string;
+    public email: string;
+    public nic: string;
+    public gender: string;
+    public mobile: number;
+    public dob: string; //have to correct the date data type
+    public designation: string;
+    public status: string;
+    public password1: string;
+    public password2: string;
 }

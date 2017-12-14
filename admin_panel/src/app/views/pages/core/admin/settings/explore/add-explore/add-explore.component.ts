@@ -9,19 +9,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class AddExploreComponent implements OnInit{
 
-    public englishName: string;
-    public sinhalaName: string;
-    public tamilName: string;
-    public exploreStatus: boolean;
-
-    ngOnInit(): void {
-        this.initializeExploreForm();
-    }
+    public explore = new Explore();
 
     public exploreForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
+    }
+
+    ngOnInit(): void {
+        this.initializeExploreForm();
     }
 
     private initializeExploreForm(): void {
@@ -57,6 +54,12 @@ export class AddExploreComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }
-    
+    }   
+}
+
+export class Explore{
+    public englishName: string;
+    public sinhalaName: string;
+    public tamilName: string;
+    public exploreStatus: boolean;
 }

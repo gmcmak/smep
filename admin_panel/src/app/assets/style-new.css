@@ -8,9 +8,9 @@
 }
 
 input.ng-invalid {border-left: 5px solid lightseagreen;}
-input.ng-valid {border-left: 5px solid green;}
+input.ng-valid {border-left: 5px solid lightseagreen;}
 select.ng-invalid {border-left: 5px solid lightseagreen;}
-select.ng-valid {border-left: 5px solid green;}
+select.ng-valid {border-left: 5px solid lightseagreen;}
 
 #mainTitle{
     margin-top: 0px;margin-bottom: 0px;padding-top: 10px;padding-bottom: 10px;
@@ -56,6 +56,7 @@ div table{
     font-size: 13px;
     font-style: bold;
     text-align: right;
+    font-weight: bold;
     /* background-color: #acf; */
  }
 
@@ -154,4 +155,18 @@ div table{
    /* style for text and button group - authorizer*/
   .group-text{
     height:30px;
+  }
+
+  /*content authorization page - content provider details*/
+ .labelSub{
+    margin-left: 180px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: gray;
+  }
+
+  .group_btn1{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 0px;
   }

@@ -17,10 +17,15 @@
     <div class="card-header">
         <i class="fa fa-file-o"></i>&emsp;<b>Content Authorizer Registration Form</b></div>
         <form id="form1" name="form1" method="POST" [formGroup]="authorizerForm" (ngSubmit)="onSubmit()" action="">
-                <br>
+            <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="subTitle">Personal Info,</h6>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Full Name:*" [(ngModel)]="caName"
+                        <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Full Name: *" [(ngModel)]="authorizer.caName"
                             formControlName="caName" [ngClass]="displayFieldCss('caName')">
 
                         <div *ngIf="authorizerForm.controls['caName'].hasError('required') && authorizerForm.controls['caName'].touched" class="error">
@@ -29,8 +34,8 @@
                     </div>
 
                     <div class="col-md-6">
-                        <input id="caFullName" name="caFullName" class="form-control form-control-sm" type="text" placeholder="Name with Initials:*"
-                            [(ngModel)]="caFullName" formControlName="caFullName" [ngClass]="displayFieldCss('caFullName')">
+                        <input id="caFullName" name="caFullName" class="form-control form-control-sm" type="text" placeholder="Name with Initials: *"
+                            [(ngModel)]="authorizer.caFullName" formControlName="caFullName" [ngClass]="displayFieldCss('caFullName')">
 
                         <div *ngIf="authorizerForm.controls['caFullName'].hasError('required') && authorizerForm.controls['caFullName'].touched"
                             class="error">
@@ -41,11 +46,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="row">
-                            <div id="label_dob" class="col-md-5">
-                                <label id="labelGender">Gender:*</label>
+                            <div id="label_gender" class="col-md-5">
+                                <label id="labelGender">Gender: <span class="required">*</span></label>
                             </div>
                             <div id="gender1" class="col-md-7">
-                                <select id="caGender" name="caGender" class="form-control form-control-sm drop" [(ngModel)]="caGender" formControlName="caGender" [ngClass]="displayFieldCss('caGender')">
+                                <select id="caGender" name="caGender" class="form-control form-control-sm drop" [(ngModel)]="authorizer.caGender" formControlName="caGender" [ngClass]="displayFieldCss('caGender')">
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
@@ -58,7 +63,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <input id="caNic" name="caNic" class="form-control form-control-sm" type="text" placeholder="N.I.C:*" [(ngModel)]="caNic"
+                        <input id="caNic" name="caNic" class="form-control form-control-sm" type="text" placeholder="N.I.C: *" [(ngModel)]="authorizer.caNic"
                             formControlName="caNic" maxlength="10" [ngClass]="displayFieldCss('caNic')">
 
                         <div *ngIf="authorizerForm.controls['caNic'].hasError('required') && authorizerForm.controls['caNic'].touched" class="error">
@@ -72,8 +77,8 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <input id="caDesignation" name="caDesignation" class="form-control form-control-sm" type="text" placeholder="Designation:*"
-                            [(ngModel)]="caDesignation" formControlName="caDesignation" [ngClass]="displayFieldCss('caDesignation')">
+                        <input id="caDesignation" name="caDesignation" class="form-control form-control-sm" type="text" placeholder="Designation: *"
+                            [(ngModel)]="authorizer.caDesignation" formControlName="caDesignation" [ngClass]="displayFieldCss('caDesignation')">
 
                         <div *ngIf="authorizerForm.controls['caDesignation'].hasError('required') && authorizerForm.controls['caDesignation'].touched"
                             class="error">
@@ -84,10 +89,10 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div id="label_dob" class="col-md-5">
-                                <label id="labelDob">Date of Birth:*</label>
+                                <label id="labelDob">Date of Birth: <span class="required">*</span></label>
                             </div>
                             <div id="dob" class="col-md-7">
-                                <input type="text" id="caDob" name="caDob" class="form-control form-control-sm" [(ngModel)]="caDob" placeholder="dd/mm/yy"
+                                <input type="text" id="caDob" name="caDob" class="form-control form-control-sm" [(ngModel)]="authorizer.caDob" placeholder="dd/mm/yy"
                                     formControlName="caDob" [ngClass]="displayFieldCss('caDob')">
 
                                 <div *ngIf="authorizerForm.controls['caDob'].hasError('required') && authorizerForm.controls['caDob'].touched" class="error">
@@ -100,7 +105,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" id="caEmail" name="caEmail" class="form-control form-control-sm" type="text" placeholder="Email:*" [(ngModel)]="caEmail"
+                        <input type="text" id="caEmail" name="caEmail" class="form-control form-control-sm" type="text" placeholder="Email: *" [(ngModel)]="authorizer.caEmail"
                             formControlName="caEmail" [ngClass]="displayFieldCss('caEmail')">
 
                         <div *ngIf="authorizerForm.controls['caEmail'].hasError('required') && authorizerForm.controls['caEmail'].touched" class="error">
@@ -112,14 +117,44 @@
                     </div>
 
                     <div class="col-md-6">
-                        <input id="caMobile" name="caMobile" class="form-control form-control-sm" type="text" placeholder="Contact No:*" maxlength="10"
-                            [(ngModel)]="caMobile" formControlName="caMobile" [ngClass]="displayFieldCss('caMobile')">
+                        <input id="caMobile" name="caMobile" class="form-control form-control-sm" type="text" placeholder="Contact No: *" maxlength="10"
+                            [(ngModel)]="authorizer.caMobile" formControlName="caMobile" [ngClass]="displayFieldCss('caMobile')">
 
                         <div *ngIf="authorizerForm.controls['caMobile'].hasError('required') && authorizerForm.controls['caMobile'].touched" class="error">
                             Contact number is required !
                         </div>
                         <div *ngIf="authorizerForm.controls['caMobile'].hasError('pattern') && authorizerForm.controls['caMobile'].touched" class="error">
                             Invalid phone number !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" id="caPassword1" name="caPassword1" class="form-control form-control-sm" type="password" placeholder="Password: *" [(ngModel)]="authorizer.caPassword1"
+                            formControlName="caPassword1" [ngClass]="displayFieldCss('caPassword1')">
+                
+                        <div *ngIf="authorizerForm.controls['caPassword1'].hasError('required') && authorizerForm.controls['caPassword1'].touched" class="error">
+                            Email is required !
+                        </div>
+                        <div *ngIf="authorizerForm.controls['caPassword1'].hasError('pattern') && authorizerForm.controls['caPassword1'].touched" class="error">
+                            Invalid email !
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <input id="caPassword2" name="caPassword2" class="form-control form-control-sm" type="password" placeholder="Confirm Password: *"
+                            [(ngModel)]="authorizer.caPassword2" formControlName="caPassword2" [ngClass]="displayFieldCss('caPassword2')">
+                
+                        <div *ngIf="authorizerForm.controls['caPassword2'].hasError('required') && authorizerForm.controls['caPassword2'].touched" class="error">
+                            Contact number is required !
+                        </div>
+                        <div *ngIf="authorizerForm.controls['caPassword2'].hasError('pattern') && authorizerForm.controls['caPassword2'].touched" class="error">
+                            Invalid phone number !
+                        </div>
+                        <div *ngIf="authorizerForm.controls['caPassword2'].hasError('notEquivalent') && authorizerForm.controls['caPassword2'].touched"
+                            class="error">
+                            Passwords are not matched !
                         </div>
                     </div>
                 </div>
@@ -142,11 +177,12 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="row">
-                                <label id="label1">Qualification Achieved</label>
+                                <label id="label1">Qualification Achieved: <span class="required">*</span></label>
                             </div>
                             <div class="row">
-                                <input id="highest_quali" name="highest_quali" class="form-control form-control-sm" type="text" [(ngModel)]="highest_quali"
-                                    formControlName="highest_quali">
+                                <input id="highest_quali" name="highest_quali" class="form-control form-control-sm" type="text" 
+                                [(ngModel)]="authorizer.HighestQualifications.highest_quali"
+                                    formControlName="highest_quali" [ngClass]="displayFieldCss('highestQulification.highest_quali')">
                             </div>
                             <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_quali'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_quali'].touched"
                                 class="error">
@@ -156,10 +192,10 @@
 
                         <div class="col-md-3">
                             <div class="row">
-                                <label id="label2">University / Institute</label>
+                                <label id="label2">University / Institute: <span class="required">*</span></label>
                             </div>
                             <div class="row">
-                                <input id="highest_uni" name="highest_uni" class="form-control form-control-sm" type="text" [(ngModel)]="highest_uni" formControlName="highest_uni">
+                                <input id="highest_uni" name="highest_uni" class="form-control form-control-sm" type="text" [(ngModel)]="authorizer.HighestQualifications.highest_uni" formControlName="highest_uni" [ngClass]="displayFieldCss('highestQulification.highest_uni')">
                             </div>
                             <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_uni'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_uni'].touched"
                                 class="error">
@@ -169,11 +205,11 @@
 
                         <div class="col-md-2">
                             <div class="row">
-                                <label id="label3">Grade recieved</label>
+                                <label id="label3">Grade recieved: <span class="required">*</span></label>
                             </div>
                             <div class="row">
-                                <input id="highest_grade" name="highest_grade" class="form-control form-control-sm" type="text" [(ngModel)]="highest_grade"
-                                    formControlName="highest_grade">
+                                <input id="highest_grade" name="highest_grade" class="form-control form-control-sm" type="text" [(ngModel)]="authorizer.HighestQualifications.highest_grade"
+                                    formControlName="highest_grade" [ngClass]="displayFieldCss('highestQulification.highest_grade')">
                             </div>
                             <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_grade'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_grade'].touched"
                                 class="error">
@@ -183,11 +219,11 @@
 
                         <div class="col-md-2">
                             <div class="row">
-                                <label id="label4">Country</label>
+                                <label id="label4">Country: <span class="required">*</span></label>
                             </div>
                             <div class="row">
                                 <!-- <?php echo $select_country1; ?> -->
-                                <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="highest_Country" formControlName="highest_Country">
+                                <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="authorizer.HighestQualifications.highest_Country" formControlName="highest_Country" [ngClass]="displayFieldCss('highestQulification.highest_Country')">
                                     <option>Sri Lanka</option>
                                     <option>India</option>
                                     <option>England</option>
@@ -201,7 +237,7 @@
 
                         <div class="col-md-2">
                             <div class="row">
-                                <label id="label5">Year of completion</label>
+                                <label id="label5">Year of completion: <span class="required">*</span></label>
                             </div>
                             <div class="row">
                                 <!-- <?php
@@ -219,7 +255,7 @@
                                     }               
                                     echo '</select>';
                                 ?> -->
-                                <select id="highest_Year" class="form-control form-control-sm quali1" [(ngModel)]="highest_Year" formControlName="highest_Year">
+                                <select id="highest_Year" class="form-control form-control-sm quali1" [(ngModel)]="authorizer.HighestQualifications.highest_Year" formControlName="highest_Year" [ngClass]="displayFieldCss('highestQulification.highest_Year')">
                                     <option>2017</option>
                                     <option>2016</option>
                                     <option>2015</option>
@@ -250,7 +286,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="row">
-                                <label id="label6">Qualification</label>
+                                <label id="label6">Qualification:</label>
                             </div>
                             <div class="row">
                                 <!-- <?php echo $select3; ?> -->
@@ -264,7 +300,7 @@
 
                         <div class="col-md-3">
                             <div class="row">
-                                <label id="label7">University / Institute</label>
+                                <label id="label7">University / Institute:</label>
                             </div>
                             <div class="row">
                                 <input id="uniName_row0" name="uniName_row[0]" formControlName="pro_institute_1" class="form-control form-control-sm" type="text">
@@ -273,7 +309,7 @@
 
                         <div class="col-md-2">
                             <div class="row">
-                                <label id="label8">Grade recieved</label>
+                                <label id="label8">Grade recieved:</label>
                             </div>
                             <div class="row">
                                 <!-- <?php echo $select4; ?> -->
@@ -287,7 +323,7 @@
 
                         <div class="col-md-2">
                             <div class="row">
-                                <label id="label9">Year of completion</label>
+                                <label id="label9">Year of completion:</label>
                             </div>
                             <div class="row">
                                 <!-- <?php
@@ -314,7 +350,7 @@
 
                         <div class="col-md-2">
                             <div class="row">
-                                <label id="label10">Country</label>
+                                <label id="label10">Country:</label>
                             </div>
                             <div class="row">
                                 <!-- <?php echo $select_country2; ?> -->

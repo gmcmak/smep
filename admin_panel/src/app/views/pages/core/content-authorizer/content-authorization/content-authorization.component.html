@@ -11,7 +11,8 @@
 <form id="userForm">
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fa fa-file-text-o"></i>&emsp;<b>Content Authorization Form</b>
+            <i class="fa fa-file-text-o"></i>&emsp;
+            <b>Content Authorization Form</b>
         </div>
         <div class="card-body">
             <div class="row">
@@ -19,52 +20,61 @@
                     <h6 class="subTitle">Search By :</h6>
                 </div>
             </div>
-           <div class="row">
+            <form id="form1" name="form1" [formGroup]="searchForm" (ngSubmit)="onSubmit()" action="">
+            <div class="row">
                 <div class="col-md-2"></div>
-               <div class="col-md-4">
-                   <label>Content Provider Identification No: </label>
-               </div>
-               <div class="col-md-4">
-                    <div class="input-group">
-                            <input class="form-control group-text" type="text" placeholder="Con-00001..">
-                            <span class="input-group-btn">
-                              <button class="btn btn-primary" type="button" id="providerSearchBtn">
-                                <i class="fa fa-search"></i>
-                              </button>
-                            </span>
-                          </div>
+                <div class="col-md-4">
+                    <label>Content Provider Identification No: </label>
                 </div>
-                <div class="col-md-2"></div>
-           </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="input-group">
+                            <input class="form-control group-text" type="text" placeholder="Con-00001.." formControlName="providerId" [(ngModel)]="providerId" [ngClass]="displayFieldCss('providerId')">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit" id="providerSearchBtn" [disabled]="!searchForm.valid">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="searchForm.controls['providerId'].hasError('required') && searchForm.controls['providerId'].touched"
+                        class="row error">
+                        Content provider ID is required !
+                    </div>
 
-           <br>
-          
-                
-            <div id="exTab2" class="container">	
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a [routerLink]="['ca-articles']" class="tab" data-toggle="tab">Articles(95)</a>
-                </li>
-                <li>
-                    <a  [routerLink]="['ca-case-study']" class="tab" data-toggle="tab">Case Study(50)</a>
-                </li>
-                <li>
-                    <a [routerLink]="['ca-books']" class="tab" data-toggle="tab">Books(45)</a>
-                </li>
-                <li>
-                    <a [routerLink]="['ca-images']" class="tab" data-toggle="tab">Images(30)</a>
-                </li>
-                <li>
-                    <a [routerLink]="['ca-audio-clip']" class="tab" data-toggle="tab">Audio Clips(15)</a>
-                </li>
-                <li>
-                    <a [routerLink]="['ca-video-clip']" class="tab" data-toggle="tab">Video Clips(25)</a>
-                </li>
-            </ul>
+                </div>
+                <div class="col-md-2"></div>   
+            </div>
+            </form>
+
             <br>
-            
-            <div class="tab-content ">
-                <!-- <div class="tab-pane active" id="1">
+
+
+            <div id="exTab2" class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a [routerLink]="['ca-articles']" class="tab" data-toggle="tab">Articles(95)</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ca-case-study']" class="tab" data-toggle="tab">Case Study(50)</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ca-books']" class="tab" data-toggle="tab">Books(45)</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ca-images']" class="tab" data-toggle="tab">Images(30)</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ca-audio-clip']" class="tab" data-toggle="tab">Audio Clips(15)</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ca-video-clip']" class="tab" data-toggle="tab">Video Clips(25)</a>
+                    </li>
+                </ul>
+                <br>
+
+                <div class="tab-content ">
+                    <!-- <div class="tab-pane active" id="1">
                     <h3>Standard tab panel created on bootstrap using nav-tabs</h3>
                 </div>
                 <div class="tab-pane" id="2">
@@ -73,8 +83,8 @@
                 <div class="tab-pane" id="3">
                     <h3>add clearfix to tab-content (see the css)</h3>
                 </div> -->
-                <router-outlet></router-outlet>
-            </div>
+                    <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>

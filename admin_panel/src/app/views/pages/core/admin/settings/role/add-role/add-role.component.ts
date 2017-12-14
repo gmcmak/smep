@@ -8,17 +8,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 
 export class AddRoleComponent implements OnInit{
-    public roleName: string;
-    public roleStatus: string;
-
-    ngOnInit(): void {
-        this.initializeRoleForm();
-    }
+    
+    public role = new Role();
 
     public roleForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
+    }
+
+    ngOnInit(): void {
+        this.initializeRoleForm();
     }
 
     private initializeRoleForm(): void {
@@ -53,5 +53,9 @@ export class AddRoleComponent implements OnInit{
             'is-valid': this.isFieldValid(field)
         };
     }
+}
 
+export class Role{
+    public roleName: string;
+    public roleStatus: string;
 }

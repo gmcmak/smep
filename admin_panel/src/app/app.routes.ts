@@ -65,6 +65,8 @@ import { CpBooksHistoryComponent } from './views/pages/core/content-provider/cp-
 import { CpCaseStudyHistoryComponent } from './views/pages/core/content-provider/cp-history/case-study/cp-case-study-history.component';
 import { CpImagesHistoryComponent } from './views/pages/core/content-provider/cp-history/images/cp-images-history.component';
 import { CpVideoClipHistoryComponent } from './views/pages/core/content-provider/cp-history/video-clip/cp-video-clip-history.component';
+import { AuthorizersComponent } from './views/pages/core/admin/institute/authorizers/authorizers.component';
+import { ProvidersComponent } from './views/pages/core/admin/institute/providers/providers.component';
 
 
 export const routes: Routes = [
@@ -88,6 +90,8 @@ export const routes: Routes = [
   //{ path: 'content-provider/individual/add-individual', component: AddIndividualComponent },
   { path: 'institute/view-institute', component: ViewInstituteComponent },
   { path: 'institute/add-institute', component: AddInstituteComponent },
+  { path: 'institute/authorizers', component: AuthorizersComponent},
+  { path: 'institute/providers', component: ProvidersComponent},
   { path: 'content-consumer/view-consumers', component: ViewConsumersComponent},
   { path: 'content-consumer/add-consumers', component: AddConsumersComponent},
   { path: 'reports/content-authorizer-report', component: ContentAuthorizerReportComponent},

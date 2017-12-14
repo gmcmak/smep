@@ -1,9 +1,13 @@
 import {Component,OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
 const NIC_REGEX = /^[0-9]{9}[VX]/;
 const MOBILE_REGEX = /^[0-9]{10}/;
+
+declare var $:any;
+declare var jQuery:any;
 
 @Component({
     selector: 'add-institute',
@@ -12,61 +16,58 @@ const MOBILE_REGEX = /^[0-9]{10}/;
 })
 
 export class AddInstituteComponent implements OnInit{
-    public instName: string;
-    public regNo: string;
-    public dateOfReg: string;
-    public adrz: string;
-    public mobileNum: string;
-    public instEmail:string;
-    public foreignUni:string;
-    public instId:string;
-    public check2:boolean;
 
-    public fullName:string;
-    public nameWithInitials:string;
-    public email:string;
-    public nic:string;
-    public mobile:string;
-    public designation:string;
-    public gender:string;
-    public dob:string;
-    public status:boolean;
-    public password1:string;
-    public password2:string;
+    public institute = new Institute();
+
+    public check2: boolean;
 
     public instituteForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
-
+        
     }
 
     ngOnInit(): void {
-       this.initializeInstituteForm();
+        this.initializeInstituteForm();
+
+        $("#dateOfReg").datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true
+        }).on('change', e => this.institute.dateOfReg = e.target.value);
+
+        $("#user_dob").datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true
+        }).on('change', e => this.institute.instUser.dob = e.target.value);
 
     }
 
     private initializeInstituteForm(): void{
         this.instituteForm = this.formBuilder.group({
-            'instName': [null, Validators.required],
-            'regNo': [null,Validators.required],
-            'dateOfReg': [null,Validators.required],
-            'adrz': [null, Validators.required],
-            'mobileNum': [null, [Validators.required, Validators.pattern(MOBILE_REGEX)]],
-            'instEmail': [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
-            'foreignUni': [null, Validators.required],
-            'instId': [null],
-            'check2':[null],
-            'user_fullName': [null, Validators.required],
-            'user_nameWithInitials': [null, Validators.required],
-            'user_email': [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
-            'user_nic': [null, [Validators.required, Validators.pattern(NIC_REGEX)]],
-            'user_mobile': [null, [Validators.required, Validators.pattern(MOBILE_REGEX)]],
-            'user_designation': [null, Validators.required],
-            'user_gender': [null, Validators.required],
-            'user_dob': [null, Validators.required],
-            'user_status': [null, Validators.required],
-            'user_password1': [null, Validators.required],
-            'user_password2': [null,Validators.required]   
+            instName: new FormControl(null, [Validators.required]),
+            regNo: new FormControl(null, [Validators.required]),
+            dateOfReg: new FormControl(null, [Validators.required]),
+            adrz: new FormControl(null, [Validators.required]),
+            mobileNum: new FormControl(null, [Validators.required, Validators.pattern(MOBILE_REGEX)]),
+            instEmail: new FormControl(null, [Validators.required, Validators.pattern(EMAIL_REGEX)]),
+            foreignUni: new FormControl(null, [Validators.required]),
+            instId: new FormControl('',[]),
+            check2: new FormControl('', [Validators.required]),
+            userInfo: new FormGroup({
+                user_fullName: new FormControl('', [Validators.required]),
+                user_nameWithInitials: new FormControl('', [Validators.required]),
+                user_email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
+                user_nic: new FormControl('', [Validators.required, Validators.pattern(NIC_REGEX)]),
+                user_mobile: new FormControl('', [Validators.required, Validators.pattern(MOBILE_REGEX)]),
+                user_designation: new FormControl('', [Validators.required]),
+                user_gender: new FormControl('', [Validators.required]),
+                user_dob: new FormControl('', [Validators.required]),
+                user_status: new FormControl('', [Validators.required])                
+            }),
+            user_password1: new FormControl('', [Validators.required]),
+            user_password2: new FormControl('', [Validators.required])    
         }, { validator: this.checkIfMatchingPasswords('user_password1', 'user_password2') });
     }
 
@@ -96,4 +97,32 @@ export class AddInstituteComponent implements OnInit{
         };
     }
     
+}
+
+export class Institute{
+
+    public instName: string;
+    public regNo: string;
+    public dateOfReg: string;
+    public adrz: string;
+    public mobileNum: string;
+    public instEmail: string;
+    public foreignUni: string;
+    public instId: string;
+    
+    public instUser = new InstUser();
+}
+
+export class InstUser{
+    public fullName: string;
+    public nameWithInitials: string;
+    public email: string;
+    public nic: string;
+    public mobile: string;
+    public designation: string;
+    public gender: string;
+    public dob: string;
+    public status: boolean;
+    public password1: string;
+    public password2: string;
 }

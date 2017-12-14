@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {FormControl,Validators,FormGroup, FormsModule} from "@angular/forms";
+import {FormControl,Validators,FormGroup, FormsModule, FormBuilder} from "@angular/forms";
 
 declare var $: any;
 declare var jQuery: any;
@@ -11,20 +11,28 @@ declare var jQuery: any;
 })
 
 export class ContentProviderReportComponent implements OnInit{
+
+    public providerInfo = new ProviderInfo();
+
+    public searchProvider: FormGroup;
+
+    constructor (private formBuilder: FormBuilder){
+
+    }
     ngOnInit(): void {
-        //throw new Error("Method not implemented.");
+        this.initializeProviderSearch();
 
         $("#cpFromDate").datepicker({
             dateFormat: 'dd/mm/yy',
             changeMonth: true,
             changeYear: true
-        });
+        }).on('change', e => this.providerInfo.cpFromDate = e.target.value);
 
         $("#cpToDate").datepicker({
             dateFormat: 'dd/mm/yy',
             changeMonth: true,
             changeYear: true
-        });
+        }).on('change', e => this.providerInfo.cpToDate = e.target.value);
 
         this.dataTable();
     }
@@ -35,13 +43,20 @@ export class ContentProviderReportComponent implements OnInit{
             "searching": false
         });
     }
-    public cpName: string;
     
-    searchProvider = new FormGroup({
-        cpName: new FormControl(''),
-        cpStatus: new FormControl(''),
-        cpFromDate: new FormControl(''),
-        cpToDate: new FormControl('')
-    });
+    private initializeProviderSearch(): void{
+        this.searchProvider = this.formBuilder.group({
+            'cpName': [null],
+            'cpStatus': [null],
+            'cpFromDate': [null],
+            'cpToDate': [null]
+        });
+    }
+}
 
+export class ProviderInfo{
+    public cpName: string;
+    public cpStatus: string;
+    public cpFromDate: string;
+    public cpToDate: string;
 }
