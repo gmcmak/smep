@@ -10,7 +10,10 @@
         <a>Add Users</a>
     </li>
 </ol>
-<form id="userForm" [formGroup]="userForm">
+
+<div class="alert alert-success" *ngIf="userRegisterStatus">{{userRegisterStatus}}</div>
+
+<form id="userForm" [formGroup]="userForm" #registerForm="ngForm" (ngSubmit)="addUser(registerForm.value)">
 <div class="card md-3">
     <div class="card-header">
         <b>User's Registration Form</b>
@@ -23,8 +26,7 @@
             <div class="col-md-4">
                 <select id="position" name="position" class="form-control form-control-sm drop" [(ngModel)]="user.admin_level" formControlName="role_id" [ngClass]="displayFieldCss('role_id')">
                     <!-- <option disabled value="selected">Select the post</option> -->
-                    <option value="1" selected>Super Administrator</option>
-                    <option value="2">Administrator</option>
+                    <option *ngFor="let record of rolesList"  [value]="record.id">{{record.name}}</option>
                 </select>
                 <div *ngIf="userForm.controls['role_id'].hasError('required') && userForm.controls['role_id'].touched" class="error">
                     Select the administrator level !
@@ -129,7 +131,7 @@
             <div class="col-md-4">
                 <label for="user_dob">Date of birth: <span class="required">*</span></label>
                 <input class="form-control form-control-sm" id="user_dob" type="text" name="user_dob" formControlName="user_dob" [(ngModel)]="user.dob"
-                    placeholder="dd/mm/yy" [ngClass]="displayFieldCss('user_dob')">
+                    placeholder="YYYY-MM-DD" [ngClass]="displayFieldCss('user_dob')">
         
                 <div *ngIf="userForm.controls['user_dob'].hasError('required') && userForm.controls['user_dob'].touched" class="error">
                     Date of birth is required !

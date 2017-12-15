@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Headers } from '@angular/http';
 import { LocalStorageStore } from '../../../../services/storage/local-storage.service';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 
@@ -49,6 +50,65 @@ export class UserService {
        .map((response: Response) => response.json());        
     }
 
+    /**
+     * get all roles list
+     * @return rolelist
+     */
+    getRolesList(){
+      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));  
+      let headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Authorization', 'Bearer '+this.loggedInUserList.token);
+      let body = '';
+      return this.http.get(this.API_ENDPOINT+'view-role', 
+          {
+            headers: headers
+          })
+       .map((response: Response) => response.json());  
+    }
+
+
+
+            // formData.user_fullName,
+            // formData.user_nameWithInitials,
+            // formData.user_email,
+            // formData.user_nic,
+            // formData.user_gender,
+            // formData.user_dob,
+            // formData.user_mobile,
+            // formData.user_designation,
+            // formData.user_status,
+            // formData.user_password1,
+            // formData.user_password2,
+            // formData.role_id,
+            // deleted=0    
+
+    addUser(name, name_with_initials, email, nic, gender, birthday, mobile, designation, status, password, c_password, role_id, deleted){
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      headers.append('Accept', 'application/json');
+      headers.append('Authorization', 'Bearer '+this.loggedInUserList.token);      
+      //let body = '';
+      let body = new URLSearchParams();
+      body.append('name', name);
+      body.append('name_with_initials', name_with_initials); 
+      body.append('email', email); 
+      body.append('nic', nic); 
+      body.append('gender', gender); 
+      body.append('birthday', birthday); 
+      body.append('mobile', mobile); 
+      body.append('designation', designation); 
+      body.append('status', status); 
+      body.append('password', password); 
+      body.append('c_password', c_password);
+      body.append('role_id', role_id);
+      body.append('deleted', deleted);    
+      return this.http.post(this.API_ENDPOINT+'register', body,
+          {
+            headers: headers
+          })
+       .map((response: Response) => response.json());        
+    }
 
 
 
