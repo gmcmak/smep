@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { equalSegments } from "@angular/router/src/url_tree";
+import { LocalStorageStore } from '../../../../../../services/storage/local-storage.service';
+import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
@@ -20,19 +22,23 @@ declare var jQuery: any;
 export class AddUsersComponent implements OnInit {
 
     public user = new User();
-    
-
+    private rolesList;
+    private deleted;
     public userForm: FormGroup;
+    private userRegisterStatus;
 
-    constructor(private formBuilder: FormBuilder) {
-
+    constructor(
+        private formBuilder: FormBuilder,
+        private UserService:UserService
+    ) {
+        this.getRoles();
     }
 
     ngOnInit(): void {
         this.initializeContentProviderForm();
 
         $("#user_dob").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.user.dob = e.target.value);
@@ -55,9 +61,37 @@ export class AddUsersComponent implements OnInit {
             'user_password1': [null, [Validators.required]],
             'user_password2': [null, [Validators.required]]
         }, { validator: this.checkIfMatchingPasswords('user_password1','user_password2') });
-
-       
     }
+
+
+    /**
+     * add user
+     * @param 
+     */
+    addUser(formData){
+        this.UserService.addUser(
+            formData.user_fullName,
+            formData.user_nameWithInitials,
+            formData.user_email,
+            formData.user_nic,
+            formData.user_gender,
+            formData.user_dob,
+            formData.user_mobile,
+            formData.user_designation,
+            formData.user_status,
+            formData.user_password1,
+            formData.user_password2,
+            formData.role_id,
+            this.deleted=0
+        ).subscribe( 
+            success => {
+                this.userRegisterStatus = success.success.message;
+            }
+        ); 
+    }
+
+
+
 
     checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
         return (group: FormGroup) => {
@@ -85,7 +119,20 @@ export class AddUsersComponent implements OnInit {
         };
     }
 
-    
+    /**
+     * get role list
+     * @param  
+     */
+    getRoles() {
+        this.UserService.getRolesList()
+            .subscribe( 
+                success => {
+                    this.rolesList = success;
+                }
+            );      
+    } 
+        
+   
 }
 
 export class User{
@@ -102,3 +149,4 @@ export class User{
     public password1: string;
     public password2: string;
 }
+
