@@ -49,7 +49,7 @@ class AuthorController extends Controller
       $table = new Author();
       $data = DB::table('authors')->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);

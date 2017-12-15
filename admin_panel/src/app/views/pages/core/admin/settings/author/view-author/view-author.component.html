@@ -24,7 +24,6 @@
             <table class="table table-bordered" id="authorsTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>English</th>
                         <th>Sinhala</th>
                         <th>Tamil</th>
@@ -36,27 +35,10 @@
 
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>John</td>
-                        <td>ජෝන්</td>
-                        <td>ஜான்</td>
-                        <td align="center">
-                            <a href="">
-                                <li class="fa  fa-1x fa-pencil-square-o"></li>
-                            </a>
-                        </td>
-                        <td align="center">
-                            <a data-toggle="modal" data-target="#deleteModal">
-                                <li class="fa  fa-1x fa-trash"></li>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>John2</td>
-                        <td>ජෝන්2</td>
-                        <td>ஜான்2</td>
+                    <tr *ngFor="let record of authorList">
+                        <td>{{record.en_name}}</td>
+                        <td>{{record.si_name}}</td>
+                        <td>{{record.ta_name}}</td>
                         <td align="center">
                             <a href="">
                                 <li class="fa  fa-1x fa-pencil-square-o"></li>

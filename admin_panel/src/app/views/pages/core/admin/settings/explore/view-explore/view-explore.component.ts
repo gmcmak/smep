@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import { ExploreService } from '../../../../../../../services/businessservices/core/settings/explore.service';
+import { Router } from '@angular/router';
+import { LocalStorageService } from 'angular-2-local-storage/dist/local-storage.service';
 
 declare var $: any;
 declare var jQuery: any;
@@ -10,8 +13,19 @@ declare var jQuery: any;
 })
 
 export class ViewExploreComponent implements OnInit{
+
+    public exploreList;
+    private loggedInUserList;
+    
+    constructor(
+        private ExploreService: ExploreService,
+        private router: Router,
+        private localStorageService: LocalStorageService
+    ){}
+
     ngOnInit(): void {
         this.dataTable();
+        this.getExplores();
     }
 
 
@@ -22,5 +36,11 @@ export class ViewExploreComponent implements OnInit{
             }
 
         });
+    }
+
+    getExplores(){
+
+        this.ExploreService.getExploresList()
+            .subscribe(success =>{this.exploreList = success.success});
     }
 }

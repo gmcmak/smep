@@ -49,7 +49,7 @@ class CategoryController extends Controller
       $table = new Category();
       $data = DB::table('categories')->where('deleted', 0)->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);

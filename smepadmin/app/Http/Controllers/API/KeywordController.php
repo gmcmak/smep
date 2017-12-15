@@ -45,7 +45,7 @@ class KeywordController extends Controller
       $table = new Keyword();
       $data = DB::table('keywords')->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return reponse()->json(['error'=>'Error occured']);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ActivatedRoute, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
@@ -8,8 +8,10 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { ToastCommunicationService } from '../../../services/toast/toast-communication.service';
 import { UserService } from "../../../services/businessservices/core/user/user.service";
 
-import { FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 import { LocalStorageStore } from '../../../services/storage/local-storage.service';
+
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
 
 @Component({
     selector: 'login',
@@ -17,10 +19,17 @@ import { LocalStorageStore } from '../../../services/storage/local-storage.servi
     styleUrls: ['login.component.css']
 })
 
-export class LoginComponent{
+export class LoginComponent implements OnInit{
+
+    ngOnInit(): void {
+        this.initializeLoginForm();
+    }
+
     private subscribe:any;
     private username;
     loggedInUserList: any[];
+
+    public ngForm: FormGroup;
 
     constructor(
         private translate: TranslateService, 
@@ -30,13 +39,24 @@ export class LoginComponent{
         private toastCommunicationService: ToastCommunicationService, 
         private UserService:UserService,
         private localStorageService: LocalStorageStore,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private formBuilder: FormBuilder
     ) {
     }
 
     /**
+     * validate login form
+     */
+    initializeLoginForm(){
+        this.ngForm = this.formBuilder.group({
+            'email': [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
+            'password': [null, [Validators.required]]
+        });
+    }
+
+    /**
      * login data capture
-     * @param form 
+     * @param form
      */
     login(form) {
         this.UserService.getLogin(form.email, form.password)
@@ -49,7 +69,18 @@ export class LoginComponent{
                     }
                 }
             );      
-    }    
+    }
+    
+    public isFieldValid(field: string) {
+        return !this.ngForm.get(field).valid && this.ngForm.get(field).touched;
+    }
+
+    public displayFieldCss(field: string) {
+        return {
+            'is-invalid': this.isFieldValid(field),
+            'is-valid': this.isFieldValid(field)
+        };
+    }
 
 
 }

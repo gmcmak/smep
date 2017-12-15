@@ -2,14 +2,27 @@
     <div class="card card-login mx-auto mt-5">
         <div class="card-header"><h6>Login</h6></div>
         <div class="card-body">
-            <form method="post" #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+            <form method="post" [formGroup]="ngForm" (ngSubmit)="login(ngForm.value)">
                 <div class="form-group">
-                    <label for="identificationNo">Email Address:*</label>
-                    <input class="form-control" id="email" type="email" aria-describedby="emailHelp" name="email" ngModel placeholder="Enter email"/>
+                    <label for="identificationNo">Email Address: <span class="required">*</span></label>
+                    <input class="form-control" id="email" type="email" aria-describedby="emailHelp" name="email" ngModel placeholder="Enter email"
+                    formControlName="email" [(ngModel)]="email" [ngClass]="displayFieldCss('email')"/>
+
+                    <div *ngIf="ngForm.controls['email'].hasError('required') && ngForm.controls['email'].touched" class="error">
+                        Email is required !
+                    </div>
+                    <div *ngIf="ngForm.controls['email'].hasError('pattern') && ngForm.controls['email'].touched" class="error">
+                        Email is not valid !
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="pasword">Password:*</label>
-                    <input class="form-control" id="password" type="password" placeholder="Password" ngModel name="password"/>
+                    <label for="pasword">Password: <span class="required">*</span></label>
+                    <input class="form-control" id="password" type="password" placeholder="Password" ngModel name="password"
+                    formControlName="password" [(ngModel)]="password" [ngClass]="displayFieldCss('password')"/>
+
+                    <div *ngIf="ngForm.controls['password'].hasError('required') && ngForm.controls['password'].touched" class="error">
+                        Password is required !
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="form-check">
@@ -17,7 +30,7 @@
                             <input class="form-check-input" type="checkbox"> Remember Password</label>
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary btn-block" name="submit" value="Login"/>
+                <input type="submit" class="btn btn-primary btn-block" name="submit" value="Login" [disabled]="!ngForm.valid"/>
             </form>
             <div class="text-center">
                 <a class="d-block small" href="">Forgot Password?</a>

@@ -35,72 +35,12 @@
 
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Super Administrator</td>
+                    <tr *ngFor="let record of roleList; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{record.name}}</td>
                         <td align="center">
                             <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
-                        <td align="center">
-                            <a href="">
-                                <li class="fa  fa-1x fa-pencil-square-o"></li>
-                            </a>
-                        </td>
-                        <td align="center">
-                            <a data-toggle="modal" data-target="#deleteModal">
-                                <li class="fa  fa-1x fa-trash"></li>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Administrator</td>
-                        <td align="center">
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
-                        <td align="center">
-                            <a href="">
-                                <li class="fa  fa-1x fa-pencil-square-o"></li>
-                            </a>
-                        </td>
-                        <td align="center">
-                            <a data-toggle="modal" data-target="#deleteModal">
-                                <li class="fa  fa-1x fa-trash"></li>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Provider</td>
-                        <td align="center">
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
-                        <td align="center">
-                            <a href="">
-                                <li class="fa  fa-1x fa-pencil-square-o"></li>
-                            </a>
-                        </td>
-                        <td align="center">
-                            <a data-toggle="modal" data-target="#deleteModal">
-                                <li class="fa  fa-1x fa-trash"></li>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Authorizer</td>
-                        <td align="center">
-                            <label class="switch">
-                                <input type="checkbox">
+                                <input type="checkbox" [(ngModel)]="record.status">
                                 <span class="slider round"></span>
                             </label>
                         </td>

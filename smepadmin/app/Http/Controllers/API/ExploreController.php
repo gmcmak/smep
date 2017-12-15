@@ -17,7 +17,7 @@ class ExploreController extends Controller
         $explore = Explore::where([
             ['deleted', '=', '0'],
         ])->get();
-        return response()->json($explore);
+        return response()->json(['success'=>$explore]);
     }
 
     /**

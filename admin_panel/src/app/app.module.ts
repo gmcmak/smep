@@ -122,6 +122,11 @@ import { CpImagesHistoryComponent } from './views/pages/core/content-provider/cp
 import { CpVideoClipHistoryComponent } from './views/pages/core/content-provider/cp-history/video-clip/cp-video-clip-history.component';
 import { AuthorizersComponent } from './views/pages/core/admin/institute/authorizers/authorizers.component';
 import { ProvidersComponent } from './views/pages/core/admin/institute/providers/providers.component';
+import { AuthorService } from './services/businessservices/core/settings/author.service';
+import { CategoryService } from './services/businessservices/core/settings/category.service';
+import { ExploreService } from './services/businessservices/core/settings/explore.service';
+import { KeywordService } from './services/businessservices/core/settings/keyword.service';
+import { RoleService } from './services/businessservices/core/settings/role.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -248,6 +253,11 @@ export function startupServiceFactory(startupService: StartupService): Function 
       multi: true
     },
     UserService,
+    AuthorService,
+    CategoryService,
+    ExploreService,
+    KeywordService,
+    RoleService,
     ToastService,
     ToastCommunicationService,
     DialogsService,

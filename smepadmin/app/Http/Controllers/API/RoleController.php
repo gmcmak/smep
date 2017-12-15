@@ -47,7 +47,7 @@ class RoleController extends Controller
     public function viewRoles(){
       $data = DB::table('roles')->where('deleted', 0)->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);
