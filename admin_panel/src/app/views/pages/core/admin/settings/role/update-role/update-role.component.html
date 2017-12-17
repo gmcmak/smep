@@ -1,0 +1,78 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/author/view-author']">Settings</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/role/view-role']">Role</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Update Role</a>
+    </li>
+</ol>
+
+<form id="roleForm" [formGroup]="roleForm">
+    <div class="card mb-3">
+        <div class="card-header">
+            <b>Role Updating Form</b>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="roleName">Role Name:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="roleName" type="text" name="role_name" formControlName="role_name" [(ngModel)]="roleName"
+                        placeholder="Administrator" [ngClass]="displayFieldCss('role_name')">
+
+                    <div *ngIf="roleForm.controls['role_name'].hasError('required') && roleForm.controls['role_name'].touched" class="error">
+                        Role is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="status">Status (Enable/Disable):
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <select id="status" name="status" class="form-control form-control-sm drop" [(ngModel)]="roleStatus" formControlName="role_status"
+                        [ngClass]="displayFieldCss('role_status')">
+                        <!-- <option disabled value="selected">Select the post</option> -->
+                        <option value="1" selected>Enable</option>
+                        <option value="0">Disable</option>
+                    </select>
+                    <div *ngIf="roleForm.controls['role_status'].hasError('required') && roleForm.controls['role_status'].touched" class="error">
+                        Select the status !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-5" align="right">
+                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Reset</button>
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Submit</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>

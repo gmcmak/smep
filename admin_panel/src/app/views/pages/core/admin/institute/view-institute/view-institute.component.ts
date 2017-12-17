@@ -1,4 +1,7 @@
 import {Component,OnInit} from '@angular/core';
+import { InstituteService } from '../../../../../../services/businessservices/core/institute/institute.service';
+import { Router } from '@angular/router';
+import { LocalStorageStore } from '../../../../../../services/storage/local-storage.service';
 
 declare var $: any;
 declare var jQuery: any;
@@ -10,9 +13,20 @@ declare var jQuery: any;
 })
 
 export class ViewInstituteComponent implements OnInit{
+
+    public instituteList;
+    private loggedInUserList;
+
     ngOnInit(): void {
         this.dataTable();
+        this.getInstitutes();
     }
+
+    constructor(
+        private InstituteService: InstituteService,
+        private router: Router,
+        private localStorageService: LocalStorageStore,
+    ) { }
 
     dataTable() {
         $('#instituteTable').DataTable({
@@ -21,5 +35,18 @@ export class ViewInstituteComponent implements OnInit{
             }
         });
     }
+
+    /**
+   * institute data list
+   * @param  
+   */
+    getInstitutes() {
+        this.InstituteService.getInstitutesList()
+            .subscribe(
+            success => {
+                this.instituteList = success.success;
+            }
+            );
+    } 
 
 }

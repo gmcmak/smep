@@ -21,6 +21,7 @@
             <table class="table table-bordered" id="instituteTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Institute Name</th>
                         <th>Reg. No</th>
                         <th>Reg.Date</th>
@@ -36,40 +37,17 @@
 
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>SLIIT</td>
-                        <td>Inst-00001</td>
-                        <td>05-02-1993</td>
-                        <td>sliit@gmail.com</td>
-                        <td>0114789956</td>
-                        <td>No 60, Malabe</td>
+                    <tr *ngFor="let record of instituteList; let i = index" [attr.data-index]="i">
+                        <td>{{i+1}}</td>
+                        <td>{{record.name}}</td>
+                        <td>{{record.registration_number}}</td>
+                        <td>{{record.registered_date}}</td>
+                        <td>{{record.email}}</td>
+                        <td>{{record.contact_number}}</td>
+                        <td>{{record.address}}</td>
                         <td align="center">
                             <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
-                        <td align="center">
-                            <a href="">
-                                <li class="fa  fa-1x fa-pencil-square-o"></li>
-                            </a>
-                        </td>
-                        <td align="center">
-                            <a data-toggle="modal" data-target="#deleteModal">
-                                <li class="fa  fa-1x fa-trash"></li>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>NSBM</td>
-                        <td>Inst-00005</td>
-                        <td>05-01-1993</td>
-                        <td>nsbm@gmail.com</td>
-                        <td>0114789444</td>
-                        <td>No 60, Pitipana, Homagama</td>
-                        <td align="center">
-                            <label class="switch">
-                                <input type="checkbox">
+                                <input type="checkbox" [(ngModel)]="record.status">
                                 <span class="slider round"></span>
                             </label>
                         </td>

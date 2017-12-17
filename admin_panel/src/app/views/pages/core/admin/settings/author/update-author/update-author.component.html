@@ -10,25 +10,27 @@
         <a [routerLink]="['../../../settings/author/view-author']">Author</a>
     </li>
     <li class="breadcrumb-item">
-        <a>Add Author</a>
+        <a>Update Author</a>
     </li>
 </ol>
 
 <form id="authorForm" [formGroup]="authorForm">
     <div class="card mb-3">
         <div class="card-header">
-            <b>Author Adding Form</b>
+            <b>Author's Updating Form</b>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-3">
-                    <label for="englishName">English Name: <span class="required">*</span></label>
+                    <label for="englishName">English Name:
+                        <span class="required">*</span>
+                    </label>
                 </div>
                 <div class="col-md-5">
                     <input class="form-control form-control-sm" id="englishName" type="text" name="english_name" formControlName="english_name"
                         [(ngModel)]="englishName" placeholder="Jhone" [ngClass]="displayFieldCss('english_name')">
-                    
+
                     <div *ngIf="authorForm.controls['english_name'].hasError('required') && authorForm.controls['english_name'].touched" class="error">
                         English name is required !
                     </div>
@@ -39,12 +41,14 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-3">
-                    <label for="sinhalaName">Sinhala Name: <span class="required">*</span></label>
+                    <label for="sinhalaName">Sinhala Name:
+                        <span class="required">*</span>
+                    </label>
                 </div>
                 <div class="col-md-5">
                     <input class="form-control form-control-sm" id="sinhalaName" type="text" name="sinhala_name" formControlName="sinhala_name"
                         [(ngModel)]="sinhalaName" placeholder="ජෝන්" [ngClass]="displayFieldCss('sinhala_name')">
-            
+
                     <div *ngIf="authorForm.controls['sinhala_name'].hasError('required') && authorForm.controls['sinhala_name'].touched" class="error">
                         Sinhala name is required !
                     </div>
@@ -55,12 +59,14 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-3">
-                    <label for="tamilName">Tamil Name: <span class="required">*</span></label>
+                    <label for="tamilName">Tamil Name:
+                        <span class="required">*</span>
+                    </label>
                 </div>
                 <div class="col-md-5">
-                    <input class="form-control form-control-sm" id="tamilName" type="text" name="tamil_name" formControlName="tamil_name"
-                        [(ngModel)]="tamilName" placeholder="ஜான்" [ngClass]="displayFieldCss('tamil_name')">
-            
+                    <input class="form-control form-control-sm" id="tamilName" type="text" name="tamil_name" formControlName="tamil_name" [(ngModel)]="tamilName"
+                        placeholder="ஜான்" [ngClass]="displayFieldCss('tamil_name')">
+
                     <div *ngIf="authorForm.controls['tamil_name'].hasError('required') && authorForm.controls['tamil_name'].touched" class="error">
                         Tamil name is required !
                     </div>
@@ -72,7 +78,8 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-3"></div>
-                <div class="col-md-5">
+                <div class="col-md-5" align="right">
+                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!authorForm.valid">Reset</button>
                     <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!authorForm.valid">Submit</button>
                 </div>
                 <div class="col-md-2"></div>

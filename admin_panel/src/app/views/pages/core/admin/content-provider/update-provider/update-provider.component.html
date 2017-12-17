@@ -1,0 +1,572 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../content-provider/view-providers']">Content Provider</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Update Providers</a>
+    </li>
+</ol>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-file-o"></i>&emsp;
+        <b>Content Provider Updating Form</b>
+    </div>
+    <form id="form1" name="form1" method="POST" [formGroup]="individualForm" (ngSubmit)="onSubmit()" action="">
+        <div id="individual-category">
+            <!--individual form-->
+            <div class="row">
+                <div id="title1" class="col-md-12">
+                    <h6 class="subTitle">Personal info,</h6>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input mdInput type="text" id="cpName" name="cpName" class="form-control form-control-sm" placeholder="Full Name: *" [(ngModel)]="provider.cpName"
+                        formControlName="cpName" [ngClass]="displayFieldCss('cpName')">
+
+                    <div *ngIf="individualForm.controls['cpName'].hasError('required') && individualForm.controls['cpName'].touched" class="error">
+                        Full name is required !
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <input id="cpFullName" name="cpFullName" class="form-control form-control-sm" type="text" placeholder="Name with Initials: *"
+                        [(ngModel)]="provider.cpFullName" formControlName="cpFullName" [ngClass]="displayFieldCss('cpFullName')">
+
+                    <div *ngIf="individualForm.controls['cpFullName'].hasError('required') && individualForm.controls['cpFullName'].touched"
+                        class="error">
+                        Name with initials is required !
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div id="label_dob" class="col-md-5">
+                            <label id="labelGender">Gender:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div id="gender1" class="col-md-7">
+                            <select id="gender" name="gender" class="form-control form-control-sm" [(ngModel)]="provider.gender" formControlName="gender"
+                                [ngClass]="displayFieldCss('gender')">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+
+                            <div *ngIf="individualForm.controls['gender'].hasError('required') && individualForm.controls['gender'].touched" class="error">
+                                Gender is required !
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <input id="cpNic" name="cpNic" class="form-control form-control-sm" type="text" placeholder="N.I.C: *" [(ngModel)]="provider.cpNic"
+                        formControlName="cpNic" maxlength="10" [ngClass]="displayFieldCss('cpNic')">
+
+                    <div *ngIf="individualForm.controls['cpNic'].hasError('required') && individualForm.controls['cpNic'].touched" class="error">
+                        N.I.C is required !
+                    </div>
+                    <div *ngIf="individualForm.controls['cpNic'].hasError('pattern') && individualForm.controls['cpNic'].touched" class="error">
+                        Invalid N.I.C number !
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input id="cpDesignation" name="cpDesignation" class="form-control form-control-sm" type="text" placeholder="Designation: *"
+                        [(ngModel)]="provider.cpDesignation" formControlName="cpDesignation" [ngClass]="displayFieldCss('cpDesignation')">
+
+                    <div *ngIf="individualForm.controls['cpDesignation'].hasError('required') && individualForm.controls['cpDesignation'].touched"
+                        class="error">
+                        Designation is required !
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div id="label_dob" class="col-md-5">
+                            <label id="labelDob">Date of Birth:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div id="dob" class="col-md-7">
+                            <input type="text" id="cpDob" name="cpDob" class="form-control form-control-sm" [(ngModel)]="provider.cpDob" formControlName="cpDob"
+                                placeholder="dd/mm/yy" [ngClass]="displayFieldCss('cpDob')">
+
+                            <div *ngIf="individualForm.controls['cpDob'].hasError('required') && individualForm.controls['cpDob'].touched" class="error">
+                                Date of birth is required !
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" id="cpEmail" name="cpEmail" class="form-control form-control-sm" type="text" placeholder="Email: *" [(ngModel)]="provider.cpEmail"
+                        formControlName="cpEmail" [ngClass]="displayFieldCss('cpEmail')">
+
+                    <div *ngIf="individualForm.controls['cpEmail'].hasError('required') && individualForm.controls['cpEmail'].touched" class="error">
+                        Email is required !
+                    </div>
+                    <div *ngIf="individualForm.controls['cpEmail'].hasError('pattern') && individualForm.controls['cpEmail'].touched" class="error">
+                        Invalid email !
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <input id="cpMobile" name="cpMobile" class="form-control form-control-sm" type="text" placeholder="Contact No: *" maxlength="10"
+                        [(ngModel)]="provider.cpMobile" formControlName="cpMobile" [ngClass]="displayFieldCss('cpMobile')">
+
+                    <div *ngIf="individualForm.controls['cpMobile'].hasError('required') && individualForm.controls['cpMobile'].touched" class="error">
+                        Contact number is required !
+                    </div>
+                    <div *ngIf="individualForm.controls['cpMobile'].hasError('pattern') && individualForm.controls['cpMobile'].touched" class="error">
+                        Invalid phone number !
+                    </div>
+                    <div *ngIf="individualForm.controls['cpMobile'].hasError('minLength') && individualForm.controls['cpMobile'].touched" class="error">
+                        Incorrect phone number !
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input id="cpPassword1" name="cpPassword1" class="form-control form-control-sm" type="password" placeholder="Password: *"
+                        [(ngModel)]="provider.cpPassword1" formControlName="cpPassword1" [ngClass]="displayFieldCss('cpPassword1')">
+
+                    <div *ngIf="individualForm.controls['cpPassword1'].hasError('required') && individualForm.controls['cpPassword1'].touched"
+                        class="error">
+                        Password is required !
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input id="cpPassword2" name="cpPassword2" class="form-control form-control-sm" type="password" placeholder="Confirm Password: *"
+                        [(ngModel)]="provider.cpPassword2" formControlName="cpPassword2" [ngClass]="displayFieldCss('cpPassword2')">
+
+                    <div *ngIf="individualForm.controls['cpPassword2'].hasError('required') && individualForm.controls['cpPassword2'].touched"
+                        class="error">
+                        Confirm password is required !
+                    </div>
+                    <div *ngIf="individualForm.controls['cpPassword2'].hasError('notEquivalent') && individualForm.controls['cpPassword2'].touched"
+                        class="error">
+                        Passwords are not matched !
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+
+            <!--Highest education qualification-->
+            <div class="row">
+                <div class="col-md-12">
+                    <h6 class="subTitle">Highest education level achieved,</h6>
+                </div>
+            </div>
+
+            <div formGroupName="highestQulification">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label id="label1">Qualification Achieved:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <input id="highest_quali" name="highest_quali" class="form-control form-control-sm" type="text" [(ngModel)]="provider.highestQualification.highest_quali"
+                                formControlName="highest_quali" [ngClass]="displayFieldCss('highestQulification.highest_quali')">
+                        </div>
+                        <div *ngIf="individualForm.controls['highestQulification'].controls['highest_quali'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_quali'].touched"
+                            class="error">
+                            Required !
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label id="label2">University / Institute:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <input id="highest_uni" name="highest_uni" class="form-control form-control-sm" type="text" [(ngModel)]="provider.highestQualification.highest_uni"
+                                formControlName="highest_uni" [ngClass]="displayFieldCss('highestQulification.highest_uni')">
+                        </div>
+                        <div *ngIf="individualForm.controls['highestQulification'].controls['highest_uni'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_uni'].touched"
+                            class="error">
+                            Required !
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label3">Grade recieved:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <input id="highest_grade" name="highest_grade" class="form-control form-control-sm" type="text" [(ngModel)]="provider.highestQualification.highest_grade"
+                                formControlName="highest_grade" [ngClass]="displayFieldCss('highestQulification.highest_grade')">
+                        </div>
+                        <div *ngIf="individualForm.controls['highestQulification'].controls['highest_grade'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_grade'].touched"
+                            class="error">
+                            Required !
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label4">Country:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="provider.highestQualification.highest_Country"
+                                formControlName="highest_Country" [ngClass]="displayFieldCss('highestQulification.highest_Country')">
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>England</option>
+                            </select>
+                        </div>
+                        <div *ngIf="individualForm.controls['highestQulification'].controls['highest_Country'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_Country'].touched"
+                            class="error">
+                            Required !
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label5">Year of completion:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <select id="highest_Year" class="form-control form-control-sm quali1" [(ngModel)]="provider.highestQualification.highest_Year"
+                                formControlName="highest_Year" [ngClass]="displayFieldCss('highestQulification.highest_Year')">
+                                <option>2017</option>
+                                <option>2016</option>
+                                <option>2015</option>
+                            </select>
+                        </div>
+                        <div *ngIf="individualForm.controls['highestQulification'].controls['highest_Year'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_Year'].touched"
+                            class="error">
+                            Required !
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+
+            <!--Professional qualification-->
+            <div class="row">
+                <div class="col-md-12">
+                    <h6 class="subTitle">Professional qualification details,</h6>
+                </div>
+            </div>
+
+            <div formGroupName="professionalQualification">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label6">Qualification achieved:</label>
+                        </div>
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_1">
+                                <option>CIMA</option>
+                                <option>SLIIT</option>
+                                <option>NSBM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label id="label7">University / Institute:</label>
+                        </div>
+                        <div class="row">
+                            <input id="uniName_row0" name="uniName_row[0]" formControlName="pro_institute_1" class="form-control form-control-sm" type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label8">Grade recieved:</label>
+                        </div>
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_1">
+                                <option>First class</option>
+                                <option>Second Upper</option>
+                                <option>Second Lower</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label9">Year of completion:</label>
+                        </div>
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_year_1">
+                                <option>2017</option>
+                                <option>2016</option>
+                                <option>2015</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <label id="label10">Country:</label>
+                        </div>
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_country_1">
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>England</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <div class="row">
+
+                        </div>
+                        <div class="row">
+                            <button id="add_btn_row1" type="button" (click)="show_row2()" class="btn btn-info">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--second row-->
+                <div id="row_2" class="row" style="display:none; width:100%;">
+                    <div class="col-md-2">
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_2">
+                                <option>CIMA</option>
+                                <option>SLIIT</option>
+                                <option>NSBM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row">
+                            <input id="uniName_row1" name="uniName_row[1]" formControlName="pro_institute_2" class="form-control form-control-sm" type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_2">
+                                <option>First class</option>
+                                <option>Second Upper</option>
+                                <option>Second Lower</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_year_2">
+                                <option>2017</option>
+                                <option>2016</option>
+                                <option>2015</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_country_2">
+                                <option>Sri Lanka</option>
+                                <option>India</option>
+                                <option>England</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="x2" class="col-md-1">
+                        <div class="row">
+                            <button id="remove_btn_row2" (click)="hide_row2()" type="button" class="btn btn-info">-</button>
+                            <button id="add_btn_row2" (click)="show_row3()" type="button" class="btn btn-info">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--third row-->
+                <div id="row_3" class="row" style="display:none;">
+                    <div class="col-md-2">
+                        <select class="form-control form-control-sm quali2" formControlName="pro_qualification_3">
+                            <option>CIMA</option>
+                            <option>SLIIT</option>
+                            <option>NSBM</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <input id="uniName_row2" name="uniName_row[2]" formControlName="pro_institute_3" class="form-control form-control-sm" type="text">
+                    </div>
+
+                    <div class="col-md-2">
+                        <select class="form-control form-control-sm quali2" formControlName="pro_grade_3">
+                            <option>First class</option>
+                            <option>Second Upper</option>
+                            <option>Second Lower</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <select class="form-control form-control-sm quali2" formControlName="pro_year_3">
+                            <option>2017</option>
+                            <option>2016</option>
+                            <option>2015</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <select class="form-control form-control-sm quali2" formControlName="pro_country_3">
+                            <option>Sri Lanka</option>
+                            <option>India</option>
+                            <option>England</option>
+                        </select>
+                    </div>
+
+                    <div id="x1" class="col-md-1">
+                        <button id="remove_btn_row3" type="button" (click)="hide_row3()" class="btn btn-info">-</button>
+                        <!--<button id="add_btn_row3" type="button" class="btn btn-info" style="">-</button>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+
+            <br>
+            <!--expertise subject-->
+            <!--Subject fo areas expertise-->
+            <div formGroupName="otherInfo">
+                <div class="row">
+                    <div id="x3" class="col-md-3">
+                        <h6 class="subTitle">Subject Area of Expertise:</h6>
+                    </div>
+
+                    <div class="col-md-3">
+                        <select class="form-control form-control-sm quali2" formControlName="expert1">
+                            <option>Management</option>
+                            <option>IT</option>
+                            <option>Science</option>
+                        </select>
+                        <button id="add_subject_btn1" type="button" (click)="add_subject2()" class="btn btn-info">+</button>
+                    </div>
+
+                    <div class="col-md-3">
+                        <select id="expert_subject2" class="form-control form-control-sm" formControlName="expert2">
+                            <option>Management</option>
+                            <option>IT</option>
+                            <option>Science</option>
+                        </select>
+                        <button name="remove_subject_btn2" id="remove_subject_btn2" type="button" (click)="remove_subject2()" class="btn btn-info">-</button>
+                        <button id="add_subject_btn2" type="button" (click)="add_subject3()" class="btn btn-info">+</button>
+                    </div>
+
+                    <div class="col-md-3">
+                        <select id="expert_subject3" class="form-control form-control-sm" formControlName="expert3">
+                            <option>Management</option>
+                            <option>IT</option>
+                            <option>Science</option>
+                        </select>
+                        <button id="add_subject_btn3" type="button" class="btn btn-info">+</button>
+                        <button name="remove_subject_btn3" id="remove_subject_btn3" type="button" (click)="remove_subject3()" class="btn btn-info">-</button>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <hr>
+                </div>
+
+                <!--Content Provider Identification No:-->
+                <div class="row">
+                    <div id="x4" class="col-md-4">
+                        <h6 class="subTitle">Content Provider Identification No:</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <input name="cpId" id="cpId" class="form-control form-control-sm" type="text" value="<?php echo $cp_id; ?>" readonly><br> -->
+                        <input id="cpId" name="cpId" class="form-control form-control-sm" type="text" readonly formControlName="cpId">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+
+            <!--Terms &amp; conditions-->
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea id="terms" name="terms" class="form-control" id="exampleFormControlTextarea1" rows="5" col="1" placeholder="Terms &amp; Conditions"
+                        readonly></textarea>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    &emsp;&emsp;
+                    <input type="checkbox" id="check1" name="check1" class="form-check-input" [(ngModel)]="checkBox" formControlName="check1">
+                    <label>&nbsp;&nbsp;&nbsp;I hereby acknowledge that I have read and agree to the above terms and conditions</label>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <!-- <div class="error" *ngIf="checkBoxControl.hasError('required')">
+                                Required
+                            </div> -->
+
+            <div id="form1_submit_row" class="row">
+                <div class="col-md-8">
+                    <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
+                </div>
+                <div class="col-md-4" align="right">
+                    &emsp;
+                    <button type="submit" id="submit2" name="submit2" class="btn-primary search_btn" [disabled]="!individualForm.valid">Reser</button>
+                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!individualForm.valid" (click)="submitForm1()">Update</button>
+                    <!-- <button type="submit" id="cancel1" name="cancel1" class="btn-primary search_btn">Cancel</button> -->
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+        <!--end of individual form-->
+    </form>
+</div>
+
+<br>
+<br>

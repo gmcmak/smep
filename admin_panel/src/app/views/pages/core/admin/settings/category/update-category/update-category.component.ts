@@ -1,34 +1,31 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-declare var $: any;
-declare var jQuery: any;
-
 @Component({
-    selector: 'add-keyword',
-    templateUrl: 'add-keyword.component.html',
-    styleUrls: ['add-keyword.component.css']
+    selector: 'update-category',
+    templateUrl: 'update-category.component.html',
+    styleUrls: ['update-category.component.css']
 })
 
-export class AddKeywordComponent implements OnInit{
-    
-    public keyword = new Keyword();
+export class UpdateCategoryComponent implements OnInit{
+    public category = new Category();
 
-    public keywordForm: FormGroup;
+    public categoryForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
     }
 
     ngOnInit(): void {
-        this.initializeKeywordForm();
+        this.initializeCategoryForm();
     }
 
-    private initializeKeywordForm(): void {
-        this.keywordForm = this.formBuilder.group({
+    private initializeCategoryForm(): void {
+        this.categoryForm = this.formBuilder.group({
             'english_name': [null, [Validators.required]],
             'sinhala_name': [null, [Validators.required]],
             'tamil_name': [null, [Validators.required]],
+            'category_status': [null, [Validators.required]],
         });
     }
 
@@ -48,7 +45,7 @@ export class AddKeywordComponent implements OnInit{
     }
 
     public isFieldValid(field: string) {
-        return !this.keywordForm.get(field).valid && this.keywordForm.get(field).touched;
+        return !this.categoryForm.get(field).valid && this.categoryForm.get(field).touched;
     }
 
     public displayFieldCss(field: string) {
@@ -56,11 +53,12 @@ export class AddKeywordComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }
+    }  
 }
 
-export class Keyword{
+export class Category {
     public englishName: string;
     public sinhalaName: string;
     public tamilName: string;
+    public categoryStatus: boolean;
 }

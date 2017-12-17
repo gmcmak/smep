@@ -90,7 +90,7 @@ class InstituteController extends Controller
     	$table = new Institute();
     	$viewData = DB::table('institutes')->where('deleted', 0)->get();
     	if($viewData){
-    		return response()->json($viewData);
+    		return response()->json(['success'=>$viewData]);
     	}
     	else{
     		return response()->json(['error'=>'Error occured']);

@@ -137,6 +137,7 @@ import { UpdateCategoryComponent } from './views/pages/core/admin/settings/categ
 import { UpdateExploreComponent } from './views/pages/core/admin/settings/explore/update-explore/update-explore.component';
 import { UpdateKeywordComponent } from './views/pages/core/admin/settings/keyword/update-keyword/update-keyword.component';
 import { UpdateRoleComponent } from './views/pages/core/admin/settings/role/update-role/update-role.component';
+import { InstituteService } from './services/businessservices/core/institute/institute.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -278,6 +279,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ExploreService,
     KeywordService,
     RoleService,
+    InstituteService,
     ToastService,
     ToastCommunicationService,
     DialogsService,

@@ -1,34 +1,32 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-declare var $: any;
-declare var jQuery: any;
-
 @Component({
-    selector: 'add-keyword',
-    templateUrl: 'add-keyword.component.html',
-    styleUrls: ['add-keyword.component.css']
+    selector: 'update-explore',
+    templateUrl: 'update-explore.component.html',
+    styleUrls: ['update-explore.component.css']
 })
 
-export class AddKeywordComponent implements OnInit{
-    
-    public keyword = new Keyword();
+export class UpdateExploreComponent implements OnInit{
 
-    public keywordForm: FormGroup;
+    public explore = new Explore();
+
+    public exploreForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
     }
 
     ngOnInit(): void {
-        this.initializeKeywordForm();
+        this.initializeExploreForm();
     }
 
-    private initializeKeywordForm(): void {
-        this.keywordForm = this.formBuilder.group({
+    private initializeExploreForm(): void {
+        this.exploreForm = this.formBuilder.group({
             'english_name': [null, [Validators.required]],
             'sinhala_name': [null, [Validators.required]],
             'tamil_name': [null, [Validators.required]],
+            'explore_status': [null, [Validators.required]],
         });
     }
 
@@ -48,7 +46,7 @@ export class AddKeywordComponent implements OnInit{
     }
 
     public isFieldValid(field: string) {
-        return !this.keywordForm.get(field).valid && this.keywordForm.get(field).touched;
+        return !this.exploreForm.get(field).valid && this.exploreForm.get(field).touched;
     }
 
     public displayFieldCss(field: string) {
@@ -59,8 +57,9 @@ export class AddKeywordComponent implements OnInit{
     }
 }
 
-export class Keyword{
+export class Explore {
     public englishName: string;
     public sinhalaName: string;
     public tamilName: string;
+    public exploreStatus: boolean;
 }

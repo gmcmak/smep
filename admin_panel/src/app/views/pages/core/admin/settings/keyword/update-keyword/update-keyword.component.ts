@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 declare var $: any;
 declare var jQuery: any;
 
 @Component({
-    selector: 'add-keyword',
-    templateUrl: 'add-keyword.component.html',
-    styleUrls: ['add-keyword.component.css']
+    selector: 'update-keyword',
+    templateUrl: 'update-keyword.component.html',
+    styleUrls: ['update-keyword.component.css']
 })
 
-export class AddKeywordComponent implements OnInit{
-    
+export class UpdateKeywordComponent implements OnInit{
+
     public keyword = new Keyword();
 
     public keywordForm: FormGroup;
@@ -59,7 +59,7 @@ export class AddKeywordComponent implements OnInit{
     }
 }
 
-export class Keyword{
+export class Keyword {
     public englishName: string;
     public sinhalaName: string;
     public tamilName: string;

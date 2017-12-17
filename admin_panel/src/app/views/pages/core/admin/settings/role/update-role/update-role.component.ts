@@ -1,34 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-declare var $: any;
-declare var jQuery: any;
-
 @Component({
-    selector: 'add-keyword',
-    templateUrl: 'add-keyword.component.html',
-    styleUrls: ['add-keyword.component.css']
+    selector: 'update-role.component.ts',
+    templateUrl: 'update-role.component.html',
+    styleUrls: ['update-role.component.css']
 })
 
-export class AddKeywordComponent implements OnInit{
-    
-    public keyword = new Keyword();
+export class UpdateRoleComponent implements OnInit{
 
-    public keywordForm: FormGroup;
+    public role = new Role();
+
+    public roleForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
     }
 
     ngOnInit(): void {
-        this.initializeKeywordForm();
+        this.initializeRoleForm();
     }
 
-    private initializeKeywordForm(): void {
-        this.keywordForm = this.formBuilder.group({
-            'english_name': [null, [Validators.required]],
-            'sinhala_name': [null, [Validators.required]],
-            'tamil_name': [null, [Validators.required]],
+    private initializeRoleForm(): void {
+        this.roleForm = this.formBuilder.group({
+            'role_name': [null, [Validators.required]],
+            'role_status': [null, [Validators.required]]
         });
     }
 
@@ -48,7 +44,7 @@ export class AddKeywordComponent implements OnInit{
     }
 
     public isFieldValid(field: string) {
-        return !this.keywordForm.get(field).valid && this.keywordForm.get(field).touched;
+        return !this.roleForm.get(field).valid && this.roleForm.get(field).touched;
     }
 
     public displayFieldCss(field: string) {
@@ -59,8 +55,7 @@ export class AddKeywordComponent implements OnInit{
     }
 }
 
-export class Keyword{
-    public englishName: string;
-    public sinhalaName: string;
-    public tamilName: string;
+export class Role {
+    public roleName: string;
+    public roleStatus: string;
 }

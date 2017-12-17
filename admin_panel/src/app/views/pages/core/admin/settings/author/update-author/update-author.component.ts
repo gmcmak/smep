@@ -1,31 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-declare var $: any;
-declare var jQuery: any;
-
 @Component({
-    selector: 'add-keyword',
-    templateUrl: 'add-keyword.component.html',
-    styleUrls: ['add-keyword.component.css']
+    selector: 'update-author',
+    templateUrl: 'update-author.component.html',
+    styleUrls: ['update-author.component.css']
 })
 
-export class AddKeywordComponent implements OnInit{
-    
-    public keyword = new Keyword();
+export class UpdateAuthorComponent{
 
-    public keywordForm: FormGroup;
+    public author = new Author();
+
+    public authorForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
 
     }
 
     ngOnInit(): void {
-        this.initializeKeywordForm();
+        this.initializeAuthorsForm();
     }
 
-    private initializeKeywordForm(): void {
-        this.keywordForm = this.formBuilder.group({
+    private initializeAuthorsForm(): void {
+        this.authorForm = this.formBuilder.group({
             'english_name': [null, [Validators.required]],
             'sinhala_name': [null, [Validators.required]],
             'tamil_name': [null, [Validators.required]],
@@ -48,7 +45,7 @@ export class AddKeywordComponent implements OnInit{
     }
 
     public isFieldValid(field: string) {
-        return !this.keywordForm.get(field).valid && this.keywordForm.get(field).touched;
+        return !this.authorForm.get(field).valid && this.authorForm.get(field).touched;
     }
 
     public displayFieldCss(field: string) {
@@ -56,10 +53,10 @@ export class AddKeywordComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }
+    }   
 }
 
-export class Keyword{
+export class Author {
     public englishName: string;
     public sinhalaName: string;
     public tamilName: string;

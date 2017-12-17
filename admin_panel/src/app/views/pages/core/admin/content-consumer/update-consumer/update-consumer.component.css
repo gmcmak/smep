@@ -1,0 +1,12 @@
+div input{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+div label{
+    margin-top: 8px;
+}
+
+#submit1{
+    float:right;
+}
