@@ -35,7 +35,7 @@ export class AddUsersComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.initializeContentProviderForm();
+        this.initializeUserForm();
 
         $("#user_dob").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -46,7 +46,7 @@ export class AddUsersComponent implements OnInit {
         //this.dob = $("#user_dob").value();
     }
 
-    private initializeContentProviderForm(): void {
+    private initializeUserForm(): void {
         this.userForm = this.formBuilder.group({
             'role_id': [null, [Validators.required]],
             'user_fullName': [null, [Validators.required]],
@@ -127,7 +127,7 @@ export class AddUsersComponent implements OnInit {
         this.UserService.getRolesList()
             .subscribe( 
                 success => {
-                    this.rolesList = success;
+                    this.rolesList = success.success
                 }
             );      
     } 

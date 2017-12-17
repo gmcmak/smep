@@ -13,7 +13,8 @@
 
 <div class="alert alert-success" *ngIf="userRegisterStatus">{{userRegisterStatus}}</div>
 
-<form id="userForm" [formGroup]="userForm" #registerForm="ngForm" (ngSubmit)="addUser(registerForm.value)">
+<form id="userForm" [formGroup]="userForm" (ngSubmit)="addUser(userForm.value)">
+<!-- <form id="userForm" [formGroup]="userForm" #registerForm="ngForm" (ngSubmit)="addUser(registerForm.value)"></form> -->
 <div class="card md-3">
     <div class="card-header">
         <b>User's Registration Form</b>
@@ -26,7 +27,7 @@
             <div class="col-md-4">
                 <select id="position" name="position" class="form-control form-control-sm drop" [(ngModel)]="user.admin_level" formControlName="role_id" [ngClass]="displayFieldCss('role_id')">
                     <!-- <option disabled value="selected">Select the post</option> -->
-                    <option *ngFor="let record of rolesList"  [value]="record.id">{{record.name}}</option>
+                    <option *ngFor="let record of rolesList"  value="record.id">{{record.name}}</option>
                 </select>
                 <div *ngIf="userForm.controls['role_id'].hasError('required') && userForm.controls['role_id'].touched" class="error">
                     Select the administrator level !

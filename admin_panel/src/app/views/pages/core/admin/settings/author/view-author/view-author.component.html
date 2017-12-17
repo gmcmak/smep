@@ -24,6 +24,7 @@
             <table class="table table-bordered" id="authorsTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>English</th>
                         <th>Sinhala</th>
                         <th>Tamil</th>
@@ -36,6 +37,7 @@
                 </tfoot>
                 <tbody>
                     <tr *ngFor="let record of authorList">
+                        <td>1</td>
                         <td>{{record.en_name}}</td>
                         <td>{{record.si_name}}</td>
                         <td>{{record.ta_name}}</td>

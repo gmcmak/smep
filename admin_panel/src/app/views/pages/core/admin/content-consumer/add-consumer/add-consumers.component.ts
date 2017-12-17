@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators,FormBuilder} from '@angular/forms';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
-//import { FormBuilder } from "@angular/forms/src/form_builder";
 
 declare var $: any;
 declare var jQuery: any;
@@ -35,10 +34,6 @@ export class AddConsumersComponent implements OnInit{
                 'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
                 'caPassword': [null, Validators.required]
             })
-        }
-    
-        private onSubmit(){
-            this.consumer.caName = "deshan";
         }
 
     public isFieldValid(field: string) {

@@ -67,6 +67,16 @@ import { CpImagesHistoryComponent } from './views/pages/core/content-provider/cp
 import { CpVideoClipHistoryComponent } from './views/pages/core/content-provider/cp-history/video-clip/cp-video-clip-history.component';
 import { AuthorizersComponent } from './views/pages/core/admin/institute/authorizers/authorizers.component';
 import { ProvidersComponent } from './views/pages/core/admin/institute/providers/providers.component';
+import { UpdateUsersComponent } from './views/pages/core/admin/users/update-users/update-users.component';
+import { UpdateAuthorizersComponent } from './views/pages/core/admin/content-authorizer/update-authorizer/update-authorizer.component';
+import { UpdateProvidersComponent } from './views/pages/core/admin/content-provider/update-provider/update-provider.component';
+import { UpdateInstituteComponent } from './views/pages/core/admin/institute/update-institute/update-institute.component';
+import { UpdateConsumersComponent } from './views/pages/core/admin/content-consumer/update-consumer/update-consumer.component';
+import { UpdateAuthorComponent } from './views/pages/core/admin/settings/author/update-author/update-author.component';
+import { UpdateCategoryComponent } from './views/pages/core/admin/settings/category/update-category/update-category.component';
+import { UpdateExploreComponent } from './views/pages/core/admin/settings/explore/update-explore/update-explore.component';
+import { UpdateKeywordComponent } from './views/pages/core/admin/settings/keyword/update-keyword/update-keyword.component';
+import { UpdateRoleComponent } from './views/pages/core/admin/settings/role/update-role/update-role.component';
 
 
 export const routes: Routes = [
@@ -81,31 +91,41 @@ export const routes: Routes = [
   { path: 'dashboard', component: AdminDashboardComponent},
   { path: 'users/view-users', component: ViewUsersComponent},
   { path: 'users/add-users', component: AddUsersComponent},
+  { path: 'users/update-users', component: UpdateUsersComponent },
   { path: 'users/change-password', component: ChangePasswordComponent},
   { path: 'content-authorizer/view-authorizers', component: ViewAuthorizersComponent},
   { path: 'content-authorizer/add-authorizers', component: AddAuthorizersComponent},
+  { path: 'content-authorizer/update-authorizers', component: UpdateAuthorizersComponent },
   { path: 'content-provider/add-providers', component: AddProvidersComponent},
   { path: 'content-provider/view-providers', component: ViewProvidersComponent},
+  { path: 'content-provider/update-providers', component: UpdateProvidersComponent },
   //{ path: 'content-provider/individual/view-individual', component: ViewIndividualComponent },
   //{ path: 'content-provider/individual/add-individual', component: AddIndividualComponent },
   { path: 'institute/view-institute', component: ViewInstituteComponent },
   { path: 'institute/add-institute', component: AddInstituteComponent },
+  { path: 'institute/update-institute', component: UpdateInstituteComponent },
   { path: 'institute/authorizers', component: AuthorizersComponent},
   { path: 'institute/providers', component: ProvidersComponent},
   { path: 'content-consumer/view-consumers', component: ViewConsumersComponent},
   { path: 'content-consumer/add-consumers', component: AddConsumersComponent},
+  { path: 'content-consumer/update-consumers', component: UpdateConsumersComponent },
   { path: 'reports/content-authorizer-report', component: ContentAuthorizerReportComponent},
   { path: 'reports/content-provider-report', component: ContentProviderReportComponent},
   { path: 'settings/author/add-author', component: AddAuthorComponent },
   { path: 'settings/author/view-author', component: ViewAuthorComponent },
+  { path: 'settings/author/update-author', component: UpdateAuthorComponent },
   { path: 'settings/category/add-category', component: AddCategoryComponent },
   { path: 'settings/category/view-category', component: ViewCategoryComponent },
+  { path: 'settings/category/update-category', component: UpdateCategoryComponent },
   { path: 'settings/explore/add-explore', component: AddExploreComponent },
   { path: 'settings/explore/view-explore', component: ViewExploreComponent },
+  { path: 'settings/explore/update-explore', component: UpdateExploreComponent },
   { path: 'settings/keyword/add-keyword', component: AddKeywordComponent },
   { path: 'settings/keyword/view-keyword', component: ViewKeywordComponent },
+  { path: 'settings/keyword/update-keyword', component: UpdateKeywordComponent },
   { path: 'settings/role/add-role', component: AddRoleComponent },
   { path: 'settings/role/view-role', component: ViewRoleComponent },
+  { path: 'settings/role/update-role', component: UpdateRoleComponent },
   { path: 'profile', component: ProfileComponent },
   // content authorizer
   {

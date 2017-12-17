@@ -127,6 +127,16 @@ import { CategoryService } from './services/businessservices/core/settings/categ
 import { ExploreService } from './services/businessservices/core/settings/explore.service';
 import { KeywordService } from './services/businessservices/core/settings/keyword.service';
 import { RoleService } from './services/businessservices/core/settings/role.service';
+import { UpdateUsersComponent } from './views/pages/core/admin/users/update-users/update-users.component';
+import { UpdateAuthorizersComponent } from './views/pages/core/admin/content-authorizer/update-authorizer/update-authorizer.component';
+import { UpdateProvidersComponent } from './views/pages/core/admin/content-provider/update-provider/update-provider.component';
+import { UpdateInstituteComponent } from './views/pages/core/admin/institute/update-institute/update-institute.component';
+import { UpdateConsumersComponent } from './views/pages/core/admin/content-consumer/update-consumer/update-consumer.component';
+import { UpdateAuthorComponent } from './views/pages/core/admin/settings/author/update-author/update-author.component';
+import { UpdateCategoryComponent } from './views/pages/core/admin/settings/category/update-category/update-category.component';
+import { UpdateExploreComponent } from './views/pages/core/admin/settings/explore/update-explore/update-explore.component';
+import { UpdateKeywordComponent } from './views/pages/core/admin/settings/keyword/update-keyword/update-keyword.component';
+import { UpdateRoleComponent } from './views/pages/core/admin/settings/role/update-role/update-role.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -151,32 +161,42 @@ export function startupServiceFactory(startupService: StartupService): Function 
     AdminDashboardComponent, //admin dashboard
     ViewUsersComponent, //admin view users
     AddUsersComponent,  //admin add users
+    UpdateUsersComponent,
     ChangePasswordComponent, //admin user's password changing
     ViewAuthorizersComponent, //admin view authorizers
     AddAuthorizersComponent, //admin add athorizers
+    UpdateAuthorizersComponent,
     AddProvidersComponent, //admin add content providers
     ViewProvidersComponent, //admin add content providers
+    UpdateProvidersComponent,
     //ViewIndividualComponent,
     //AddIndividualComponent,
     ViewInstituteComponent,
     AddInstituteComponent,
+    UpdateInstituteComponent,
     AuthorizersComponent,
     ProvidersComponent,
     ViewConsumersComponent, //admin view content consumers
     AddConsumersComponent, //admin add content consumers
+    UpdateConsumersComponent,
     ContentAuthorizerReportComponent, //admin content authorizer report
     ContentProviderReportComponent, //admin content provider report
     LoginComponent, //login page
     ViewAuthorComponent,
     AddAuthorComponent,
+    UpdateAuthorComponent,
     ViewCategoryComponent,
     AddCategoryComponent,
+    UpdateCategoryComponent,
     ViewExploreComponent,
     AddExploreComponent,
+    UpdateExploreComponent,
     ViewKeywordComponent,
     AddKeywordComponent,
+    UpdateKeywordComponent,
     ViewRoleComponent,
     AddRoleComponent,
+    UpdateRoleComponent,
     ProfileComponent,
 
     ContentAuthorizationComponent, //content authorizers

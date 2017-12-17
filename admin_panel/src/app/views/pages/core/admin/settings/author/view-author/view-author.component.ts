@@ -34,7 +34,6 @@ export class ViewAuthorComponent implements OnInit{
             "language": {
                 "search": "Search by: (English/ Sinhala/ Tamil)"
             }
-
         });
     }
 
