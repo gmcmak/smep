@@ -11,6 +11,8 @@
     </li>
 </ol>
 
+<div class="alert alert-success" *ngIf="instituteRegistrationStatus">{{instituteRegistrationStatus}}</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-file-o"></i>&emsp;
@@ -20,7 +22,6 @@
     <div id="institute_form">
         <!--institute form-->
         <form id="instituteForm" (ngSubmit)="addInstitute(instituteForm.value)" [formGroup]="instituteForm">
-
             <div class="row">
                 <div id="x5" class="col-md-12">
                     <h6 class="subTitle">Institute info,</h6>
@@ -75,14 +76,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="row">
-                        <div id="x6" class="col-md-6">
+                        <div class="col-md-6 x10">
                             <label>Date of Registration:
                                 <span class="required">*</span>
                             </label>
                         </div>
-                        <div id="x7" class="col-md-6">
-                            <input type="text" id="dateOfReg" name="dateOfReg" class="form-control form-control-sm" placeholder="dd/mm/yy" [(ngModel)]="institute.dateOfReg"
-                                formControlName="dateOfReg" placeholder="dd/mm/yy" [ngClass]="displayFieldCss('dateOfReg')">
+                        <div class="col-md-6 x11">
+                            <input type="text" id="dateOfReg" name="dateOfReg" class="form-control form-control-sm" placeholder="yy-mm-dd" [(ngModel)]="institute.dateOfReg"
+                                formControlName="dateOfReg" [ngClass]="displayFieldCss('dateOfReg')">
                     
                             <div *ngIf="instituteForm.controls['dateOfReg'].hasError('required') && instituteForm.controls['dateOfReg'].touched" class="error">
                                 Date of registration is required !
@@ -113,12 +114,12 @@
                         University name is required !
                     </div> -->
                     <div class="row">
-                        <div id="x10" class="col-md-6">
+                        <div class="col-md-6 x10">
                             <label for="instStatus">Status (Enable/ Disable):
                                 <span class="required">*</span>
                             </label>
                         </div>
-                        <div id="x11" class="col-md-6">
+                        <div class="col-md-6 x11">
                             <select class="form-control form-control-sm" name="instStatus" id="instStatus" formControlName="instStatus" [(ngModel)]="institute.instStatus"
                                 [ngClass]="displayFieldCss('instStatus')">
                                 <option value="1">Enable</option>
@@ -134,15 +135,14 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div id="x8" class="col-md-6">
                             <label>Content Provider Identification No:</label>
                         </div>
                         <div id="x9" class="col-md-6">
-                            <!-- <input id="instId" name="instId" class="form-control form-control-sm" type="text" value="<?php echo $cp_inst_id; ?>" readonly> -->
                             <input id="instId" name="instId" formControlName="instId" [(ngModel)]="institute.instId" class="form-control form-control-sm" type="text" readonly>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -240,15 +240,14 @@
             </div>
             
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 x10">
                             <label for="user_gender">Gender: <span class="required">*</span></label>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 x11">
                             <select class="form-control form-control-sm" name="user_gender" id="user_gender" formControlName="user_gender" [(ngModel)]="institute.instUser.gender"
                                 [ngClass]="displayFieldCss('userInfo.user_gender')">
-                                <option value="0" disabled>Male/Female</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
@@ -259,14 +258,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6 x10">
                             <label for="user_dob">Date of birth: <span class="required">*</span></label>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-6 x11">
                             <input class="form-control form-control-sm" id="user_dob" type="text" name="user_dob" formControlName="user_dob" [(ngModel)]="institute.instUser.dob"
-                                placeholder="dd/mm/yy" [ngClass]="displayFieldCss('userInfo.user_dob')">
+                                placeholder="yy-mm-dd" [ngClass]="displayFieldCss('userInfo.user_dob')">
                             
                             <div *ngIf="instituteForm.controls['userInfo'].controls['user_dob'].hasError('required') && instituteForm.controls['userInfo'].controls['user_dob'].touched" class="error">
                                 Date of birth is required !
@@ -274,24 +273,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-8">
-                            <label for="user_status">Status (Enable/ Disable): <span class="required">*</span></label>
+                        <div class="col-md-6 x10">
+                            <label for="user_status">Status (Enable/ Disable):
+                                <span class="required">*</span>
+                            </label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6 x11">
                             <select class="form-control form-control-sm" name="user_status" id="user_status" formControlName="user_status" [(ngModel)]="institute.instUser.status"
                                 [ngClass]="displayFieldCss('userInfo.user_status')">
                                 <option value="1">Enable</option>
                                 <option value="0">Disable</option>
                             </select>
-                            
-                            <div *ngIf="instituteForm.controls['userInfo'].controls['user_status'].hasError('required') && instituteForm.controls['userInfo'].controls['user_status'].touched" class="error">
+                        
+                            <div *ngIf="instituteForm.controls['userInfo'].controls['user_status'].hasError('required') && instituteForm.controls['userInfo'].controls['user_status'].touched"
+                                class="error">
                                 Status is required !
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 </div>
+                <div class="col-md-6"></div>
             </div>
         </div>
             
@@ -350,13 +355,9 @@
             </div>
 
             <div class="row">
-                <div class="col-md-10">
-                    <!-- <input type="text" name="id2" id="id2" value="<?php echo $count_inst_new; ?>" style="display:none"> -->
-                </div>
-                <div class="col-md-2">
+                <div class="col-md-12" align="right">
                     &emsp;
                     <button type="submit" id="submit2" name="submit2" class="btn-primary search_btn" [disabled]="!instituteForm.valid">Submit</button>
-                    <!-- <button type="submit" class="btn-primary search_btn">Cancel</button> -->
                     <br>
                     <br>
                     <br>
@@ -370,3 +371,4 @@
 
 <br>
 <br>
+

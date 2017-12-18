@@ -67,22 +67,6 @@ export class UserService {
        .map((response: Response) => response.json());  
     }
 
-
-
-            // formData.user_fullName,
-            // formData.user_nameWithInitials,
-            // formData.user_email,
-            // formData.user_nic,
-            // formData.user_gender,
-            // formData.user_dob,
-            // formData.user_mobile,
-            // formData.user_designation,
-            // formData.user_status,
-            // formData.user_password1,
-            // formData.user_password2,
-            // formData.role_id,
-            // deleted=0    
-
     addUser(name, name_with_initials, email, nic, gender, birthday, mobile, designation, status, password, c_password, role_id, deleted){
       let headers = new Headers();
       headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');

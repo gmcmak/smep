@@ -5,7 +5,7 @@ import { InstituteService } from '../../../../../../services/businessservices/co
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
-const NIC_REGEX = /^[0-9]{9}[VX]/;
+const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 const MOBILE_REGEX = /^[0-9]{10}/;
 
 declare var $:any;
@@ -20,10 +20,10 @@ declare var jQuery:any;
 export class AddInstituteComponent implements OnInit{
 
     public institute = new Institute();
-
     public check2: boolean;
-
     public instituteForm: FormGroup;
+    public instituteRegistrationStatus;
+    private deleted;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -36,13 +36,13 @@ export class AddInstituteComponent implements OnInit{
         this.initializeInstituteForm();
 
         $("#dateOfReg").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.institute.dateOfReg = e.target.value);
 
         $("#user_dob").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.institute.instUser.dob = e.target.value);
@@ -105,20 +105,33 @@ export class AddInstituteComponent implements OnInit{
     /**
      * insert institute data
      */
-    // addInstitute(formData){
-    //     this.instituteService.addInstitute(
-    //         formData.instName,
-    //         formData.regNo,
-    //         formData.dateOfReg,
-    //         formData.adrz,
-    //         formData.mobileNum,
-    //         formData.instEmail,
-    //         formData.
-
-    //     ).subcribe(
-    //         success => {}
-    //     );
-    // }
+    addInstitute(formData){
+        this.instituteService.addInstitute(
+            formData.instName,
+            formData.regNo,
+            formData.dateOfReg,
+            formData.adrz,
+            formData.mobileNum,
+            formData.instEmail,
+            formData.instStatus,
+            this.deleted=0,
+            formData.userInfo.user_fullName,
+            formData.userInfo.user_nameWithInitials,
+            formData.userInfo.user_email,
+            formData.userInfo.user_nic,
+            formData.userInfo.user_mobile,
+            formData.userInfo.user_designation,
+            formData.userInfo.user_gender,
+            formData.userInfo.user_dob,
+            formData.userInfo.user_status,
+            formData.user_password1,
+            formData.user_password2
+        ).subscribe(
+            success => {
+                this.instituteRegistrationStatus = success.success;
+            }
+        );
+    }
     
 }
 
