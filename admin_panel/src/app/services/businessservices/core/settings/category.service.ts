@@ -1,24 +1,46 @@
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.service";
-import { Http, Response, RequestOptions, Headers } from "@angular/http";
+import { Http, Response, RequestOptions, Headers, URLSearchParams } from "@angular/http";
 
 @Injectable()
 
 export class CategoryService{
     public API_ENDPOINT = 'http://localhost:8000/api/';
     private loggedInUserList;
-    constructor(private http: Http, private localStorageService: LocalStorageService){}
+    constructor(private http: Http, private localStorageService: LocalStorageService){
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+    }
 
     /**
      * get all categories' details
      */
     public getCategoriesList() {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'view-category',
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * add category data
+     */
+    public addCategory(english_name, sinhala_name, tamil_name, category_status) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        let body = new URLSearchParams();
+        body.append('en_name', english_name);
+        body.append('si_name', sinhala_name);
+        body.append('ta_name', tamil_name);
+        body.append('status', category_status);
+        return this.http.post(this.API_ENDPOINT + 'insert-category', body,
             {
                 headers: headers
             })

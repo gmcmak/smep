@@ -32,6 +32,8 @@ class CategoryController extends Controller
         $table->si_name = $request->input('si_name');
         $table->ta_name = $request->input('ta_name');
         $table->status = $request->input('status');
+        $table->created_at = now();
+        $table->updated_at = now();
         $table->save();
         if($table->save()){
           return response()->json(['success'=>'Successfully inserted']);

@@ -1,5 +1,6 @@
 import {Component,OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ExploreService } from "../../../../../../../services/businessservices/core/settings/explore.service";
 
 @Component({
     selector: 'add-explore',
@@ -10,12 +11,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddExploreComponent implements OnInit{
 
     public explore = new Explore();
-
     public exploreForm: FormGroup;
+    private deleted;
+    public exploreAddingStatus;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private exploreService: ExploreService
+    ) {}
 
     ngOnInit(): void {
         this.initializeExploreForm();
@@ -54,7 +57,22 @@ export class AddExploreComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }   
+    }
+    
+    /**
+     * insert explore data
+     */
+    addExplore(formData){
+        this.exploreService.addExploresList(
+            formData.english_name,
+            formData.sinhala_name,
+            formData.tamil_name,
+            formData.explore_status,
+            this.deleted=0,
+        ).subscribe(
+            success => {this.exploreAddingStatus = success.success}
+        );
+    }
 }
 
 export class Explore{

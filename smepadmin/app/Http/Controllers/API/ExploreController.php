@@ -32,15 +32,27 @@ class ExploreController extends Controller
             'en_tag' => 'required',
             'si_tag' => 'required',
             'ta_tag' => 'required',
-            'status' => 'required',
-            'deleted' => 'required'
+            'status' => 'required|boolean',
+            'deleted' => 'required|boolean'
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 401);            
         }
-        $input = $request->all();
-        $this->create($input);
-        return response()->json(['success'=>'Successfully inserted'], $this->successStatus);        
+        else{
+            $table = new Explore();
+            $table->en_tag = $request->input('en_tag');
+            $table->si_tag = $request->input('si_tag');
+            $table->ta_tag = $request->input('ta_tag');
+            $table->status = $request->input('status');
+            $table->deleted = $request->input('deleted');
+            $table->save();
+        }
+        if($table->save()){
+            return response()->json(['success' => 'Successfully inserted']);
+        }
+        else{
+            return response()->json(['error' => 'Error occured']);
+        }      
     }
 
     /**

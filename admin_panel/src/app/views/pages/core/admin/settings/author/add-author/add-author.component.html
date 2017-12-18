@@ -60,7 +60,7 @@
                     <label for="tamilName">Tamil Name: <span class="required">*</span></label>
                 </div>
                 <div class="col-md-5">
-                    <input class="form-control form-control-sm" id="tamilame" type="text" name="tamil_name" formControlName="tamil_name"
+                    <input class="form-control form-control-sm" id="tamil_name" type="text" name="tamil_name" formControlName="tamil_name"
                         [(ngModel)]="author.tamilName" placeholder="ஜான்" [ngClass]="displayFieldCss('tamil_name')">
             
                     <div *ngIf="authorForm.controls['tamil_name'].hasError('required') && authorForm.controls['tamil_name'].touched" class="error">

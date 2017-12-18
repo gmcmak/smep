@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategoryService } from "../../../../../../../services/businessservices/core/settings/category.service";
 
 @Component({
     selector: 'add-category',
@@ -10,12 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddCategoryComponent implements OnInit{
 
     public category = new Category();
-
+    public addingCategoryStatus;
     public categoryForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private categoryService: CategoryService
+    ) {}
 
     ngOnInit(): void {
         this.initializeCategoryForm();
@@ -54,7 +56,21 @@ export class AddCategoryComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }  
+    }
+
+    /**
+     * add category data
+     */
+    addCategory(formData){
+        this.categoryService.addCategory(
+            formData.english_name,
+            formData.sinhala_name,
+            formData.tamil_name,
+            formData.category_status
+        ).subscribe(
+            success => {this.addingCategoryStatus = success.success}
+        );   
+    }
 }
 
 export class Category{
