@@ -1,9 +1,11 @@
 import {Component,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { equalSegments } from "@angular/router/src/url_tree";
+import { InstituteService } from '../../../../../../services/businessservices/core/institute/institute.service';
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
-const NIC_REGEX = /^[0-9]{9}[VX]/;
+const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 const MOBILE_REGEX = /^[0-9]{10}/;
 
 declare var $:any;
@@ -18,12 +20,15 @@ declare var jQuery:any;
 export class AddInstituteComponent implements OnInit{
 
     public institute = new Institute();
-
     public check2: boolean;
-
     public instituteForm: FormGroup;
+    public instituteRegistrationStatus;
+    private deleted;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private instituteService: InstituteService
+    ) {
         
     }
 
@@ -31,13 +36,13 @@ export class AddInstituteComponent implements OnInit{
         this.initializeInstituteForm();
 
         $("#dateOfReg").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.institute.dateOfReg = e.target.value);
 
         $("#user_dob").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.institute.instUser.dob = e.target.value);
@@ -52,7 +57,7 @@ export class AddInstituteComponent implements OnInit{
             adrz: new FormControl(null, [Validators.required]),
             mobileNum: new FormControl(null, [Validators.required, Validators.pattern(MOBILE_REGEX)]),
             instEmail: new FormControl(null, [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-            foreignUni: new FormControl(null, [Validators.required]),
+            instStatus: new FormControl(null, [Validators.required]),
             instId: new FormControl('',[]),
             check2: new FormControl('', [Validators.required]),
             userInfo: new FormGroup({
@@ -96,6 +101,37 @@ export class AddInstituteComponent implements OnInit{
             'is-valid': this.isFieldValid(field)
         };
     }
+
+    /**
+     * insert institute data
+     */
+    addInstitute(formData){
+        this.instituteService.addInstitute(
+            formData.instName,
+            formData.regNo,
+            formData.dateOfReg,
+            formData.adrz,
+            formData.mobileNum,
+            formData.instEmail,
+            formData.instStatus,
+            this.deleted=0,
+            formData.userInfo.user_fullName,
+            formData.userInfo.user_nameWithInitials,
+            formData.userInfo.user_email,
+            formData.userInfo.user_nic,
+            formData.userInfo.user_mobile,
+            formData.userInfo.user_designation,
+            formData.userInfo.user_gender,
+            formData.userInfo.user_dob,
+            formData.userInfo.user_status,
+            formData.user_password1,
+            formData.user_password2
+        ).subscribe(
+            success => {
+                this.instituteRegistrationStatus = success.success;
+            }
+        );
+    }
     
 }
 
@@ -107,7 +143,7 @@ export class Institute{
     public adrz: string;
     public mobileNum: string;
     public instEmail: string;
-    public foreignUni: string;
+    public instStatus: boolean;
     public instId: string;
     
     public instUser = new InstUser();

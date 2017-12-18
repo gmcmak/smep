@@ -24,11 +24,12 @@ class InstituteController extends Controller
     	$validator = Validator::make($request->all(), [
     		'name' => 'required',
     		'registration_number' => 'required',
-    		'registered_date' => 'required|date',
+    		'registered_date' => 'required',
     		'contact_number' => 'required|numeric',
     		'email' => 'required|email',
     		'address' => 'required',
     		'status' => 'required|boolean',
+            'deleted' => 'required|boolean',
             'user_name' => 'required',
             'user_email' => 'required|email',
             'user_password' => 'required',
@@ -39,7 +40,7 @@ class InstituteController extends Controller
             'user_nic' => 'required',
             'user_mobile' => 'required',
             'user_designation' => 'required',
-            'user_birthday' => 'required|date'
+            'user_birthday' => 'required'
     	]);
     	if($validator->fails()){
     		return response()->json(['error'=>$validator->errors()], 401);
@@ -53,6 +54,9 @@ class InstituteController extends Controller
     		$table->email = $request->input('email');
     		$table->address = $request->input('address');
     		$table->status = $request->input('status');
+            $table->deleted = $request->input('deleted');
+            $table->created_at = now();
+            $table->updated_at = now();
     		$table->save();
 
     		if($table->save()){
