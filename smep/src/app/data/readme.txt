@@ -1,1 +1,0 @@
-js-data stores and entities should be in here and sub folders
