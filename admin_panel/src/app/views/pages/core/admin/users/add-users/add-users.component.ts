@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
 import { equalSegments } from "@angular/router/src/url_tree";
 import { LocalStorageStore } from '../../../../../../services/storage/local-storage.service';
 import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
@@ -26,7 +26,6 @@ export class AddUsersComponent implements OnInit {
     private deleted;
     public userForm: FormGroup;
     private userRegisterStatus;
-
     constructor(
         private formBuilder: FormBuilder,
         private UserService:UserService
@@ -86,10 +85,11 @@ export class AddUsersComponent implements OnInit {
         ).subscribe( 
             success => {
                 this.userRegisterStatus = success.success.message;
+                this.userForm.reset();
             }
         ); 
+        
     }
-
 
 
 

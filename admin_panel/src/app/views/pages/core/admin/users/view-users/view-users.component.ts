@@ -59,6 +59,17 @@ export class ViewUsersComponent implements OnInit{
             .subscribe( 
                 success => {
                     this.usersList = success.success;
+                    $("#dataTableUsers").find('tbody').empty(); 
+                    var dataClaims = this.usersList;
+                    for (let i = 0; i < dataClaims.length; i++) {
+                        $('#dataTableUsers').dataTable().fnAddData([
+                            dataClaims[i].name,
+                            dataClaims[i].email,
+                            dataClaims[i].role.name,
+                            '<a [routerLink]="['+"../../users/update-users"+']"'+' class="fa fa-1x fa-pencil-square-o"></a>',
+                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                        ]);
+                     }
                 }
             );      
     }        
