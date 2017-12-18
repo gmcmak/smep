@@ -1,5 +1,7 @@
 import {Component,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { equalSegments } from "@angular/router/src/url_tree";
+import { InstituteService } from '../../../../../../services/businessservices/core/institute/institute.service';
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
@@ -23,7 +25,10 @@ export class AddInstituteComponent implements OnInit{
 
     public instituteForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private instituteService: InstituteService
+    ) {
         
     }
 
@@ -52,7 +57,7 @@ export class AddInstituteComponent implements OnInit{
             adrz: new FormControl(null, [Validators.required]),
             mobileNum: new FormControl(null, [Validators.required, Validators.pattern(MOBILE_REGEX)]),
             instEmail: new FormControl(null, [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-            foreignUni: new FormControl(null, [Validators.required]),
+            instStatus: new FormControl(null, [Validators.required]),
             instId: new FormControl('',[]),
             check2: new FormControl('', [Validators.required]),
             userInfo: new FormGroup({
@@ -96,6 +101,24 @@ export class AddInstituteComponent implements OnInit{
             'is-valid': this.isFieldValid(field)
         };
     }
+
+    /**
+     * insert institute data
+     */
+    // addInstitute(formData){
+    //     this.instituteService.addInstitute(
+    //         formData.instName,
+    //         formData.regNo,
+    //         formData.dateOfReg,
+    //         formData.adrz,
+    //         formData.mobileNum,
+    //         formData.instEmail,
+    //         formData.
+
+    //     ).subcribe(
+    //         success => {}
+    //     );
+    // }
     
 }
 
@@ -107,7 +130,7 @@ export class Institute{
     public adrz: string;
     public mobileNum: string;
     public instEmail: string;
-    public foreignUni: string;
+    public instStatus: boolean;
     public instId: string;
     
     public instUser = new InstUser();

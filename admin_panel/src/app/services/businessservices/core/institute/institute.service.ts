@@ -26,4 +26,11 @@ export class InstituteService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * add institute data
+     */
+    public addInstitute(){
+
+    }
 }

@@ -17,9 +17,9 @@
         <b>Institute Registration Form</b>
     </div>
 
-    <div id="professional-category">
-        <!--professsional form-->
-        <form id="form1" method="POST" action="" (ngSubmit)="onSubmit()" [formGroup]="instituteForm">
+    <div id="institute_form">
+        <!--institute form-->
+        <form id="instituteForm" (ngSubmit)="addInstitute(instituteForm.value)" [formGroup]="instituteForm">
 
             <div class="row">
                 <div id="x5" class="col-md-12">
@@ -48,18 +48,17 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="row">
-                        <div id="x6" class="col-md-6">
-                            <label>Date of Registration: <span class="required">*</span></label>
-                        </div>
-                        <div id="x7" class="col-md-6">
-                            <input type="text" id="dateOfReg" name="dateOfReg" class="form-control form-control-sm" placeholder="dd/mm/yy" [(ngModel)]="institute.dateOfReg"
-                                formControlName="dateOfReg" placeholder="dd/mm/yy" [ngClass]="displayFieldCss('dateOfReg')">
-
-                            <div *ngIf="instituteForm.controls['dateOfReg'].hasError('required') && instituteForm.controls['dateOfReg'].touched" class="error">
-                                Date of registration is required !
-                            </div>
-                        </div>
+                    <input id="mobileNum" name="mobileNum" class="form-control form-control-sm" type="text" placeholder="Contact No: *" maxlength="10"
+                        [(ngModel)]="institute.mobileNum" formControlName="mobileNum" [ngClass]="displayFieldCss('mobileNum')">
+                    
+                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('required') && instituteForm.controls['mobileNum'].touched" class="error">
+                        Contact number is required !
+                    </div>
+                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('pattern') && instituteForm.controls['mobileNum'].touched" class="error">
+                        Invalid contact number !
+                    </div>
+                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('minLength') && instituteForm.controls['mobileNum'].touched" class="error">
+                        Incorrect contact number !
                     </div>
                 </div>
 
@@ -75,17 +74,20 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input id="mobileNum" name="mobileNum" class="form-control form-control-sm" type="text" placeholder="Contact No: *" maxlength="10"
-                        [(ngModel)]="institute.mobileNum" formControlName="mobileNum" [ngClass]="displayFieldCss('mobileNum')">
-
-                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('required') && instituteForm.controls['mobileNum'].touched" class="error">
-                        Contact number is required !
-                    </div>
-                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('pattern') && instituteForm.controls['mobileNum'].touched" class="error">
-                        Invalid contact number !
-                    </div>
-                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('minLength') && instituteForm.controls['mobileNum'].touched" class="error">
-                        Incorrect contact number !
+                    <div class="row">
+                        <div id="x6" class="col-md-6">
+                            <label>Date of Registration:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div id="x7" class="col-md-6">
+                            <input type="text" id="dateOfReg" name="dateOfReg" class="form-control form-control-sm" placeholder="dd/mm/yy" [(ngModel)]="institute.dateOfReg"
+                                formControlName="dateOfReg" placeholder="dd/mm/yy" [ngClass]="displayFieldCss('dateOfReg')">
+                    
+                            <div *ngIf="instituteForm.controls['dateOfReg'].hasError('required') && instituteForm.controls['dateOfReg'].touched" class="error">
+                                Date of registration is required !
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -104,11 +106,30 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <input id="foreignUni" name="foreignUni" class="form-control form-control-sm" type="text" placeholder="Affiliated Foreign Universities: *"
+                    <!-- <input id="foreignUni" name="foreignUni" class="form-control form-control-sm" type="text" placeholder="Affiliated Foreign Universities: *"
                         [(ngModel)]="institute.foreignUni" formControlName="foreignUni" [ngClass]="displayFieldCss('foreignUni')">
 
                     <div *ngIf="instituteForm.controls['foreignUni'].hasError('required') && instituteForm.controls['foreignUni'].touched" class="error">
                         University name is required !
+                    </div> -->
+                    <div class="row">
+                        <div id="x10" class="col-md-6">
+                            <label for="instStatus">Status (Enable/ Disable):
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div id="x11" class="col-md-6">
+                            <select class="form-control form-control-sm" name="instStatus" id="instStatus" formControlName="instStatus" [(ngModel)]="institute.instStatus"
+                                [ngClass]="displayFieldCss('instStatus')">
+                                <option value="1">Enable</option>
+                                <option value="0">Disable</option>
+                            </select>
+                    
+                            <div *ngIf="instituteForm.controls['instStatus'].hasError('required') && instituteForm.controls['instStatus'].touched"
+                                class="error">
+                                Status is required !
+                            </div>
+                        </div>
                     </div>
                 </div>
 

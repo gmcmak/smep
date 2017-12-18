@@ -131,6 +131,12 @@
 #x9{
     padding-right:0px;
 }
+#x10{
+    margin-top: 10px; padding-left: 4px;
+}
+#x11{
+    padding-right:0px;
+}
 #add_sub_btn1{
     margin-top: 5px; float:right;
 }
