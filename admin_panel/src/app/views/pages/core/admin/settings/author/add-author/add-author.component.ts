@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthorService } from "../../../../../../../services/businessservices/core/settings/author.service";
 
 @Component({
     selector: 'add-author',
@@ -10,12 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddAuthorComponent implements OnInit{
 
     public author = new Author();
-
+    public authorAddingStatus;
     public authorForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private authorService: AuthorService
+    ){}
 
     ngOnInit(): void {
         this.initializeAuthorsForm();
@@ -53,7 +55,17 @@ export class AddAuthorComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }   
+    } 
+    
+    addAuthors(formData){
+        this.authorService.addAuthor(
+            formData.english_name,
+            formData.sinhala_name,
+            formData.tamil_name
+        ).subscribe(
+            success => { this.authorAddingStatus = success.success}
+        );
+    }
 }
 
 export class Author{

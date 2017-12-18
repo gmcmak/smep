@@ -31,6 +31,8 @@ class AuthorController extends Controller
         $table->en_name = $request->input('en_name');
         $table->si_name = $request->input('si_name');
         $table->ta_name = $request->input('ta_name');
+        $table->created_at = now();
+        $table->updated_at = now();
         $table->save();
         if($table->save()){
           return response()->json(['success'=>'Successfully inserted']);
