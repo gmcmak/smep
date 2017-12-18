@@ -77,6 +77,7 @@ import { UpdateCategoryComponent } from './views/pages/core/admin/settings/categ
 import { UpdateExploreComponent } from './views/pages/core/admin/settings/explore/update-explore/update-explore.component';
 import { UpdateKeywordComponent } from './views/pages/core/admin/settings/keyword/update-keyword/update-keyword.component';
 import { UpdateRoleComponent } from './views/pages/core/admin/settings/role/update-role/update-role.component';
+import { EditProfileComponent } from './views/pages/core/admin/profile/edit-profile/edit-profile.component';
 
 
 export const routes: Routes = [
@@ -127,6 +128,7 @@ export const routes: Routes = [
   { path: 'settings/role/view-role', component: ViewRoleComponent },
   { path: 'settings/role/update-role', component: UpdateRoleComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'edit-profile', component: EditProfileComponent },
   // content authorizer
   {
     path: 'ca-content-authorization', component: ContentAuthorizationComponent,

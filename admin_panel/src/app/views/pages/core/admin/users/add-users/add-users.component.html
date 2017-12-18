@@ -27,7 +27,7 @@
             <div class="col-md-4">
                 <select id="position" name="position" class="form-control form-control-sm drop" [(ngModel)]="user.admin_level" formControlName="role_id" [ngClass]="displayFieldCss('role_id')">
                     <!-- <option disabled value="selected">Select the post</option> -->
-                    <option *ngFor="let record of rolesList"  value="record.id">{{record.name}}</option>
+                    <option *ngFor="let record of rolesList"  [value]="record.id">{{record.name}}</option>
                 </select>
                 <div *ngIf="userForm.controls['role_id'].hasError('required') && userForm.controls['role_id'].touched" class="error">
                     Select the administrator level !

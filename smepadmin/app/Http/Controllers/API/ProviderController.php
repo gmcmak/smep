@@ -115,7 +115,7 @@ class ProviderController extends Controller
     */
     public function viewProviders(){
         $providerDetails = User::with('highestEducation','professionalEducations','institues')->where('role_id', 3)->get();
-        return response()->json($providerDetails);
+        return response()->json(['success'=>$providerDetails]);
     }
 
     /**

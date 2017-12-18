@@ -138,6 +138,9 @@ import { UpdateExploreComponent } from './views/pages/core/admin/settings/explor
 import { UpdateKeywordComponent } from './views/pages/core/admin/settings/keyword/update-keyword/update-keyword.component';
 import { UpdateRoleComponent } from './views/pages/core/admin/settings/role/update-role/update-role.component';
 import { InstituteService } from './services/businessservices/core/institute/institute.service';
+import { EditProfileComponent } from './views/pages/core/admin/profile/edit-profile/edit-profile.component';
+import { AuthorizerService } from './services/businessservices/core/content-authorizer/authorizer.service';
+import { ProviderService } from './services/businessservices/core/content-provider/provider.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -199,6 +202,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     AddRoleComponent,
     UpdateRoleComponent,
     ProfileComponent,
+    EditProfileComponent,
 
     ContentAuthorizationComponent, //content authorizers
     AuthorizationHistoryComponent,
@@ -280,6 +284,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     KeywordService,
     RoleService,
     InstituteService,
+    AuthorizerService,
+    ProviderService,
     ToastService,
     ToastCommunicationService,
     DialogsService,

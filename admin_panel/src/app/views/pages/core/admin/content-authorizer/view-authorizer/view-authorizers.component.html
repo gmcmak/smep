@@ -34,10 +34,10 @@
 
         </tfoot>
         <tbody>
-        <tr>
-            <td>Deshan Hasantha</td>
-            <td>NSBM</td>
-            <td>Management</td>
+        <tr *ngFor="let record of authorizerList">
+            <td>{{record.name}}</td>
+            <td></td>
+            <td></td>
             <td align="center"><a href="">10</a></td>
             <td align="center"><a href="">25</a></td>
             <td align="center"><a href="">5</a></td>
@@ -48,22 +48,6 @@
                 </label>
             </td>
             <td align="center"><a [routerLink]="['../../content-authorizer/update-authorizers']" class="fa fa-1x fa-pencil-square-o"></a></td>
-            <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
-        </tr>
-        <tr>
-            <td>Deshan Hasantha</td>
-            <td>NSBM</td>
-            <td>Management</td>
-            <td align="center"><a href="">12</a></td>
-            <td align="center"><a href="">14</a></td>
-            <td align="center"><a href="">5</a></td>
-            <td align="center">
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                </label>
-            </td>
-            <td align="center"><a href=""><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
             <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
         </tr>
         </tbody>

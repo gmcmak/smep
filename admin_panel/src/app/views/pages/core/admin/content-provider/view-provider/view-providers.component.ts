@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { ProviderService } from "../../../../../../services/businessservices/core/content-provider/provider.service";
+import { Router } from "@angular/router";
+import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -10,8 +13,18 @@ declare var jQuery: any;
 })
 
 export class ViewProvidersComponent implements OnInit{
+
+    public providerList;
+
+    constructor(
+        private providerService: ProviderService,
+        private router: Router,
+        private localStorageService: LocalStorageService
+    ){}
+
     ngOnInit(): void {
         this.dataTable();
+        this.getProvidersList();
      }
  
  
@@ -22,5 +35,15 @@ export class ViewProvidersComponent implements OnInit{
               }
          });
      }
+
+     /**
+      * get providers data list
+      */
+    getProvidersList(){
+        this.providerService.getProvidersList()
+            .subscribe(
+                success => {this.providerList = success.success}
+            );
+    }
  
 }

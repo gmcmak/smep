@@ -117,7 +117,7 @@ class AuthorizerController extends Controller
     */
     public function viewAuthorizers(){
         $authorizerDetails = User::with('highestEducation','professionalEducations','institues')->where('role_id', 4)->get();
-        return response()->json($authorizerDetails);
+        return response()->json(['success'=>$authorizerDetails]);
     }
 
     /**
