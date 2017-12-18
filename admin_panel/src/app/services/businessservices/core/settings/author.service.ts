@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Http, Response, RequestOptions, Headers } from "@angular/http";
-import { LocalStorageStore } from "../../../storage/local-storage.service";
+import { Http, Response, RequestOptions } from "@angular/http";
+import { Headers } from '@angular/http';
+import { LocalStorageStore } from '../../../../services/storage/local-storage.service';
+import { URLSearchParams } from '@angular/http';
 
 @Injectable()
 
@@ -29,8 +31,8 @@ export class AuthorService{
      * add author data
      */
     addAuthor(english_name, sinhala_name, tamil_name) {
-        let headers = new Headers();
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
@@ -39,7 +41,6 @@ export class AuthorService{
         body.append('en_name', english_name);
         body.append('si_name', sinhala_name);
         body.append('ta_name', tamil_name);
-
         return this.http.post(this.API_ENDPOINT + 'insert-author', body,
             {
                 headers: headers
