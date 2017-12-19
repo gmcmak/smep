@@ -30,6 +30,8 @@ class RoleController extends Controller
        else{
          $table->name = $request->input('name');
          $table->status = $request->input('status');
+         $table->created_at = now();
+         $table->updated_at = now();
          $table->save();
 
          if($table->save()){

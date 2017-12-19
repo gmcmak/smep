@@ -14,7 +14,9 @@
     </li>
 </ol>
 
-<form id="roleForm" [formGroup]="roleForm">
+<div class="alert alert-success" *ngIf="roleAddingStatus">{{roleAddingStatus}}</div>
+
+<form id="roleForm" [formGroup]="roleForm" (ngsubmit)="addRole(roleForm.value)">
     <div class="card mb-3">
         <div class="card-header">
             <b>Role Adding Form</b>
@@ -27,7 +29,7 @@
                 </div>
                 <div class="col-md-5">
                     <input class="form-control form-control-sm" id="roleName" type="text" name="role_name" formControlName="role_name"
-                        [(ngModel)]="roleName" placeholder="Administrator" [ngClass]="displayFieldCss('role_name')">
+                        [(ngModel)]="role.roleName" placeholder="Administrator" [ngClass]="displayFieldCss('role_name')">
 
                     <div *ngIf="roleForm.controls['role_name'].hasError('required') && roleForm.controls['role_name'].touched"
                         class="error">
@@ -43,7 +45,7 @@
                     <label for="status">Status (Enable/Disable): <span class="required">*</span></label>
                 </div>
                 <div class="col-md-5">
-                    <select id="status" name="status" class="form-control form-control-sm drop" [(ngModel)]="roleStatus" formControlName="role_status"
+                    <select id="status" name="status" class="form-control form-control-sm drop" [(ngModel)]="role.roleStatus" formControlName="role_status"
                         [ngClass]="displayFieldCss('role_status')">
                         <!-- <option disabled value="selected">Select the post</option> -->
                         <option value="1" selected>Enable</option>

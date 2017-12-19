@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RoleService } from '../../../../../../../services/businessservices/core/settings/role.service';
 
 @Component({
     selector: 'add-role',
@@ -10,12 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddRoleComponent implements OnInit{
     
     public role = new Role();
-
     public roleForm: FormGroup;
+    public roleAddingStatus;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private roleService: RoleService
+    ) {}
 
     ngOnInit(): void {
         this.initializeRoleForm();
@@ -52,6 +54,15 @@ export class AddRoleComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
+    }
+
+    addRole(dataForm){
+        this.roleService.addRoleList(
+            dataForm.role_name,
+            dataForm.role_status
+        ).subscribe(
+            success => { this.roleAddingStatus = success.success }
+        );
     }
 }
 
