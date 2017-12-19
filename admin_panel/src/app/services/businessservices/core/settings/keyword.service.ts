@@ -18,7 +18,7 @@ export class KeywordService{
     /**
      * get all keywords' details
      */
-    public getExploresList() {
+    public getKeywordList() {
         
         let headers = new Headers();
         headers.append('Accept', 'application/json');

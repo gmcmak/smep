@@ -39,7 +39,7 @@ export class ViewKeywordComponent implements OnInit{
 
     getKeywords() {
 
-        this.KeywordService.getExploresList()
+        this.KeywordService.getKeywordList()
             .subscribe(success => { this.keywordList = success.success });
     }
     

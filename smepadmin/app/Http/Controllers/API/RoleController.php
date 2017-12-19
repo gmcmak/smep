@@ -21,7 +21,7 @@ class RoleController extends Controller
 
       $validator = Validator::make($request->all(), [
            'name' => 'required',
-           'status' => 'required:boolean'
+           'status' => 'required|boolean'
        ]);
 
        if ($validator->fails()) {
@@ -33,7 +33,6 @@ class RoleController extends Controller
          $table->created_at = now();
          $table->updated_at = now();
          $table->save();
-
          if($table->save()){
            return response()->json(['success'=>'Successfully inserted']);
          }

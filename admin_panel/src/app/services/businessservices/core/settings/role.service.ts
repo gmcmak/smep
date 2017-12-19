@@ -36,7 +36,7 @@ export class RoleService{
      * add role details
      */
     public addRoleList(role_name, role_status) {
-
+        
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');

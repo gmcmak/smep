@@ -63,6 +63,7 @@ export class ViewUsersComponent implements OnInit{
                     var dataClaims = this.usersList;
                     for (let i = 0; i < dataClaims.length; i++) {
                         $('#dataTableUsers').dataTable().fnAddData([
+                            (i+1),
                             dataClaims[i].name,
                             dataClaims[i].email,
                             dataClaims[i].role.name,
