@@ -59,7 +59,7 @@ class KeywordController extends Controller
     public function editKeyword($id){
       $data = DB::table('keywords')->where('id', $id)->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);

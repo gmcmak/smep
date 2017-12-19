@@ -10,10 +10,12 @@ export class ExploreService{
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService
-    ) { this.loggedInUserList = JSON.parse(this.localStorageService.get('userData')); }
+    ) { 
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+    }
 
     /**
-     * get all categories' details
+     * get all explores' details
      */
     public getExploresList() {
         
@@ -50,4 +52,46 @@ export class ExploreService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * get explore's details for update
+     */
+    public editExploresList(id) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'get-explore/'+id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * update explore details
+     */
+    public updateExploresList(id, parent_id, english_name, sinhala_name, tamil_name, explore_status, deleted) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        let body = new URLSearchParams;
+        body.append('parent_id', parent_id);
+        body.append('en_tag', english_name);
+        body.append('si_tag', sinhala_name);
+        body.append('ta_tag', tamil_name);
+        body.append('status', explore_status);
+        body.append('deleted', deleted);
+        return this.http.post(this.API_ENDPOINT + 'update-explore/'+id+'/edit', body,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
 }

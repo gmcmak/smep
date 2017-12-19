@@ -52,4 +52,21 @@ export class KeywordService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * get keyword's details for update
+     */
+    public editKeywordList(id) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'edit-keyword/'+id,
+            {
+               headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

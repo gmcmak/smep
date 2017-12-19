@@ -28,7 +28,7 @@
                     </label>
                 </div>
                 <div class="col-md-5">
-                    <input class="form-control form-control-sm" id="roleName" type="text" name="role_name" formControlName="role_name" [(ngModel)]="roleName"
+                    <input class="form-control form-control-sm" id="roleName" type="text" name="role_name" formControlName="role_name" [(ngModel)]="role.roleName"
                         placeholder="Administrator" [ngClass]="displayFieldCss('role_name')">
 
                     <div *ngIf="roleForm.controls['role_name'].hasError('required') && roleForm.controls['role_name'].touched" class="error">
@@ -46,7 +46,7 @@
                     </label>
                 </div>
                 <div class="col-md-5">
-                    <select id="status" name="status" class="form-control form-control-sm drop" [(ngModel)]="roleStatus" formControlName="role_status"
+                    <select id="status" name="status" class="form-control form-control-sm drop" [(ngModel)]="role.roleStatus" formControlName="role_status"
                         [ngClass]="displayFieldCss('role_status')">
                         <!-- <option disabled value="selected">Select the post</option> -->
                         <option value="1" selected>Enable</option>

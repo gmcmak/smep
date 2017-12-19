@@ -31,9 +31,6 @@ export class ViewAuthorComponent implements OnInit{
 
     dataTable() {
         $('#authorsTable').DataTable({
-            "language": {
-                "search": "Search by: (English/ Sinhala/ Tamil)"
-            }
         });
     }
 
@@ -47,14 +44,10 @@ export class ViewAuthorComponent implements OnInit{
                     for (let i = 0; i < dataClaims.length; i++) {
                         $('#authorsTable').dataTable().fnAddData([
                             (i + 1),
-                            dataClaims[i].name,
-                            dataClaims[i].registration_number,
-                            dataClaims[i].registered_date,
-                            dataClaims[i].email,
-                            dataClaims[i].contact_number,
-                            dataClaims[i].address,
-                            '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                            '<a [routerLink]="[' + "'" + "../../institute/update-institute" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                            dataClaims[i].en_name,
+                            dataClaims[i].si_name,
+                            dataClaims[i].ta_name,
+                            '<a [routerLink]="[' + "'" + "../../../settings/author/update-author" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
                             '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
                         ]);
                     }

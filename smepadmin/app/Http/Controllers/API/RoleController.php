@@ -62,7 +62,7 @@ class RoleController extends Controller
     public function editRole($id){
       $data = DB::table('roles')->where('id', [$id])->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);

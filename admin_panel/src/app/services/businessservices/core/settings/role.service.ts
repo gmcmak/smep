@@ -52,4 +52,20 @@ export class RoleService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * get role's details for update
+     */
+    public editRolesList(id) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'edit-role/'+id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

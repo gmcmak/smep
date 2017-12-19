@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { KeywordService } from "../../../../../../../services/businessservices/core/settings/keyword.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -13,15 +14,18 @@ declare var jQuery: any;
 export class UpdateKeywordComponent implements OnInit{
 
     public keyword = new Keyword();
-
     public keywordForm: FormGroup;
+    public keywordList;
+    public id;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private keywordService: KeywordService
+    ) {}
 
     ngOnInit(): void {
         this.initializeKeywordForm();
+        this.editKeyword();
     }
 
     private initializeKeywordForm(): void {
@@ -56,6 +60,22 @@ export class UpdateKeywordComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
+    }
+
+    /**
+     * get keyword's details for update
+     */
+    editKeyword(){
+        this.keywordService.editKeywordList(
+            this.id=1
+        ).subscribe(
+            success => {
+                this.keywordList = success.success;
+                this.keyword.englishName = this.keywordList[0].en_name;
+                this.keyword.sinhalaName = this.keywordList[0].si_name;
+                this.keyword.tamilName = this.keywordList[0].ta_name;
+            }
+        );
     }
 }
 

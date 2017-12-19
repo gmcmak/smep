@@ -87,7 +87,7 @@ class ExploreController extends Controller
             ['deleted', '=', '0'],
             ['id', '=', $id]
         ])->get();
-        return response()->json($explore);    
+        return response()->json(['success'=>$explore]);    
     } 
 
     /**

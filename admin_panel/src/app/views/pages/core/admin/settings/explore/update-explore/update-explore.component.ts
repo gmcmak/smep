@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ExploreService } from "../../../../../../../services/businessservices/core/settings/explore.service";
 
 @Component({
     selector: 'update-explore',
@@ -10,15 +11,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class UpdateExploreComponent implements OnInit{
 
     public explore = new Explore();
-
     public exploreForm: FormGroup;
+    public editExploreList;
+    public id;
+    public parent_id;
+    public exploreUpdatingStatus;
+    public updateExploreList;
+    public deleted;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private exploreService: ExploreService
+    ) {}
 
     ngOnInit(): void {
         this.initializeExploreForm();
+        this.editExplore();
     }
 
     private initializeExploreForm(): void {
@@ -54,6 +62,42 @@ export class UpdateExploreComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
+    }
+
+    /**
+     * get explore details for update
+     */
+    editExplore(){
+        this.exploreService.editExploresList(
+            this.id=2
+        ).subscribe(
+            success => {
+                this.editExploreList = success.success;
+                this.explore.englishName = this.editExploreList[0].en_tag;
+                this.explore.sinhalaName = this.editExploreList[0].si_tag;
+                this.explore.tamilName = this.editExploreList[0].ta_tag;
+                this.explore.exploreStatus = this.editExploreList[0].status;
+            }
+        );
+    }
+
+    /**
+     * update explore details
+     */
+    updateExplore(formData){
+        this.exploreService.updateExploresList(
+            this.id=2,
+            this.parent_id=0,
+            formData.english_name,
+            formData.sinhala_name,
+            formData.tamil_name,
+            formData.explore_status,
+            this.deleted=0
+        ).subscribe(
+            success => {
+                this.exploreUpdatingStatus = success.success;
+            }
+        );
     }
 }
 
