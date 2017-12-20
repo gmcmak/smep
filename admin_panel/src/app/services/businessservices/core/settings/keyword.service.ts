@@ -90,4 +90,21 @@ export class KeywordService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     *delete keyword
+     */
+    public deleteKeyword(deleteId) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-keyword/'+deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

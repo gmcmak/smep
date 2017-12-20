@@ -17,6 +17,9 @@ export class ViewCategoryComponent implements OnInit{
     public categoryList;
     private loggedInUserList;
 
+    public categoryDeletingStatus;
+    public deletedId = 4;
+
     constructor(
         private CategoryService: CategoryService,
         private router: Router,
@@ -26,6 +29,7 @@ export class ViewCategoryComponent implements OnInit{
     ngOnInit(): void {
         this.dataTable();
         this.getCategories();
+        this.deleteCategory();
     }
 
 
@@ -34,6 +38,10 @@ export class ViewCategoryComponent implements OnInit{
         });
     }categoryTable
 
+
+    /**
+     * get category details for category table
+     */
     getCategories(){
         this.CategoryService.getCategoriesList()
             .subscribe(
@@ -54,5 +62,18 @@ export class ViewCategoryComponent implements OnInit{
                     }
                 }
             );
+    }
+
+    /**
+     * delete category
+     */
+    deleteCategory(){
+        this.CategoryService.deleteCategory(
+            this.deletedId
+        ).subscribe(
+            success => {
+                this.categoryDeletingStatus = success.success
+            }
+        );
     }
 }

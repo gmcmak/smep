@@ -89,4 +89,20 @@ export class AuthorService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * delete author
+     */
+    public deleteAuthor(deleteId) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-author/' + deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

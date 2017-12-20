@@ -17,6 +17,9 @@ export class ViewKeywordComponent implements OnInit{
     public keywordList;
     private loggedInUserList;
 
+    public keywordDeletingStatus;
+    public deleteId=2;
+
     constructor(
         private KeywordService: KeywordService,
         private router: Router,
@@ -26,19 +29,19 @@ export class ViewKeywordComponent implements OnInit{
     ngOnInit(): void {
         this.dataTable();
         this.getKeywords();
+        this.deleteKeyword();
     }
 
     dataTable() {
         $('#keywordTable').DataTable({
-            "language": {
-                "search": "Search by: (English/ Sinhala/ Tamil)"
-            }
 
         });
     }
 
+    /**
+     * get keyword details to table
+     */
     getKeywords() {
-
         this.KeywordService.getKeywordList()
             .subscribe(
                 success => {
@@ -58,7 +61,19 @@ export class ViewKeywordComponent implements OnInit{
                 }
             );
     }
-    
+
+    /**
+     * delete keyword
+     */
+    deleteKeyword(){
+        this.KeywordService.deleteKeyword(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.keywordDeletingStatus = success.success
+            }
+        );
+    }
 
     
 }

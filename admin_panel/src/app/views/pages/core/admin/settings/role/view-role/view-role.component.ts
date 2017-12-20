@@ -17,6 +17,9 @@ export class ViewRoleComponent implements OnInit{
     public roleList;
     private loggedInUserList;
 
+    public roleDeletingStatus;
+    public deleteId=10;
+
     constructor(
         private RoleService: RoleService,
         private router: Router,
@@ -26,6 +29,7 @@ export class ViewRoleComponent implements OnInit{
     ngOnInit(): void {
         this.getRoles();
         this.dataTable();
+        this.deleteRole();
 
     }
 
@@ -39,6 +43,9 @@ export class ViewRoleComponent implements OnInit{
       
     }
 
+    /**
+     * get roles' details
+     */
     getRoles(){
         this.RoleService.getRolesList()
             .subscribe(
@@ -52,15 +59,25 @@ export class ViewRoleComponent implements OnInit{
                             dataClaims[i].name,
                             '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
                             '<a [routerLink]="[' + "'" + "../../../settings/role/update-role" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                            // '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                            '<button type="button" (click)="sendId(dataClaims[i].id)"></button>'
+                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                            //'<button type="button" (click)="sendId(dataClaims[i].id)"></button>'
                         ]);
                     }
                 }
             );
     }
 
-    sendId(ids){
-        alert(ids);
+    /**
+     * delete role
+     */
+    deleteRole(){
+        this.RoleService.deleteRole(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.roleDeletingStatus = success.success
+            }
+        );
     }
+
 }

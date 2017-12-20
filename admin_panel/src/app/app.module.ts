@@ -141,6 +141,8 @@ import { InstituteService } from './services/businessservices/core/institute/ins
 import { EditProfileComponent } from './views/pages/core/admin/profile/edit-profile/edit-profile.component';
 import { AuthorizerService } from './services/businessservices/core/content-authorizer/authorizer.service';
 import { ProviderService } from './services/businessservices/core/content-provider/provider.service';
+import { ConsumerService } from './services/businessservices/core/content-consumer/consumer.service';
+import { ModuleService } from './services/businessservices/core/module/module.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -286,6 +288,8 @@ export function startupServiceFactory(startupService: StartupService): Function 
     InstituteService,
     AuthorizerService,
     ProviderService,
+    ConsumerService,
+    ModuleService,
     ToastService,
     ToastCommunicationService,
     DialogsService,

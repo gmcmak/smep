@@ -89,4 +89,20 @@ export class RoleService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * delete role
+     */
+    public deleteRole(deleteId) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-role/' + deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

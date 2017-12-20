@@ -16,6 +16,9 @@ export class ViewAuthorComponent implements OnInit{
     public authorList;
     private loggedInUserList;
 
+    public authorDeletingStatus;
+    public deleteId=4; //delete author id
+
     constructor(
         private AuthorService:AuthorService,
         private router: Router, 
@@ -26,6 +29,7 @@ export class ViewAuthorComponent implements OnInit{
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         this.dataTable();
         this.getAuthors();
+        this.deleteAuthor();
     }
 
 
@@ -53,6 +57,16 @@ export class ViewAuthorComponent implements OnInit{
                     }
                 }
             );
+    }
+
+    deleteAuthor(){
+        this.AuthorService.deleteAuthor(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.authorDeletingStatus = success.success
+            }
+        );
     }
     
 }

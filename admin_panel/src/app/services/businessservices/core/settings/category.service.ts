@@ -82,4 +82,19 @@ export class CategoryService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * delete category
+     */
+    public deleteCategory(deleteId) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-category/' + deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

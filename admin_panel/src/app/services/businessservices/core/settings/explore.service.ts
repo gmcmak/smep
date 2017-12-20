@@ -94,4 +94,21 @@ export class ExploreService{
             .map((response: Response) => response.json());
     }
 
+    /**
+     * delete explore
+     */
+    public deleteExplore(deleteId) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-explore/' +deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
 }

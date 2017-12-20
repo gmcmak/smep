@@ -14,6 +14,8 @@
     </li>
 </ol>
 
+<div class="alert alert-success" *ngIf="keywordDeletingStatus">{{keywordDeletingStatus}}</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-table"></i>&emsp;
@@ -54,7 +56,7 @@
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
 </div>
 <br>
 <br>

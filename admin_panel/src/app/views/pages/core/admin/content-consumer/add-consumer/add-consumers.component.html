@@ -10,8 +10,10 @@
         <a>Add Consumers</a>
     </li>
 </ol>
+
+<div class="alert alert-success" *ngIf="consumerAddingStatus">{{consumerAddingStatus}}</div>
    
-<form id="form1" name="form1" method="POST" [formGroup]="consumerForm" (ngSubmit)="onSubmit()" action="">
+<form id="consumerForm" name="consumerForm" [formGroup]="consumerForm" (ngSubmit)="addConsumer(consumerForm.value)">
     <div class="card mb-3">
         <div class="card-header">
             <i class="fa fa-file-o"></i>&emsp;<b>Content Consumer App List Form</b>
@@ -24,7 +26,7 @@
                 </div>
     
                 <div class="col-md-7">
-                    <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Nimal Perera" [(ngModel)]="caName"
+                    <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Nimal Perera" [(ngModel)]="consumer.caName"
                         formControlName="caName" [ngClass]="displayFieldCss('caName')">
                     
                     <div *ngIf="consumerForm.controls['caName'].hasError('required') && consumerForm.controls['caName'].touched" class="error">
@@ -40,7 +42,7 @@
                 </div>
                 <div class="col-md-7">
                     <input mdInput type="text" id="caWebUrl" name="caWebUrl" class="form-control form-control-sm" placeholder="https://laravel.com/docs/5.5"
-                        [(ngModel)]="caWebUrl" formControlName="caWebUrl" [ngClass]="displayFieldCss('caWebUrl')">
+                        [(ngModel)]="consumer.caWebUrl" formControlName="caWebUrl" [ngClass]="displayFieldCss('caWebUrl')">
                 
                     <div *ngIf="consumerForm.controls['caWebUrl'].hasError('required') && consumerForm.controls['caWebUrl'].touched" class="error">
                         URL is required !
@@ -51,49 +53,34 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
                     <label for="caPassword">Authentication Code: <span class="required">*</span></label>
                 </div>
                 <div class="col-md-5">
                     <input mdInput type="password" id="caPassword" name="caPassword" class="form-control form-control-sm" placeholder="sunil123"
-                        [(ngModel)]="caPassword" formControlName="caPassword" [ngClass]="displayFieldCss('caPassword')">
+                        [(ngModel)]="consumer.caPassword" formControlName="caPassword" [ngClass]="displayFieldCss('caPassword')">
             
                     <div *ngIf="consumerForm.controls['caPassword'].hasError('required') && consumerForm.controls['caPassword'].touched" class="error">
                         Password is required !
                     </div>
                 </div>
                 <div class="col-md-6"></div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
                     <label>Permissions :</label>
                 </div>
                 <div class="col-md-7">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <label>Access to xxxxxxxxxxxxxxxxx</label>
+                    <div class="row" *ngFor="let record of modulesList; let i = index" [formGroupName]="i">
+                        <div class="col-md-6">
+                            <label class="module">{{record.module_name}}</label>
                         </div>
-                        <div class="col-md-2">
-                            <input type="checkbox">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10">
-                            <label>Access to xxxxxxxxxxxxxxxxx</label>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="checkbox">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10">
-                            <label>Access to xxxxxxxxxxxxxxxxx</label>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="checkbox">
+                        <div class="col-md-6">
+                            <!-- <input type="checkbox" name="permission[i]" [value]="record.id" [(ngModel)]="consumer.permission" formControlName="permission"> -->
+                            <input type="checkbox" name="permission[]" [value]="record.id" formControlName="i.permission"/>
                         </div>
                     </div>
                 </div>
@@ -107,7 +94,7 @@
                     <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!consumerForm.valid" (click)="submitForm1()">Submit</button>
+                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!consumerForm.valid">Submit</button>
                     <!-- <button type="submit" id="cancel1" name="cancel1" class="btn-primary search_btn">Cancel</button> -->
                     <br>
                     <br>

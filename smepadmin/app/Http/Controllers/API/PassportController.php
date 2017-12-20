@@ -86,7 +86,8 @@ class PassportController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function editDetails($id){
-        $user = Auth::user()::with('role', 'highestEducation.country', 'professionalEducations.country','institues')->where('id', [$id])->get();
+        // $user = Auth::user()::with('role', 'highestEducation.country', 'professionalEducations.country','institues')->where('id', [$id])->get();
+        $user = Auth::user()->where('id', [$id])->get();
         return response()->json(['success' => $user], $this->successStatus);
     }
 
@@ -98,8 +99,8 @@ class PassportController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
+            // 'password' => 'required',
+            // 'c_password' => 'required|same:password',
             'status'=>'required|boolean',
             'deleted'=>'required|boolean',
             'name_with_initials'=>'required',
@@ -118,7 +119,7 @@ class PassportController extends Controller
             $update = [
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
+                //'password' => bcrypt($request->input('password')),
                 'status' => $request->input('status'),
                 'deleted' => $request->input('deleted'),
                 'name_with_initials' => $request->input('name_with_initials'),
@@ -127,7 +128,8 @@ class PassportController extends Controller
                 'mobile' => $request->input('mobile'),
                 'designation' => $request->input('designation'),
                 'birthday' => $request->input('birthday'),
-                'role_id' => $request->input('role_id')
+                'role_id' => $request->input('role_id'),
+                'updated_at' => now()
             ];
 
             $updateDetails = DB::table('users')->whereIn('id', [$id])->update($update);

@@ -7,13 +7,13 @@
         <a [routerLink]="['../../users/view-users']">Users</a>
     </li>
     <li class="breadcrumb-item">
-        <a>Add Users</a>
+        <a>Update Users</a>
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="userRegisterStatus">{{userRegisterStatus}}</div>
+<div class="alert alert-success" *ngIf="userUpdatingStatus">{{userUpdatingStatus}}</div>
 
-<form id="userForm" [formGroup]="userForm" (ngSubmit)="addUser(userForm.value)">
+<form id="userForm" [formGroup]="userForm" (ngSubmit)="updateUser(userForm.value)">
     <!-- <form id="userForm" [formGroup]="userForm" #registerForm="ngForm" (ngSubmit)="addUser(registerForm.value)"></form> -->
     <div class="card md-3">
         <div class="card-header">
@@ -30,7 +30,7 @@
                     <select id="position" name="position" class="form-control form-control-sm drop" [(ngModel)]="user.admin_level" formControlName="role_id"
                         [ngClass]="displayFieldCss('role_id')">
                         <!-- <option disabled value="selected">Select the post</option> -->
-                        <option *ngFor="let record of rolesList" value="record.id">{{record.name}}</option>
+                        <option *ngFor="let record of rolesList" [ngValue]="record.id">{{record.name}}</option>
                     </select>
                     <div *ngIf="userForm.controls['role_id'].hasError('required') && userForm.controls['role_id'].touched" class="error">
                         Select the administrator level !
@@ -177,13 +177,13 @@
                 </div>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12">
                     <hr>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-6">
                     <label for="user_password1">Password:
                         <span class="required">*</span>
@@ -210,7 +210,7 @@
                         Passwords are not matched !
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <br>
 
@@ -218,7 +218,7 @@
                 <div class="col-md-8"></div>
                 <div class="col-md-4" align="right">
                     &emsp;
-                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!userForm.valid">Reset</button>
+                    <!-- <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!userForm.valid">Reset</button> -->
                     <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!userForm.valid">Update</button>
                 </div>
             </div>

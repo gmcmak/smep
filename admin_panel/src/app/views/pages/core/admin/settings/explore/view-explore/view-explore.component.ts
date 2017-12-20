@@ -16,6 +16,9 @@ export class ViewExploreComponent implements OnInit{
 
     public exploreList;
     private loggedInUserList;
+
+    public exploreDeletingStatus;
+    public deleteId=4;
     
     constructor(
         private ExploreService: ExploreService,
@@ -26,6 +29,7 @@ export class ViewExploreComponent implements OnInit{
     ngOnInit(): void {
         this.dataTable();
         this.getExplores();
+        this.deleteExplore();
     }
 
 
@@ -35,6 +39,9 @@ export class ViewExploreComponent implements OnInit{
         });
     }
 
+    /**
+     * get explore details for table
+     */
     getExplores(){
 
         this.ExploreService.getExploresList()
@@ -56,5 +63,18 @@ export class ViewExploreComponent implements OnInit{
                     }
                 }
             );
+    }
+
+    /**
+     * delete explore
+     */
+    deleteExplore(){
+        this.ExploreService.deleteExplore(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.exploreDeletingStatus = success.success
+            }
+        );
     }
 }
