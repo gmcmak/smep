@@ -68,4 +68,25 @@ export class RoleService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * update role details
+     */
+    public updateRoleList(id, role_name, role_status) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        let body = new URLSearchParams;
+        body.append('name', role_name);
+        body.append('status', role_status);
+
+        return this.http.post(this.API_ENDPOINT + 'update-role/'+id, body,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

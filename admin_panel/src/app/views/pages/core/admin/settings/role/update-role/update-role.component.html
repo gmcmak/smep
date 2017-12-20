@@ -14,7 +14,9 @@
     </li>
 </ol>
 
-<form id="roleForm" [formGroup]="roleForm">
+<div class="alert alert-success" *ngIf="roleupdatingStatus">{{roleupdatingStatus}}</div>
+
+<form id="roleForm" [formGroup]="roleForm" (ngSubmit)="updateRole(roleForm.value)">
     <div class="card mb-3">
         <div class="card-header">
             <b>Role Updating Form</b>

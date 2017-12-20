@@ -14,7 +14,9 @@
     </li>
 </ol>
 
-<form id="keywordForm" [formGroup]="keywordForm">
+<div class="alert alert-success" *ngIf="keywordupdatingStatus">{{keywordupdatingStatus}}</div>
+
+<form id="keywordForm" [formGroup]="keywordForm" (ngSubmit)="updateKeyword(keywordForm.value)">
     <div class="card mb-3">
         <div class="card-header">
             <b>Keyword Updating Form</b>
@@ -79,7 +81,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-3"></div>
                 <div class="col-md-5" align="right">
-                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!keywordForm.valid">Reset</button>
+                    <button type="button" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!keywordForm.valid">Reset</button>
                     <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!keywordForm.valid">Submit</button>
                 </div>
                 <div class="col-md-2"></div>

@@ -15,8 +15,10 @@ export class UpdateKeywordComponent implements OnInit{
 
     public keyword = new Keyword();
     public keywordForm: FormGroup;
-    public keywordList;
+    public editKeywordList;
     public id;
+    public updateKeywordList;
+    public keywordupdatingStatus;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -70,10 +72,26 @@ export class UpdateKeywordComponent implements OnInit{
             this.id=1
         ).subscribe(
             success => {
-                this.keywordList = success.success;
-                this.keyword.englishName = this.keywordList[0].en_name;
-                this.keyword.sinhalaName = this.keywordList[0].si_name;
-                this.keyword.tamilName = this.keywordList[0].ta_name;
+                this.editKeywordList = success.success;
+                this.keyword.englishName = this.editKeywordList[0].en_name;
+                this.keyword.sinhalaName = this.editKeywordList[0].si_name;
+                this.keyword.tamilName = this.editKeywordList[0].ta_name;
+            }
+        );
+    }
+
+    /**
+     * update keyword details
+     */
+    updateKeyword(formData){
+        this.keywordService.updateKeywordList(
+            this.id=1,
+            formData.english_name,
+            formData.sinhala_name,
+            formData.tamil_name
+        ).subscribe(
+            success => {
+                this.keywordupdatingStatus = success.success
             }
         );
     }

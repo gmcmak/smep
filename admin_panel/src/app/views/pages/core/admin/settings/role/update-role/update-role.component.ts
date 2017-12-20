@@ -14,6 +14,7 @@ export class UpdateRoleComponent implements OnInit{
     public roleForm: FormGroup;
     public roleList;
     public id;
+    public roleupdatingStatus;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -69,6 +70,21 @@ export class UpdateRoleComponent implements OnInit{
                 this.roleList = success.success;
                 this.role.roleName = this.roleList[0].name;
                 this.role.roleStatus = this.roleList[0].status;
+            }
+        );
+    }
+
+    /**
+     * update role details
+     */
+    updateRole(formData){
+        this.roleService.updateRoleList(
+            this.id=1,
+            formData.role_name,
+            formData.role_status
+        ).subscribe(
+            success => {
+                this.roleupdatingStatus = success.success
             }
         );
     }

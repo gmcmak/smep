@@ -45,7 +45,6 @@ export class ViewRoleComponent implements OnInit{
                 success => {
                     this.roleList = success.success;
                     $("#roleTable").find('tbody').empty();
-                    this.roleList = success.success;
                     var dataClaims = this.roleList;
                     for (let i = 0; i < dataClaims.length; i++) {
                         $('#roleTable').dataTable().fnAddData([
@@ -53,10 +52,15 @@ export class ViewRoleComponent implements OnInit{
                             dataClaims[i].name,
                             '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
                             '<a [routerLink]="[' + "'" + "../../../settings/role/update-role" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                            // '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                            '<button type="button" (click)="sendId(dataClaims[i].id)"></button>'
                         ]);
                     }
                 }
             );
-    } 
+    }
+
+    sendId(ids){
+        alert(ids);
+    }
 }
