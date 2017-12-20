@@ -66,9 +66,9 @@ export class ViewInstituteComponent implements OnInit{
     } 
 
 
-    updateRedirect(id){
-        this.router.navigate(['../../institute/update-institute']);
-    }
+    // updateRedirect(id){
+    //     this.router.navigate(['../../institute/update-institute']);
+    // }
 
 
     /**

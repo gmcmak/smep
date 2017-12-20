@@ -14,7 +14,9 @@
     </li>
 </ol>
 
-<form id="authorForm" [formGroup]="authorForm">
+<div class="alert alert-success" *ngIf="authorUpdatingStatus">{{authorUpdatingStatus}}</div>
+
+<form id="authorForm" [formGroup]="authorForm" (ngSubmit)="updateAuthor(authorForm.value)">
     <div class="card mb-3">
         <div class="card-header">
             <b>Author's Updating Form</b>
@@ -29,7 +31,7 @@
                 </div>
                 <div class="col-md-5">
                     <input class="form-control form-control-sm" id="englishName" type="text" name="english_name" formControlName="english_name"
-                        [(ngModel)]="englishName" placeholder="Jhone" [ngClass]="displayFieldCss('english_name')">
+                        [(ngModel)]="author.englishName" placeholder="Jhone" [ngClass]="displayFieldCss('english_name')">
 
                     <div *ngIf="authorForm.controls['english_name'].hasError('required') && authorForm.controls['english_name'].touched" class="error">
                         English name is required !
@@ -47,7 +49,7 @@
                 </div>
                 <div class="col-md-5">
                     <input class="form-control form-control-sm" id="sinhalaName" type="text" name="sinhala_name" formControlName="sinhala_name"
-                        [(ngModel)]="sinhalaName" placeholder="ජෝන්" [ngClass]="displayFieldCss('sinhala_name')">
+                        [(ngModel)]="author.sinhalaName" placeholder="ජෝන්" [ngClass]="displayFieldCss('sinhala_name')">
 
                     <div *ngIf="authorForm.controls['sinhala_name'].hasError('required') && authorForm.controls['sinhala_name'].touched" class="error">
                         Sinhala name is required !
@@ -64,7 +66,7 @@
                     </label>
                 </div>
                 <div class="col-md-5">
-                    <input class="form-control form-control-sm" id="tamilName" type="text" name="tamil_name" formControlName="tamil_name" [(ngModel)]="tamilName"
+                    <input class="form-control form-control-sm" id="tamilName" type="text" name="tamil_name" formControlName="tamil_name" [(ngModel)]="author.tamilName"
                         placeholder="ஜான்" [ngClass]="displayFieldCss('tamil_name')">
 
                     <div *ngIf="authorForm.controls['tamil_name'].hasError('required') && authorForm.controls['tamil_name'].touched" class="error">
@@ -79,7 +81,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-3"></div>
                 <div class="col-md-5" align="right">
-                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!authorForm.valid">Reset</button>
+                    <button type="button" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!authorForm.valid" (ngClick)="formReset()">Reset</button>
                     <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!authorForm.valid">Submit</button>
                 </div>
                 <div class="col-md-2"></div>

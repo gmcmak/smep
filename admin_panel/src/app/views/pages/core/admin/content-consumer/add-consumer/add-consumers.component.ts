@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, Validators,FormBuilder} from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
+import { ModuleService } from "../../../../../../services/businessservices/core/module/module.service";
+import { ConsumerService } from "../../../../../../services/businessservices/core/content-consumer/consumer.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -18,21 +20,33 @@ const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0
 export class AddConsumersComponent implements OnInit{
 
     public consumer = new Consumer();
-
     public consumerForm: FormGroup;
-    constructor(private formBuilder: FormBuilder){
+    public modulesList;
+
+    public consumerAddingStatus;
+
+    constructor(
+        private formBuilder: FormBuilder,
+        private moduleService: ModuleService,
+        private consumerService: ConsumerService
+    ){
 
     }
 
     ngOnInit(): void {
         this.initializeConsumerForm();
+        this.loadModules();
 
     }
         private initializeConsumerForm(): void{
             this.consumerForm = this.formBuilder.group({
                 'caName': [null, Validators.required],
                 'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
-                'caPassword': [null, Validators.required]
+                i: new FormGroup({
+                    'permission': new FormControl('')
+                })
+                
+                //'caPassword': [null, Validators.required]
             })
         }
 
@@ -46,10 +60,40 @@ export class AddConsumersComponent implements OnInit{
             'is-valid': this.isFieldValid(field)
         };
     }
+
+    /**
+     * get modules list
+     */
+    loadModules(){
+        this.moduleService.getModulesList(
+
+        ).subscribe(
+            success => {
+                this.modulesList = success.success
+            }
+        );
+    }
+
+    /**
+     * add consumer details
+     */
+    addConsumer(formData){
+        //alert(formData.permission);
+        this.consumerService.addConsumer(
+            formData.caName,
+            formData.caWebUrl,
+            formData.i.permission
+        ).subscribe(
+            success => {
+                this.consumerAddingStatus = success.success
+            }
+        );
+    }
 }
 
 export class Consumer{
     public caName: string;
     public caWebUrl: string;
-    public caPassword: string;
+    //public caPassword: string;
+    public permission: number;
 }

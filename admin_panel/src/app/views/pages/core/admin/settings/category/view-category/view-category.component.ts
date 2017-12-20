@@ -17,6 +17,9 @@ export class ViewCategoryComponent implements OnInit{
     public categoryList;
     private loggedInUserList;
 
+    public categoryDeletingStatus;
+    public deletedId = 4;
+
     constructor(
         private CategoryService: CategoryService,
         private router: Router,
@@ -26,20 +29,51 @@ export class ViewCategoryComponent implements OnInit{
     ngOnInit(): void {
         this.dataTable();
         this.getCategories();
+        this.deleteCategory();
     }
 
 
     dataTable() {
-        $('#categoryTable').DataTable({
-            "language": {
-                "search": "Search by: (English/ Sinhala/ Tamil)"
-            }
-
+        $('#').DataTable({
         });
-    }
+    }categoryTable
 
+
+    /**
+     * get category details for category table
+     */
     getCategories(){
         this.CategoryService.getCategoriesList()
-            .subscribe(success=>{this.categoryList=success.success});
+            .subscribe(
+                success=>{
+                    this.categoryList=success.success;
+                    $("#categoryTable").find('tbody').empty();
+                    var dataClaims = this.categoryList;
+                    for (let i = 0; i < dataClaims.length; i++) {
+                        $('#categoryTable').dataTable().fnAddData([
+                            (i + 1),
+                            dataClaims[i].en_name,
+                            dataClaims[i].si_name,
+                            dataClaims[i].ta_name,
+                            '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                            '<a [routerLink]="[' + "'" + "../../../settings/category/update-category" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                        ]);
+                    }
+                }
+            );
+    }
+
+    /**
+     * delete category
+     */
+    deleteCategory(){
+        this.CategoryService.deleteCategory(
+            this.deletedId
+        ).subscribe(
+            success => {
+                this.categoryDeletingStatus = success.success
+            }
+        );
     }
 }

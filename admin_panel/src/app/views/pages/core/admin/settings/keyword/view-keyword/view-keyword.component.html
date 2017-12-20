@@ -14,6 +14,8 @@
     </li>
 </ol>
 
+<div class="alert alert-success" *ngIf="keywordDeletingStatus">{{keywordDeletingStatus}}</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-table"></i>&emsp;
@@ -24,6 +26,7 @@
             <table class="table table-bordered" id="keywordTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>English Tag</th>
                         <th>Sinhala Tag</th>
                         <th>Tamil Tag</th>
@@ -35,7 +38,7 @@
 
                 </tfoot>
                 <tbody>
-                    <tr *ngFor="let record of keywordList">
+                    <!-- <tr *ngFor="let record of keywordList">
                         <td>{{record.en_name}}</td>
                         <td>{{record.si_name}}</td>
                         <td>{{record.ta_name}}</td>
@@ -48,12 +51,12 @@
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
 </div>
 <br>
 <br>

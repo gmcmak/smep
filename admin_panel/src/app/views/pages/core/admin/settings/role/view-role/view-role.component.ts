@@ -17,6 +17,9 @@ export class ViewRoleComponent implements OnInit{
     public roleList;
     private loggedInUserList;
 
+    public roleDeletingStatus;
+    public deleteId=10;
+
     constructor(
         private RoleService: RoleService,
         private router: Router,
@@ -26,6 +29,7 @@ export class ViewRoleComponent implements OnInit{
     ngOnInit(): void {
         this.getRoles();
         this.dataTable();
+        this.deleteRole();
 
     }
 
@@ -39,8 +43,41 @@ export class ViewRoleComponent implements OnInit{
       
     }
 
+    /**
+     * get roles' details
+     */
     getRoles(){
         this.RoleService.getRolesList()
-            .subscribe(success => { this.roleList = success.success });
-    } 
+            .subscribe(
+                success => {
+                    this.roleList = success.success;
+                    $("#roleTable").find('tbody').empty();
+                    var dataClaims = this.roleList;
+                    for (let i = 0; i < dataClaims.length; i++) {
+                        $('#roleTable').dataTable().fnAddData([
+                            (i + 1),
+                            dataClaims[i].name,
+                            '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                            '<a [routerLink]="[' + "'" + "../../../settings/role/update-role" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                            //'<button type="button" (click)="sendId(dataClaims[i].id)"></button>'
+                        ]);
+                    }
+                }
+            );
+    }
+
+    /**
+     * delete role
+     */
+    deleteRole(){
+        this.RoleService.deleteRole(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.roleDeletingStatus = success.success
+            }
+        );
+    }
+
 }

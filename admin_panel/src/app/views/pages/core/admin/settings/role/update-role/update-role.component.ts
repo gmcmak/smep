@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RoleService } from "../../../../../../../services/businessservices/core/settings/role.service";
 
 @Component({
     selector: 'update-role.component.ts',
@@ -10,15 +11,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class UpdateRoleComponent implements OnInit{
 
     public role = new Role();
-
     public roleForm: FormGroup;
+    public roleList;
+    public id;
+    public roleupdatingStatus;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private roleService: RoleService
+    ) {}
 
     ngOnInit(): void {
         this.initializeRoleForm();
+        this.editRole();
     }
 
     private initializeRoleForm(): void {
@@ -52,6 +57,36 @@ export class UpdateRoleComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
+    }
+
+    /**
+     * get role details for update
+     */
+    editRole(){
+        this.roleService.editRolesList(
+            this.id=1
+        ).subscribe(
+            success => {
+                this.roleList = success.success;
+                this.role.roleName = this.roleList[0].name;
+                this.role.roleStatus = this.roleList[0].status;
+            }
+        );
+    }
+
+    /**
+     * update role details
+     */
+    updateRole(formData){
+        this.roleService.updateRoleList(
+            this.id=1,
+            formData.role_name,
+            formData.role_status
+        ).subscribe(
+            success => {
+                this.roleupdatingStatus = success.success
+            }
+        );
     }
 }
 

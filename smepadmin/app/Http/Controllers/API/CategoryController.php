@@ -65,7 +65,7 @@ class CategoryController extends Controller
     public function editCategory($id){
       $data = DB::table('categories')->where('id', [$id])->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);

@@ -62,7 +62,7 @@ class RoleController extends Controller
     public function editRole($id){
       $data = DB::table('roles')->where('id', [$id])->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);
@@ -106,7 +106,7 @@ class RoleController extends Controller
      * @param id
      * @return delete status
      */
-    public function deleteRole(Request $request, $id){
+    public function deleteRole($id){
 
       $update = [
         'deleted' => 1
@@ -118,7 +118,7 @@ class RoleController extends Controller
         return response()->json(['success'=>'Successfully deleted']);
       }
       else{
-        return respons()->json(['error'=>'Error occured']);
+        return response()->json(['error'=>'Error occured']);
       }
     }
 

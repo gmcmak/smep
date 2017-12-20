@@ -12,7 +12,7 @@ declare var jQuery: any;
     styleUrls: ['view-providers.component.css']
 })
 
-export class ViewProvidersComponent implements OnInit{
+export class ViewProvidersComponent implements OnInit {
 
     public providerList;
 
@@ -20,30 +20,47 @@ export class ViewProvidersComponent implements OnInit{
         private providerService: ProviderService,
         private router: Router,
         private localStorageService: LocalStorageService
-    ){}
+    ) { }
 
     ngOnInit(): void {
         this.dataTable();
         this.getProvidersList();
-     }
- 
- 
-     dataTable(){
-         $('#dataTableProviders').DataTable({
+    }
+
+
+    dataTable() {
+        $('#dataTableProviders').DataTable({
             "language": {
                 "search": "Search by: (Provider's name/ Institute represented/ Subject area)"
-              }
-         });
-     }
+            }
+        });
+    }
 
-     /**
-      * get providers data list
-      */
-    getProvidersList(){
+    /**
+     * get providers data list
+     */
+    private getProvidersList() {
         this.providerService.getProvidersList()
             .subscribe(
-                success => {this.providerList = success.success}
+            success => {
+                this.providerList = success.success;
+                $("#dataTableProviders").find('tbody').empty();
+                var dataClaims = this.providerList;
+                for (let i = 0; i < dataClaims.length; i++) {
+                    $('#dataTableProviders').dataTable().fnAddData([
+                        (i + 1),
+                        dataClaims[i].name,
+                        dataClaims[i].name,
+                        dataClaims[i].name,
+                        '<a>10</a>',
+                        '<a>5</a>',
+                        '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                        '<a [routerLink]="[' + "'" + "../../content-provider/update-providers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                    ]);
+                }
+            }
             );
     }
- 
+
 }

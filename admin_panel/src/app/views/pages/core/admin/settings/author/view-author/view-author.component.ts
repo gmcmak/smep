@@ -16,6 +16,9 @@ export class ViewAuthorComponent implements OnInit{
     public authorList;
     private loggedInUserList;
 
+    public authorDeletingStatus;
+    public deleteId=4; //delete author id
+
     constructor(
         private AuthorService:AuthorService,
         private router: Router, 
@@ -26,14 +29,12 @@ export class ViewAuthorComponent implements OnInit{
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         this.dataTable();
         this.getAuthors();
+        this.deleteAuthor();
     }
 
 
     dataTable() {
         $('#authorsTable').DataTable({
-            "language": {
-                "search": "Search by: (English/ Sinhala/ Tamil)"
-            }
         });
     }
 
@@ -47,19 +48,25 @@ export class ViewAuthorComponent implements OnInit{
                     for (let i = 0; i < dataClaims.length; i++) {
                         $('#authorsTable').dataTable().fnAddData([
                             (i + 1),
-                            dataClaims[i].name,
-                            dataClaims[i].registration_number,
-                            dataClaims[i].registered_date,
-                            dataClaims[i].email,
-                            dataClaims[i].contact_number,
-                            dataClaims[i].address,
-                            '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                            '<a [routerLink]="[' + "'" + "../../institute/update-institute" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                            dataClaims[i].en_name,
+                            dataClaims[i].si_name,
+                            dataClaims[i].ta_name,
+                            '<a [routerLink]="[' + "'" + "../../../settings/author/update-author" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
                             '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
                         ]);
                     }
                 }
             );
+    }
+
+    deleteAuthor(){
+        this.AuthorService.deleteAuthor(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.authorDeletingStatus = success.success
+            }
+        );
     }
     
 }

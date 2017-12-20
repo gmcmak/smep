@@ -170,3 +170,9 @@ div table{
     padding-bottom: 4px;
     margin-top: 0px;
   }
+
+  /*permission label*/
+  .module{
+      font-style: italic;
+      color: brown;
+  }

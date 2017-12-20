@@ -45,7 +45,7 @@ class ModuleController extends Controller
     public function viewModule(){
       $data = DB::table('modules')->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);

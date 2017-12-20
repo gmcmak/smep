@@ -19,6 +19,7 @@
         <table class="table table-bordered" id="dataTableProviders" width="100%" cellspacing="0">
             <thead>
             <tr>
+                <th>#</th>
                 <th>Provider Name</th>
                 <th>Institutes Represented</th>
                 <th>Subject areas</th>
@@ -33,7 +34,7 @@
     
             </tfoot>
             <tbody>
-            <tr *ngFor="let record of providerList">
+            <!-- <tr *ngFor="let record of providerList">
                 <td>{{record.name}}</td>
                 <td></td>
                 <td></td>
@@ -47,12 +48,11 @@
                 </td>
                 <td align="center"><a [routerLink]="['../../content-provider/update-providers']" class="fa fa-1x fa-pencil-square-o"></a></td>
                 <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
-            </tr>
+            </tr> -->
             </tbody>
         </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
     <br>
     <br>

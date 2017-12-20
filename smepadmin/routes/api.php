@@ -45,9 +45,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         // explore menu
         Route::post('add-explore', 'API\ExploreController@add');
         Route::get('get-explore', 'API\ExploreController@index');
-        Route::post('update-explore/{id}', 'API\ExploreController@updateRecord');
-        Route::get('get-explore/{id}/edit', 'API\ExploreController@edit');
-        Route::delete('delete-explore/{id}', 'API\ExploreController@delete');
+        Route::post('update-explore/{id}/edit', 'API\ExploreController@updateRecord');
+        Route::get('get-explore/{id}', 'API\ExploreController@edit');
+        Route::get('delete-explore/{id}', 'API\ExploreController@delete');
 
         /**
         * for modules

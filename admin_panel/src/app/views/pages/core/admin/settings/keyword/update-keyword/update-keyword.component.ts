@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { KeywordService } from "../../../../../../../services/businessservices/core/settings/keyword.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -13,15 +14,20 @@ declare var jQuery: any;
 export class UpdateKeywordComponent implements OnInit{
 
     public keyword = new Keyword();
-
     public keywordForm: FormGroup;
+    public editKeywordList;
+    public id;
+    public updateKeywordList;
+    public keywordupdatingStatus;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private keywordService: KeywordService
+    ) {}
 
     ngOnInit(): void {
         this.initializeKeywordForm();
+        this.editKeyword();
     }
 
     private initializeKeywordForm(): void {
@@ -56,6 +62,38 @@ export class UpdateKeywordComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
+    }
+
+    /**
+     * get keyword's details for update
+     */
+    editKeyword(){
+        this.keywordService.editKeywordList(
+            this.id=1
+        ).subscribe(
+            success => {
+                this.editKeywordList = success.success;
+                this.keyword.englishName = this.editKeywordList[0].en_name;
+                this.keyword.sinhalaName = this.editKeywordList[0].si_name;
+                this.keyword.tamilName = this.editKeywordList[0].ta_name;
+            }
+        );
+    }
+
+    /**
+     * update keyword details
+     */
+    updateKeyword(formData){
+        this.keywordService.updateKeywordList(
+            this.id=1,
+            formData.english_name,
+            formData.sinhala_name,
+            formData.tamil_name
+        ).subscribe(
+            success => {
+                this.keywordupdatingStatus = success.success
+            }
+        );
     }
 }
 

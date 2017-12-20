@@ -11,7 +11,12 @@ export class UserService {
     public API_ENDPOINT = "http://localhost:8000/api/";
     private loggedInUserList;
 
-    constructor(private http: Http, private localStorageService: LocalStorageStore) {}
+    constructor(
+      private http: Http,
+      private localStorageService: LocalStorageStore
+    ) {
+      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData')); 
+    }
    
     /**
      * Login data
@@ -38,7 +43,7 @@ export class UserService {
      * @return userlist
      */
     public getUsersList(){
-      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));  
+       
       let headers = new Headers();
       headers.append('Accept', 'application/json');
       headers.append('Authorization', 'Bearer '+this.loggedInUserList.token);
@@ -67,6 +72,9 @@ export class UserService {
        .map((response: Response) => response.json());  
     }
 
+    /**
+     * add user details
+     */
     addUser(name, name_with_initials, email, nic, gender, birthday, mobile, designation, status, password, c_password, role_id, deleted){
       let headers = new Headers();
       headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -93,6 +101,53 @@ export class UserService {
           })
        .map((response: Response) => response.json());        
     }
+
+    /**
+     * get user details for edit
+     * 
+     */
+    public editUsersList(id) {
+      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+      let headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+      let body = '';
+      return this.http.get(this.API_ENDPOINT + 'edit-details/'+id,
+        {
+          headers: headers
+        })
+        .map((response: Response) => response.json());
+    }
+
+    /**
+     * update user's details
+     */
+  updateUserList(id, role_id, user_fullName, user_nameWithInitials, user_email, user_nic, user_mobile, user_designation, user_gender, user_dob, user_status, deleted) {
+      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+      let headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+      //let body = '';
+      let body = new URLSearchParams;
+      body.append('name', user_fullName);
+      body.append('email', user_email);
+      body.append('status', user_status);
+      body.append('name_with_initials', user_nameWithInitials);
+      body.append('gender', user_gender);
+      body.append('nic', user_nic);
+      body.append('mobile', user_mobile);
+      body.append('designation', user_designation);
+      body.append('birthday', user_dob);
+      body.append('role_id', role_id);
+      body.append('deleted', deleted);
+
+      return this.http.post(this.API_ENDPOINT + 'update-details/'+id, body,
+        {
+          headers: headers
+        })
+        .map((response: Response) => response.json());
+    }
+
 
 
 

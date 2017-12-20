@@ -52,4 +52,59 @@ export class KeywordService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * get keyword's details for update
+     */
+    public editKeywordList(id) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'edit-keyword/'+id,
+            {
+               headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * update keyword details
+     */
+    public updateKeywordList(id, english_name, sinhala_name, tamil_name) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        let body = new URLSearchParams;
+        body.append('en_name', english_name);
+        body.append('si_name', sinhala_name);
+        body.append('ta_name', tamil_name);
+        return this.http.post(this.API_ENDPOINT + 'update-keyword/'+id, body,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     *delete keyword
+     */
+    public deleteKeyword(deleteId) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-keyword/'+deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

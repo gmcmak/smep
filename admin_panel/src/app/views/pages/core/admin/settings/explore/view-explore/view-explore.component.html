@@ -14,6 +14,8 @@
     </li>
 </ol>
 
+<div class="alert alert-success" *ngIf="exploreDeletingStatus">{{exploreDeletingStatus}}</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-table"></i>&emsp;
@@ -36,7 +38,7 @@
 
                 </tfoot>
                 <tbody>
-                    <tr *ngFor="let record of exploreList">
+                    <!-- <tr *ngFor="let record of exploreList">
                         <td>{{record.en_tag}}</td>
                         <td>{{record.si_tag}}</td>
                         <td>{{record.ta_tag}}</td>
@@ -55,12 +57,11 @@
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
 <br>
 <br>

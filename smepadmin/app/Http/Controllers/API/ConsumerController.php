@@ -13,7 +13,7 @@ class ConsumerController extends Controller
 {
     public function index(){
         $consumer = Consumer::with('modules')->where('deleted', [0])->get();
-        return response()->json($consumer);
+        return response()->json(['success'=>$consumer]);
     }
 
     /**
@@ -21,36 +21,39 @@ class ConsumerController extends Controller
     * @return message
     */
     public function insertConsumer(Request $request){
-      $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'url' => 'required|url',
-        'status' => 'required'
-      ]);
+      $modules = $request->input('modules');
+      return response()->json(['success'=>$modules[0]]);
+      // $validator = Validator::make($request->all(), [
+      //   'name' => 'required',
+      //   'url' => 'required|url',
+      //   'status' => 'required'
+      // ]);
 
-      if($validator->fails()){
-        return response()->json(['error'=>$validator->errors()], 401);
-      }
-      else{
-        $name = $request->input('name');
-        $url = $request->input('url');
-        $status = $request->input('status');
-        $authentication = md5($name.$url.time());
-        $modules = array(3,5,6); //array for take the permission list
+      // if($validator->fails()){
+      //   return response()->json(['error'=>$validator->errors()], 401);
+      // }
+      // else{
+      //   $name = $request->input('name');
+      //   $url = $request->input('url');
+      //   $status = $request->input('status');
+      //   $authentication = md5($name.$url.time());
+      //   //$modules = array(3,5,6); //array for take the permission list
+      //   $modules = $request->input('module');
 
-        $table = new Consumer();
-        $table->name = $name;
-        $table->url = $url;
-        $table->authentication_code = $authentication;
-        $table->status = $status;
-        $table->save();
-        if($table->save()){
-          $data = $table->modules()->attach($modules);
-            return response()->json(['success'=>'Successfully inserted']);
-        }
-        else{
-          return response()->json(['error'=>'Error occured']);
-        }
-      }
+      //   $table = new Consumer();
+      //   $table->name = $name;
+      //   $table->url = $url;
+      //   $table->authentication_code = $authentication;
+      //   $table->status = $status;
+      //   $table->save();
+      //   if($table->save()){
+      //     $data = $table->modules()->attach($modules);
+      //       return response()->json(['success'=>'Successfully inserted']);
+      //   }
+      //   else{
+      //     return response()->json(['error'=>'Error occured']);
+      //   }
+      // }
     }
 
     /**

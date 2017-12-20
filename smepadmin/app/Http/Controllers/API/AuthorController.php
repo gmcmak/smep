@@ -66,7 +66,7 @@ class AuthorController extends Controller
     public function editAuthor($id){
       $data = DB::table('authors')->where('id', [$id])->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);

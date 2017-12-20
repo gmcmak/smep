@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule} from '@angular/forms';
 import { LocalStorageStore } from '../../../../../../services/storage/local-storage.service';
 import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
@@ -22,7 +22,9 @@ export class UpdateUsersComponent implements OnInit{
     private rolesList;
     private deleted;
     public userForm: FormGroup;
-    private userRegisterStatus;
+    public userUpdatingStatus;
+    public id=25;
+    public editUserList;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -33,6 +35,7 @@ export class UpdateUsersComponent implements OnInit{
 
     ngOnInit(): void {
         this.initializeContentProviderForm();
+        this.editUser();
 
         $("#user_dob").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -55,25 +58,26 @@ export class UpdateUsersComponent implements OnInit{
             'user_mobile': [null, [Validators.required, Validators.pattern(MOBILE_REGEX)]],
             'user_designation': [null, [Validators.required]],
             'user_status': [null, [Validators.required]],
-            'user_password1': [null, [Validators.required]],
-            'user_password2': [null, [Validators.required]]
-        }, { validator: this.checkIfMatchingPasswords('user_password1', 'user_password2') });
+            //'user_password1': [null, [Validators.required]],
+            //'user_password2': [null, [Validators.required]]
+        });
     }
-        
-    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-        return (group: FormGroup) => {
-            let passwordInput = group.controls[passwordKey],
-                passwordConfirmationInput = group.controls[passwordConfirmationKey];
-            if (passwordInput.value !== passwordConfirmationInput.value) {
-                return passwordConfirmationInput.setErrors({ notEquivalent: true })
-            }
-            else {
-                if (passwordConfirmationInput.touched) {
-                    return passwordConfirmationInput.setErrors(null);
-                }
-            }
-        }
-    }
+
+    // { validator: this.checkIfMatchingPasswords('user_password1', 'user_password2') }
+    // checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    //     return (group: FormGroup) => {
+    //         let passwordInput = group.controls[passwordKey],
+    //             passwordConfirmationInput = group.controls[passwordConfirmationKey];
+    //         if (passwordInput.value !== passwordConfirmationInput.value) {
+    //             return passwordConfirmationInput.setErrors({ notEquivalent: true })
+    //         }
+    //         else {
+    //             if (passwordConfirmationInput.touched) {
+    //                 return passwordConfirmationInput.setErrors(null);
+    //             }
+    //         }
+    //     }
+    // }
 
     public isFieldValid(field: string) {
         return !this.userForm.get(field).valid && this.userForm.get(field).touched;
@@ -97,12 +101,61 @@ export class UpdateUsersComponent implements OnInit{
                 this.rolesList = success.success
             }
             );
-    } 
+    }
+    
+    /**
+     * get user details for edit
+     */
+    editUser(){
+        this.UserService.editUsersList(
+            this.id
+        ).subscribe(
+            success => {
+                
+                this.editUserList = success.success;
+                this.user.admin_level = this.editUserList[0].role_id;
+                this.user.dob = this.editUserList[0].birthday;
+                this.user.designation = this.editUserList[0].designation;
+                this.user.email = this.editUserList[0].email;
+                this.user.fullName = this.editUserList[0].name;
+                this.user.gender = this.editUserList[0].gender;
+                this.user.mobile = this.editUserList[0].mobile;
+                this.user.nameWithInitials = this.editUserList[0].name_with_initials;
+                this.user.nic = this.editUserList[0].nic;
+                this.user.status = this.editUserList[0].status;
+                // this.user.password1 = this.editUserList[0].password;
+                // this.user.password2 = this.editU,
+            }
+        );
+    }
+    /**
+     * update user's details
+     */
+    updateUser(formData){
+        this.UserService.updateUserList(
+            this.id,
+            formData.role_id,
+            formData.user_fullName,
+            formData.user_nameWithInitials,
+            formData.user_email,
+            formData.user_nic,
+            formData.user_mobile,
+            formData.user_designation,
+            formData.user_gender,
+            formData.user_dob,
+            formData.user_status,
+            this.deleted=0
+        ).subscribe(
+            success => {
+                this.userUpdatingStatus = success.success
+            }
+        );
+    }
 
 }
 
 export class User {
-    public admin_level: string;
+    public admin_level: number;
     public fullName: string;
     public nameWithInitials: string;
     public email: string;
@@ -111,7 +164,7 @@ export class User {
     public mobile: number;
     public dob: string; //have to correct the date data type
     public designation: string;
-    public status: string;
-    public password1: string;
-    public password2: string;
+    public status: boolean;
+    // public password1: string;
+    // public password2: string;
 }
