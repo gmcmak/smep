@@ -22,7 +22,8 @@ class ConsumerController extends Controller
     */
     public function insertConsumer(Request $request){
       $modules = $request->input('modules');
-      return response()->json(['success'=>$modules[0]]);
+
+      return response()->json(['success'=>$modules]);
       // $validator = Validator::make($request->all(), [
       //   'name' => 'required',
       //   'url' => 'required|url',
