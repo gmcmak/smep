@@ -57,37 +57,43 @@ export class ViewInstituteComponent implements OnInit{
                         dataClaims[i].contact_number,
                         dataClaims[i].address,
                         '<label class="switch"><input type= "checkbox" value= "'+dataClaims[i].status+'" ><span class="slider round" > </span></label>',
-                        '<a [routerLink]="[' +"'"+"../../institute/update-institute" +"'" +']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                        '<a id="'+dataClaims[i].id+'" class="updateContent fa fa-1x fa-pencil-square-o"></a>',
+                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa fa-1x fa-trash"></li></a>'
                     ]);
                 }
             }
             );
     } 
 
+
+    updateRedirect(id){
+        this.router.navigate(['../../institute/update-institute']);
+    }
+
+
     /**
     * user data list
     * @param  
     */
-    getUsers() {
-        this.UserService.getUsersList()
-            .subscribe(
-            success => {
-                this.usersList = success.success;
-                $("#dataTableUsers").find('tbody').empty();
-                var dataClaims = this.usersList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    $('#dataTableUsers').dataTable().fnAddData([
-                        (i + 1),
-                        dataClaims[i].name,
-                        dataClaims[i].email,
-                        dataClaims[i].role.name,
-                        '<a [routerLink]="[' + "../../users/update-users" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    ]);
-                }
-            }
-            );
-    }        
+    // getUsers() {
+    //     this.UserService.getUsersList()
+    //         .subscribe(
+    //         success => {
+    //             this.usersList = success.success;
+    //             $("#dataTableUsers").find('tbody').empty();
+    //             var dataClaims = this.usersList;
+    //             for (let i = 0; i < dataClaims.length; i++) {
+    //                 $('#dataTableUsers').dataTable().fnAddData([
+    //                     (i + 1),
+    //                     dataClaims[i].name,
+    //                     dataClaims[i].email,
+    //                     dataClaims[i].role.name,
+    //                     '<a [routerLink]="[' + "../../users/update-users" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+    //                     '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+    //                 ]);
+    //             }
+    //         }
+    //         );
+    // }        
 
 }
