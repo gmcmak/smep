@@ -44,7 +44,7 @@ class SubjectAreaController extends Controller
     public function viewSubjectArea(){
     	$getData = DB::table('subject_areas')->get();
     	if($getData){
-    		return response()->json($getData);
+    		return response()->json(['success'=>$getData]);
     	}
     	else{
     		return response()->json(['error'=>'Error occured'], 401);
