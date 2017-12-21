@@ -24,9 +24,9 @@ export class UpdateConsumersComponent implements OnInit{
     public modulesList;
     private permissions;
 
-    public editId = 91; //consumer id for edit
+    public editId = 2; //consumer id for edit
     public editConsumerList;
-    public moduleId;
+    public moduleId: any[];
 
     public consumerAddingStatus;
 
@@ -110,12 +110,14 @@ export class UpdateConsumersComponent implements OnInit{
                 this.consumer.caName = this.editConsumerList[0].name;
                 this.consumer.caWebUrl = this.editConsumerList[0].url;
                 this.consumer.status = this.editConsumerList[0].status;
+                this.moduleId = [];
                 for(let i=0 ; i<this.editConsumerList[0].modules.length; i++){
-                    //alert(this.editConsumerList[0].modules[i].module_name);
-                    this.moduleId = this.editConsumerList[0].modules[i].id;
+                    this.moduleId.push(this.editConsumerList[0].modules[i].id);
                 }
             }
+            
         );
+        
     }
 }
 
