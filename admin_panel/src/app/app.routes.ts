@@ -81,6 +81,9 @@ import { EditProfileComponent } from './views/pages/core/admin/profile/edit-prof
 import { AddModuleComponent } from './views/pages/core/admin/settings/module/add-module/add-module.component';
 import { ViewModuleComponent } from './views/pages/core/admin/settings/module/view-module/view-module.component';
 import { UpdateModuleComponent } from './views/pages/core/admin/settings/module/update-module/update-module.component';
+import { AddSubjectComponent } from './views/pages/core/admin/settings/subject-area/add-subject/add-subject.component';
+import { ViewSubjectComponent } from './views/pages/core/admin/settings/subject-area/view subject/view-subject.component';
+import { UpdateSubjectComponent } from './views/pages/core/admin/settings/subject-area/update-subject/update-subject.component';
 
 
 export const routes: Routes = [
@@ -133,6 +136,9 @@ export const routes: Routes = [
   { path: 'settings/module/add-module', component: AddModuleComponent },
   { path: 'settings/module/view-module', component: ViewModuleComponent },
   { path: 'settings/module/update-module', component: UpdateModuleComponent },
+  { path: 'settings/subject-area/add-subject', component: AddSubjectComponent },
+  { path: 'settings/subject-area/view-subject', component: ViewSubjectComponent },
+  { path: 'settings/subject-area/update-subject', component: UpdateSubjectComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'edit-profile', component: EditProfileComponent },
   // content authorizer

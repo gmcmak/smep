@@ -146,6 +146,9 @@ import { ModuleService } from './services/businessservices/core/module/module.se
 import { AddModuleComponent } from './views/pages/core/admin/settings/module/add-module/add-module.component';
 import { UpdateModuleComponent } from './views/pages/core/admin/settings/module/update-module/update-module.component';
 import { ViewModuleComponent } from './views/pages/core/admin/settings/module/view-module/view-module.component';
+import { AddSubjectComponent } from './views/pages/core/admin/settings/subject-area/add-subject/add-subject.component';
+import { UpdateSubjectComponent } from './views/pages/core/admin/settings/subject-area/update-subject/update-subject.component';
+import { ViewSubjectComponent } from './views/pages/core/admin/settings/subject-area/view subject/view-subject.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -247,7 +250,11 @@ export function startupServiceFactory(startupService: StartupService): Function 
 
     AddModuleComponent,
     UpdateModuleComponent,
-    ViewModuleComponent
+    ViewModuleComponent,
+
+    AddSubjectComponent,
+    UpdateSubjectComponent,
+    ViewSubjectComponent
   ],
   imports: [
     BrowserModule,

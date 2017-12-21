@@ -26,7 +26,7 @@ export class UpdateConsumersComponent implements OnInit{
 
     public editId = 91; //consumer id for edit
     public editConsumerList;
-    public moduleId;
+    public moduleId = new Array();
 
     public consumerAddingStatus;
 
@@ -112,8 +112,11 @@ export class UpdateConsumersComponent implements OnInit{
                 this.consumer.status = this.editConsumerList[0].status;
                 for(let i=0 ; i<this.editConsumerList[0].modules.length; i++){
                     //alert(this.editConsumerList[0].modules[i].module_name);
-                    this.moduleId = this.editConsumerList[0].modules[i].id;
+                    this.moduleId[i] = this.editConsumerList[0].modules[i].id;
+                    //this.consumer.record.id = this.moduleId;
+
                 }
+                alert(this.moduleId);
             }
         );
     }
@@ -123,6 +126,5 @@ export class Consumer {
     public caName: string;
     public caWebUrl: string;
     public status: boolean;
-    public moduleId: number;
     //public caPassword: string;
 }

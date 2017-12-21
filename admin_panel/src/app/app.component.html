@@ -56,9 +56,9 @@
             <li>
               <a [routerLink]="['content-authorizer/add-authorizers']">Add Authorizers</a>
             </li>
-            <!-- <li>
+            <li>
               <a [routerLink]="['content-authorizer/update-authorizers']">Update Authorizers</a>
-            </li> -->
+            </li>
           </ul>
         </li>
 
@@ -74,9 +74,9 @@
             <li>
               <a [routerLink]="['content-provider/add-providers']">Add Providers</a>
             </li>
-            <!-- <li>
+            <li>
               <a [routerLink]="['content-provider/update-providers']">Update Providers</a>
-            </li> -->
+            </li>
           </ul>
         </li>
 
@@ -92,9 +92,9 @@
             <li>
               <a [routerLink]="['institute/add-institute']">Add Institutes</a>
             </li>
-            <!-- <li>
+            <li>
               <a [routerLink]="['institute/update-institute']">Update Institutes</a>
-            </li> -->
+            </li>
             <li>
               <a [routerLink]="['institute/authorizers']">Add Authorizers</a>
             </li>
@@ -242,6 +242,23 @@
                   </li>
                   <li>
                     <a [routerLink]="['settings/module/update-module']">Update Module</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#subjectList" data-parent="#settingList">
+                  <i class="fa fa-strikethrough"></i>&nbsp;
+                  <span class="nav-link-text" [routerLink]="['settings/subject/view-subject']">Subject Area</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="subjectList">
+                  <li>
+                    <a [routerLink]="['settings/subject-area/view-subject']">View Subject</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/subject-area/add-subject']">Add Subject</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/subject-area/update-subject']">Update Subject</a>
                   </li>
                 </ul>
               </li>

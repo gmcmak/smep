@@ -86,11 +86,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row" *ngFor="let record of modulesList; let i=index">
+                        <div *ngFor="let module of moduleId">
                         <div class="col-md-6">
                             <label class="module">{{record.module_name}}</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="moduleset" name="permissions" [value]="record.id" [checked]="moduleId == record.id"/>
+                            <input type="checkbox" class="moduleset" name="permissions" [value]="record.id" [checked]="record.id === module"/>
+                        </div>
                         </div>
                     </div>
                 </div>
