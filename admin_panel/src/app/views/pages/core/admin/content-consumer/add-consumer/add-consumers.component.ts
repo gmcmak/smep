@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
 import { ModuleService } from "../../../../../../services/businessservices/core/module/module.service";
 import { ConsumerService } from "../../../../../../services/businessservices/core/content-consumer/consumer.service";
+import { FormArray } from "@angular/forms/src/model";
 
 declare var $: any;
 declare var jQuery: any;
@@ -41,12 +42,7 @@ export class AddConsumersComponent implements OnInit{
         private initializeConsumerForm(): void{
             this.consumerForm = this.formBuilder.group({
                 'caName': [null, Validators.required],
-                'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
-                i: new FormGroup({
-                    'permission': new FormControl('')
-                })
-                
-                //'caPassword': [null, Validators.required]
+                'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]]
             })
         }
 
@@ -78,11 +74,11 @@ export class AddConsumersComponent implements OnInit{
      * add consumer details
      */
     addConsumer(formData){
-        //alert(formData.permission);
+        alert(formData.permission[0]);
         this.consumerService.addConsumer(
             formData.caName,
             formData.caWebUrl,
-            formData.i.permission
+            formData.permission
         ).subscribe(
             success => {
                 this.consumerAddingStatus = success.success
@@ -95,5 +91,4 @@ export class Consumer{
     public caName: string;
     public caWebUrl: string;
     //public caPassword: string;
-    public permission: number;
 }

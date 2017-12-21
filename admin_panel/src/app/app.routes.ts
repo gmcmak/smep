@@ -78,6 +78,9 @@ import { UpdateExploreComponent } from './views/pages/core/admin/settings/explor
 import { UpdateKeywordComponent } from './views/pages/core/admin/settings/keyword/update-keyword/update-keyword.component';
 import { UpdateRoleComponent } from './views/pages/core/admin/settings/role/update-role/update-role.component';
 import { EditProfileComponent } from './views/pages/core/admin/profile/edit-profile/edit-profile.component';
+import { AddModuleComponent } from './views/pages/core/admin/settings/module/add-module/add-module.component';
+import { ViewModuleComponent } from './views/pages/core/admin/settings/module/view-module/view-module.component';
+import { UpdateModuleComponent } from './views/pages/core/admin/settings/module/update-module/update-module.component';
 
 
 export const routes: Routes = [
@@ -127,6 +130,9 @@ export const routes: Routes = [
   { path: 'settings/role/add-role', component: AddRoleComponent },
   { path: 'settings/role/view-role', component: ViewRoleComponent },
   { path: 'settings/role/update-role', component: UpdateRoleComponent },
+  { path: 'settings/module/add-module', component: AddModuleComponent },
+  { path: 'settings/module/view-module', component: ViewModuleComponent },
+  { path: 'settings/module/update-module', component: UpdateModuleComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'edit-profile', component: EditProfileComponent },
   // content authorizer

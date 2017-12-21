@@ -1,0 +1,59 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/author/view-author']">Settings</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/module/view-module']">Module</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Add Module</a>
+    </li>
+</ol>
+
+<div class="alert alert-success" *ngIf="moduleAddingStatus">{{moduleAddingStatus}}</div>
+
+<form id="moduleForm" [formGroup]="moduleForm" (ngSubmit)="addModule(moduleForm.value)">
+    <div class="card mb-3">
+        <div class="card-header">
+            <b>Module Adding Form</b>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="roleName">Module Name:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="moduleName" type="text" name="module_name" formControlName="module_name" [(ngModel)]="module.moduleName"
+                        placeholder="Advance search" [ngClass]="displayFieldCss('module_name')">
+
+                    <div *ngIf="moduleForm.controls['module_name'].hasError('required') && moduleForm.controls['module_name'].touched" class="error">
+                        Module name is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-5">
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!moduleForm.valid">Submit</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>

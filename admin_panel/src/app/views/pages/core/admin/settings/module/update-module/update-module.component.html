@@ -1,0 +1,60 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/author/view-author']">Settings</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/role/view-module']">Module</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Update Module</a>
+    </li>
+</ol>
+
+<div class="alert alert-success" *ngIf="moduleupdatingStatus">{{moduleupdatingStatus}}</div>
+
+<form id="moduleForm" [formGroup]="moduleForm" (ngSubmit)="updateModule(moduleForm.value)">
+    <div class="card mb-3">
+        <div class="card-header">
+            <b>Role Updating Form</b>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="roleName">Module Name:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="moduleName" type="text" name="module_name" formControlName="module_name" [(ngModel)]="module.moduleName"
+                        placeholder="Advance search" [ngClass]="displayFieldCss('module_name')">
+
+                    <div *ngIf="moduleForm.controls['module_name'].hasError('required') && moduleForm.controls['module_name'].touched" class="error">
+                        Role is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-5" align="right">
+                    <!-- <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Reset</button> -->
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!moduleForm.valid">Update</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>

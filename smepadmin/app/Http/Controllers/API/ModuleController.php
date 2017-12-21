@@ -27,7 +27,7 @@ class ModuleController extends Controller
       }
       else{
         $table = new Module();
-        $table->module_name = $request->moduleName;
+        $table->module_name = $request->input('moduleName');
         $table->save();
 
         if($table->save()){
@@ -60,7 +60,7 @@ class ModuleController extends Controller
 
       $data = DB::table('modules')->where('id', [$id])->get();
       if($data){
-        return response()->json($data);
+        return response()->json(['success'=>$data]);
       }
       else{
         return response()->json(['error'=>'Error occured']);
@@ -102,7 +102,7 @@ class ModuleController extends Controller
      * @param array $request post data and id
      * @return delete status
      */
-    public function deleteModule(Request $request, $id){
+    public function deleteModule($id){
 
         $data = DB::table('modules')->WHERE('id', $id)->delete();
 

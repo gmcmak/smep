@@ -143,6 +143,9 @@ import { AuthorizerService } from './services/businessservices/core/content-auth
 import { ProviderService } from './services/businessservices/core/content-provider/provider.service';
 import { ConsumerService } from './services/businessservices/core/content-consumer/consumer.service';
 import { ModuleService } from './services/businessservices/core/module/module.service';
+import { AddModuleComponent } from './views/pages/core/admin/settings/module/add-module/add-module.component';
+import { UpdateModuleComponent } from './views/pages/core/admin/settings/module/update-module/update-module.component';
+import { ViewModuleComponent } from './views/pages/core/admin/settings/module/view-module/view-module.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -240,7 +243,11 @@ export function startupServiceFactory(startupService: StartupService): Function 
     CpBooksHistoryComponent,
     CpCaseStudyHistoryComponent,
     CpImagesHistoryComponent,
-    CpVideoClipHistoryComponent
+    CpVideoClipHistoryComponent,
+
+    AddModuleComponent,
+    UpdateModuleComponent,
+    ViewModuleComponent
   ],
   imports: [
     BrowserModule,

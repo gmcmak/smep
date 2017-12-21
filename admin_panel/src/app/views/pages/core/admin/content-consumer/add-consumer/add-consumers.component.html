@@ -74,14 +74,13 @@
                     <label>Permissions :</label>
                 </div>
                 <div class="col-md-7">
-                    <div class="row" *ngFor="let record of modulesList; let i = index" [formGroupName]="i">
+                    <div class="row" *ngFor="let record of modulesList; let i = index" [attr.data-index]="i">
                         <div class="col-md-6">
                             <label class="module">{{record.module_name}}</label>
                         </div>
                         <div class="col-md-6">
-                            <!-- <input type="checkbox" name="permission[i]" [value]="record.id" [(ngModel)]="consumer.permission" formControlName="permission"> -->
-                            <input type="checkbox" name="permission[]" [value]="record.id" formControlName="i.permission"/>
-                        </div>
+                            <input type="checkbox" name="permission[]" [value]="record.id">
+                        </div> 
                     </div>
                 </div>
                 <div class="col-md-1"></div>

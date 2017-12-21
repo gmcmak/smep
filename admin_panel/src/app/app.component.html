@@ -227,6 +227,23 @@
                   </li>
                 </ul>
               </li>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#moduleList" data-parent="#settingList">
+                  <i class="fa fa-unlock-alt"></i>&nbsp;
+                  <span class="nav-link-text" [routerLink]="['settings/module/view-module']">Module</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="moduleList">
+                  <li>
+                    <a [routerLink]="['settings/module/view-module']">View Module</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/module/add-module']">Add Module</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/module/update-module']">Update Module</a>
+                  </li>
+                </ul>
+              </li>
           </ul>
         </li>
         
