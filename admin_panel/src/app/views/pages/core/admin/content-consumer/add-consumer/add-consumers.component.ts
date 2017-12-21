@@ -23,6 +23,7 @@ export class AddConsumersComponent implements OnInit{
     public consumer = new Consumer();
     public consumerForm: FormGroup;
     public modulesList;
+    private permissions;
 
     public consumerAddingStatus;
 
@@ -39,12 +40,28 @@ export class AddConsumersComponent implements OnInit{
         this.loadModules();
 
     }
+<<<<<<< HEAD
         private initializeConsumerForm(): void{
             this.consumerForm = this.formBuilder.group({
                 'caName': [null, Validators.required],
                 'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]]
             })
         }
+=======
+    private initializeConsumerForm(): void{
+        this.consumerForm = this.formBuilder.group({
+            'caName': [null, Validators.required],
+            'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
+            'permissions': [null]
+            
+            //'caPassword': [null, Validators.required]
+        })
+    }
+
+    get products() { 
+        return this.consumerForm.get('products'); 
+    }    
+>>>>>>> fcac104a827d40ed2970a568413fc939e44e6aa1
 
     public isFieldValid(field: string) {
         return !this.consumerForm.get(field).valid && this.consumerForm.get(field).touched;
@@ -74,11 +91,11 @@ export class AddConsumersComponent implements OnInit{
      * add consumer details
      */
     addConsumer(formData){
-        alert(formData.permission[0]);
+        this.permissions = $.map($('input[name="permissions"]:checked'), function(c){return c.value; });
         this.consumerService.addConsumer(
             formData.caName,
             formData.caWebUrl,
-            formData.permission
+            this.permissions
         ).subscribe(
             success => {
                 this.consumerAddingStatus = success.success

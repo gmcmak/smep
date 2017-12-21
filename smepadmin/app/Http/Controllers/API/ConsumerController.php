@@ -24,6 +24,7 @@ class ConsumerController extends Controller
       $modules = $request->input('modules');
       return response()->json(['success'=>$modules]);
       // $validator = Valior::make($request->all(), [
+
       //   'name' => 'required',
       //   'url' => 'required|url',
       //   'status' => 'required'

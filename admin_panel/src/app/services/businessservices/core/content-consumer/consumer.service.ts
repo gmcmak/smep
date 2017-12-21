@@ -36,7 +36,7 @@ export class ConsumerService{
      * add consumer details
      */
     public addConsumer(caName, caWebUrl, permission) {
-
+        
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
