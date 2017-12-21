@@ -77,7 +77,8 @@
                     </div>
                 </div>
                 <div class="col-md-6"></div>
-            </div>   
+            </div>
+
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
@@ -85,7 +86,6 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row" *ngFor="let record of modulesList; let i=index">
-                        <div *ngFor="let module of moduleId">
                         <div class="col-md-6">
                             <label class="module">{{record.module_name}}</label>
                         </div>
