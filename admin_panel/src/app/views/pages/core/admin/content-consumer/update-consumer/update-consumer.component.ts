@@ -125,5 +125,6 @@ export class Consumer {
     public caName: string;
     public caWebUrl: string;
     public status: boolean;
+    public moduleId: number;
     //public caPassword: string;
 }
