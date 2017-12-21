@@ -91,8 +91,7 @@
                             <label class="module">{{record.module_name}}</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="moduleset" name="permissions" [value]="record.id" [checked]="record.id === module"/>
-                        </div>
+                            <input type="checkbox" class="moduleset" name="permissions" [value]="record.id" [checked]="moduleId.indexOf(record.id) > -1"/>
                         </div>
                     </div>
                 </div>
@@ -100,7 +99,6 @@
 
             </div>
             <br>
-
             <div id="form1_submit_row" class="row">
                 <div class="col-md-9">
                     <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
