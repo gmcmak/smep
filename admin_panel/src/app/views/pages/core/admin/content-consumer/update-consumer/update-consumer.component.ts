@@ -100,7 +100,7 @@ export class UpdateConsumersComponent implements OnInit{
 
     /**
      * get consumer details for edit
-     */
+     */   
     editConsumer(){
         this.consumerService.editConsumerList(
             this.editId
