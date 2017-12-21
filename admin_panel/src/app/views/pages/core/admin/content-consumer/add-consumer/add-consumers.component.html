@@ -53,27 +53,31 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <!-- <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="caPassword">Authentication Code: <span class="required">*</span></label>
-                </div>
-                <div class="col-md-5">
-                    <input mdInput type="password" id="caPassword" name="caPassword" class="form-control form-control-sm" placeholder="sunil123"
-                        [(ngModel)]="consumer.caPassword" formControlName="caPassword" [ngClass]="displayFieldCss('caPassword')">
-            
-                    <div *ngIf="consumerForm.controls['caPassword'].hasError('required') && consumerForm.controls['caPassword'].touched" class="error">
-                        Password is required !
-                    </div>
-                </div>
-                <div class="col-md-6"></div>
-            </div> -->
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
+                    <label for="status">Status (Enable/ Disable): <span class="required">*</span></label>
+                </div>
+                <div class="col-md-5">
+                    <select class="form-control form-control-sm" name="status" id="status" formControlName="status" [(ngModel)]="consumer.status"
+                        [ngClass]="displayFieldCss('status')">
+                        <option value="1">Enable</option>
+                        <option value="0">Disable</option>
+                    </select>
+                    
+                    <div *ngIf="consumerForm.controls['status'].hasError('required') && consumerForm.controls['status'].touched" class="error">
+                        Status is required !
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
                     <label>Permissions :</label>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <div class="row" *ngFor="let record of modulesList">
                         <div class="col-md-6">
                             <label class="module">{{record.module_name}}</label>

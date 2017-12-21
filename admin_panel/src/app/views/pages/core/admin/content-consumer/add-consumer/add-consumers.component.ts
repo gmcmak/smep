@@ -40,28 +40,18 @@ export class AddConsumersComponent implements OnInit{
         this.loadModules();
 
     }
-<<<<<<< HEAD
-        private initializeConsumerForm(): void{
-            this.consumerForm = this.formBuilder.group({
-                'caName': [null, Validators.required],
-                'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]]
-            })
-        }
-=======
     private initializeConsumerForm(): void{
         this.consumerForm = this.formBuilder.group({
             'caName': [null, Validators.required],
             'caWebUrl': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
+            'status': [null, [Validators.required]],
             'permissions': [null]
-            
-            //'caPassword': [null, Validators.required]
         })
     }
 
     get products() { 
         return this.consumerForm.get('products'); 
     }    
->>>>>>> fcac104a827d40ed2970a568413fc939e44e6aa1
 
     public isFieldValid(field: string) {
         return !this.consumerForm.get(field).valid && this.consumerForm.get(field).touched;
@@ -95,6 +85,7 @@ export class AddConsumersComponent implements OnInit{
         this.consumerService.addConsumer(
             formData.caName,
             formData.caWebUrl,
+            formData.status,
             this.permissions
         ).subscribe(
             success => {
@@ -107,5 +98,6 @@ export class AddConsumersComponent implements OnInit{
 export class Consumer{
     public caName: string;
     public caWebUrl: string;
+    public status:boolean;
     //public caPassword: string;
 }

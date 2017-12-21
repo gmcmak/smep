@@ -3,6 +3,11 @@ div input{
     margin-bottom: 10px;
 }
 
+div select{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
 div label{
     margin-top: 8px;
 }
