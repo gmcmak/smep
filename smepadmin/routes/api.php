@@ -116,6 +116,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('delete-institute/{id}','API\InstituteController@deleteInstitute');
         Route::get('status-institute/{id}/{status}','API\InstituteController@statusInstitute');
 
+        //Route::get('insert-institute-authorizer/{nic}','API\InstituteController@insertInstituteAuthorizer');
+        Route::get('get-institute-authorizer/{id}','API\InstituteController@viewInstituteAuthorizer');
+        Route::get('get-institute-provider/{id}','API\InstituteController@viewInstituteProvider');
+        Route::get('remove-institute-authorizer/{institute_id}/{user_id}','API\InstituteController@removeInstituteAuthorizer');
+        Route::get('get-institute-provider/{id}','API\InstituteController@viewInstituteProvider');
+
         /**
         * for authorizers
         */
@@ -135,5 +141,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('edit-provider/{id}', 'API\ProviderController@editProvider');
         Route::post('update-provider/{id}', 'API\ProviderController@updateProvider');
         Route::get('delete-provider/{id}', 'API\ProviderController@deleteProvider');
+
+        /**
+        * for country
+        */
+        Route::get('get-country','API\CountryController@getCountryList');
 
     });

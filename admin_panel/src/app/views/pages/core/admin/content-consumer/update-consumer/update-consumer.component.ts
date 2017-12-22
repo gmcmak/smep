@@ -16,7 +16,7 @@ const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0
     templateUrl: 'update-consumer.component.html',
     styleUrls: ['update-consumer.component.css']
 })
-
+ 
 export class UpdateConsumersComponent implements OnInit{
 
     public consumer = new Consumer();
@@ -24,7 +24,7 @@ export class UpdateConsumersComponent implements OnInit{
     public modulesList;
     private permissions;
 
-    public editId = 2; //consumer id for edit
+    public editId = 91; //consumer id for edit
     public editConsumerList;
     public moduleId: any[];
 
