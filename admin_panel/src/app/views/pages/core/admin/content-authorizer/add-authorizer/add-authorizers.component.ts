@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
+import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -18,6 +19,8 @@ export class AddAuthorizersComponent implements OnInit{
 
     public authorizer = new Authorizer();
 
+    public countryList;
+
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
         this.intializeAuthorizerForm();
@@ -28,14 +31,17 @@ export class AddAuthorizersComponent implements OnInit{
             changeYear: true
         }).on('change', e => this.authorizer.caDob = e.target.value);
 
+        this.getCountry();
+
     }
 
 
     public authorizerForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private countryService: CountryService
+    ) {}
 
     private intializeAuthorizerForm():void{
         //get individual form input data
@@ -122,6 +128,17 @@ export class AddAuthorizersComponent implements OnInit{
     
         onSubmit(){
             console.log(this.authorizerForm.value);
+        }
+
+        /**
+         * get country
+         */
+        getCountry(){
+            this.countryService.getCountryList().subscribe(
+                success => {
+                    this.countryList = success.success
+                }
+            );
         }
     
         //show professional qualification row2

@@ -113,7 +113,7 @@ class InstituteController extends Controller
             })
         )->where([['id', '=', $id],])->get();
     	if($editData){
-    		return response()->json($editData);
+    		return response()->json(['success'=>$editData]);
     	}
     	else{
     		return response()->json(['error'=>'Error occured']);
@@ -135,8 +135,8 @@ class InstituteController extends Controller
     		'status' => 'required|boolean',
             'user_name' => 'required',
             'user_email' => 'required|email',
-            'user_password' => 'required',
-            'user_c_password' => 'required|same:user_password',
+            // 'user_password' => 'required',
+            // 'user_c_password' => 'required|same:user_password',
             'user_status' => 'required',
             'user_name_with_initials' => 'required',
             'user_gender' => 'required',
@@ -159,7 +159,8 @@ class InstituteController extends Controller
                 'contact_number' => $request->input('contact_number'),
                 'email' => $request->input('email'),
                 'address' => $request->input('address'),
-                'status' => $request->input('status')
+                'status' => $request->input('status'),
+                'updated_at' => now()
                 ];
 
             $username = $request->input('user_name');
@@ -167,7 +168,7 @@ class InstituteController extends Controller
            
            $user_name = $request->input('user_name');
            $user_email = $request->input('user_email');
-           $user_password = bcrypt($request->input('user_password'));
+           //$user_password = bcrypt($request->input('user_password'));
            $user_status = $request->input('user_status');
            $user_name_with_initials = $request->input('user_name_with_initials');
            $user_gender = $request->input('user_gender');
@@ -177,11 +178,11 @@ class InstituteController extends Controller
            $user_birthday = $request->input('user_birthday');
 
             $editData = Institute::with(
-                array('instituteUsers' => function($query) use ($user_name,$user_email,$user_password,$user_status,$user_name_with_initials,$user_gender,$user_nic,$user_mobile,$user_designation,$user_birthday){
+                array('instituteUsers' => function($query) use ($user_name,$user_email,$user_status,$user_name_with_initials,$user_gender,$user_nic,$user_mobile,$user_designation,$user_birthday){
                     $query->where('role_id', 5)->update([
                         'name' => $user_name,
                         'email' => $user_email,
-                        'password' => $user_password,
+                        //'password' => $user_password,
                         'status' => $user_status,
                         'name_with_initials' => $user_name_with_initials,
                         'gender' => $user_gender,
@@ -262,5 +263,63 @@ class InstituteController extends Controller
     	else{
     		return response()->json(['error'=>'Error ocured']);
     	}
+    }
+
+    /**
+    * get all authorizers data assigned to institute
+    */
+    public function viewInstituteAuthorizer($id){
+        $authorizersData = Institute::with(
+            array('instituteUsers' => function($query){
+                $query->where('role_id', 4); 
+            })
+        )->where('id', [$id])->get();
+        if($authorizersData){
+            return response()->json(['success'=>$authorizersData]);
+        }
+        else{
+            return response()->json(['error'=>'Error occured']);
+        }
+    }
+
+    /**
+    * get all providers data assigned to institute
+    */
+    public function viewInstituteProvider($id){
+        $providersData = Institute::with(
+            array('instituteUsers' => function($query){
+                $query->where('role_id', 3); 
+            })
+        )->where('id', [$id])->get();
+        if($providersData){
+            return response()->json(['success'=>$providersData]);
+        }
+        else{
+            return response()->json(['error'=>'Error occured']);
+        }
+    }
+
+    /**
+    * remove added authorizers
+    */
+    public function removeInstituteAuthorizer($institute_id,$user_id){
+         $removeAuthorizer = Institute::with(
+            array('instituteUsers' => function($query) use ($institute_id,$user_id){
+                $query->where('user_id',[$user_id])->where('institute_id',[$institute_id]); 
+            }))->get();
+        if($removeAuthorizer){
+            return response()->json(['success'=>$removeAuthorizer]);
+        }
+        else{
+            return response()->json(['error'=>'Error occured']);
+        }
+    }
+
+
+    /**
+    * add authorizer as user
+    **/
+    public function insertInstituteAuthorizer($nic){
+        
     }
 }

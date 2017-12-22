@@ -150,6 +150,7 @@ import { AddSubjectComponent } from './views/pages/core/admin/settings/subject-a
 import { UpdateSubjectComponent } from './views/pages/core/admin/settings/subject-area/update-subject/update-subject.component';
 import { ViewSubjectComponent } from './views/pages/core/admin/settings/subject-area/view subject/view-subject.component';
 import { SubjectService } from './services/businessservices/core/subject-area/subject.service';
+import { CountryService } from './services/businessservices/core/country/country.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -306,6 +307,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ConsumerService,
     ModuleService,
     SubjectService,
+    CountryService,
     ToastService,
     ToastCommunicationService,
     DialogsService,

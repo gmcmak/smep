@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { InstituteService } from "../../../../../../services/businessservices/core/institute/institute.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -16,12 +17,19 @@ export class ProvidersComponent implements OnInit{
     public providerId: string;
     public showDiv: string = '';
 
+    public id=17; //institute id
+    public providerList;
+
     public addProviderForm: FormGroup;
-    constructor(private formBuilder:FormBuilder){  }
+    constructor(
+        private formBuilder:FormBuilder,
+        private instituteService: InstituteService
+    ){  }
 
     ngOnInit(): void {
         this.validateProviderId();
         this.dataTable();
+        this.getAddedProviders();
     }
 
     dataTable() {
@@ -52,6 +60,32 @@ export class ProvidersComponent implements OnInit{
 
     public onSubmit(): void{
         this.showDiv = this.providerId;
+    }
+
+    /**
+    * get added providers details 
+    */
+    public getAddedProviders() {
+        this.instituteService.getAddedProviders(
+            this.id
+        ).subscribe(
+            success => {
+                this.providerList = success.success;
+                $("#providerTable").find('tbody').empty();
+                var dataClaims = this.providerList;
+                for (let i = 0; i < dataClaims.length; i++) {
+                    for (let j = 0; j < dataClaims[i].institute_users.length; j++) {
+                        $('#providerTable').dataTable().fnAddData([
+                            (i + 1),
+                            dataClaims[i].institute_users[j].id,
+                            dataClaims[i].institute_users[j].name,
+                            '<a>Mathsssss</a>',
+                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa fa-1x fa-trash"></li></a>'
+                        ]);
+                    }
+                }
+            }
+            );
     }
 
 }

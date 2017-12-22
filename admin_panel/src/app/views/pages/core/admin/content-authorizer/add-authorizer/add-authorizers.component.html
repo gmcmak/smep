@@ -220,11 +220,8 @@
                                 <label id="label4">Country: <span class="required">*</span></label>
                             </div>
                             <div class="row">
-                                <!-- <?php echo $select_country1; ?> -->
                                 <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="authorizer.HighestQualifications.highest_Country" formControlName="highest_Country" [ngClass]="displayFieldCss('highestQulification.highest_Country')">
-                                    <option>Sri Lanka</option>
-                                    <option>India</option>
-                                    <option>England</option>
+                                    <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
                                 </select>
                             </div>
                             <div *ngIf="authorizerForm.controls['highestQulification'].controls['highest_Country'].hasError('required') && authorizerForm.controls['highestQulification'].controls['highest_Country'].touched"

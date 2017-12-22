@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { InstituteService } from "../../../../../../services/businessservices/core/institute/institute.service";
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
-const NIC_REGEX = /^[0-9]{9}[VX]/;
+const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 const MOBILE_REGEX = /^[0-9]{10}/;
 
 declare var $: any;
@@ -15,36 +16,43 @@ declare var jQuery: any;
     styleUrls: ['update-institute.component.css']
 })
 
-export class UpdateInstituteComponent{
-
+export class UpdateInstituteComponent implements OnInit{
     public institute = new Institute();
-
     public check2: boolean;
-
     public instituteForm: FormGroup;
+    public instituteUpdatingStatus;
+    private deleted;
 
-    constructor(private formBuilder: FormBuilder) {
+    public instituteList;
+    public id=19;
+
+    constructor(
+        private formBuilder: FormBuilder,
+        private instituteService: InstituteService
+    ) {
 
     }
 
     ngOnInit(): void {
-        this.initializeInstituteUpdateForm();
+        this.initializeInstituteForm();
 
         $("#dateOfReg").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.institute.dateOfReg = e.target.value);
 
         $("#user_dob").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.institute.instUser.dob = e.target.value);
 
+        this.editInstitute();
+
     }
 
-    private initializeInstituteUpdateForm(): void {
+    private initializeInstituteForm(): void {
         this.instituteForm = this.formBuilder.group({
             instName: new FormControl(null, [Validators.required]),
             regNo: new FormControl(null, [Validators.required]),
@@ -52,8 +60,8 @@ export class UpdateInstituteComponent{
             adrz: new FormControl(null, [Validators.required]),
             mobileNum: new FormControl(null, [Validators.required, Validators.pattern(MOBILE_REGEX)]),
             instEmail: new FormControl(null, [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-            foreignUni: new FormControl(null, [Validators.required]),
-            instId: new FormControl('', []),
+            instStatus: new FormControl(null, [Validators.required]),
+            //instId: new FormControl('', []),
             check2: new FormControl('', [Validators.required]),
             userInfo: new FormGroup({
                 user_fullName: new FormControl('', [Validators.required]),
@@ -66,25 +74,26 @@ export class UpdateInstituteComponent{
                 user_dob: new FormControl('', [Validators.required]),
                 user_status: new FormControl('', [Validators.required])
             }),
-            user_password1: new FormControl('', [Validators.required]),
-            user_password2: new FormControl('', [Validators.required])
-        }, { validator: this.checkIfMatchingPasswords('user_password1', 'user_password2') });
+            //user_password1: new FormControl('', [Validators.required]),
+            //user_password2: new FormControl('', [Validators.required])
+        });
     }
 
-    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-        return (group: FormGroup) => {
-            let passwordInput = group.controls[passwordKey],
-                passwordConfirmationInput = group.controls[passwordConfirmationKey];
-            if (passwordInput.value !== passwordConfirmationInput.value) {
-                return passwordConfirmationInput.setErrors({ notEquivalent: true })
-            }
-            else {
-                if (passwordConfirmationInput.touched) {
-                    return passwordConfirmationInput.setErrors(null);
-                }
-            }
-        }
-    }
+    //, { validator: this.checkIfMatchingPasswords('user_password1', 'user_password2') }
+    // checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    //     return (group: FormGroup) => {
+    //         let passwordInput = group.controls[passwordKey],
+    //             passwordConfirmationInput = group.controls[passwordConfirmationKey];
+    //         if (passwordInput.value !== passwordConfirmationInput.value) {
+    //             return passwordConfirmationInput.setErrors({ notEquivalent: true })
+    //         }
+    //         else {
+    //             if (passwordConfirmationInput.touched) {
+    //                 return passwordConfirmationInput.setErrors(null);
+    //             }
+    //         }
+    //     }
+    // }
 
     public isFieldValid(field: string) {
         return !this.instituteForm.get(field).valid && this.instituteForm.get(field).touched;
@@ -96,6 +105,67 @@ export class UpdateInstituteComponent{
             'is-valid': this.isFieldValid(field)
         };
     }
+
+    /**
+     * get institute details for update
+     */
+    editInstitute(){
+        this.instituteService.editInstitute(
+            this.id
+        ).subscribe(
+            success => {
+                this.instituteList = success.success;
+                this.institute.instName = this.instituteList[0].name;
+                this.institute.adrz = this.instituteList[0].address;
+                this.institute.dateOfReg = this.instituteList[0].registered_date;
+                this.institute.instEmail = this.instituteList[0].email;
+                this.institute.instStatus = this.instituteList[0].status;
+                this.institute.mobileNum = this.instituteList[0].contact_number;
+                this.institute.regNo = this.instituteList[0].registration_number;
+                this.institute.instUser.fullName = this.instituteList[0].institute_users[0].name;
+                this.institute.instUser.designation = this.instituteList[0].institute_users[0].designation;
+                this.institute.instUser.dob = this.instituteList[0].institute_users[0].birthday;
+                this.institute.instUser.email = this.instituteList[0].institute_users[0].email;
+                this.institute.instUser.gender = this.instituteList[0].institute_users[0].gender;
+                this.institute.instUser.mobile = this.instituteList[0].institute_users[0].mobile;
+                this.institute.instUser.nameWithInitials = this.instituteList[0].institute_users[0].name_with_initials;
+                this.institute.instUser.nic = this.instituteList[0].institute_users[0].nic;
+                this.institute.instUser.status = this.instituteList[0].institute_users[0].status;
+            }
+        );
+    }
+
+    /**
+     * update institute data
+     */
+    updateInstitute(formData) {
+        this.instituteService.updateInstitute(
+            this.id,
+            formData.instName,
+            formData.regNo,
+            formData.dateOfReg,
+            formData.adrz,
+            formData.mobileNum,
+            formData.instEmail,
+            formData.instStatus,
+            this.deleted = 0,
+            formData.userInfo.user_fullName,
+            formData.userInfo.user_nameWithInitials,
+            formData.userInfo.user_email,
+            formData.userInfo.user_nic,
+            formData.userInfo.user_mobile,
+            formData.userInfo.user_designation,
+            formData.userInfo.user_gender,
+            formData.userInfo.user_dob,
+            formData.userInfo.user_status
+        ).subscribe(
+            success => {
+                this.instituteUpdatingStatus = success.success;
+            }
+            );
+    }
+
+    
 }
 
 export class Institute {
@@ -106,7 +176,7 @@ export class Institute {
     public adrz: string;
     public mobileNum: string;
     public instEmail: string;
-    public foreignUni: string;
+    public instStatus: boolean;
     public instId: string;
 
     public instUser = new InstUser();
@@ -122,6 +192,6 @@ export class InstUser {
     public gender: string;
     public dob: string;
     public status: boolean;
-    public password1: string;
-    public password2: string;
+    // public password1: string;
+    // public password2: string;
 }

@@ -28,6 +28,8 @@ class SubjectAreaController extends Controller
     		$table = new Subject_area();
     		$table->name = $request->input('name');
     		$table->description = $request->input('description');
+            $table->created_at = now();
+            $table->updated_at = now();
     		$table->save();
     		if($table->save()){
     			return response()->json(['success'=>'successfully inserted']);
@@ -58,7 +60,7 @@ class SubjectAreaController extends Controller
     public function editSubjectArea($id){
     	$getData = DB::table('subject_areas')->where('id', $id)->get();
     	if($getData){
-    		return response()->json($getData);
+    		return response()->json(['success'=>$getData]);
     	}
     	else{
     		return response()->json(['error'=>'Error occured']);

@@ -17,7 +17,7 @@ export class ViewSubjectComponent implements OnInit{
     private loggedInUserList;
 
     public subjectDeletingStatus;
-    //public deleteId = 6;
+    public deleteId = 5;
 
     constructor(
         private subjectService: SubjectService,
@@ -28,7 +28,7 @@ export class ViewSubjectComponent implements OnInit{
     ngOnInit(): void {
         this.getSubjects();
         this.dataTable();
-        //this.deleteModule();
+        this.deleteSubject();
 
     }
 
@@ -64,15 +64,15 @@ export class ViewSubjectComponent implements OnInit{
     }
 
     /**
-     * delete role
+     * delete subject
      */
-    // deleteModule() {
-    //     this.moduleService.deleteModule(
-    //         this.deleteId
-    //     ).subscribe(
-    //         success => {
-    //             this.moduleDeletingStatus = success.success
-    //         }
-    //         );
-    // }
+    deleteSubject() {
+        this.subjectService.deleteSubject(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.subjectDeletingStatus = success.success
+            }
+            );
+    }
 }
