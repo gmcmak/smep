@@ -1,0 +1,118 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../content-consumer/view-consumers']">Content Consumer</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Update Consumers</a>
+    </li>
+</ol>
+
+<div class="alert alert-success" *ngIf="consumerUpdatingStatus">{{consumerUpdatingStatus}}</div>
+
+<form id="consumerForm" name="consumerForm" [formGroup]="consumerForm" (ngSubmit)="updateConsumer(consumerForm.value)">
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-file-o"></i>&emsp;
+            <b>Content Consumer App - Update Form</b>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="caName">Name of the content consumer:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+
+                <div class="col-md-7">
+                    <input mdInput type="text" id="caName" name="caName" class="form-control form-control-sm" placeholder="Nimal Perera" [(ngModel)]="consumer.caName"
+                        formControlName="caName" [ngClass]="displayFieldCss('caName')">
+
+                    <div *ngIf="consumerForm.controls['caName'].hasError('required') && consumerForm.controls['caName'].touched" class="error">
+                        Name is required !
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="caWebUrl">URL:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-7">
+                    <input mdInput type="text" id="caWebUrl" name="caWebUrl" class="form-control form-control-sm" placeholder="https://laravel.com/docs/5.5"
+                        [(ngModel)]="consumer.caWebUrl" formControlName="caWebUrl" [ngClass]="displayFieldCss('caWebUrl')">
+
+                    <div *ngIf="consumerForm.controls['caWebUrl'].hasError('required') && consumerForm.controls['caWebUrl'].touched" class="error">
+                        URL is required !
+                    </div>
+                    <div *ngIf="consumerForm.controls['caWebUrl'].hasError('pattern') && consumerForm.controls['caWebUrl'].touched" class="error">
+                        URL is not in correct pattern !
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="status">Status (Enable/ Disable):
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <select class="form-control form-control-sm" name="status" id="status" formControlName="status" [(ngModel)]="consumer.status"
+                        [ngClass]="displayFieldCss('status')">
+                        <option value="1">Enable</option>
+                        <option value="0">Disable</option>
+                    </select>
+
+                    <div *ngIf="consumerForm.controls['status'].hasError('required') && consumerForm.controls['status'].touched" class="error">
+                        Status is required !
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+ 
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    <label>Permissions :</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="row" *ngFor="let record of modulesList; let i=index">
+                        <div class="col-md-6">
+                            <label class="module">{{record.module_name}}</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" class="moduleset" name="permissions" [value]="record.id" [checked]="moduleId.indexOf(record.id) > -1"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <br>
+            <div id="form1_submit_row" class="row">
+                <div class="col-md-9">
+                    <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!consumerForm.valid">Submit</button>
+                    <!-- <button type="submit" id="cancel1" name="cancel1" class="btn-primary search_btn">Cancel</button> -->
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<br>

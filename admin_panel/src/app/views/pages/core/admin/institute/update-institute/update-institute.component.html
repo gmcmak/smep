@@ -1,0 +1,385 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../institute/view-institute']">Institute</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Update Institute</a>
+    </li>
+</ol>
+
+<div class="alert alert-success" *ngIf="instituteUpdatingStatus">{{instituteUpdatingStatus}}</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-file-o"></i>&emsp;
+        <b>Institute Updating Form</b>
+    </div>
+
+    <div id="institute_form">
+        <!--institute form-->
+        <form id="instituteForm" (ngSubmit)="updateInstitute(instituteForm.value)" [formGroup]="instituteForm">
+            <div class="row">
+                <div id="x5" class="col-md-12">
+                    <h6 class="subTitle">Institute info,</h6>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input id="instName" name="instName" class="form-control form-control-sm" type="text" placeholder="Name of the Educational Institution / Professional Body: *"
+                        [(ngModel)]="institute.instName" formControlName="instName" [ngClass]="displayFieldCss('instName')">
+
+                    <div *ngIf="instituteForm.controls['instName'].hasError('required') && instituteForm.controls['instName'].touched" class="error">
+                        Institute name is required !
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input id="regNo" name="regNo" class="form-control form-control-sm" type="text" placeholder="Business Registration No: *"
+                        [(ngModel)]="institute.regNo" formControlName="regNo" [ngClass]="displayFieldCss('regNo')">
+
+                    <div *ngIf="instituteForm.controls['regNo'].hasError('required') && instituteForm.controls['regNo'].touched" class="error">
+                        Rgister number is required !
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <input id="mobileNum" name="mobileNum" class="form-control form-control-sm" type="text" placeholder="Contact No: *" maxlength="10"
+                        [(ngModel)]="institute.mobileNum" formControlName="mobileNum" [ngClass]="displayFieldCss('mobileNum')">
+
+                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('required') && instituteForm.controls['mobileNum'].touched" class="error">
+                        Contact number is required !
+                    </div>
+                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('pattern') && instituteForm.controls['mobileNum'].touched" class="error">
+                        Invalid contact number !
+                    </div>
+                    <div *ngIf="instituteForm.controls['mobileNum'].hasError('minLength') && instituteForm.controls['mobileNum'].touched" class="error">
+                        Incorrect contact number !
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <input id="adrz" name="adrz" class="form-control form-control-sm" type="text" placeholder="Business Address: *" [(ngModel)]="institute.adrz"
+                        formControlName="adrz" [ngClass]="displayFieldCss('adrz')">
+
+                    <div *ngIf="instituteForm.controls['adrz'].hasError('required') && instituteForm.controls['adrz'].touched" class="error">
+                        Business address is required !
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 x10">
+                            <label>Date of Registration:
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6 x11">
+                            <input type="text" id="dateOfReg" name="dateOfReg" class="form-control form-control-sm" placeholder="yy-mm-dd" [(ngModel)]="institute.dateOfReg"
+                                formControlName="dateOfReg" [ngClass]="displayFieldCss('dateOfReg')">
+
+                            <div *ngIf="instituteForm.controls['dateOfReg'].hasError('required') && instituteForm.controls['dateOfReg'].touched" class="error">
+                                Date of registration is required !
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <input id="instEmail" name="instEmail" class="form-control form-control-sm" type="text" placeholder="Email address: *" [(ngModel)]="institute.instEmail"
+                        formControlName="instEmail" [ngClass]="displayFieldCss('instEmail')">
+
+                    <div *ngIf="instituteForm.controls['instEmail'].hasError('required') && instituteForm.controls['instEmail'].touched" class="error">
+                        Email address is required !
+                    </div>
+                    <div *ngIf="instituteForm.controls['instEmail'].hasError('pattern') && instituteForm.controls['instEmail'].touched" class="error">
+                        Invalid email address !
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- <input id="foreignUni" name="foreignUni" class="form-control form-control-sm" type="text" placeholder="Affiliated Foreign Universities: *"
+                        [(ngModel)]="institute.foreignUni" formControlName="foreignUni" [ngClass]="displayFieldCss('foreignUni')">
+
+                    <div *ngIf="instituteForm.controls['foreignUni'].hasError('required') && instituteForm.controls['foreignUni'].touched" class="error">
+                        University name is required !
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-6 x10">
+                            <label for="instStatus">Status (Enable/ Disable):
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6 x11">
+                            <select class="form-control form-control-sm" name="instStatus" id="instStatus" formControlName="instStatus" [(ngModel)]="institute.instStatus"
+                                [ngClass]="displayFieldCss('instStatus')">
+                                <option value="1">Enable</option>
+                                <option value="0">Disable</option>
+                            </select>
+
+                            <div *ngIf="instituteForm.controls['instStatus'].hasError('required') && instituteForm.controls['instStatus'].touched" class="error">
+                                Status is required !
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- <div class="row">
+                        <div id="x8" class="col-md-6">
+                            <label>Content Provider Identification No:</label>
+                        </div>
+                        <div id="x9" class="col-md-6">
+                            <input id="instId" name="instId" formControlName="instId" [(ngModel)]="institute.instId" class="form-control form-control-sm" type="text" readonly>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="x5" class="col-md-12">
+                    <h6 class="subTitle">User's info,</h6>
+                </div>
+            </div>
+
+            <div formGroupName="userInfo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <label for="user_fullName">Full Name
+                        <span class="required">*</span>: </label> -->
+                        <input class="form-control form-control-sm" id="user_fullName" type="text" name="user_fullName" formControlName="user_fullName"
+                            [(ngModel)]="institute.instUser.fullName" placeholder="Full Name: *" [ngClass]="displayFieldCss('userInfo.user_fullName')">
+
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_fullName'].hasError('required') && instituteForm.controls['userInfo'].controls['user_fullName'].touched"
+                            class="error">
+                            Full name is required !
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- <label for="nameWithInitials">Name with initials
+                        <span class="required">*</span>: </label> -->
+                        <input class="form-control form-control-sm" id="user_nameWithInitials" type="text" name="user_nameWithInitials" formControlName="user_nameWithInitials"
+                            [(ngModel)]="institute.instUser.nameWithInitials" placeholder="Name with initials: *" [ngClass]="displayFieldCss('userInfo.user_nameWithInitials')">
+
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_nameWithInitials'].hasError('required') && instituteForm.controls['userInfo'].controls['user_nameWithInitials'].touched"
+                            class="error">
+                            Name with initials is required !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <label for="user_email">Email Address
+                        <span class="required">*</span>:</label> -->
+                        <input class="form-control form-control-sm" id="user_email" type="text" name="user_email" formControlName="user_email" [(ngModel)]="institute.instUser.email"
+                            placeholder="Email Address: *" [ngClass]="displayFieldCss('userInfo.user_email')">
+
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_email'].hasError('required') && instituteForm.controls['userInfo'].controls['user_email'].touched"
+                            class="error">
+                            Email is required !
+                        </div>
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_email'].hasError('pattern') && instituteForm.controls['userInfo'].controls['user_email'].touched"
+                            class="error">
+                            Email is invalid !
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- <label for="user_nic">NIC
+                        <span class="required">*</span>: </label> -->
+                        <input class="form-control form-control-sm" id="user_nic" type="text" name="user_nic" formControlName="user_nic" [(ngModel)]="institute.instUser.nic"
+                            placeholder="NIC: *" maxlength="10" [ngClass]="displayFieldCss('userInfo.user_nic')">
+
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_nic'].hasError('required') && instituteForm.controls['userInfo'].controls['user_nic'].touched"
+                            class="error">
+                            N.I.C is required !
+                        </div>
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_nic'].hasError('pattern') && instituteForm.controls['userInfo'].controls['user_nic'].touched"
+                            class="error">
+                            Invalid N.I.C number !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <label for="user_mobile">Mobile Number
+                        <span class="required">*</span>:</label> -->
+                        <input class="form-control form-control-sm" id="user_mobile" type="text" name="user_mobile" formControlName="user_mobile"
+                            [(ngModel)]="institute.instUser.mobile" maxlength="10" [ngClass]="displayFieldCss('userInfo.user_mobile')"
+                            placeholder="Mobile Number: *">
+
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_mobile'].hasError('required') && instituteForm.controls['userInfo'].controls['user_mobile'].touched"
+                            class="error">
+                            Mobile number is required !
+                        </div>
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_mobile'].hasError('pattern') && instituteForm.controls['userInfo'].controls['user_mobile'].touched"
+                            class="error">
+                            Not match the mobile number pattern !
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- <label for="user_designation">Designation
+                        <span class="required">*</span>:</label> -->
+                        <input class="form-control form-control-sm" id="user_designation" type="text" name="user_designation" formControlName="user_designation"
+                            [(ngModel)]="institute.instUser.designation" [ngClass]="displayFieldCss('userInfo.user_designation')"
+                            placeholder="Designation: *">
+
+                        <div *ngIf="instituteForm.controls['userInfo'].controls['user_designation'].hasError('required') && instituteForm.controls['userInfo'].controls['user_designation'].touched"
+                            class="error">
+                            Designation is required !
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 x10">
+                                <label for="user_gender">Gender:
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6 x11">
+                                <select class="form-control form-control-sm" name="user_gender" id="user_gender" formControlName="user_gender" [(ngModel)]="institute.instUser.gender"
+                                    [ngClass]="displayFieldCss('userInfo.user_gender')">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+
+                                <div *ngIf="instituteForm.controls['userInfo'].controls['user_gender'].hasError('required') && instituteForm.controls['userInfo'].controls['user_gender'].touched"
+                                    class="error">
+                                    Gender is required !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 x10">
+                                <label for="user_dob">Date of birth:
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6 x11">
+                                <input class="form-control form-control-sm" id="user_dob" type="text" name="user_dob" formControlName="user_dob" [(ngModel)]="institute.instUser.dob"
+                                    placeholder="yy-mm-dd" [ngClass]="displayFieldCss('userInfo.user_dob')">
+
+                                <div *ngIf="instituteForm.controls['userInfo'].controls['user_dob'].hasError('required') && instituteForm.controls['userInfo'].controls['user_dob'].touched"
+                                    class="error">
+                                    Date of birth is required !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 x10">
+                                <label for="user_status">Status (Enable/ Disable):
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6 x11">
+                                <select class="form-control form-control-sm" name="user_status" id="user_status" formControlName="user_status" [(ngModel)]="institute.instUser.status"
+                                    [ngClass]="displayFieldCss('userInfo.user_status')">
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disable</option>
+                                </select>
+
+                                <div *ngIf="instituteForm.controls['userInfo'].controls['user_status'].hasError('required') && instituteForm.controls['userInfo'].controls['user_status'].touched"
+                                    class="error">
+                                    Status is required !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-md-6">
+                    <input class="form-control form-control-sm" id="user_password1" type="password" name="user_password1" formControlName="user_password1"
+                        [(ngModel)]="institute.instUser.password1" placeholder="Password: *" [ngClass]="displayFieldCss('user_password1')">
+
+                    <div *ngIf="instituteForm.controls['user_password1'].hasError('required') && instituteForm.controls['user_password1'].touched"
+                        class="error">
+                        Password is required !
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control form-control-sm" id="user_password2" type="password" name="user_password2" formControlName="user_password2"
+                        [(ngModel)]="institute.instUser.password2" placeholder="Confirm password: *" [ngClass]="displayFieldCss('user_password2')">
+
+                    <div *ngIf="instituteForm.controls['user_password2'].hasError('required') && instituteForm.controls['user_password2'].touched"
+                        class="error">
+                        Confirm password is required !
+                    </div>
+                    <div *ngIf="instituteForm.controls['user_password2'].hasError('notEquivalent') && instituteForm.controls['user_password2'].touched"
+                        class="error">
+                        Passwords are not matched !
+                    </div>
+                </div>
+            </div> -->
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--Terms &amp; conditions-->
+                <div class="col-md-12">
+                    <textarea id="textarea2" class="form-control" id="exampleFormControlTextarea1" rows="5" col="1" placeholder="Terms &amp; Conditions"
+                        readonly></textarea>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    &emsp;&emsp;
+                    <input type="checkbox" id="check2" name="check2" class="form-check-input" formControlName="check2" [ngClass]="displayFieldCss('check2')">
+                    <label>&nbsp;&nbsp;&nbsp;I hereby acknowledge that I have read and agree to the above terms and conditions</label>
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" align="right">
+                    &emsp;
+                    <button type="submit" id="submit2" name="submit2" class="btn-primary search_btn" [disabled]="!instituteForm.valid">Submit</button>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+<br>
+<br>

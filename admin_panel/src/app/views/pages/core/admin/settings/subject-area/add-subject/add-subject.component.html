@@ -1,0 +1,78 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/author/view-author']">Settings</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../settings/subject-area/view-subject']">Subject Area</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Add Subject</a>
+    </li>
+</ol>
+
+<div class="alert alert-success" *ngIf="subjectAddingStatus">{{subjectAddingStatus}}</div>
+
+<form id="subjectForm" [formGroup]="subjectForm" (ngSubmit)="addSubject(subjectForm.value)">
+    <div class="card mb-3">
+        <div class="card-header">
+            <b>Subject Area Adding Form</b>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="subject">Subject:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="subject" type="text" name="subject" formControlName="subject_area"
+                        [(ngModel)]="subject.subject_area" placeholder="Science" [ngClass]="displayFieldCss('subject_area')">
+
+                    <div *ngIf="subjectForm.controls['subject_area'].hasError('required') && subjectForm.controls['subject_area'].touched" class="error">
+                        Subject is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="description">Description:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <textarea class="form-control form-control-sm" id="description" name="description" formControlName="descriptions" [(ngModel)]="subject.description"
+                        placeholder="" rows="5" [ngClass]="displayFieldCss('descriptions')"></textarea>
+            
+                    <div *ngIf="subjectForm.controls['descriptions'].hasError('required') && subjectForm.controls['descriptions'].touched" class="error">
+                        Subject is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-5">
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!subjectForm.valid">Submit</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>
