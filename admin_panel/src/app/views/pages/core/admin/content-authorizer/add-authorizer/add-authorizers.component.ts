@@ -32,7 +32,12 @@ export class AddAuthorizersComponent implements OnInit{
         }).on('change', e => this.authorizer.caDob = e.target.value);
 
         this.getCountry();
+        this.showYear();
 
+    }
+
+    showYear(){
+        alert((new Date()).getFullYear());
     }
 
 

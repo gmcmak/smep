@@ -27,7 +27,7 @@ export class CountryService{
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'view-subject-area',
+        return this.http.get(this.API_ENDPOINT + 'get-country',
             {
                 headers: headers
             })
