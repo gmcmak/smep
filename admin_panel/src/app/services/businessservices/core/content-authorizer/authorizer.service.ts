@@ -8,7 +8,10 @@ export class AuthorizerService{
     public API_ENDPOINT = "http://localhost:8000/api/";
     private loggedInUserList;
 
-    constructor(private http: Http, private localStorageService: LocalStorageService){}
+    constructor(
+        private http: Http,
+        private localStorageService: LocalStorageService
+    ){}
 
     /**
     * get all authorizers list
@@ -33,6 +36,7 @@ export class AuthorizerService{
     public addAuthorizers(caName, caFullName, caGender, caNic, caDesignation, caDob, caEmail, caMobile, caPassword1, caPassword2, highest_quali, highest_uni, highest_grade, highest_Country, highest_Year, pro_qualification_1, pro_institute_1, pro_grade_1, pro_year_1, pro_country_1, pro_qualification_2, pro_institute_2, pro_grade_2, pro_year_2, pro_country_2, pro_qualification_3, pro_institute_3, pro_grade_3, pro_year_3, pro_country_3, expert1, expert2, expert3, status, deleted) {
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         //let body = '';
