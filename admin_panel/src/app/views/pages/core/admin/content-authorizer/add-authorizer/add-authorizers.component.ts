@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
 import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
+import { SubjectService } from "../../../../../../services/businessservices/core/subject-area/subject.service";
+import { AuthorizerService } from "../../../../../../services/businessservices/core/content-authorizer/authorizer.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -18,34 +20,50 @@ const MOBILE_REGEX = /^[0-9]{10}/;
 export class AddAuthorizersComponent implements OnInit{
 
     public authorizer = new Authorizer();
+    public year;
+    public yearList = Array();
 
     public countryList;
+    public subjectList;
+
+    public authorizerRegisterStatus;
+
+    private status;
+    private deleted;
 
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
         this.intializeAuthorizerForm();
         
         $("#caDob").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.authorizer.caDob = e.target.value);
 
         this.getCountry();
         this.showYear();
+        this.getSubjectAreas();
 
     }
 
+    /**
+     * show year dropdown
+     */
     showYear(){
-        alert((new Date()).getFullYear());
+       this.year = (new Date()).getFullYear();
+       for(let i=0; i<=20; i++){
+           this.yearList[i] = this.year - i;
+       }  
     }
-
 
     public authorizerForm: FormGroup;
 
     constructor(
         private formBuilder: FormBuilder,
-        private countryService: CountryService
+        private countryService: CountryService,
+        private subjectService: SubjectService,
+        private authorizerService: AuthorizerService
     ) {}
 
     private intializeAuthorizerForm():void{
@@ -70,33 +88,33 @@ export class AddAuthorizersComponent implements OnInit{
             }),
             professionalQualification: new FormGroup({
 
-                pro_qualification_1: new FormControl(),
-                pro_institute_1: new FormControl(),
-                pro_grade_1: new FormControl(),
-                pro_year_1: new FormControl(),
-                pro_country_1: new FormControl(),
+                pro_qualification_1: new FormControl(''),
+                pro_institute_1: new FormControl(''),
+                pro_grade_1: new FormControl(''),
+                pro_year_1: new FormControl(''),
+                pro_country_1: new FormControl(''),
 
-                pro_qualification_2: new FormControl(),
-                pro_institute_2: new FormControl(),
-                pro_grade_2: new FormControl(),
-                pro_year_2: new FormControl(),
-                pro_country_2: new FormControl(),
+                pro_qualification_2: new FormControl(''),
+                pro_institute_2: new FormControl(''),
+                pro_grade_2: new FormControl(''),
+                pro_year_2: new FormControl(''),
+                pro_country_2: new FormControl(''),
 
 
-                pro_qualification_3: new FormControl(),
-                pro_institute_3: new FormControl(),
-                pro_grade_3: new FormControl(),
-                pro_year_3: new FormControl(),
-                pro_country_3: new FormControl()
+                pro_qualification_3: new FormControl(''),
+                pro_institute_3: new FormControl(''),
+                pro_grade_3: new FormControl(''),
+                pro_year_3: new FormControl(''),
+                pro_country_3: new FormControl('')
             }),
 
             otherInfo: new FormGroup({
-                expert1: new FormControl(),
-                expert2: new FormControl(),
-                expert3: new FormControl(),
-                radioValue: new FormControl(),
-                courses: new FormControl(),
-                cpId: new FormControl(),
+                expert1: new FormControl(''),
+                expert2: new FormControl(''),
+                expert3: new FormControl(''),
+                //radioValue: new FormControl(),
+                //courses: new FormControl(),
+                //cpId: new FormControl(),
 
             }),
             check1: new FormControl('', Validators.required)
@@ -145,6 +163,17 @@ export class AddAuthorizersComponent implements OnInit{
                 }
             );
         }
+
+        /**
+         * get subject areas
+         */
+        getSubjectAreas() {
+            this.subjectService.getSubjectsList().subscribe(
+                success => {
+                    this.subjectList = success.success
+                }
+            );
+        }
     
         //show professional qualification row2
         show_row2(){
@@ -163,12 +192,22 @@ export class AddAuthorizersComponent implements OnInit{
         hide_row2(){
             $("#row_2").hide();
             $("#add_btn_row1").show();
+            this.authorizer.ProfessionalQualifications.pro_country_2 = null;
+            this.authorizer.ProfessionalQualifications.pro_grade_2 = null;
+            this.authorizer.ProfessionalQualifications.pro_institute_2 = null;
+            this.authorizer.ProfessionalQualifications.pro_qualification_2 = null;
+            this.authorizer.ProfessionalQualifications.pro_year_2 = null;
         }
     
         //hide professional qualification row3
         hide_row3(){
             $("#row_3").hide();
             $("#add_btn_row2").show();
+            this.authorizer.ProfessionalQualifications.pro_country_3 = null;
+            this.authorizer.ProfessionalQualifications.pro_grade_3 = null;
+            this.authorizer.ProfessionalQualifications.pro_institute_3 = null;
+            this.authorizer.ProfessionalQualifications.pro_qualification_3 = null;
+            this.authorizer.ProfessionalQualifications.pro_year_3 = null;
         }
     
         //add expertise subject dropdown2
@@ -193,6 +232,7 @@ export class AddAuthorizersComponent implements OnInit{
             $("#remove_subject_btn2").hide();
             $("#add_subject_btn2").hide();
             $("#add_subject_btn1").show();
+            this.authorizer.SubjectAreas.expert2 = null;
         }
     
         //remove expertise dropdown3
@@ -200,6 +240,193 @@ export class AddAuthorizersComponent implements OnInit{
             $("#expert_subject3").hide();
             $("#remove_subject_btn3").hide();
             $("#add_subject_btn1").show();
+            this.authorizer.SubjectAreas.expert3 = null;
+        }
+
+        /**
+         * add authorizer
+         */
+        addAuthorizer(formData){
+            //professional quali row 1
+            // if (formData.pro_qualification_1){
+            //     var pro_qualification_1 = formData.pro_qualification_1;
+            // }else{
+            //     pro_qualification_1 = "";
+            // }
+
+            // if (formData.pro_institute_1) {
+            //     var pro_institute_1 = formData.pro_institute_1;
+            // } else {
+            //     pro_institute_1 = "";
+            // }
+
+            // if (formData.pro_grade_1) {
+            //     var pro_grade_1 = formData.pro_grade_1;
+            // } else {
+            //     pro_grade_1 = "";
+            // }
+
+            // if (formData.pro_grade_1) {
+            //     var pro_grade_1 = formData.pro_grade_1;
+            // } else {
+            //     pro_grade_1 = "";
+            // }
+
+            // if (formData.pro_year_1) {
+            //     var pro_year_1 = formData.pro_year_1;
+            // } else {
+            //     pro_year_1 = "";
+            // }
+
+            // if (formData.pro_country_1) {
+            //     var pro_country_1 = formData.pro_country_1;
+            // } else {
+            //     pro_country_1 = "";
+            // }
+
+            // //professional quali row 2
+            // if (formData.pro_qualification_2) {
+            //     var pro_qualification_2 = formData.pro_qualification_2;
+            // } else {
+            //     pro_qualification_2 = "";
+            // }
+
+            // if (formData.pro_institute_2) {
+            //     var pro_institute_2 = formData.pro_institute_2;
+            // } else {
+            //     pro_institute_2 = "";
+            // }
+
+            // if (formData.pro_grade_2) {
+            //     var pro_grade_2 = formData.pro_grade_2;
+            // } else {
+            //     pro_grade_2 = "";
+            // }
+
+            // if (formData.pro_grade_2) {
+            //     var pro_grade_2 = formData.pro_grade_2;
+            // } else {
+            //     pro_grade_2 = "";
+            // }
+
+            // if (formData.pro_year_2) {
+            //     var pro_year_2 = formData.pro_year_2;
+            // } else {
+            //     pro_year_2 = "";
+            // }
+
+            // if (formData.pro_country_2) {
+            //     var pro_country_2 = formData.pro_country_2;
+            // } else {
+            //     pro_country_2 = "";
+            // }
+
+            // //professional quali row 3
+            // if (formData.pro_qualification_3) {
+            //     var pro_qualification_3 = formData.pro_qualification_3;
+            // } else {
+            //     pro_qualification_3 = "";
+            // }
+
+            // if (formData.pro_institute_3) {
+            //     var pro_institute_3 = formData.pro_institute_3;
+            // } else {
+            //     pro_institute_3 = "";
+            // }
+
+            // if (formData.pro_grade_3) {
+            //     var pro_grade_3 = formData.pro_grade_3;
+            // } else {
+            //     pro_grade_3 = "";
+            // }
+
+            // if (formData.pro_grade_3) {
+            //     var pro_grade_3 = formData.pro_grade_3;
+            // } else {
+            //     pro_grade_3 = "";
+            // }
+
+            // if (formData.pro_year_3) {
+            //     var pro_year_3 = formData.pro_year_3;
+            // } else {
+            //     pro_year_3 = "";
+            // }
+
+            // if (formData.pro_country_3) {
+            //     var pro_country_3 = formData.pro_country_3;
+            // } else {
+            //     pro_country_3 = "";
+            // }
+
+            // //expert1
+            // if (formData.expert1) {
+            //     var expert1 = formData.expert1;
+            // } else {
+            //     expert1 = "";
+            // }
+
+            // //expert2
+            // if (formData.expert2) {
+            //     var expert2 = formData.expert2;
+            // } else {
+            //     expert2 = "";
+            // }
+
+            // //expert3
+            // if (formData.expert3) {
+            //     var expert3 = formData.expert3;
+            // } else {
+            //     expert3 = "";
+            // }
+
+            alert(11);
+           // alert(formData.caDesignation);
+            //alert(formData.expert2);
+            // this.authorizerService.addAuthorizers(
+            //     formData.caName,
+            //     formData.caFullName,
+            //     formData.caGender,
+            //     formData.caNic,
+            //     formData.caDesignation,
+            //     formData.caDob,
+            //     formData.caEmail,
+            //     formData.caMobile,
+            //     formData.caPassword1,
+            //     formData.caPassword2,
+            //     formData.highest_quali,
+            //     formData.highest_uni,
+            //     formData.highest_grade,
+            //     formData.highest_Country,
+            //     formData.highest_Year,
+
+            //     formData.pro_qualification_1,
+            //     formData.pro_institute_1,
+            //     formData.pro_grade_1,
+            //     formData.pro_year_1,
+            //     formData.pro_country_1,
+
+            //     formData.pro_qualification_2,
+            //     formData.pro_institute_2,
+            //     formData.pro_grade_2,
+            //     formData.pro_year_2,
+            //     formData.pro_country_2,
+
+            //     formData.pro_qualification_3,
+            //     formData.pro_institute_3,
+            //     formData.pro_grade_3,
+            //     formData.pro_year_3,
+            //     formData.pro_country_3,
+
+            //     formData.expert1,
+            //     formData.expert2,
+            //     formData.expert3,
+            //     this.status = 0,
+            //     this.deleted = 0
+            // ).subscribe(
+            //     success => {
+            //         this.authorizerRegisterStatus = success.success;
+            //     }
+            // );
         }
 }
 
@@ -217,6 +444,8 @@ export class Authorizer{
     public caPassword2: string;
 
     HighestQualifications = new AuthorizerHighestQualification();
+    ProfessionalQualifications = new AuthorizerProfessionalQualification();
+    SubjectAreas = new SubjectAreas();
 }
 
 export class AuthorizerHighestQualification {
@@ -225,4 +454,30 @@ export class AuthorizerHighestQualification {
     public highest_grade: string;
     public highest_Country: number;
     public highest_Year: number;
+}
+
+export class AuthorizerProfessionalQualification{
+    public pro_qualification_1: string;
+    public pro_institute_1: string;
+    public pro_grade_1: string;
+    public pro_year_1: number;
+    public pro_country_1: number;
+
+    public pro_qualification_2: string;
+    public pro_institute_2: string;
+    public pro_grade_2: string;
+    public pro_year_2: number;
+    public pro_country_2: number;
+
+    public pro_qualification_3: string;
+    public pro_institute_3: string;
+    public pro_grade_3: string;
+    public pro_year_3: number;
+    public pro_country_3: number;
+}
+
+export class SubjectAreas{
+    public expert1: number;
+    public expert2: number;
+    public expert3: number;
 }

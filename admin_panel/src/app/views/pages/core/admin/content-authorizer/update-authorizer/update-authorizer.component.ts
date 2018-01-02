@@ -1,5 +1,8 @@
 import { Component, OnInit} from "@angular/core";
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import CustomValidators from '../../../../../../common/validation/CustomValidators';
+import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
+import { SubjectService } from "../../../../../../services/businessservices/core/subject-area/subject.service";
 
 declare var $: any;
 declare var jQuery:any;
@@ -15,28 +18,49 @@ const MOBILE_REGEX = /^[0-9]{10}/;
 })
 
 export class UpdateAuthorizersComponent implements OnInit{
+
     public authorizer = new Authorizer();
+    public year;
+    public yearList = Array();
+
+    public countryList;
+    public subjectList;
 
     ngOnInit(): void {
         //throw new Error("Method not implemented.");
-        this.intializeAuthorizerUpdateForm();
+        this.intializeAuthorizerForm();
 
         $("#caDob").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.authorizer.caDob = e.target.value);
 
+        this.getCountry();
+        this.showYear();
+        this.getSubjectAreas();
+
     }
 
+    /**
+     * show year dropdown
+     */
+    showYear() {
+        this.year = (new Date()).getFullYear();
+        for (let i = 0; i <= 20; i++) {
+            this.yearList[i] = this.year - i;
+        }
+    }
 
     public authorizerForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private countryService: CountryService,
+        private subjectService: SubjectService
+    ) { }
 
-    }
-
-    private intializeAuthorizerUpdateForm(): void {
+    private intializeAuthorizerForm(): void {
         //get individual form input data
         this.authorizerForm = this.formBuilder.group({
             caName: new FormControl('', Validators.required),
@@ -119,12 +143,30 @@ export class UpdateAuthorizersComponent implements OnInit{
         };
     }
 
-    onReset(){
-        this.authorizerForm.reset;
-    }
-
     onSubmit() {
         console.log(this.authorizerForm.value);
+    }
+
+    /**
+     * get country
+     */
+    getCountry() {
+        this.countryService.getCountryList().subscribe(
+            success => {
+                this.countryList = success.success
+            }
+        );
+    }
+
+    /**
+     * get subject areas
+     */
+    getSubjectAreas() {
+        this.subjectService.getSubjectsList().subscribe(
+            success => {
+                this.subjectList = success.success
+            }
+        );
     }
 
     //show professional qualification row2
@@ -144,12 +186,22 @@ export class UpdateAuthorizersComponent implements OnInit{
     hide_row2() {
         $("#row_2").hide();
         $("#add_btn_row1").show();
+        this.authorizer.ProfessionalQualifications.pro_country_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_grade_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_institute_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_qualification_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_year_2 = null;
     }
 
     //hide professional qualification row3
     hide_row3() {
         $("#row_3").hide();
         $("#add_btn_row2").show();
+        this.authorizer.ProfessionalQualifications.pro_country_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_grade_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_institute_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_qualification_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_year_3 = null;
     }
 
     //add expertise subject dropdown2
@@ -174,6 +226,7 @@ export class UpdateAuthorizersComponent implements OnInit{
         $("#remove_subject_btn2").hide();
         $("#add_subject_btn2").hide();
         $("#add_subject_btn1").show();
+        this.authorizer.SubjectAreas.expert2 = null;
     }
 
     //remove expertise dropdown3
@@ -181,6 +234,7 @@ export class UpdateAuthorizersComponent implements OnInit{
         $("#expert_subject3").hide();
         $("#remove_subject_btn3").hide();
         $("#add_subject_btn1").show();
+        this.authorizer.SubjectAreas.expert3 = null;
     }
 }
 
@@ -198,6 +252,8 @@ export class Authorizer {
     public caPassword2: string;
 
     HighestQualifications = new AuthorizerHighestQualification();
+    ProfessionalQualifications = new AuthorizerProfessionalQualification();
+    SubjectAreas = new SubjectAreas();
 }
 
 export class AuthorizerHighestQualification {
@@ -206,4 +262,30 @@ export class AuthorizerHighestQualification {
     public highest_grade: string;
     public highest_Country: number;
     public highest_Year: number;
+}
+
+export class AuthorizerProfessionalQualification {
+    public pro_qualification_1: string;
+    public pro_institute_1: string;
+    public pro_grade_1: string;
+    public pro_year_1: number;
+    public pro_country_1: number;
+
+    public pro_qualification_2: string;
+    public pro_institute_2: string;
+    public pro_grade_2: string;
+    public pro_year_2: number;
+    public pro_country_2: number;
+
+    public pro_qualification_3: string;
+    public pro_institute_3: string;
+    public pro_grade_3: string;
+    public pro_year_3: number;
+    public pro_country_3: number;
+}
+
+export class SubjectAreas {
+    public expert1: number;
+    public expert2: number;
+    public expert3: number;
 }

@@ -79,26 +79,35 @@ class AuthorizerController extends Controller
 
     		$proff_edu_quali = array(
     			[	'user_id' => $user_table->id,
-    				'qualification' => 'MSC',
-    				'university' => 'colombo uni',
-    				'grade' => 'A',
-    				'year' => 2015,
+    				'qualification' => $request->input('pro_qualification_1'),
+    				'university' => $request->input('pro_institute_1'),
+    				'grade' => $request->input('pro_grade_1'),
+    				'year' => $request->input('pro_year_1'),
     				'created_at' => now(),
     				'updated_at' => now(),
-    				'country_id' => 10
+    				'country_id' => $request->input('pro_country_1')
     			],
-    			[	'user_id' => $user_table->id,
-    				'qualification' => 'MSC1',
-    				'university' => 'moratuwa uni',
-    				'grade' => 'A',
-    				'year' => 2017,
-    				'created_at' => now(),
-    				'updated_at' => now(),
-    				'country_id' => 10
-    			]
+    			[    'user_id' => $user_table->id,
+                    'qualification' => $request->input('pro_qualification_2'),
+                    'university' => $request->input('pro_institute_2'),
+                    'grade' => $request->input('pro_grade_2'),
+                    'year' => $request->input('pro_year_2'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'country_id' => $request->input('pro_country_2')
+                ],
+                [   'user_id' => $user_table->id,
+                    'qualification' => $request->input('pro_qualification_3'),
+                    'university' => $request->input('pro_institute_3'),
+                    'grade' => $request->input('pro_grade_3'),
+                    'year' => $request->input('pro_year_3'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'country_id' => $request->input('pro_country_3')
+                ]
     		);
 
-    		$subject_area = array(1,2);
+    		$subject_area = array($request->input('expert1'), $request->input('expert2'), $request->input('expert3'));
 
     		if($user_table->save()){
     			$insert_highest_quali = $user_table->highestEducation()->insert($highest_edu_quali);
