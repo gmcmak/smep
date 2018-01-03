@@ -18,7 +18,7 @@ export class ViewAuthorizersComponent implements OnInit {
     private loggedInUserList;
 
     public authorizerDeletingStatus;
-    private deleteId = 74; //authorizer id for delete
+    //private deleteId = 74; //authorizer id for delete
 
     constructor(
         private authorizerService: AuthorizerService,
@@ -27,19 +27,21 @@ export class ViewAuthorizersComponent implements OnInit {
     ){}
 
     ngOnInit(): void {
-       this.dataTable();
        this.getAuthorizerDetails();
-       this.deleteAuthorizer();
+       //this.deleteAuthorizer();
+        setTimeout(
+            function() {
+                $('#dataTableAuthorizer').DataTable({
+                    "language": {
+                        "search": "Search by: (Authorizer's name/ Institute represented/ Subject area)"
+                    }
+                });
+            }, 2000
+        );
     }
 
 
-    dataTable(){
-        $('#dataTableAuthorizer').DataTable({
-            "language": {
-                "search": "Search by: (Authorizer's name/ Institute represented/ Subject area)"
-              }
-        });
-    }
+    
 
     /**
      * authorizers data list
@@ -49,22 +51,22 @@ export class ViewAuthorizersComponent implements OnInit {
             .subscribe(
             success => {
                 this.authorizerList = success.success;
-                $("#dataTableAuthorizer").find('tbody').empty();
-                var dataClaims = this.authorizerList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    $('#dataTableAuthorizer').dataTable().fnAddData([
-                        (i + 1),
-                        dataClaims[i].name,
-                        dataClaims[i].name,
-                        dataClaims[i].name,
-                        '<a>10</a>',
-                        '<a>5</a>',
-                        '<a>15</a>',
-                        '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                        '<a [routerLink]="[' + "'" + "../../content-authorizer/update-authorizers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    ]);
-                }
+                // $("#dataTableAuthorizer").find('tbody').empty();
+                // var dataClaims = this.authorizerList;
+                // for (let i = 0; i < dataClaims.length; i++) {
+                //     $('#dataTableAuthorizer').dataTable().fnAddData([
+                //         (i + 1),
+                //         dataClaims[i].name,
+                //         dataClaims[i].name,
+                //         dataClaims[i].name,
+                //         '<a>10</a>',
+                //         '<a>5</a>',
+                //         '<a>15</a>',
+                //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                //         '<a [routerLink]="[' + "'" + "../../content-authorizer/update-authorizers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                //     ]);
+                // }
             }
             );
     }
@@ -72,14 +74,20 @@ export class ViewAuthorizersComponent implements OnInit {
     /**
      * delete authorizer
      */
-    deleteAuthorizer(){
+    deleteAuthorizer(deleteId){
+        //$('#deleteModal').modal('show');
         this.authorizerService.deleteAuthorizer(
-            this.deleteId
+            deleteId
         ).subscribe(
             success => {
                 this.authorizerDeletingStatus = success.success;
+                this.getAuthorizerDetails();
+                // setTimeout(function(){
+                    
+                // }, 4000);
+                
+                
             }
         );
     }
-
 }

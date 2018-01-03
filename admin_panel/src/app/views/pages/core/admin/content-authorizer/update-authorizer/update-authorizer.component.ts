@@ -1,5 +1,6 @@
 import { Component, OnInit} from "@angular/core";
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
 import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
 import { SubjectService } from "../../../../../../services/businessservices/core/subject-area/subject.service";
@@ -28,10 +29,12 @@ export class UpdateAuthorizersComponent implements OnInit{
     public subjectList;
 
     public authorizerUpdatingStatus;
-    public editId = 74; //get authorizer's details using id
     public editAuthorizerList;
 
-    public id = 74; //update id
+    public sub:any;
+    public id:number;
+    public editId; //get authorizer's details using id
+
     private status = 0;
     private deleted = 0;
 
@@ -48,6 +51,14 @@ export class UpdateAuthorizersComponent implements OnInit{
         this.getCountry();
         this.showYear();
         this.getSubjectAreas();
+        
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editAuthorizer();
 
     }
@@ -68,7 +79,8 @@ export class UpdateAuthorizersComponent implements OnInit{
         private formBuilder: FormBuilder,
         private countryService: CountryService,
         private subjectService: SubjectService,
-        private authorizerService: AuthorizerService
+        private authorizerService: AuthorizerService,
+        private route: ActivatedRoute
     ) { }
 
     private intializeAuthorizerForm(): void {
@@ -317,7 +329,7 @@ export class UpdateAuthorizersComponent implements OnInit{
      */
     updateAuthorizer(formData){
         this.authorizerService.updateAuthorizer(
-            this.id,
+            this.editId,
             formData.caName,
             formData.caFullName,
             formData.caGender,

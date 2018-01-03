@@ -102,7 +102,7 @@ export const routes: Routes = [
   { path: 'users/change-password', component: ChangePasswordComponent},
   { path: 'content-authorizer/view-authorizers', component: ViewAuthorizersComponent},
   { path: 'content-authorizer/add-authorizers', component: AddAuthorizersComponent},
-  { path: 'content-authorizer/update-authorizers', component: UpdateAuthorizersComponent },
+  { path: 'content-authorizer/update-authorizers/:id', component: UpdateAuthorizersComponent },
   { path: 'content-provider/add-providers', component: AddProvidersComponent},
   { path: 'content-provider/view-providers', component: ViewProvidersComponent},
   { path: 'content-provider/update-providers', component: UpdateProvidersComponent },
