@@ -10,12 +10,15 @@
         <a>Update Providers</a>
     </li>
 </ol>
+
+<div class="alert alert-success" *ngIf="providerUpdateStatus">{{providerUpdateStatus}}</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-file-o"></i>&emsp;
         <b>Content Provider Updating Form</b>
     </div>
-    <form id="form1" name="form1" method="POST" [formGroup]="individualForm" (ngSubmit)="onSubmit()" action="">
+    <form id="individualForm" [formGroup]="individualForm" (ngSubmit)="updateProvider(individualForm.value)">
         <div id="individual-category">
             <!--individual form-->
             <div class="row">
@@ -55,8 +58,8 @@
                         <div id="gender1" class="col-md-7">
                             <select id="gender" name="gender" class="form-control form-control-sm" [(ngModel)]="provider.gender" formControlName="gender"
                                 [ngClass]="displayFieldCss('gender')">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
 
                             <div *ngIf="individualForm.controls['gender'].hasError('required') && individualForm.controls['gender'].touched" class="error">
@@ -139,31 +142,6 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6">
-                    <input id="cpPassword1" name="cpPassword1" class="form-control form-control-sm" type="password" placeholder="Password: *"
-                        [(ngModel)]="provider.cpPassword1" formControlName="cpPassword1" [ngClass]="displayFieldCss('cpPassword1')">
-
-                    <div *ngIf="individualForm.controls['cpPassword1'].hasError('required') && individualForm.controls['cpPassword1'].touched"
-                        class="error">
-                        Password is required !
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <input id="cpPassword2" name="cpPassword2" class="form-control form-control-sm" type="password" placeholder="Confirm Password: *"
-                        [(ngModel)]="provider.cpPassword2" formControlName="cpPassword2" [ngClass]="displayFieldCss('cpPassword2')">
-
-                    <div *ngIf="individualForm.controls['cpPassword2'].hasError('required') && individualForm.controls['cpPassword2'].touched"
-                        class="error">
-                        Confirm password is required !
-                    </div>
-                    <div *ngIf="individualForm.controls['cpPassword2'].hasError('notEquivalent') && individualForm.controls['cpPassword2'].touched"
-                        class="error">
-                        Passwords are not matched !
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-12">
                     <hr>
                 </div>
@@ -235,9 +213,7 @@
                         <div class="row">
                             <select id="highest_Country" class="form-control form-control-sm quali1" [(ngModel)]="provider.highestQualification.highest_Country"
                                 formControlName="highest_Country" [ngClass]="displayFieldCss('highestQulification.highest_Country')">
-                                <option>Sri Lanka</option>
-                                <option>India</option>
-                                <option>England</option>
+                                <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
                             </select>
                         </div>
                         <div *ngIf="individualForm.controls['highestQulification'].controls['highest_Country'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_Country'].touched"
@@ -255,9 +231,7 @@
                         <div class="row">
                             <select id="highest_Year" class="form-control form-control-sm quali1" [(ngModel)]="provider.highestQualification.highest_Year"
                                 formControlName="highest_Year" [ngClass]="displayFieldCss('highestQulification.highest_Year')">
-                                <option>2017</option>
-                                <option>2016</option>
-                                <option>2015</option>
+                                <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
                             </select>
                         </div>
                         <div *ngIf="individualForm.controls['highestQulification'].controls['highest_Year'].hasError('required') && individualForm.controls['highestQulification'].controls['highest_Year'].touched"
@@ -282,17 +256,14 @@
             </div>
 
             <div formGroupName="professionalQualification">
-                <div class="row">
+                <div class="row" id="row_1">
                     <div class="col-md-2">
                         <div class="row">
                             <label id="label6">Qualification achieved:</label>
                         </div>
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_1">
-                                <option>CIMA</option>
-                                <option>SLIIT</option>
-                                <option>NSBM</option>
-                            </select>
+                            <input type="text" id="pro_qualification_1" class="form-control form-control-sm quali2" formControlName="pro_qualification_1"
+                                [(ngModel)]="provider.professionalQualification.pro_qualification_1">
                         </div>
                     </div>
 
@@ -301,7 +272,8 @@
                             <label id="label7">University / Institute:</label>
                         </div>
                         <div class="row">
-                            <input id="uniName_row0" name="uniName_row[0]" formControlName="pro_institute_1" class="form-control form-control-sm" type="text">
+                            <input id="uniName_row0" name="uniName_row[0]" formControlName="pro_institute_1" class="form-control form-control-sm" type="text"
+                                [(ngModel)]="provider.professionalQualification.pro_institute_1">
                         </div>
                     </div>
 
@@ -310,11 +282,7 @@
                             <label id="label8">Grade recieved:</label>
                         </div>
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_1">
-                                <option>First class</option>
-                                <option>Second Upper</option>
-                                <option>Second Lower</option>
-                            </select>
+                            <input type="text" id="pro_grade_1" class="form-control form-control-sm quali2" formControlName="pro_grade_1" [(ngModel)]="provider.professionalQualification.pro_grade_1">
                         </div>
                     </div>
 
@@ -323,10 +291,8 @@
                             <label id="label9">Year of completion:</label>
                         </div>
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_year_1">
-                                <option>2017</option>
-                                <option>2016</option>
-                                <option>2015</option>
+                            <select class="form-control form-control-sm quali2" formControlName="pro_year_1" [(ngModel)]="provider.professionalQualification.pro_year_1">
+                                <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
                             </select>
                         </div>
                     </div>
@@ -336,10 +302,8 @@
                             <label id="label10">Country:</label>
                         </div>
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_country_1">
-                                <option>Sri Lanka</option>
-                                <option>India</option>
-                                <option>England</option>
+                            <select class="form-control form-control-sm quali2" formControlName="pro_country_1" [(ngModel)]="provider.professionalQualification.pro_country_1">
+                                <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -358,46 +322,36 @@
                 <div id="row_2" class="row" style="display:none; width:100%;">
                     <div class="col-md-2">
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_2">
-                                <option>CIMA</option>
-                                <option>SLIIT</option>
-                                <option>NSBM</option>
-                            </select>
+                            <input type="text" id="pro_qualification_2" class="form-control form-control-sm quali2" formControlName="pro_qualification_2"
+                                [(ngModel)]="provider.professionalQualification.pro_qualification_2">
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="row">
-                            <input id="uniName_row1" name="uniName_row[1]" formControlName="pro_institute_2" class="form-control form-control-sm" type="text">
+                            <input id="uniName_row1" name="uniName_row[1]" formControlName="pro_institute_2" class="form-control form-control-sm" type="text"
+                                [(ngModel)]="provider.professionalQualification.pro_institute_2">
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_2">
-                                <option>First class</option>
-                                <option>Second Upper</option>
-                                <option>Second Lower</option>
+                            <input type="text" id="pro_grade_2" class="form-control form-control-sm quali2" formControlName="pro_grade_2" [(ngModel)]="provider.professionalQualification.pro_grade_2">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="row">
+                            <select class="form-control form-control-sm quali2" formControlName="pro_year_2" [(ngModel)]="provider.professionalQualification.pro_year_2">
+                                <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="col-md-2">
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_year_2">
-                                <option>2017</option>
-                                <option>2016</option>
-                                <option>2015</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_country_2">
-                                <option>Sri Lanka</option>
-                                <option>India</option>
-                                <option>England</option>
+                            <select class="form-control form-control-sm quali2" formControlName="pro_country_2" [(ngModel)]="provider.professionalQualification.pro_country_2">
+                                <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -413,38 +367,28 @@
                 <!--third row-->
                 <div id="row_3" class="row" style="display:none;">
                     <div class="col-md-2">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_qualification_3">
-                            <option>CIMA</option>
-                            <option>SLIIT</option>
-                            <option>NSBM</option>
-                        </select>
+                        <input type="text" id="pro_qualification_3" class="form-control form-control-sm quali2" formControlName="pro_qualification_3"
+                            [(ngModel)]="provider.professionalQualification.pro_qualification_3">
                     </div>
 
                     <div class="col-md-3">
-                        <input id="uniName_row2" name="uniName_row[2]" formControlName="pro_institute_3" class="form-control form-control-sm" type="text">
+                        <input id="uniName_row2" name="uniName_row[2]" formControlName="pro_institute_3" class="form-control form-control-sm" type="text"
+                            [(ngModel)]="provider.professionalQualification.pro_institute_3">
                     </div>
 
                     <div class="col-md-2">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_grade_3">
-                            <option>First class</option>
-                            <option>Second Upper</option>
-                            <option>Second Lower</option>
+                        <input type="text" id="pro_grade_3" class="form-control form-control-sm quali2" formControlName="pro_grade_3" [(ngModel)]="provider.professionalQualification.pro_grade_3">
+                    </div>
+
+                    <div class="col-md-2">
+                        <select class="form-control form-control-sm quali2" formControlName="pro_year_3" [(ngModel)]="provider.professionalQualification.pro_year_3">
+                            <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
                         </select>
                     </div>
 
                     <div class="col-md-2">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_year_3">
-                            <option>2017</option>
-                            <option>2016</option>
-                            <option>2015</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-2">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_country_3">
-                            <option>Sri Lanka</option>
-                            <option>India</option>
-                            <option>England</option>
+                        <select class="form-control form-control-sm quali2" formControlName="pro_country_3" [(ngModel)]="provider.professionalQualification.pro_country_3">
+                            <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
                         </select>
                     </div>
 
@@ -470,52 +414,45 @@
                         <h6 class="subTitle">Subject Area of Expertise:</h6>
                     </div>
 
-                    <div class="col-md-3">
-                        <select class="form-control form-control-sm quali2" formControlName="expert1">
-                            <option>Management</option>
-                            <option>IT</option>
-                            <option>Science</option>
+                    <div class="col-md-3" id="experts1">
+
+  
+
+
+                        <select class="form-control form-control-sm quali2" formControlName="expert1" [(ngModel)]="provider.subjectAreas.expert1">
+                            <option *ngFor="let subject of subjectList" [value]="subject.id">{{subject.name}}</option>
                         </select>
                         <button id="add_subject_btn1" type="button" (click)="add_subject2()" class="btn btn-info">+</button>
                     </div>
 
-                    <div class="col-md-3">
-                        <select id="expert_subject2" class="form-control form-control-sm" formControlName="expert2">
-                            <option>Management</option>
-                            <option>IT</option>
-                            <option>Science</option>
+                    <div class="col-md-3" id="experts2">
+                        <select id="expert_subject2" class="form-control form-control-sm" formControlName="expert2" [(ngModel)]="provider.subjectAreas.expert2">
+                            <option *ngFor="let subject of subjectList" [value]="subject.id">{{subject.name}}</option>
                         </select>
                         <button name="remove_subject_btn2" id="remove_subject_btn2" type="button" (click)="remove_subject2()" class="btn btn-info">-</button>
                         <button id="add_subject_btn2" type="button" (click)="add_subject3()" class="btn btn-info">+</button>
                     </div>
 
-                    <div class="col-md-3">
-                        <select id="expert_subject3" class="form-control form-control-sm" formControlName="expert3">
-                            <option>Management</option>
-                            <option>IT</option>
-                            <option>Science</option>
+                    <div class="col-md-3" id="experts3">
+                        <select id="expert_subject3" class="form-control form-control-sm" formControlName="expert3" [(ngModel)]="provider.subjectAreas.expert3">
+                            <option *ngFor="let subject of subjectList" [value]="subject.id">{{subject.name}}</option>
                         </select>
                         <button id="add_subject_btn3" type="button" class="btn btn-info">+</button>
                         <button name="remove_subject_btn3" id="remove_subject_btn3" type="button" (click)="remove_subject3()" class="btn btn-info">-</button>
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <hr>
-                </div>
-
                 <!--Content Provider Identification No:-->
-                <div class="row">
+                <!-- <div class="row">
                     <div id="x4" class="col-md-4">
                         <h6 class="subTitle">Content Provider Identification No:</h6>
                     </div>
                     <div class="col-md-4">
-                        <!-- <input name="cpId" id="cpId" class="form-control form-control-sm" type="text" value="<?php echo $cp_id; ?>" readonly><br> -->
                         <input id="cpId" name="cpId" class="form-control form-control-sm" type="text" readonly formControlName="cpId">
                     </div>
                     <div class="col-md-4">
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">
@@ -523,17 +460,18 @@
                     <hr>
                 </div>
             </div>
+            <br>
 
             <!--Terms &amp; conditions-->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12">
                     <textarea id="terms" name="terms" class="form-control" id="exampleFormControlTextarea1" rows="5" col="1" placeholder="Terms &amp; Conditions"
                         readonly></textarea>
                     <br>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12">
                     &emsp;&emsp;
                     <input type="checkbox" id="check1" name="check1" class="form-check-input" [(ngModel)]="checkBox" formControlName="check1">
@@ -542,19 +480,12 @@
                     <br>
                     <br>
                 </div>
-            </div>
-            <!-- <div class="error" *ngIf="checkBoxControl.hasError('required')">
-                                Required
-                            </div> -->
+            </div> -->
 
             <div id="form1_submit_row" class="row">
-                <div class="col-md-8">
-                    <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
-                </div>
-                <div class="col-md-4" align="right">
+                <div class="col-md-12" align="right">
                     &emsp;
-                    <button type="submit" id="submit2" name="submit2" class="btn-primary search_btn" [disabled]="!individualForm.valid">Reser</button>
-                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!individualForm.valid" (click)="submitForm1()">Update</button>
+                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!individualForm.valid">Update</button>
                     <!-- <button type="submit" id="cancel1" name="cancel1" class="btn-primary search_btn">Cancel</button> -->
                     <br>
                     <br>

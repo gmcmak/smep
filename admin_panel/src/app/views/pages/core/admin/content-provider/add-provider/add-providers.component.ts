@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormControl, FormsModule, FormBuilder} from '@an
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
 import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
 import { SubjectService } from "../../../../../../services/businessservices/core/subject-area/subject.service";
+import { ProviderService } from "../../../../../../services/businessservices/core/content-provider/provider.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -24,13 +25,17 @@ export class AddProvidersComponent implements OnInit{
 
     public countryList;
     public subjectList;
+    public providerRegisterStatus;
+    private deleted;
+    private status;
    
     public individualForm: FormGroup;
 
     constructor(
         private formBuilder: FormBuilder,
         private countryService: CountryService,
-        private subjectService: SubjectService
+        private subjectService: SubjectService,
+        private providerService: ProviderService
     ) {}
     ngOnInit(): void {
 
@@ -121,10 +126,7 @@ export class AddProvidersComponent implements OnInit{
             otherInfo: new FormGroup({
                     expert1: new FormControl(),
                     expert2: new FormControl(),
-                    expert3: new FormControl(),
-                    radioValue: new FormControl(),
-                    courses: new FormControl(),
-                    cpId: new FormControl(),
+                    expert3: new FormControl()
 
             }),
             check1: new FormControl('', Validators.required)
@@ -218,6 +220,7 @@ export class AddProvidersComponent implements OnInit{
         $("#remove_subject_btn2").hide();
         $("#add_subject_btn2").hide();
         $("#add_subject_btn1").show();
+        this.provider.subjectAreas.expert2 = null;
     }
 
     //remove expertise dropdown3
@@ -225,41 +228,60 @@ export class AddProvidersComponent implements OnInit{
         $("#expert_subject3").hide();
         $("#remove_subject_btn3").hide();
         $("#add_subject_btn1").show();
-    }
-    
-    //add expert subject dropdown2 (institute form)
-    add_expert_sub2(){
-        $("#add_sub_btn1").hide();
-        $("#expert_sub2").show();
-        $("#add_sub_btn2").show();
-        $("#remove_sub_btn2").show();
-    }
-
-    //add expert subject dropdown3 (institute form)
-    add_expert_sub3(){
-        $("#add_sub_btn2").hide();
-        $("#expert_sub3").show();
-        $("#add_sub_btn3").hide();
-        $("#remove_sub_btn3").show();
-    }
-
-    //remove expert subject dropdown2 (institute form)
-    remove_expert_sub2(){
-        $("#expert_sub2").val("");
-        $("#expert_sub2").hide();
-        $("#remove_sub_btn2").hide();
-        $("#add_sub_btn2").hide();
-        $("#add_sub_btn1").show();
-        this.provider.subjectAreas.expert2 = null;
-    }
-
-    //remove expert subject dropdown3 (institute form)
-    remove_expert_sub3(){
-        $("#expert_sub3").val("");
-        $("#expert_sub3").hide();
-        $("#remove_sub_btn3").hide();
-        $("#add_sub_btn1").show();
         this.provider.subjectAreas.expert3 = null;
+    }
+
+    /**
+     * insert provider's details
+     */
+    addProvider(formData){
+        this.providerService.insertProvider(
+            formData.cpName,
+            formData.cpFullName,
+            formData.gender,
+            formData.cpNic,
+            formData.cpDesignation,
+            formData.cpDob,
+            formData.cpEmail,
+            formData.cpMobile,
+            formData.cpPassword1,
+            formData.cpPassword2,
+
+            formData.highestQulification.highest_quali,
+            formData.highestQulification.highest_uni,
+            formData.highestQulification.highest_grade,
+            formData.highestQulification.highest_Country,
+            formData.highestQulification.highest_Year,
+
+            formData.professionalQualification.pro_qualification_1,
+            formData.professionalQualification.pro_institute_1,
+            formData.professionalQualification.pro_grade_1,
+            formData.professionalQualification.pro_year_1,
+            formData.professionalQualification.pro_country_1,
+
+            formData.professionalQualification.pro_qualification_2,
+            formData.professionalQualification.pro_institute_2,
+            formData.professionalQualification.pro_grade_2,
+            formData.professionalQualification.pro_year_2,
+            formData.professionalQualification.pro_country_2,
+            
+            formData.professionalQualification.pro_qualification_3,
+            formData.professionalQualification.pro_institute_3,
+            formData.professionalQualification.pro_grade_3,
+            formData.professionalQualification.pro_year_3,
+            formData.professionalQualification.pro_country_3,
+
+            formData.otherInfo.expert1,
+            formData.otherInfo.expert2,
+            formData.otherInfo.expert3,
+
+            this.deleted=0,
+            this.status=1,
+        ).subscribe(
+            success => {
+                this.providerRegisterStatus = success.success;
+            }
+        );
     }
 }
 

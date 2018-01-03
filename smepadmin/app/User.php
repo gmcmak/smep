@@ -76,7 +76,7 @@ class User extends Authenticatable
     */
     public function subjectAreas()
     {
-        return $this->belongsToMany('App\Subject_area')->withTimestamps();
+        return $this->belongsToMany('App\Subject_area');
     }
 
 
