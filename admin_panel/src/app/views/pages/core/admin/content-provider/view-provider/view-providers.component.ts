@@ -16,6 +16,9 @@ export class ViewProvidersComponent implements OnInit {
 
     public providerList;
 
+    public providerDeletingStatus;
+    public deleteId = 73;
+
     constructor(
         private providerService: ProviderService,
         private router: Router,
@@ -25,6 +28,7 @@ export class ViewProvidersComponent implements OnInit {
     ngOnInit(): void {
         this.dataTable();
         this.getProvidersList();
+        this.deleteProvider();
     }
 
 
@@ -61,6 +65,19 @@ export class ViewProvidersComponent implements OnInit {
                 }
             }
             );
+    }
+
+    /**
+     * delete provider
+     */
+    deleteProvider(){
+        this.providerService.deleteProvider(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.providerDeletingStatus = success.success;
+            }
+        );
     }
 
 }

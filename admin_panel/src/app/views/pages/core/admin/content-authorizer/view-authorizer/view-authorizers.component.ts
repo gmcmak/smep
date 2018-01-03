@@ -17,6 +17,9 @@ export class ViewAuthorizersComponent implements OnInit {
     public authorizerList;
     private loggedInUserList;
 
+    public authorizerDeletingStatus;
+    private deleteId = 74; //authorizer id for delete
+
     constructor(
         private authorizerService: AuthorizerService,
         private router: Router,
@@ -26,6 +29,7 @@ export class ViewAuthorizersComponent implements OnInit {
     ngOnInit(): void {
        this.dataTable();
        this.getAuthorizerDetails();
+       this.deleteAuthorizer();
     }
 
 
@@ -63,6 +67,19 @@ export class ViewAuthorizersComponent implements OnInit {
                 }
             }
             );
+    }
+
+    /**
+     * delete authorizer
+     */
+    deleteAuthorizer(){
+        this.authorizerService.deleteAuthorizer(
+            this.deleteId
+        ).subscribe(
+            success => {
+                this.authorizerDeletingStatus = success.success;
+            }
+        );
     }
 
 }

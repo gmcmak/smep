@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms'
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
 import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
 import { SubjectService } from "../../../../../../services/businessservices/core/subject-area/subject.service";
+import { AuthorizerService } from "../../../../../../services/businessservices/core/content-authorizer/authorizer.service";
 
 declare var $: any;
 declare var jQuery:any;
@@ -26,8 +27,16 @@ export class UpdateAuthorizersComponent implements OnInit{
     public countryList;
     public subjectList;
 
+    public authorizerUpdatingStatus;
+    public editId = 74; //get authorizer's details using id
+    public editAuthorizerList;
+
+    public id = 74; //update id
+    private status = 0;
+    private deleted = 0;
+
     ngOnInit(): void {
-        //throw new Error("Method not implemented.");
+        
         this.intializeAuthorizerForm();
 
         $("#caDob").datepicker({
@@ -39,6 +48,7 @@ export class UpdateAuthorizersComponent implements OnInit{
         this.getCountry();
         this.showYear();
         this.getSubjectAreas();
+        this.editAuthorizer();
 
     }
 
@@ -57,7 +67,8 @@ export class UpdateAuthorizersComponent implements OnInit{
     constructor(
         private formBuilder: FormBuilder,
         private countryService: CountryService,
-        private subjectService: SubjectService
+        private subjectService: SubjectService,
+        private authorizerService: AuthorizerService
     ) { }
 
     private intializeAuthorizerForm(): void {
@@ -71,8 +82,6 @@ export class UpdateAuthorizersComponent implements OnInit{
             caDob: new FormControl('', Validators.required),
             caEmail: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
             caMobile: new FormControl('', [Validators.required, Validators.pattern(MOBILE_REGEX)]),
-            caPassword1: new FormControl('', Validators.required),
-            caPassword2: new FormControl('', Validators.required),
             highestQulification: new FormGroup({
                 highest_quali: new FormControl('', [Validators.required]),
                 highest_uni: new FormControl('', [Validators.required]),
@@ -110,26 +119,8 @@ export class UpdateAuthorizersComponent implements OnInit{
                 courses: new FormControl(),
                 cpId: new FormControl(),
 
-            }),
-            check1: new FormControl('', Validators.required)
-        }, { validator: this.checkIfMatchingPasswords('caPassword1', 'caPassword2') });
-    }
-
-
-
-    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-        return (group: FormGroup) => {
-            let passwordInput = group.controls[passwordKey],
-                passwordConfirmationInput = group.controls[passwordConfirmationKey];
-            if (passwordInput.value !== passwordConfirmationInput.value) {
-                return passwordConfirmationInput.setErrors({ notEquivalent: true })
-            }
-            else {
-                if (passwordConfirmationInput.touched) {
-                    return passwordConfirmationInput.setErrors(null);
-                }
-            }
-        }
+            })
+        });
     }
 
     public isFieldValid(field: string) {
@@ -236,6 +227,142 @@ export class UpdateAuthorizersComponent implements OnInit{
         $("#add_subject_btn1").show();
         this.authorizer.SubjectAreas.expert3 = null;
     }
+
+    /**
+     * get authorizer's details for update
+     */
+    editAuthorizer(){
+        this.authorizerService.editAuthorizer(
+            this.editId
+        ).subscribe(
+            success => {
+                this.editAuthorizerList = success.success;
+                this.authorizer.caDesignation = this.editAuthorizerList[0].designation;
+                this.authorizer.caDob = this.editAuthorizerList[0].birthday;
+                this.authorizer.caEmail = this.editAuthorizerList[0].email;
+                this.authorizer.caFullName = this.editAuthorizerList[0].name_with_initials;
+                this.authorizer.caGender = this.editAuthorizerList[0].gender;
+                this.authorizer.caMobile = this.editAuthorizerList[0].mobile;
+                this.authorizer.caName = this.editAuthorizerList[0].name;
+                this.authorizer.caNic = this.editAuthorizerList[0].nic;
+
+                this.authorizer.HighestQualifications.highest_quali = this.editAuthorizerList[0].highest_education.qualification;
+                this.authorizer.HighestQualifications.highest_Country = this.editAuthorizerList[0].highest_education.country_id;
+                this.authorizer.HighestQualifications.highest_grade = this.editAuthorizerList[0].highest_education.grade;
+                this.authorizer.HighestQualifications.highest_uni = this.editAuthorizerList[0].highest_education.university;
+                this.authorizer.HighestQualifications.highest_Year = this.editAuthorizerList[0].highest_education.year;
+
+                if (this.editAuthorizerList[0].professional_educations[0]){
+                    if (this.editAuthorizerList[0].professional_educations[0].country_id != null || this.editAuthorizerList[0].professional_educations[0].grade != null || this.editAuthorizerList[0].professional_educations[0].university != null || this.editAuthorizerList[0].professional_educations[0].qualification != null || this.editAuthorizerList[0].professional_educations[0].year != null){
+                        this.authorizer.ProfessionalQualifications.pro_country_1 = this.editAuthorizerList[0].professional_educations[0].country_id;
+                        this.authorizer.ProfessionalQualifications.pro_grade_1 = this.editAuthorizerList[0].professional_educations[0].grade;
+                        this.authorizer.ProfessionalQualifications.pro_institute_1 = this.editAuthorizerList[0].professional_educations[0].university;
+                        this.authorizer.ProfessionalQualifications.pro_qualification_1 = this.editAuthorizerList[0].professional_educations[0].qualification;
+                        this.authorizer.ProfessionalQualifications.pro_year_1 = this.editAuthorizerList[0].professional_educations[0].year;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].professional_educations[1]) {
+                    if (this.editAuthorizerList[0].professional_educations[1].country_id != null || this.editAuthorizerList[0].professional_educations[1].grade != null || this.editAuthorizerList[0].professional_educations[1].university != null || this.editAuthorizerList[0].professional_educations[1].qualification != null || this.editAuthorizerList[0].professional_educations[1].year != null) {
+                        $('#row_2').show();
+                        this.authorizer.ProfessionalQualifications.pro_country_2 = this.editAuthorizerList[0].professional_educations[1].country_id;
+                        this.authorizer.ProfessionalQualifications.pro_grade_2 = this.editAuthorizerList[0].professional_educations[1].grade;
+                        this.authorizer.ProfessionalQualifications.pro_institute_2 = this.editAuthorizerList[0].professional_educations[1].university;
+                        this.authorizer.ProfessionalQualifications.pro_qualification_2 = this.editAuthorizerList[0].professional_educations[1].qualification;
+                        this.authorizer.ProfessionalQualifications.pro_year_2 = this.editAuthorizerList[0].professional_educations[1].year;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].professional_educations[2]) {
+                    if (this.editAuthorizerList[0].professional_educations[2].country_id != null || this.editAuthorizerList[0].professional_educations[2].grade != null || this.editAuthorizerList[0].professional_educations[2].university != null || this.editAuthorizerList[0].professional_educations[2].qualification != null || this.editAuthorizerList[0].professional_educations[2].year != null) {
+                        $('#row_3').show();
+                        $('#add_btn_row2').hide();
+                        this.authorizer.ProfessionalQualifications.pro_country_3 = this.editAuthorizerList[0].professional_educations[2].country_id;
+                        this.authorizer.ProfessionalQualifications.pro_grade_3 = this.editAuthorizerList[0].professional_educations[2].grade;
+                        this.authorizer.ProfessionalQualifications.pro_institute_3 = this.editAuthorizerList[0].professional_educations[2].university;
+                        this.authorizer.ProfessionalQualifications.pro_qualification_3 = this.editAuthorizerList[0].professional_educations[2].qualification;
+                        this.authorizer.ProfessionalQualifications.pro_year_3 = this.editAuthorizerList[0].professional_educations[2].year;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].subject_areas[0]){
+                    if(this.editAuthorizerList[0].subject_areas[0].id != null){
+                        this.authorizer.SubjectAreas.expert1 = this.editAuthorizerList[0].subject_areas[0].id;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].subject_areas[1]) {
+                    if (this.editAuthorizerList[0].subject_areas[1].id != null) {
+                        $('#expert_subject2').show();
+                        $('#remove_subject_btn2').show();
+                        $('#add_subject_btn2').show();
+                        this.authorizer.SubjectAreas.expert2 = this.editAuthorizerList[0].subject_areas[1].id;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].subject_areas[2]) {
+                    if (this.editAuthorizerList[0].subject_areas[2].id != null) {
+                        $('#expert_subject3').show();
+                        $('#remove_subject_btn3').show();
+                        $('#add_subject_btn2').hide();
+                        this.authorizer.SubjectAreas.expert3 = this.editAuthorizerList[0].subject_areas[2].id;
+                    }
+                }
+            }
+        );
+    }
+
+    /**
+     * update authorizer
+     */
+    updateAuthorizer(formData){
+        this.authorizerService.updateAuthorizer(
+            this.id,
+            formData.caName,
+            formData.caFullName,
+            formData.caGender,
+            formData.caNic,
+            formData.caDesignation,
+            formData.caDob,
+            formData.caEmail,
+            formData.caMobile,
+
+            formData.highestQulification.highest_quali,
+            formData.highestQulification.highest_uni,
+            formData.highestQulification.highest_grade,
+            formData.highestQulification.highest_Country,
+            formData.highestQulification.highest_Year,
+
+            formData.professionalQualification.pro_qualification_1,
+            formData.professionalQualification.pro_institute_1,
+            formData.professionalQualification.pro_grade_1,
+            formData.professionalQualification.pro_year_1,
+            formData.professionalQualification.pro_country_1,
+
+            formData.professionalQualification.pro_qualification_2,
+            formData.professionalQualification.pro_institute_2,
+            formData.professionalQualification.pro_grade_2,
+            formData.professionalQualification.pro_year_2,
+            formData.professionalQualification.pro_country_2,
+
+            formData.professionalQualification.pro_qualification_3,
+            formData.professionalQualification.pro_institute_3,
+            formData.professionalQualification.pro_grade_3,
+            formData.professionalQualification.pro_year_3,
+            formData.professionalQualification.pro_country_3,
+
+            formData.otherInfo.expert1,
+            formData.otherInfo.expert2,
+            formData.otherInfo.expert3,
+
+            this.status = 0,
+            this.deleted = 0
+        ).subscribe(
+            success => {
+                this.authorizerUpdatingStatus = success.success;
+            }
+        );
+    }
 }
 
 export class Authorizer {
@@ -248,8 +375,6 @@ export class Authorizer {
     public caDob: string;
     public caEmail: string;
     public caMobile: string;
-    public caPassword1: string;
-    public caPassword2: string;
 
     HighestQualifications = new AuthorizerHighestQualification();
     ProfessionalQualifications = new AuthorizerProfessionalQualification();

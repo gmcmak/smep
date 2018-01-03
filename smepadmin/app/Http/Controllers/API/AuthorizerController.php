@@ -156,7 +156,7 @@ class AuthorizerController extends Controller
     * get all authorizers' details
     */
     public function viewAuthorizers(){
-        $authorizerDetails = User::with('highestEducation','professionalEducations','institues')->where('role_id', 4)->get();
+        $authorizerDetails = User::with('highestEducation','professionalEducations','institues')->where(['role_id'=>4, 'deleted'=>0])->get();
         return response()->json(['success'=>$authorizerDetails]);
     }
 
@@ -165,8 +165,8 @@ class AuthorizerController extends Controller
     * @return dataset or message
     */
     public function editAuthorizer($id){
-        $authorizerDetails = User::with('highestEducation','professionalEducations','institues')->where('id',[$id])->get();
-        return response()->json($authorizerDetails);
+        $authorizerDetails = User::with('highestEducation','professionalEducations','institues', 'subjectAreas')->where('id',[$id])->get();
+        return response()->json(['success'=>$authorizerDetails]);
     }
 
     /**
@@ -177,8 +177,6 @@ class AuthorizerController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
             'status'=>'required|boolean',
             'deleted'=>'required|boolean',
             'name_with_initials'=>'required',
@@ -204,7 +202,6 @@ class AuthorizerController extends Controller
             $update = [
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
                 'status' => $request->input('status'),
                 'deleted' => $request->input('deleted'),
                 'name_with_initials' => $request->input('name_with_initials'),
@@ -226,16 +223,68 @@ class AuthorizerController extends Controller
                 'updated_at' => now()]
             );
 
-            $proff_edu_quali = array(
-                [   'user_id' => $table->id,
-                    'qualification' => 'MSC',
-                    'university' => 'colombo uni',
-                    'grade' => 'A',
-                    'year' => 2015,
+            $proff_edu_quali = array();
+            $subject_area = array();
+
+            if(!empty($request->input('pro_qualification_1')) || !empty($request->input('pro_institute_1')) || !empty($request->input('pro_grade_1')) || !empty($request->input('pro_country_1')) || !empty($request->input('pro_year_1')))
+            {
+                $proff_edu_quali1 = array(
+                    'user_id' => $table->id,
+                    'qualification' => $request->input('pro_qualification_1'),
+                    'university' => $request->input('pro_institute_1'),
+                    'grade' => $request->input('pro_grade_1'),
+                    'year' => $request->input('pro_year_1'),
+                    'created_at' => now(),
                     'updated_at' => now(),
-                    'country_id' => 10
-                ]
-            );
+                    'country_id' => $request->input('pro_country_1')
+                );
+
+                $proff_edu_quali[0] = $proff_edu_quali1;
+            }
+
+            if(!empty($request->input('pro_qualification_2')) || !empty($request->input('pro_institute_2')) || !empty($request->input('pro_grade_2')) || !empty($request->input('pro_country_2')) || !empty($request->input('pro_year_2')))
+            {
+                $proff_edu_quali2 = array(
+                    'user_id' => $table->id,
+                    'qualification' => $request->input('pro_qualification_2'),
+                    'university' => $request->input('pro_institute_2'),
+                    'grade' => $request->input('pro_grade_2'),
+                    'year' => $request->input('pro_year_2'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'country_id' => $request->input('pro_country_2')
+                );
+
+                $proff_edu_quali[1] = $proff_edu_quali2;
+            }
+
+            if(!empty($request->input('pro_qualification_3')) || !empty($request->input('pro_institute_3')) || !empty($request->input('pro_grade_3')) || !empty($request->input('pro_country_3')) || !empty($request->input('pro_year_3')))
+            {
+                $proff_edu_quali3 = array(
+                    'user_id' => $table->id,
+                    'qualification' => $request->input('pro_qualification_3'),
+                    'university' => $request->input('pro_institute_3'),
+                    'grade' => $request->input('pro_grade_3'),
+                    'year' => $request->input('pro_year_3'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'country_id' => $request->input('pro_country_3')
+                );
+
+                $proff_edu_quali[2] = $proff_edu_quali3;
+            }
+
+            if(!empty($request->input('expert1'))){
+                $subject_area[0] = $request->input('expert1');
+            }
+
+            if(!empty($request->input('expert2'))){
+                $subject_area[1] = $request->input('expert2');
+            }
+
+            if(!empty($request->input('expert3'))){
+                $subject_area[2] = $request->input('expert3');
+            }
 
             try{
 
@@ -247,6 +296,10 @@ class AuthorizerController extends Controller
 
                 $authorizer->professionalEducations()->delete();
                 $updateProffQuali = $authorizer->professionalEducations()->insert($proff_edu_quali);
+
+                $authorizer->subjectAreas()->detach();
+                $table->id = $id;
+                $updatingSubject = $table->subjectAreas()->attach($subject_area);
                 return response()->json(['success'=>'Successfully updated']);
             }
             catch(\Illuminate\Database\QueryException $ex){
@@ -268,6 +321,7 @@ class AuthorizerController extends Controller
             $authorizer = User::find($id);
             $authorizer->highestEducation()->delete();
             $authorizer->professionalEducations()->delete();
+            $authorizer->subjectAreas()->detach();
 
             return response()->json(['success'=>'Successfully deleted']);
         }

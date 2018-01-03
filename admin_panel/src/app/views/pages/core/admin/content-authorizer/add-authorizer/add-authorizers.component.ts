@@ -418,28 +418,7 @@ export class AddAuthorizersComponent implements OnInit{
                 formData.otherInfo.expert1,
                 formData.otherInfo.expert2,
                 formData.otherInfo.expert3,
-
-                // pro_qualification_1,
-                // pro_institute_1,
-                // pro_grade_1,
-                // pro_year_1,
-                // pro_country_1,
-
-                // pro_qualification_2,
-                // pro_institute_2,
-                // pro_grade_2,
-                // pro_year_2,
-                // pro_country_2,
-
-                // pro_qualification_3,
-                // pro_institute_3,
-                // pro_grade_3,
-                // pro_year_3,
-                // pro_country_3,
-
-                // expert1,
-                // expert2,
-                // expert3,
+                
                 this.status = 0,
                 this.deleted = 0
             ).subscribe(

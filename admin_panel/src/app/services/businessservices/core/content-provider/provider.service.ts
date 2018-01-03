@@ -145,4 +145,20 @@ export class ProviderService{
             .map((response: Response) => response.json());
     }
 
+    /**
+    * delete provider
+    */
+    public deleteProvider(deleteId) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-provider/'+ deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
 }

@@ -168,7 +168,7 @@ class ProviderController extends Controller
     * get all providers' details
     */
     public function viewProviders(){
-        $providerDetails = User::with('highestEducation','professionalEducations','institues', 'subjectAreas')->where('role_id', 3)->get();
+        $providerDetails = User::with('highestEducation','professionalEducations','institues', 'subjectAreas')->where(['role_id'=>3,'deleted'=>0])->get();
         return response()->json(['success'=>$providerDetails]);
     }
 
