@@ -4,6 +4,7 @@ import CustomValidators from '../../../../../../common/validation/CustomValidato
 import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
 import { SubjectService } from "../../../../../../services/businessservices/core/subject-area/subject.service";
 import { ProviderService } from "../../../../../../services/businessservices/core/content-provider/provider.service";
+import { ActivatedRoute } from "@angular/router";
 
 declare var $: any;
 declare var jQuery: any;
@@ -29,10 +30,10 @@ export class UpdateProvidersComponent implements OnInit{
     private deleted;
     private status;
 
+    public sub: any;
+    public id: number;
     private editId = 73;
     public editProviderList;
-
-    private test = "";
 
     public individualForm: FormGroup;
 
@@ -40,7 +41,8 @@ export class UpdateProvidersComponent implements OnInit{
         private formBuilder: FormBuilder,
         private countryService: CountryService,
         private subjectService: SubjectService,
-        private providerService: ProviderService
+        private providerService: ProviderService,
+        private route: ActivatedRoute
     ) { }
     ngOnInit(): void {
 
@@ -55,6 +57,14 @@ export class UpdateProvidersComponent implements OnInit{
         this.getCountry();
         this.showYear();
         this.getSubjectAreas();
+
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editProvider();
     }
 
@@ -356,6 +366,7 @@ export class UpdateProvidersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.providerUpdateStatus = success.success;
+                this.individualForm.reset();
             }
             );
     }

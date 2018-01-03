@@ -33,7 +33,7 @@
                         <td>{{record.name}}</td>
                         <td>{{record.email}}</td>
                         <td>{{record.role.name}}</td>
-                        <td align="center"><a [routerLink]="['../../users/update-users']"><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
+                        <td align="center"><a [routerLink]="['../../users/update-users', record.id]"><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
                         <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
                      </tr>   
                 </tbody>

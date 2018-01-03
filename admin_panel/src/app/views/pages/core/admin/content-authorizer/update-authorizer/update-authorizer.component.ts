@@ -372,6 +372,7 @@ export class UpdateAuthorizersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.authorizerUpdatingStatus = success.success;
+                this.authorizerForm.reset();
             }
         );
     }

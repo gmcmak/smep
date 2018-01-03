@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormsModule} from '@angular/forms';
 import { LocalStorageStore } from '../../../../../../services/storage/local-storage.service';
 import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
+import { ActivatedRoute } from "@angular/router";
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
 const NIC_REGEX = /^[0-9]{9}[VXvx]/;
@@ -23,19 +24,22 @@ export class UpdateUsersComponent implements OnInit{
     private deleted;
     public userForm: FormGroup;
     public userUpdatingStatus;
-    public id=25;
+
+    public sub: any;
+    public id: number;
+    public editId: number;
     public editUserList;
 
     constructor(
         private formBuilder: FormBuilder,
-        private UserService: UserService
+        private UserService: UserService,
+        private route: ActivatedRoute
     ){
         this.getRoles();
     }
 
     ngOnInit(): void {
         this.initializeContentProviderForm();
-        this.editUser();
 
         $("#user_dob").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -43,7 +47,15 @@ export class UpdateUsersComponent implements OnInit{
             changeYear: true
         }).on('change', e => this.user.dob = e.target.value);
 
-        //this.dob = $("#user_dob").value();
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
+        this.editUser();
+
     }
 
     private initializeContentProviderForm(): void{
@@ -108,7 +120,7 @@ export class UpdateUsersComponent implements OnInit{
      */
     editUser(){
         this.UserService.editUsersList(
-            this.id
+            this.editId
         ).subscribe(
             success => {
                 
@@ -133,7 +145,7 @@ export class UpdateUsersComponent implements OnInit{
      */
     updateUser(formData){
         this.UserService.updateUserList(
-            this.id,
+            this.editId,
             formData.role_id,
             formData.user_fullName,
             formData.user_nameWithInitials,
@@ -147,7 +159,8 @@ export class UpdateUsersComponent implements OnInit{
             this.deleted=0
         ).subscribe(
             success => {
-                this.userUpdatingStatus = success.success
+                this.userUpdatingStatus = success.success;
+                this.userForm.reset();
             }
         );
     }

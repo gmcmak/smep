@@ -1,10 +1,10 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../dashboard']">Home</a>
+        <a [routerLink]="['../../../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../institute/view-institute']">Institute</a>
+        <a [routerLink]="['../../../institute/view-institute']">Institute</a>
     </li>
     <li class="breadcrumb-item">
         <a>Update Institute</a>
@@ -82,7 +82,7 @@
                             </label>
                         </div>
                         <div class="col-md-6 x11">
-                            <input type="text" id="dateOfReg" name="dateOfReg" class="form-control form-control-sm" placeholder="yy-mm-dd" [(ngModel)]="institute.dateOfReg"
+                            <input type="text" id="dateOfReg" name="dateOfReg" class="form-control form-control-sm" placeholder="YYYY-MM-DD" [(ngModel)]="institute.dateOfReg"
                                 formControlName="dateOfReg" [ngClass]="displayFieldCss('dateOfReg')">
 
                             <div *ngIf="instituteForm.controls['dateOfReg'].hasError('required') && instituteForm.controls['dateOfReg'].touched" class="error">
@@ -278,7 +278,7 @@
                             </div>
                             <div class="col-md-6 x11">
                                 <input class="form-control form-control-sm" id="user_dob" type="text" name="user_dob" formControlName="user_dob" [(ngModel)]="institute.instUser.dob"
-                                    placeholder="yy-mm-dd" [ngClass]="displayFieldCss('userInfo.user_dob')">
+                                    placeholder="YYYY-MM-DD" [ngClass]="displayFieldCss('userInfo.user_dob')">
 
                                 <div *ngIf="instituteForm.controls['userInfo'].controls['user_dob'].hasError('required') && instituteForm.controls['userInfo'].controls['user_dob'].touched"
                                     class="error">
@@ -346,17 +346,17 @@
                     <hr>
                 </div>
             </div>
+            <br>
 
-            <div class="row">
-                <!--Terms &amp; conditions-->
+            <!-- <div class="row">
                 <div class="col-md-12">
                     <textarea id="textarea2" class="form-control" id="exampleFormControlTextarea1" rows="5" col="1" placeholder="Terms &amp; Conditions"
                         readonly></textarea>
                     <br>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12">
                     &emsp;&emsp;
                     <input type="checkbox" id="check2" name="check2" class="form-check-input" formControlName="check2" [ngClass]="displayFieldCss('check2')">
@@ -364,12 +364,12 @@
                     <br>
                     <br>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row">
                 <div class="col-md-12" align="right">
                     &emsp;
-                    <button type="submit" id="submit2" name="submit2" class="btn-primary search_btn" [disabled]="!instituteForm.valid">Submit</button>
+                    <button type="submit" id="submit2" name="submit2" class="btn-primary search_btn" [disabled]="!instituteForm.valid">Update</button>
                     <br>
                     <br>
                     <br>

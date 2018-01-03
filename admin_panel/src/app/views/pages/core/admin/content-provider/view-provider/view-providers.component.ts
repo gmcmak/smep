@@ -26,18 +26,18 @@ export class ViewProvidersComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.dataTable();
+
         this.getProvidersList();
-        this.deleteProvider();
-    }
-
-
-    dataTable() {
-        $('#dataTableProviders').DataTable({
+        
+        setTimeout(function(){
+            $('#dataTableProviders').DataTable({
             "language": {
                 "search": "Search by: (Provider's name/ Institute represented/ Subject area)"
             }
         });
+        }, 2000);
+       
+        this.deleteProvider();
     }
 
     /**
@@ -48,21 +48,21 @@ export class ViewProvidersComponent implements OnInit {
             .subscribe(
             success => {
                 this.providerList = success.success;
-                $("#dataTableProviders").find('tbody').empty();
-                var dataClaims = this.providerList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    $('#dataTableProviders').dataTable().fnAddData([
-                        (i + 1),
-                        dataClaims[i].name,
-                        dataClaims[i].name,
-                        dataClaims[i].name,
-                        '<a>10</a>',
-                        '<a>5</a>',
-                        '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                        '<a [routerLink]="[' + "'" + "../../content-provider/update-providers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    ]);
-                }
+                // $("#dataTableProviders").find('tbody').empty();
+                // var dataClaims = this.providerList;
+                // for (let i = 0; i < dataClaims.length; i++) {
+                //     $('#dataTableProviders').dataTable().fnAddData([
+                //         (i + 1),
+                //         dataClaims[i].name,
+                //         dataClaims[i].name,
+                //         dataClaims[i].name,
+                //         '<a>10</a>',
+                //         '<a>5</a>',
+                //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                //         '<a [routerLink]="[' + "'" + "../../content-provider/update-providers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                //     ]);
+                // }
             }
             );
     }

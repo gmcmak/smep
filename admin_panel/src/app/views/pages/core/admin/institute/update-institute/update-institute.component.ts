@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { InstituteService } from "../../../../../../services/businessservices/core/institute/institute.service";
+import { ActivatedRoute } from "@angular/router";
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
@@ -23,12 +24,16 @@ export class UpdateInstituteComponent implements OnInit{
     public instituteUpdatingStatus;
     private deleted;
 
+    public sub: any;
+    public id: number;
+    public editId;
     public instituteList;
-    public id=19;
+    //public id=19;
 
     constructor(
         private formBuilder: FormBuilder,
-        private instituteService: InstituteService
+        private instituteService: InstituteService,
+        private route: ActivatedRoute
     ) {
 
     }
@@ -48,6 +53,13 @@ export class UpdateInstituteComponent implements OnInit{
             changeYear: true
         }).on('change', e => this.institute.instUser.dob = e.target.value);
 
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editInstitute();
 
     }
@@ -62,7 +74,7 @@ export class UpdateInstituteComponent implements OnInit{
             instEmail: new FormControl(null, [Validators.required, Validators.pattern(EMAIL_REGEX)]),
             instStatus: new FormControl(null, [Validators.required]),
             //instId: new FormControl('', []),
-            check2: new FormControl('', [Validators.required]),
+            //check2: new FormControl('', [Validators.required]),
             userInfo: new FormGroup({
                 user_fullName: new FormControl('', [Validators.required]),
                 user_nameWithInitials: new FormControl('', [Validators.required]),
@@ -111,7 +123,7 @@ export class UpdateInstituteComponent implements OnInit{
      */
     editInstitute(){
         this.instituteService.editInstitute(
-            this.id
+            this.editId
         ).subscribe(
             success => {
                 this.instituteList = success.success;
@@ -140,7 +152,7 @@ export class UpdateInstituteComponent implements OnInit{
      */
     updateInstitute(formData) {
         this.instituteService.updateInstitute(
-            this.id,
+            this.editId,
             formData.instName,
             formData.regNo,
             formData.dateOfReg,
@@ -161,6 +173,7 @@ export class UpdateInstituteComponent implements OnInit{
         ).subscribe(
             success => {
                 this.instituteUpdatingStatus = success.success;
+                this.instituteForm.reset();
             }
             );
     }
