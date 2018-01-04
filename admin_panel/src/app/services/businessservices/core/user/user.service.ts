@@ -148,6 +148,23 @@ export class UserService {
         .map((response: Response) => response.json());
     }
 
+  /**
+   * delete users
+   * 
+   */
+  public deleteUser(deleteId) {
+    this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    let body = '';
+    return this.http.get(this.API_ENDPOINT + 'delete-details/' + deleteId,
+      {
+        headers: headers
+      })
+      .map((response: Response) => response.json());
+  }
+
 
 
 

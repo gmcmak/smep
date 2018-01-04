@@ -43,7 +43,10 @@ export class AddModuleComponent implements OnInit{
         this.moduleService.addModule(
             dataForm.module_name
         ).subscribe(
-            success => { this.moduleAddingStatus = success.success }
+            success => { 
+                this.moduleAddingStatus = success.success;
+                this.moduleForm.reset();
+            }
         );
     }
 }

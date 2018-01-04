@@ -18,7 +18,6 @@ export class ViewCategoryComponent implements OnInit{
     private loggedInUserList;
 
     public categoryDeletingStatus;
-    public deletedId = 4;
 
     constructor(
         private CategoryService: CategoryService,
@@ -65,12 +64,13 @@ export class ViewCategoryComponent implements OnInit{
     /**
      * delete category
      */
-    deleteCategory(){
+    deleteCategory(deleteId){
         this.CategoryService.deleteCategory(
-            this.deletedId
+            deleteId
         ).subscribe(
             success => {
-                this.categoryDeletingStatus = success.success
+                this.categoryDeletingStatus = success.success;
+                this.getCategories();
             }
         );
     }

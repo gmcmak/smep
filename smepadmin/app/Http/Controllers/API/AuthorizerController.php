@@ -156,7 +156,7 @@ class AuthorizerController extends Controller
     * get all authorizers' details
     */
     public function viewAuthorizers(){
-        $authorizerDetails = User::with('highestEducation','professionalEducations','institues')->where(['role_id'=>4, 'deleted'=>0])->get();
+        $authorizerDetails = User::with('highestEducation','professionalEducations','institues', 'subjectAreas')->where(['role_id'=>4, 'deleted'=>0])->get();
         return response()->json(['success'=>$authorizerDetails]);
     }
 

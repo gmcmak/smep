@@ -18,7 +18,6 @@ export class ViewExploreComponent implements OnInit{
     private loggedInUserList;
 
     public exploreDeletingStatus;
-    public deleteId=4;
     
     constructor(
         private ExploreService: ExploreService,
@@ -35,7 +34,6 @@ export class ViewExploreComponent implements OnInit{
         }, 2000);
 
         this.getExplores();
-        //this.deleteExplore();
     }
 
     /**
@@ -67,12 +65,13 @@ export class ViewExploreComponent implements OnInit{
     /**
      * delete explore
      */
-    deleteExplore(){
+    deleteExplore(deleteId){
         this.ExploreService.deleteExplore(
-            this.deleteId
+            deleteId
         ).subscribe(
             success => {
-                this.exploreDeletingStatus = success.success
+                this.exploreDeletingStatus = success.success;
+                this.getExplores();
             }
         );
     }

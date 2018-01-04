@@ -171,7 +171,7 @@ export class AuthorizerService{
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'delete-provider/'+deleteId,
+        return this.http.get(this.API_ENDPOINT + 'delete-provider/'+ deleteId,
             {
                 headers: headers
             })

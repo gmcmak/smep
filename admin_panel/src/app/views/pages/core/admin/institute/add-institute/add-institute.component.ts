@@ -129,6 +129,7 @@ export class AddInstituteComponent implements OnInit{
         ).subscribe(
             success => {
                 this.instituteRegistrationStatus = success.success;
+                this.instituteForm.reset();
             }
         );
     }

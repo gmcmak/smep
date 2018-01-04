@@ -18,7 +18,6 @@ export class ViewAuthorizersComponent implements OnInit {
     private loggedInUserList;
 
     public authorizerDeletingStatus;
-    //private deleteId = 74; //authorizer id for delete
 
     constructor(
         private authorizerService: AuthorizerService,
@@ -39,9 +38,6 @@ export class ViewAuthorizersComponent implements OnInit {
             }, 2000
         );
     }
-
-
-    
 
     /**
      * authorizers data list
@@ -75,18 +71,12 @@ export class ViewAuthorizersComponent implements OnInit {
      * delete authorizer
      */
     deleteAuthorizer(deleteId){
-        //$('#deleteModal').modal('show');
         this.authorizerService.deleteAuthorizer(
             deleteId
         ).subscribe(
             success => {
                 this.authorizerDeletingStatus = success.success;
                 this.getAuthorizerDetails();
-                // setTimeout(function(){
-                    
-                // }, 4000);
-                
-                
             }
         );
     }

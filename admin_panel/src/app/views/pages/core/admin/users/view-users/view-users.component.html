@@ -11,6 +11,8 @@
     </li>
 </ol>
 
+<div id="success_alert" class="alert alert-success" *ngIf="userDeletingStatus"><strong>{{userDeletingStatus}} !</strong></div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-table"></i>&emsp;<b>Users' List</b></div>
@@ -23,7 +25,8 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th align="center" data-orderable="false">Edit</th>
+                        <th data-orderable="false">Enable/ Disable</th>
+                        <th  data-orderable="false" align="center" data-orderable="false">Edit</th>
                         <th data-orderable="false" align="center">Delete</th>
                     </tr>
                 </thead>
@@ -33,8 +36,16 @@
                         <td>{{record.name}}</td>
                         <td>{{record.email}}</td>
                         <td>{{record.role.name}}</td>
+                        <td align="center">
+                            <label class="switch">
+                                <input type="checkbox" [(ngModel)]="record.status" disabled>
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
                         <td align="center"><a [routerLink]="['../../users/update-users', record.id]"><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
-                        <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
+                        <td align="center"><button class="dlt_btn" (click)="deleteUser(record.id)">
+                            <li class="fa  fa-1x fa-trash">
+                        </button></td>
                      </tr>   
                 </tbody>
                 <tfoot></tfoot>

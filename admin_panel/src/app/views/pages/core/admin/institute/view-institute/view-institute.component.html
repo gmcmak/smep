@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="instituteDeletingStatus">{{instituteDeletingStatus}}</div>
+<div class="alert alert-success" *ngIf="instituteDeletingStatus"><strong>{{instituteDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -57,10 +57,15 @@
                             <a [routerLink]="['../../institute/update-institute', record.id]" class="fa fa-1x fa-pencil-square-o">
                             </a>
                         </td>
-                        <td align="center">
+                        <!-- <td align="center">
                             <a data-toggle="modal" data-target="#deleteModal">
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
+                        </td> -->
+                        <td align="center">
+                            <button class="dlt_btn" (click)="deleteInstitute(record.id)">
+                                <li class="fa  fa-1x fa-trash">
+                            </button>
                         </td>
                     </tr>
                 </tbody>

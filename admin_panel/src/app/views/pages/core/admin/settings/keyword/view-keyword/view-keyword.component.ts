@@ -18,7 +18,6 @@ export class ViewKeywordComponent implements OnInit{
     private loggedInUserList;
 
     public keywordDeletingStatus;
-    public deleteId=2;
 
     constructor(
         private KeywordService: KeywordService,
@@ -34,7 +33,6 @@ export class ViewKeywordComponent implements OnInit{
         }, 2000);
 
         this.getKeywords();
-        //this.deleteKeyword();
     }
 
     /**
@@ -64,12 +62,13 @@ export class ViewKeywordComponent implements OnInit{
     /**
      * delete keyword
      */
-    deleteKeyword(){
+    deleteKeyword(deleteId){
         this.KeywordService.deleteKeyword(
-            this.deleteId
+            deleteId
         ).subscribe(
             success => {
-                this.keywordDeletingStatus = success.success
+                this.keywordDeletingStatus = success.success;
+                this.getKeywords();
             }
         );
     }

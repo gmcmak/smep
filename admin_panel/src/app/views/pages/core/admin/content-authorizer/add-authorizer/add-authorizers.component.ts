@@ -424,6 +424,7 @@ export class AddAuthorizersComponent implements OnInit{
             ).subscribe(
                 success => {
                     this.authorizerRegisterStatus = success.success;
+                    this.authorizerForm.reset();
                 }
             );
         }

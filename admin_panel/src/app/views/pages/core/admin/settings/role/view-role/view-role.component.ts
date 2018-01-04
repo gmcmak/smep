@@ -18,7 +18,6 @@ export class ViewRoleComponent implements OnInit{
     private loggedInUserList;
 
     public roleDeletingStatus;
-    public deleteId=10;
 
     constructor(
         private RoleService: RoleService,
@@ -37,7 +36,6 @@ export class ViewRoleComponent implements OnInit{
         }, 2000);
         
         this.getRoles();
-        //this.deleteRole();
 
     }
 
@@ -67,12 +65,13 @@ export class ViewRoleComponent implements OnInit{
     /**
      * delete role
      */
-    deleteRole(){
+    deleteRole(deleteId){
         this.RoleService.deleteRole(
-            this.deleteId
+            deleteId
         ).subscribe(
             success => {
-                this.roleDeletingStatus = success.success
+                this.roleDeletingStatus = success.success;
+                this.getRoles();
             }
         );
     }

@@ -17,7 +17,6 @@ export class ViewSubjectComponent implements OnInit{
     private loggedInUserList;
 
     public subjectDeletingStatus;
-    public deleteId = 5;
 
     constructor(
         private subjectService: SubjectService,
@@ -33,7 +32,6 @@ export class ViewSubjectComponent implements OnInit{
             $('#subjectTable').DataTable({
             });
         }, 2000);
-        //this.deleteSubject();
 
     }
 
@@ -63,12 +61,13 @@ export class ViewSubjectComponent implements OnInit{
     /**
      * delete subject
      */
-    deleteSubject() {
+    deleteSubject(deleteId) {
         this.subjectService.deleteSubject(
-            this.deleteId
+            deleteId
         ).subscribe(
             success => {
-                this.subjectDeletingStatus = success.success
+                this.subjectDeletingStatus = success.success;
+                this.getSubjects();
             }
             );
     }

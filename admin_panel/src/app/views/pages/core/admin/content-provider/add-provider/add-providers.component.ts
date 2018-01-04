@@ -280,6 +280,7 @@ export class AddProvidersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.providerRegisterStatus = success.success;
+                this.individualForm.reset();
             }
         );
     }

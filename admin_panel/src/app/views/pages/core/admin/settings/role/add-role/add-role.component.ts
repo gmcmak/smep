@@ -61,7 +61,10 @@ export class AddRoleComponent implements OnInit{
             dataForm.role_name,
             dataForm.role_status
         ).subscribe(
-            success => { this.roleAddingStatus = success.success }
+            success => {
+                this.roleAddingStatus = success.success;
+                this.roleForm.reset();
+            }
         );
     }
 }

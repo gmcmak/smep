@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="roleDeletingStatus">{{roleDeletingStatus}}</div>
+<div class="alert alert-success" *ngIf="roleDeletingStatus"><strong>{{roleDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -50,10 +50,15 @@
                             <a [routerLink]="['../../../settings/role/update-role', record.id]" class="fa fa-1x fa-pencil-square-o">
                             </a>
                         </td>
-                        <td align="center">
+                        <!-- <td align="center">
                             <a data-toggle="modal" data-target="#deleteModal">
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
+                        </td> -->
+                        <td align="center">
+                            <button class="dlt_btn" (click)="deleteRole(record.id)">
+                                <li class="fa  fa-1x fa-trash">
+                            </button>
                         </td>
                     </tr>
                 </tbody>

@@ -14,6 +14,7 @@ declare var jQuery: any;
 export class ViewConsumersComponent implements OnInit {
 
     public consumerList;
+    public consumerDeletingStatus;
 
     ngOnInit(): void {
         setTimeout(function(){
@@ -58,6 +59,20 @@ export class ViewConsumersComponent implements OnInit {
                 //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
                 //     ]);
                 // }
+            }
+        );
+    }
+
+    /**
+     * delete consumer data
+     */
+    deleteConsumer(deleteId){
+        this.consumerService.deleteConsumer(
+            deleteId
+        ).subscribe(
+            success => {
+                this.consumerDeletingStatus = success.success;
+                this.getConsumersList();
             }
         );
     }

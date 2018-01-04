@@ -92,4 +92,20 @@ export class ConsumerService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * delete consumer
+     */
+    public deleteConsumer(deleteId) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-consumer/'+ deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

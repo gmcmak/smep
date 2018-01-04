@@ -16,9 +16,6 @@ export class ViewModuleComponent implements OnInit{
     public moduleList;
     private loggedInUserList;
 
-    public moduleDeletingStatus;
-    public deleteId = 6;
-
     constructor(
         private moduleService: ModuleService,
         private router: Router,
@@ -34,7 +31,6 @@ export class ViewModuleComponent implements OnInit{
         }, 2000);
 
         this.getModules();
-        //this.deleteModule();
     }
 
     /**
@@ -57,18 +53,5 @@ export class ViewModuleComponent implements OnInit{
                 // }
             }
             );
-    }
-
-    /**
-     * delete role
-     */
-    deleteModule() {
-        this.moduleService.deleteModule(
-            this.deleteId
-        ).subscribe(
-            success => {
-                this.moduleDeletingStatus = success.success
-            }
-        );
     }
 }

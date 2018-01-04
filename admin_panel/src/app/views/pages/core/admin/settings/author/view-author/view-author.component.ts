@@ -17,7 +17,6 @@ export class ViewAuthorComponent implements OnInit{
     private loggedInUserList;
 
     public authorDeletingStatus;
-    public deleteId=4; //delete author id
 
     constructor(
         private AuthorService:AuthorService,
@@ -34,7 +33,6 @@ export class ViewAuthorComponent implements OnInit{
         }, 2000);
 
         this.getAuthors();
-        //this.deleteAuthor();
     }
 
     private getAuthors(){
@@ -58,12 +56,13 @@ export class ViewAuthorComponent implements OnInit{
             );
     }
 
-    deleteAuthor(){
+    deleteAuthor(deleteId){
         this.AuthorService.deleteAuthor(
-            this.deleteId
+            deleteId
         ).subscribe(
             success => {
-                this.authorDeletingStatus = success.success
+                this.authorDeletingStatus = success.success;
+                this.getAuthors();
             }
         );
     }

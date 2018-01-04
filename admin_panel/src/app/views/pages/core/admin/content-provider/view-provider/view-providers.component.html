@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="providerDeletingStatus">{{providerDeletingStatus}}</div>
+<div class="alert alert-success" *ngIf="providerDeletingStatus"><strong>{{providerDeletingStatus}} !</strong></div>
     
 <div class="card mb-3">
     <div class="card-header">
@@ -40,17 +40,28 @@
                 <td>{{i+1}}</td>
                 <td>{{record.name}}</td>
                 <td></td>
-                <td></td>
+                <td>
+                    <ul *ngFor="let subject of record.subject_areas">
+                        <li>
+                            {{subject.name}}
+                        </li>
+                    </ul>
+                </td>
                 <td align="center"><a href="">10</a></td>
                 <td align="center"><a href="">5</a></td>
                 <td align="center">
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" [(ngModel)]="record.status">
                         <span class="slider round"></span>
                     </label>
                 </td>
                 <td align="center"><a [routerLink]="['../../content-provider/update-providers', record.id]" class="fa fa-1x fa-pencil-square-o"></a></td>
-                <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
+                <!-- <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td> -->
+                <td align="center">
+                    <button class="dlt_btn" (click)="deleteProvider(record.id)">
+                        <li class="fa  fa-1x fa-trash">
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>

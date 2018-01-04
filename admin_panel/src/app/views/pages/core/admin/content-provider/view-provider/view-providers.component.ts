@@ -17,7 +17,6 @@ export class ViewProvidersComponent implements OnInit {
     public providerList;
 
     public providerDeletingStatus;
-    public deleteId = 73;
 
     constructor(
         private providerService: ProviderService,
@@ -36,8 +35,7 @@ export class ViewProvidersComponent implements OnInit {
             }
         });
         }, 2000);
-       
-        this.deleteProvider();
+
     }
 
     /**
@@ -70,12 +68,13 @@ export class ViewProvidersComponent implements OnInit {
     /**
      * delete provider
      */
-    deleteProvider(){
+    deleteProvider(deleteId){
         this.providerService.deleteProvider(
-            this.deleteId
+            deleteId
         ).subscribe(
             success => {
                 this.providerDeletingStatus = success.success;
+                this.getProvidersList();
             }
         );
     }

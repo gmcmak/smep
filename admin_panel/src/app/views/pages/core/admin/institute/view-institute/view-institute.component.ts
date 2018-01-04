@@ -17,6 +17,8 @@ export class ViewInstituteComponent implements OnInit{
     public instituteList;
     private loggedInUserList;
 
+    public instituteDeletingStatus;
+
     ngOnInit(): void {
         this.getInstitutes();
 
@@ -62,37 +64,20 @@ export class ViewInstituteComponent implements OnInit{
                 // }
             }
             );
-    } 
-
-
-    // updateRedirect(id){
-    //     this.router.navigate(['../../institute/update-institute']);
-    // }
-
-
+    }
+    
     /**
-    * user data list
-    * @param  
-    */
-    // getUsers() {
-    //     this.UserService.getUsersList()
-    //         .subscribe(
-    //         success => {
-    //             this.usersList = success.success;
-    //             $("#dataTableUsers").find('tbody').empty();
-    //             var dataClaims = this.usersList;
-    //             for (let i = 0; i < dataClaims.length; i++) {
-    //                 $('#dataTableUsers').dataTable().fnAddData([
-    //                     (i + 1),
-    //                     dataClaims[i].name,
-    //                     dataClaims[i].email,
-    //                     dataClaims[i].role.name,
-    //                     '<a [routerLink]="[' + "../../users/update-users" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-    //                     '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-    //                 ]);
-    //             }
-    //         }
-    //         );
-    // }        
+     * delete institute data
+     */
+    deleteInstitute(deleteId){
+        this.InstituteService.deleteInstitute(
+            deleteId
+        ).subscribe(
+            success => {
+                this.instituteDeletingStatus = success.success;
+                this.getInstitutes();
+            }
+        );
+    }
 
 }
