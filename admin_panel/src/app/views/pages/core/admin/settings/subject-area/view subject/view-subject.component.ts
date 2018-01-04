@@ -26,17 +26,14 @@ export class ViewSubjectComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
+
         this.getSubjects();
-        this.dataTable();
-        this.deleteSubject();
 
-    }
-
-
-    dataTable() {
-        $('#subjectTable').DataTable({
-
-        });
+        setTimeout(() => {
+            $('#subjectTable').DataTable({
+            });
+        }, 2000);
+        //this.deleteSubject();
 
     }
 
@@ -48,17 +45,17 @@ export class ViewSubjectComponent implements OnInit{
             .subscribe(
             success => {
                 this.subjectList = success.success;
-                $("#subjectTable").find('tbody').empty();
-                var dataClaims = this.subjectList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    $('#subjectTable').dataTable().fnAddData([
-                        (i + 1),
-                        dataClaims[i].name,
-                        dataClaims[i].description,
-                        '<a [routerLink]="[' + "'" + "../../../settings/module/update-module" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    ]);
-                }
+                // $("#subjectTable").find('tbody').empty();
+                // var dataClaims = this.subjectList;
+                // for (let i = 0; i < dataClaims.length; i++) {
+                //     $('#subjectTable').dataTable().fnAddData([
+                //         (i + 1),
+                //         dataClaims[i].name,
+                //         dataClaims[i].description,
+                //         '<a [routerLink]="[' + "'" + "../../../settings/module/update-module" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                //     ]);
+                // }
             }
             );
     }

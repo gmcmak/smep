@@ -27,20 +27,18 @@ export class ViewRoleComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
+
+        setTimeout(function(){
+            $('#roleTable').DataTable({
+                "language": {
+                    "search": "Search by: (Role Name)"
+                }
+            });
+        }, 2000);
+        
         this.getRoles();
-        this.dataTable();
-        this.deleteRole();
+        //this.deleteRole();
 
-    }
-
-
-    dataTable() {
-        $('#roleTable').DataTable({
-            "language": {
-                "search": "Search by: (Role Name)"
-            }
-        });
-      
     }
 
     /**
@@ -51,18 +49,17 @@ export class ViewRoleComponent implements OnInit{
             .subscribe(
                 success => {
                     this.roleList = success.success;
-                    $("#roleTable").find('tbody').empty();
-                    var dataClaims = this.roleList;
-                    for (let i = 0; i < dataClaims.length; i++) {
-                        $('#roleTable').dataTable().fnAddData([
-                            (i + 1),
-                            dataClaims[i].name,
-                            '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                            '<a [routerLink]="[' + "'" + "../../../settings/role/update-role" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                            //'<button type="button" (click)="sendId(dataClaims[i].id)"></button>'
-                        ]);
-                    }
+                    // $("#roleTable").find('tbody').empty();
+                    // var dataClaims = this.roleList;
+                    // for (let i = 0; i < dataClaims.length; i++) {
+                    //     $('#roleTable').dataTable().fnAddData([
+                    //         (i + 1),
+                    //         dataClaims[i].name,
+                    //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                    //         '<a [routerLink]="[' + "'" + "../../../settings/role/update-role" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                    //     ]);
+                    // }
                 }
             );
     }

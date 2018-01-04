@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeywordService } from "../../../../../../../services/businessservices/core/settings/keyword.service";
+import { ActivatedRoute } from "@angular/router";
 
 declare var $: any;
 declare var jQuery: any;
@@ -16,17 +17,29 @@ export class UpdateKeywordComponent implements OnInit{
     public keyword = new Keyword();
     public keywordForm: FormGroup;
     public editKeywordList;
-    public id;
+
+    public sub: any;
+    public id: number;
+    public editId: number;
     public updateKeywordList;
     public keywordupdatingStatus;
 
     constructor(
         private formBuilder: FormBuilder,
-        private keywordService: KeywordService
+        private keywordService: KeywordService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.initializeKeywordForm();
+
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editKeyword();
     }
 
@@ -69,7 +82,7 @@ export class UpdateKeywordComponent implements OnInit{
      */
     editKeyword(){
         this.keywordService.editKeywordList(
-            this.id=1
+            this.editId
         ).subscribe(
             success => {
                 this.editKeywordList = success.success;
@@ -85,13 +98,14 @@ export class UpdateKeywordComponent implements OnInit{
      */
     updateKeyword(formData){
         this.keywordService.updateKeywordList(
-            this.id=1,
+            this.editId,
             formData.english_name,
             formData.sinhala_name,
             formData.tamil_name
         ).subscribe(
             success => {
-                this.keywordupdatingStatus = success.success
+                this.keywordupdatingStatus = success.success;
+                this.keywordForm.reset();
             }
         );
     }

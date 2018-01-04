@@ -1,10 +1,10 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../dashboard']">Home</a>
+        <a [routerLink]="['../../../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../content-consumer/view-consumers']">Content Consumer</a>
+        <a [routerLink]="['../../../content-consumer/view-consumers']">Content Consumer</a>
     </li>
     <li class="breadcrumb-item">
         <a>Update Consumers</a>
@@ -90,7 +90,7 @@
                             <label class="module">{{record.module_name}}</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="moduleset" name="permissions" [value]="record.id" [checked]="moduleId.indexOf(record.id) > -1"
+                            <input type="checkbox" class="moduleset" name="permissions" formControlName="permissions" [value]="record.id" [checked]="moduleId.indexOf(record.id) > -1"
                             />
                         </div>
                     </div>
@@ -99,11 +99,9 @@
             </div>
             <br>
             <div id="form1_submit_row" class="row">
-                <div class="col-md-9">
-                    <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
-                </div>
+                <div class="col-md-9"></div>
                 <div class="col-md-2">
-                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!consumerForm.valid">Submit</button>
+                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!consumerForm.valid">Update</button>
                     <!-- <button type="submit" id="cancel1" name="cancel1" class="btn-primary search_btn">Cancel</button> -->
                     <br>
                     <br>

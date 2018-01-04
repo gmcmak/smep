@@ -27,15 +27,14 @@ export class ViewKeywordComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
-        this.dataTable();
+        setTimeout(function(){
+            $('#keywordTable').DataTable({
+
+            }); 
+        }, 2000);
+
         this.getKeywords();
-        this.deleteKeyword();
-    }
-
-    dataTable() {
-        $('#keywordTable').DataTable({
-
-        });
+        //this.deleteKeyword();
     }
 
     /**
@@ -46,18 +45,18 @@ export class ViewKeywordComponent implements OnInit{
             .subscribe(
                 success => {
                     this.keywordList = success.success;
-                    $("#keywordTable").find('tbody').empty();
-                    var dataClaims = this.keywordList;
-                    for (let i = 0; i < dataClaims.length; i++) {
-                        $('#keywordTable').dataTable().fnAddData([
-                            (i + 1),
-                            dataClaims[i].en_name,
-                            dataClaims[i].si_name,
-                            dataClaims[i].ta_name,
-                            '<a [routerLink]="[' + "'" + "../../../settings/keyword/update-keyword" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                        ]);
-                    }
+                    // $("#keywordTable").find('tbody').empty();
+                    // var dataClaims = this.keywordList;
+                    // for (let i = 0; i < dataClaims.length; i++) {
+                    //     $('#keywordTable').dataTable().fnAddData([
+                    //         (i + 1),
+                    //         dataClaims[i].en_name,
+                    //         dataClaims[i].si_name,
+                    //         dataClaims[i].ta_name,
+                    //         '<a [routerLink]="[' + "'" + "../../../settings/keyword/update-keyword" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                    //     ]);
+                    // }
                 }
             );
     }

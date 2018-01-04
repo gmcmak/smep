@@ -27,16 +27,15 @@ export class ViewExploreComponent implements OnInit{
     ){}
 
     ngOnInit(): void {
-        this.dataTable();
+
+        setTimeout(function(){
+            $('#exploreTable').DataTable({
+
+            }); 
+        }, 2000);
+
         this.getExplores();
-        this.deleteExplore();
-    }
-
-
-    dataTable() {
-        $('#exploreTable').DataTable({
-
-        });
+        //this.deleteExplore();
     }
 
     /**
@@ -48,19 +47,19 @@ export class ViewExploreComponent implements OnInit{
             .subscribe(
                 success =>{
                     this.exploreList = success.success;
-                    $("#exploreTable").find('tbody').empty();
-                    var dataClaims = this.exploreList;
-                    for (let i = 0; i < dataClaims.length; i++) {
-                        $('#exploreTable').dataTable().fnAddData([
-                            (i + 1),
-                            dataClaims[i].en_tag,
-                            dataClaims[i].si_tag,
-                            dataClaims[i].ta_tag,
-                            '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                            '<a [routerLink]="[' + "'" + "../../../settings/explore/update-explore" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                        ]);
-                    }
+                    // $("#exploreTable").find('tbody').empty();
+                    // var dataClaims = this.exploreList;
+                    // for (let i = 0; i < dataClaims.length; i++) {
+                    //     $('#exploreTable').dataTable().fnAddData([
+                    //         (i + 1),
+                    //         dataClaims[i].en_tag,
+                    //         dataClaims[i].si_tag,
+                    //         dataClaims[i].ta_tag,
+                    //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                    //         '<a [routerLink]="[' + "'" + "../../../settings/explore/update-explore" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                    //     ]);
+                    // }
                 }
             );
     }

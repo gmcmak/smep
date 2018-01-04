@@ -27,15 +27,14 @@ export class ViewAuthorComponent implements OnInit{
 
     ngOnInit(): void {
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
-        this.dataTable();
+
+        setTimeout(function(){
+            $('#authorsTable').DataTable({
+            });
+        }, 2000);
+
         this.getAuthors();
-        this.deleteAuthor();
-    }
-
-
-    dataTable() {
-        $('#authorsTable').DataTable({
-        });
+        //this.deleteAuthor();
     }
 
     private getAuthors(){
@@ -43,18 +42,18 @@ export class ViewAuthorComponent implements OnInit{
             .subscribe(
                 success=>{
                     this.authorList = success.success;
-                    $("#authorsTable").find('tbody').empty();
-                    var dataClaims = this.authorList;
-                    for (let i = 0; i < dataClaims.length; i++) {
-                        $('#authorsTable').dataTable().fnAddData([
-                            (i + 1),
-                            dataClaims[i].en_name,
-                            dataClaims[i].si_name,
-                            dataClaims[i].ta_name,
-                            '<a [routerLink]="[' + "'" + "../../../settings/author/update-author" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                        ]);
-                    }
+                    // $("#authorsTable").find('tbody').empty();
+                    // var dataClaims = this.authorList;
+                    // for (let i = 0; i < dataClaims.length; i++) {
+                    //     $('#authorsTable').dataTable().fnAddData([
+                    //         (i + 1),
+                    //         dataClaims[i].en_name,
+                    //         dataClaims[i].si_name,
+                    //         dataClaims[i].ta_name,
+                    //         '<a [routerLink]="[' + "'" + "../../../settings/author/update-author" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                    //     ]);
+                    // }
                 }
             );
     }

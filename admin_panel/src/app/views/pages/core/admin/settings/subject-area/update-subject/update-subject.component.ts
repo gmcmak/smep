@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubjectService } from "../../../../../../../services/businessservices/core/subject-area/subject.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'update-subject',
@@ -14,15 +15,26 @@ export class UpdateSubjectComponent implements OnInit{
     public subjectUpdatingStatus;
     public subjectList;
 
-    public id=2; //update id
+    public id: number;
+    public sub: any;
+    public editId: number;
 
     constructor(
         private formBuilder: FormBuilder,
-        private subjectService: SubjectService
+        private subjectService: SubjectService,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {
         this.initializeSubjectForm();
+
+        /**
+        * get param id value from the router
+        */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.getSubject();
     }
 
@@ -49,7 +61,7 @@ export class UpdateSubjectComponent implements OnInit{
      */
     getSubject(){
         this.subjectService.getSubjectList(
-            this.id
+            this.editId
         ).subscribe(
             success => {
                 this.subjectList = success.success;
@@ -61,12 +73,14 @@ export class UpdateSubjectComponent implements OnInit{
 
     updateSubject(dataForm) {
         this.subjectService.updateSubject(
-            this.id,
+            this.editId,
             dataForm.subject_area,
             dataForm.descriptions
         ).subscribe(
-            success => { this.subjectUpdatingStatus = success.success }
-            );
+            success => { 
+                this.subjectUpdatingStatus = success.success;
+                this.subjectForm.reset();
+            });
     }
 
 }

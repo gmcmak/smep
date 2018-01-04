@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import CustomValidators from '../../../../../../common/validation/CustomValidators';
 import { ModuleService } from "../../../../../../services/businessservices/core/module/module.service";
 import { ConsumerService } from "../../../../../../services/businessservices/core/content-consumer/consumer.service";
+import { ActivatedRoute } from "@angular/router";
 
 declare var $: any;
 declare var jQuery: any;
@@ -24,16 +25,19 @@ export class UpdateConsumersComponent implements OnInit{
     public modulesList;
     private permissions;
 
-    public editId = 91; //consumer id for edit
+    public sub: any;
+    public id: number;
+    public editId: number;
     public editConsumerList;
     public moduleId: any[];
 
-    public consumerAddingStatus;
+    public consumerUpdatingStatus;
 
     constructor(
         private formBuilder: FormBuilder,
         private moduleService: ModuleService,
-        private consumerService: ConsumerService
+        private consumerService: ConsumerService,
+        private route: ActivatedRoute
     ) {
 
     }
@@ -41,6 +45,14 @@ export class UpdateConsumersComponent implements OnInit{
     ngOnInit(): void {
         this.initializeConsumerForm();
         this.loadModules();
+
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editConsumer();
 
     }
@@ -82,23 +94,6 @@ export class UpdateConsumersComponent implements OnInit{
     }
 
     /**
-     * add consumer details
-     */
-    // addConsumer(formData) {
-    //     this.permissions = $.map($('input[name="permissions"]:checked'), function (c) { return c.value; });
-    //     this.consumerService.addConsumer(
-    //         formData.caName,
-    //         formData.caWebUrl,
-    //         formData.status,
-    //         this.permissions
-    //     ).subscribe(
-    //         success => {
-    //             this.consumerAddingStatus = success.success
-    //         }
-    //         );
-    //}
-
-    /**
      * get consumer details for edit
      */
     editConsumer(){
@@ -118,6 +113,25 @@ export class UpdateConsumersComponent implements OnInit{
             
         );
         
+    }
+
+    /**
+     * update consumer
+     */
+    updateConsumer(formData){
+        this.permissions = $.map($('input[name="permissions"]:checked'), function (c) { return c.value; });
+        this.consumerService.updateConsumer(
+            this.editId,
+            formData.caName,
+            formData.caWebUrl,
+            formData.status,
+            this.permissions
+        ).subscribe(
+            success => {
+                this.consumerUpdatingStatus = success.success;
+                this.consumerForm.reset();
+            }
+        );
     }
 }
 

@@ -106,18 +106,21 @@ class ConsumerController extends Controller
             $update = [
             'name' => $request->input('name'),
             'url' => $request->input('url'),
-            'status' => $request->input('status')
+            'status' => $request->input('status'),
+            'updated_at' => now()
             ];
 
           $table = new Consumer();
-          $modules = array(6);
+          $modules = $request->input('modules');
+          $moduleArray = explode(",",$modules);
+          //$modules = array(6);
 
           $updateCon = DB::table('consumers')->whereIn('id', [$id])->update($update);
 
           $consumer = Consumer::find($id);
           $consumer->modules()->detach();
           $table->id = $id;
-          $updateModules = $table->modules()->attach($modules);
+          $updateModules = $table->modules()->attach($moduleArray);
           return response()->json(['success'=>'Successfully updated']);
         }
         catch(\Illuminate\Database\QueryException $ex){

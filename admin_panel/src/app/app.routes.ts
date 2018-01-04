@@ -126,7 +126,7 @@ export const routes: Routes = [
   { path: 'settings/category/update-category/:id', component: UpdateCategoryComponent },
   { path: 'settings/explore/add-explore', component: AddExploreComponent },
   { path: 'settings/explore/view-explore', component: ViewExploreComponent },
-  { path: 'settings/explore/update-explore:/id', component: UpdateExploreComponent },
+  { path: 'settings/explore/update-explore/:id', component: UpdateExploreComponent },
   { path: 'settings/keyword/add-keyword', component: AddKeywordComponent },
   { path: 'settings/keyword/view-keyword', component: ViewKeywordComponent },
   { path: 'settings/keyword/update-keyword/:id', component: UpdateKeywordComponent },

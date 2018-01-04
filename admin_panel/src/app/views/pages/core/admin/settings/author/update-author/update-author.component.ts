@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorService } from "../../../../../../../services/businessservices/core/settings/author.service";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'update-author',
@@ -17,17 +18,29 @@ export class UpdateAuthorComponent{
     public authorUpdatingStatus;
     public editAuthorList;
     public updateAuthorList;
-    public id;
+
+    public sub: any;
+    public id: number;
+    public editId: number;
 
     constructor(
         private formBuilder: FormBuilder,
         private authorService: AuthorService,
         private router: Router,
-        private localStorageService: LocalStorageService
+        private localStorageService: LocalStorageService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.initializeAuthorsForm();
+
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editAuthor();
     }
 
@@ -70,7 +83,7 @@ export class UpdateAuthorComponent{
      */
     public editAuthor(){
         this.authorService.editAuthors(
-            this.id=3
+            this.editId
         ).subscribe(
             success => { 
                 this.editAuthorList = success.success;
@@ -88,13 +101,14 @@ export class UpdateAuthorComponent{
      */
     updateAuthor(formData){
         this.authorService.updateAuthor(
-            this.id=3,
+            this.editId,
             formData.english_name,
             formData.sinhala_name,
             formData.tamil_name
         ).subscribe(
             success => {
                 this.authorUpdatingStatus = success.success;
+                this.authorForm.reset();
             }
         );
     }

@@ -50,12 +50,12 @@ export class CategoryService{
     /**
      * get category details for update
      */
-    public editCategoriesList(id) {
+    public editCategoriesList(editId) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'edit-category/'+id,
+        return this.http.get(this.API_ENDPOINT + 'edit-category/'+ editId,
             {
                 headers: headers
             })
@@ -65,7 +65,7 @@ export class CategoryService{
     /**
      * update category data
      */
-    public updateCategory(id, english_name, sinhala_name, tamil_name, category_status) {
+    public updateCategory(editId, english_name, sinhala_name, tamil_name, category_status) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
@@ -76,7 +76,7 @@ export class CategoryService{
         body.append('si_name', sinhala_name);
         body.append('ta_name', tamil_name);
         body.append('status', category_status);
-        return this.http.post(this.API_ENDPOINT + 'update-category/'+id, body,
+        return this.http.post(this.API_ENDPOINT + 'update-category/'+ editId, body,
             {
                 headers: headers
             })

@@ -38,20 +38,20 @@
 
                 </tfoot>
                 <tbody>
-                    <!-- <tr *ngFor="let record of authorList">
-                        <td>1</td>
+                    <tr *ngFor="let record of authorList; let i = index" [attr.data-index]="i">
+                        <td>{{i+1}}</td>
                         <td>{{record.en_name}}</td>
                         <td>{{record.si_name}}</td>
                         <td>{{record.ta_name}}</td>
                         <td align="center">
-                            <a [routerLink]="['../../../settings/author/update-author']" class="fa fa-1x fa-pencil-square-o"></a>
+                            <a [routerLink]="['../../../settings/author/update-author', record.id]" class="fa fa-1x fa-pencil-square-o"></a>
                         </td>
                         <td align="center">
                             <a data-toggle="modal" data-target="#deleteModal">
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
                         </td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
         </div>

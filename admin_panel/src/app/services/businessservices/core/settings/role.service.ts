@@ -56,13 +56,13 @@ export class RoleService{
     /**
      * get role's details for update
      */
-    public editRolesList(id) {
+    public editRolesList(editId) {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'edit-role/'+id,
+        return this.http.get(this.API_ENDPOINT + 'edit-role/'+ editId,
             {
                 headers: headers
             })
@@ -72,7 +72,7 @@ export class RoleService{
     /**
      * update role details
      */
-    public updateRoleList(id, role_name, role_status) {
+    public updateRoleList(editId, role_name, role_status) {
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -83,7 +83,7 @@ export class RoleService{
         body.append('name', role_name);
         body.append('status', role_status);
 
-        return this.http.post(this.API_ENDPOINT + 'update-role/'+id, body,
+        return this.http.post(this.API_ENDPOINT + 'update-role/'+ editId, body,
             {
                 headers: headers
             })

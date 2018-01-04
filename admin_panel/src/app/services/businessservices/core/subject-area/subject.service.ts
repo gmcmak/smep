@@ -54,13 +54,13 @@ export class SubjectService{
     /**
     * get subject details for update
     */
-    public getSubjectList(id) {
+    public getSubjectList(editId) {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'edit-subject-area/'+id,
+        return this.http.get(this.API_ENDPOINT + 'edit-subject-area/'+ editId,
             {
                 headers: headers
             })
@@ -70,7 +70,7 @@ export class SubjectService{
     /**
     * update subject
     */
-    public updateSubject(id, subject_area, descriptions) {
+    public updateSubject(editId, subject_area, descriptions) {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -79,7 +79,7 @@ export class SubjectService{
         let body = new URLSearchParams;
         body.append('name', subject_area);
         body.append('description', descriptions);
-        return this.http.post(this.API_ENDPOINT + 'update-subject-area/'+id, body,
+        return this.http.post(this.API_ENDPOINT + 'update-subject-area/'+ editId, body,
             {
                 headers: headers
             })

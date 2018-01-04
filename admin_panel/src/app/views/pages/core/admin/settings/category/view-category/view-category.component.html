@@ -26,6 +26,7 @@
             <table class="table table-bordered" id="categoryTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>English</th>
                         <th>Sinhala</th>
                         <th>Tamil</th>
@@ -38,7 +39,8 @@
 
                 </tfoot>
                 <tbody>
-                    <!-- <tr *ngFor="let record of categoryList">
+                    <tr *ngFor="let record of categoryList; let i = index" [attr.data-index]="i">
+                        <td>{{i+1}}</td>
                         <td>{{record.en_name}}</td>
                         <td>{{record.si_name}}</td>
                         <td>{{record.ta_name}}</td>
@@ -49,7 +51,7 @@
                             </label>
                         </td>
                         <td align="center">
-                            <a [routerLink]="['../../../settings/category/update-category']" class="fa fa-1x fa-pencil-square-o">
+                            <a [routerLink]="['../../../settings/category/update-category', record.id]" class="fa fa-1x fa-pencil-square-o">
                             </a>
                         </td>
                         <td align="center">
@@ -57,7 +59,7 @@
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
                         </td>
-                    </tr>-->
+                    </tr>
                 </tbody>
             </table>
         </div>
