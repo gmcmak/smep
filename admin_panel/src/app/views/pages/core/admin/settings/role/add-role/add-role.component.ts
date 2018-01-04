@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from '../../../../../../../services/businessservices/core/settings/role.service';
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'add-role',
     templateUrl: 'add-role.component.html',
@@ -21,6 +24,16 @@ export class AddRoleComponent implements OnInit{
 
     ngOnInit(): void {
         this.initializeRoleForm();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeRoleForm(): void {
@@ -64,6 +77,7 @@ export class AddRoleComponent implements OnInit{
             success => {
                 this.roleAddingStatus = success.success;
                 this.roleForm.reset();
+                this.hideAlert();
             }
         );
     }

@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="roleAddingStatus">{{roleAddingStatus}}</div>
+<div id="success_alert" class="alert alert-success" *ngIf="roleAddingStatus">{{roleAddingStatus}}</div>
 
 <form id="roleForm" [formGroup]="roleForm" (ngSubmit)="addRole(roleForm.value)">
     <div class="card mb-3">

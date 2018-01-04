@@ -38,8 +38,6 @@ export class ViewUsersComponent implements OnInit{
         private localStorageService: LocalStorageStore,
         private activatedRoute: ActivatedRoute
     ) {
-
-        //
     }    
 
     ngOnInit(): void {
@@ -54,19 +52,18 @@ export class ViewUsersComponent implements OnInit{
                 });                
             }
             , 2000);
-        //this.hideAlert();
     }
+    
 
     /**
      * hide success alert
      */
-    // hideAlert(){
-    //     window.setTimeout(function () {
-    //         $(".alert").fadeTo(500, 0).slideUp(500, function () {
-    //             $(this).remove();
-    //         });
-    //     }, 4000);
-    // }
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
  
     /**
      * user data list
@@ -91,7 +88,8 @@ export class ViewUsersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.userDeletingStatus = success.success;
-                this.getUsers(); 
+                this.getUsers();
+                this.hideAlert();  
             }
         );
     }

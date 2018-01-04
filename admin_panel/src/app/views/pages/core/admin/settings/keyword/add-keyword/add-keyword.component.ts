@@ -26,6 +26,16 @@ export class AddKeywordComponent implements OnInit{
         this.initializeKeywordForm();
     }
 
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
     private initializeKeywordForm(): void {
         this.keywordForm = this.formBuilder.group({
             'english_name': [null, [Validators.required]],
@@ -69,6 +79,7 @@ export class AddKeywordComponent implements OnInit{
             success => {
                 this.keywordAddingStatus = success.success;
                 this.keywordForm.reset();
+                this.hideAlert();
             }
         );
     }

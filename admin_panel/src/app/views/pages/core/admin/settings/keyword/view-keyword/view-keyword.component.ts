@@ -36,6 +36,16 @@ export class ViewKeywordComponent implements OnInit{
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
      * get keyword details to table
      */
     getKeywords() {
@@ -69,6 +79,7 @@ export class ViewKeywordComponent implements OnInit{
             success => {
                 this.keywordDeletingStatus = success.success;
                 this.getKeywords();
+                this.hideAlert();
             }
         );
     }

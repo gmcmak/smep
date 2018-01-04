@@ -64,6 +64,16 @@ export class UpdateAuthorizersComponent implements OnInit{
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
      * show year dropdown
      */
     showYear() {
@@ -373,6 +383,7 @@ export class UpdateAuthorizersComponent implements OnInit{
             success => {
                 this.authorizerUpdatingStatus = success.success;
                 this.authorizerForm.reset();
+                this.hideAlert();
             }
         );
     }

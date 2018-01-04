@@ -37,6 +37,16 @@ export class ViewCategoryComponent implements OnInit{
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
      * get category details for category table
      */
     getCategories(){
@@ -71,6 +81,7 @@ export class ViewCategoryComponent implements OnInit{
             success => {
                 this.categoryDeletingStatus = success.success;
                 this.getCategories();
+                this.hideAlert();
             }
         );
     }

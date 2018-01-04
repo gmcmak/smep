@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="subjectUpdatingStatus">{{subjectUpdatingStatus}}</div>
+<div id="success_alert" class="alert alert-success" *ngIf="subjectUpdatingStatus">{{subjectUpdatingStatus}}</div>
 
 <form id="subjectForm" [formGroup]="subjectForm" (ngSubmit)="updateSubject(subjectForm.value)">
     <div class="card mb-3">

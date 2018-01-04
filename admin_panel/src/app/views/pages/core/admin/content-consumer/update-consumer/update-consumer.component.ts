@@ -54,8 +54,18 @@ export class UpdateConsumersComponent implements OnInit{
         });
 
         this.editConsumer();
-
     }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
     private initializeConsumerForm(): void {
         this.consumerForm = this.formBuilder.group({
             'caName': [null, Validators.required],
@@ -130,6 +140,7 @@ export class UpdateConsumersComponent implements OnInit{
             success => {
                 this.consumerUpdatingStatus = success.success;
                 this.consumerForm.reset();
+                this.hideAlert();
             }
         );
     }

@@ -5,6 +5,9 @@ import { Router } from "@angular/router";
 import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.service";
 import { ActivatedRoute } from "@angular/router";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'update-author',
     templateUrl: 'update-author.component.html',
@@ -42,6 +45,16 @@ export class UpdateAuthorComponent{
         });
 
         this.editAuthor();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeAuthorsForm(): void {
@@ -109,6 +122,7 @@ export class UpdateAuthorComponent{
             success => {
                 this.authorUpdatingStatus = success.success;
                 this.authorForm.reset();
+                this.hideAlert();
             }
         );
     }

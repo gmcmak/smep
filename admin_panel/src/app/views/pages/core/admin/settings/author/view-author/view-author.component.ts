@@ -35,6 +35,16 @@ export class ViewAuthorComponent implements OnInit{
         this.getAuthors();
     }
 
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
     private getAuthors(){
         this.AuthorService.getAuthorsList()
             .subscribe(
@@ -63,6 +73,7 @@ export class ViewAuthorComponent implements OnInit{
             success => {
                 this.authorDeletingStatus = success.success;
                 this.getAuthors();
+                this.hideAlert();
             }
         );
     }

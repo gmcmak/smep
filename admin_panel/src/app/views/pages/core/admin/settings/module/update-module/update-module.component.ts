@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModuleService } from "../../../../../../../services/businessservices/core/module/module.service";
 import { ActivatedRoute } from "@angular/router";
 
+declare var $: any;
+declare var jQuery: any;
+
 
 @Component({
     selector: 'update-module',
@@ -37,6 +40,16 @@ export class UpdateModuleComponent implements OnInit{
         });
 
         this.editModule();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeModuleForm(): void {
@@ -81,6 +94,7 @@ export class UpdateModuleComponent implements OnInit{
             success => {
                 this.moduleupdatingStatus = success.success;
                 this.moduleForm.reset();
+                this.hideAlert();
             }
             );
     }

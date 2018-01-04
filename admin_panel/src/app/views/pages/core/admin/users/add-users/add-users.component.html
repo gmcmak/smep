@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="userRegisterStatus">{{userRegisterStatus}}</div>
+<div id="success_alert" class="alert alert-success" *ngIf="userRegisterStatus">{{userRegisterStatus}}</div>
 
 <form id="userForm" [formGroup]="userForm" (ngSubmit)="addUser(userForm.value)">
 <!-- <form id="userForm" [formGroup]="userForm" #registerForm="ngForm" (ngSubmit)="addUser(registerForm.value)"></form> -->

@@ -41,8 +41,6 @@ export class AddUsersComponent implements OnInit {
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.user.dob = e.target.value);
-
-        //this.dob = $("#user_dob").value();
     }
 
     private initializeUserForm(): void {
@@ -60,6 +58,16 @@ export class AddUsersComponent implements OnInit {
             'user_password1': [null, [Validators.required]],
             'user_password2': [null, [Validators.required]]
         }, { validator: this.checkIfMatchingPasswords('user_password1','user_password2') });
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
 
@@ -86,6 +94,7 @@ export class AddUsersComponent implements OnInit {
             success => {
                 this.userRegisterStatus = success.success.message;
                 this.userForm.reset();
+                this.hideAlert();
             }
         ); 
         

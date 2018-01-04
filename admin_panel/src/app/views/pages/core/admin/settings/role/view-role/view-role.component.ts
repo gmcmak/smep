@@ -40,6 +40,16 @@ export class ViewRoleComponent implements OnInit{
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
      * get roles' details
      */
     getRoles(){
@@ -72,6 +82,7 @@ export class ViewRoleComponent implements OnInit{
             success => {
                 this.roleDeletingStatus = success.success;
                 this.getRoles();
+                this.hideAlert();
             }
         );
     }

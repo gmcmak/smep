@@ -2,6 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from "../../../../../../../services/businessservices/core/settings/category.service";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'add-category',
     templateUrl: 'add-category.component.html',
@@ -30,6 +33,16 @@ export class AddCategoryComponent implements OnInit{
             'tamil_name': [null, [Validators.required]],
             'category_status': [null, [Validators.required]],
         });
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
@@ -71,6 +84,7 @@ export class AddCategoryComponent implements OnInit{
             success => {
                 this.addingCategoryStatus = success.success;
                 this.categoryForm.reset();
+                this.hideAlert();
             }
         );   
     }

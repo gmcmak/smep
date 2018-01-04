@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="authorAddingStatus">{{authorAddingStatus}}</div>
+<div id="success_alert" class="alert alert-success" *ngIf="authorAddingStatus">{{authorAddingStatus}}</div>
 
 <form id="authorForm" [formGroup]="authorForm" (ngSubmit)="addAuthors(authorForm.value)">
     <div class="card mb-3">

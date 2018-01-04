@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubjectService } from "../../../../../../../services/businessservices/core/subject-area/subject.service";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'add-subject',
     templateUrl: 'add-subject.component.html',
@@ -20,6 +23,16 @@ export class AddSubjectComponent implements OnInit{
 
     ngOnInit(): void {
         this.initializeSubjectForm();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeSubjectForm(): void {
@@ -48,6 +61,7 @@ export class AddSubjectComponent implements OnInit{
             success => { 
                 this.subjectAddingStatus = success.success;
                 this.subjectForm.reset();
+                this.hideAlert();
             }
             );
     }

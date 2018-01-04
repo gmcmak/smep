@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="exploreAddingStatus">{{exploreAddingStatus}}</div>
+<div id="success_alert" class="alert alert-success" *ngIf="exploreAddingStatus">{{exploreAddingStatus}}</div>
 
 <form id="exploreForm" [formGroup]="exploreForm" (ngSubmit)="addExplore(exploreForm.value)">
     <div class="card mb-3">

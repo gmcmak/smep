@@ -49,6 +49,16 @@ export class AddInstituteComponent implements OnInit{
 
     }
 
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
     private initializeInstituteForm(): void{
         this.instituteForm = this.formBuilder.group({
             instName: new FormControl(null, [Validators.required]),
@@ -130,6 +140,7 @@ export class AddInstituteComponent implements OnInit{
             success => {
                 this.instituteRegistrationStatus = success.success;
                 this.instituteForm.reset();
+                this.hideAlert();
             }
         );
     }

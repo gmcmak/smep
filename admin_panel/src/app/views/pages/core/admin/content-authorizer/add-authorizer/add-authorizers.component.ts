@@ -149,9 +149,6 @@ export class AddAuthorizersComponent implements OnInit{
         };
     }
     
-        onSubmit(){
-            console.log(this.authorizerForm.value);
-        }
 
         /**
          * get country
@@ -241,6 +238,16 @@ export class AddAuthorizersComponent implements OnInit{
             $("#remove_subject_btn3").hide();
             $("#add_subject_btn1").show();
             this.authorizer.SubjectAreas.expert3 = null;
+        }
+
+        /**
+        * hide success alert
+        */
+        hideAlert() {
+            $('#success_alert').show();
+            setTimeout(function () {
+                $('#success_alert').slideUp("slow");
+            }, 2000);
         }
 
         /**
@@ -425,6 +432,7 @@ export class AddAuthorizersComponent implements OnInit{
                 success => {
                     this.authorizerRegisterStatus = success.success;
                     this.authorizerForm.reset();
+                    this.hideAlert();
                 }
             );
         }

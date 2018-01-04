@@ -37,6 +37,16 @@ export class ViewExploreComponent implements OnInit{
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
      * get explore details for table
      */
     getExplores(){
@@ -72,6 +82,7 @@ export class ViewExploreComponent implements OnInit{
             success => {
                 this.exploreDeletingStatus = success.success;
                 this.getExplores();
+                this.hideAlert();
             }
         );
     }

@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="consumerUpdatingStatus">{{consumerUpdatingStatus}}</div>
+<div id="success_alert" class="alert alert-success" *ngIf="consumerUpdatingStatus">{{consumerUpdatingStatus}}</div>
 
 <form id="consumerForm" name="consumerForm" [formGroup]="consumerForm" (ngSubmit)="updateConsumer(consumerForm.value)">
     <div class="card mb-3">

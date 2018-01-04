@@ -69,6 +69,16 @@ export class UpdateProvidersComponent implements OnInit{
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
          * get country
          */
     getCountry() {
@@ -367,6 +377,7 @@ export class UpdateProvidersComponent implements OnInit{
             success => {
                 this.providerUpdateStatus = success.success;
                 this.individualForm.reset();
+                this.hideAlert();
             }
             );
     }

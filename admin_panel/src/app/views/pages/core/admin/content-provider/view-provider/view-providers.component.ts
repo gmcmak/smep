@@ -39,6 +39,16 @@ export class ViewProvidersComponent implements OnInit {
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
      * get providers data list
      */
     private getProvidersList() {
@@ -75,6 +85,7 @@ export class ViewProvidersComponent implements OnInit {
             success => {
                 this.providerDeletingStatus = success.success;
                 this.getProvidersList();
+                this.hideAlert();
             }
         );
     }

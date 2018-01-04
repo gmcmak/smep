@@ -43,6 +43,16 @@ export class UpdateKeywordComponent implements OnInit{
         this.editKeyword();
     }
 
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
     private initializeKeywordForm(): void {
         this.keywordForm = this.formBuilder.group({
             'english_name': [null, [Validators.required]],
@@ -106,6 +116,7 @@ export class UpdateKeywordComponent implements OnInit{
             success => {
                 this.keywordupdatingStatus = success.success;
                 this.keywordForm.reset();
+                this.hideAlert();
             }
         );
     }

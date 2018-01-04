@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from "../../../../../../../services/businessservices/core/settings/role.service";
 import { ActivatedRoute } from "@angular/router";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'update-role.component.ts',
     templateUrl: 'update-role.component.html',
@@ -37,6 +40,16 @@ export class UpdateRoleComponent implements OnInit{
         });
 
         this.editRole();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeRoleForm(): void {
@@ -99,6 +112,7 @@ export class UpdateRoleComponent implements OnInit{
             success => {
                 this.roleupdatingStatus = success.success;
                 this.roleForm.reset();
+                this.hideAlert();
             }
         );
     }

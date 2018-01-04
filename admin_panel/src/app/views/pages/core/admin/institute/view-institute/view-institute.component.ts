@@ -31,6 +31,16 @@ export class ViewInstituteComponent implements OnInit{
         }, 2000);
     }
 
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
     constructor(
         private InstituteService: InstituteService,
         private router: Router,
@@ -76,6 +86,7 @@ export class ViewInstituteComponent implements OnInit{
             success => {
                 this.instituteDeletingStatus = success.success;
                 this.getInstitutes();
+                this.hideAlert();
             }
         );
     }

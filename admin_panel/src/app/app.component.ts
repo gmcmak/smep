@@ -79,6 +79,7 @@ export class AppComponent {
         if (!this.startup.startupData) {
             console.log('NO STARTUP DATA');
             // this.router.navigate(['error'], { replaceUrl: true });
+           
         }
         
 
@@ -87,7 +88,8 @@ export class AppComponent {
             .subscribe(params => {
                 
             });
-
+        
+        
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         if(this.loggedInUserList){
             this.username = this.loggedInUserList.name;
@@ -98,7 +100,6 @@ export class AppComponent {
             this.router.navigate(['/login']);
         }
                     
-
     }
 
     /**

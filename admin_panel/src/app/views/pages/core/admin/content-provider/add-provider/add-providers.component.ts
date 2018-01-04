@@ -53,6 +53,16 @@ export class AddProvidersComponent implements OnInit{
     }
 
     /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
          * get country
          */
     getCountry() {
@@ -157,10 +167,6 @@ export class AddProvidersComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }
-
-    onSubmit(){
-        console.log(this.individualForm.value);
     }
 
     //show professional qualification row2
@@ -281,6 +287,7 @@ export class AddProvidersComponent implements OnInit{
             success => {
                 this.providerRegisterStatus = success.success;
                 this.individualForm.reset();
+                this.hideAlert();
             }
         );
     }

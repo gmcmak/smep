@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExploreService } from "../../../../../../../services/businessservices/core/settings/explore.service";
 import { ActivatedRoute } from "@angular/router";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'update-explore',
     templateUrl: 'update-explore.component.html',
@@ -41,6 +44,16 @@ export class UpdateExploreComponent implements OnInit{
         });
 
         this.editExplore();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeExploreForm(): void {
@@ -111,6 +124,7 @@ export class UpdateExploreComponent implements OnInit{
             success => {
                 this.exploreUpdatingStatus = success.success;
                 this.exploreForm.reset();
+                this.hideAlert();
             }
         );
     }

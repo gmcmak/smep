@@ -49,6 +49,16 @@ export class AddConsumersComponent implements OnInit{
         })
     }
 
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
     get products() { 
         return this.consumerForm.get('products'); 
     }    
@@ -91,6 +101,7 @@ export class AddConsumersComponent implements OnInit{
             success => {
                 this.consumerAddingStatus = success.success;
                 this.consumerForm.reset();
+                this.hideAlert();
             }
         );
     }

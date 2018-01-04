@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubjectService } from "../../../../../../../services/businessservices/core/subject-area/subject.service";
 import { ActivatedRoute } from "@angular/router";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'update-subject',
     templateUrl: 'update-subject.component.html',
@@ -36,6 +39,16 @@ export class UpdateSubjectComponent implements OnInit{
         });
 
         this.getSubject();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeSubjectForm(): void {
@@ -80,6 +93,7 @@ export class UpdateSubjectComponent implements OnInit{
             success => { 
                 this.subjectUpdatingStatus = success.success;
                 this.subjectForm.reset();
+                this.hideAlert();
             });
     }
 

@@ -2,6 +2,9 @@ import {Component,OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExploreService } from "../../../../../../../services/businessservices/core/settings/explore.service";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'add-explore',
     templateUrl: 'add-explore.component.html',
@@ -22,6 +25,16 @@ export class AddExploreComponent implements OnInit{
 
     ngOnInit(): void {
         this.initializeExploreForm();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeExploreForm(): void {
@@ -73,6 +86,7 @@ export class AddExploreComponent implements OnInit{
             success => {
                 this.exploreAddingStatus = success.success;
                 this.exploreForm.reset();
+                this.hideAlert();
             }
         );
     }

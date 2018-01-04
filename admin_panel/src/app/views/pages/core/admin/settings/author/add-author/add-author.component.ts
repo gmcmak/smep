@@ -2,6 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorService } from "../../../../../../../services/businessservices/core/settings/author.service";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'add-author',
     templateUrl: 'add-author.component.html',
@@ -29,6 +32,16 @@ export class AddAuthorComponent implements OnInit{
             'sinhala_name': [null, [Validators.required]],
             'tamil_name': [null, [Validators.required]],
         });
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
@@ -66,6 +79,7 @@ export class AddAuthorComponent implements OnInit{
             success => {
                 this.authorAddingStatus = success.success;
                 this.authorForm.reset();
+                this.hideAlert();
             }
         );
     }

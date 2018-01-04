@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModuleService } from "../../../../../../../services/businessservices/core/module/module.service";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'add-module',
     templateUrl: 'add-module.component.html',
@@ -20,6 +23,16 @@ export class AddModuleComponent implements OnInit{
 
     ngOnInit(): void {
         this.initializeModuleForm();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeModuleForm(): void {
@@ -46,6 +59,7 @@ export class AddModuleComponent implements OnInit{
             success => { 
                 this.moduleAddingStatus = success.success;
                 this.moduleForm.reset();
+                this.hideAlert();
             }
         );
     }

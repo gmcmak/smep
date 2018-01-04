@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from "../../../../../../../services/businessservices/core/settings/category.service";
 import { ActivatedRoute } from "@angular/router";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'update-category',
     templateUrl: 'update-category.component.html',
@@ -38,6 +41,16 @@ export class UpdateCategoryComponent implements OnInit{
         });
 
         this.editCategory();
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
     }
 
     private initializeCategoryForm(): void {
@@ -107,6 +120,7 @@ export class UpdateCategoryComponent implements OnInit{
             success => {
                 this.categoryUpdatingStatus = success.success;
                 this.categoryForm.reset();
+                this.hideAlert();
             }
         );
     }
