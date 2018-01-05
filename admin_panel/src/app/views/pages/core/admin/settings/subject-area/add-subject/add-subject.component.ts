@@ -45,7 +45,10 @@ export class AddSubjectComponent implements OnInit{
             dataForm.subject_area,
             dataForm.descriptions
         ).subscribe(
-            success => { this.subjectAddingStatus = success.success }
+            success => { 
+                this.subjectAddingStatus = success.success;
+                this.subjectForm.reset();
+            }
             );
     }
 }

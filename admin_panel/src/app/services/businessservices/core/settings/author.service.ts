@@ -56,13 +56,13 @@ export class AuthorService{
     /**
      * get author's detail for edit
      */
-    public editAuthors(id) {
+    public editAuthors(editId) {
        
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'edit-author/'+id,
+        return this.http.get(this.API_ENDPOINT + 'edit-author/'+ editId,
             {
                 headers: headers
             })
@@ -72,7 +72,7 @@ export class AuthorService{
     /**
      * update author data
      */
-    updateAuthor(id, english_name, sinhala_name, tamil_name) {
+    updateAuthor(editId, english_name, sinhala_name, tamil_name) {
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -83,7 +83,7 @@ export class AuthorService{
         body.append('en_name', english_name);
         body.append('si_name', sinhala_name);
         body.append('ta_name', tamil_name);
-        return this.http.post(this.API_ENDPOINT + 'update-author/'+id, body,
+        return this.http.post(this.API_ENDPOINT + 'update-author/'+ editId, body,
             {
                 headers: headers
             })

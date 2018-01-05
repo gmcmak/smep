@@ -290,7 +290,7 @@ div textarea {
     }
 }
 
-@media screen and (width: 1024px){
+/* @media screen and (width: 1024px){
     .col-lg-9{
         width:10%;
     }
@@ -324,4 +324,4 @@ div textarea {
     #label10{
         display: none;
     }
-}
+}*/

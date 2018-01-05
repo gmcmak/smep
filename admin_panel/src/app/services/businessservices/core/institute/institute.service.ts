@@ -68,13 +68,13 @@ export class InstituteService{
     /**
      * get institute details for update
      */
-    public editInstitute(id) {
+    public editInstitute(editId) {
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'edit-institute/'+id,
+        return this.http.get(this.API_ENDPOINT + 'edit-institute/'+ editId,
             {
                 headers: headers
             })
@@ -84,7 +84,7 @@ export class InstituteService{
     /**
      * update institute
      */
-    updateInstitute(id, instName, regNo, dateOfReg, adrz, mobileNum, instEmail, instStatus, deleted, user_fullName, user_nameWithInitials, user_email, user_nic, user_mobile, user_designation, user_gender, user_dob, user_status) {
+    updateInstitute(editId, instName, regNo, dateOfReg, adrz, mobileNum, instEmail, instStatus, deleted, user_fullName, user_nameWithInitials, user_email, user_nic, user_mobile, user_designation, user_gender, user_dob, user_status) {
         let headers = new Headers();
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -110,7 +110,7 @@ export class InstituteService{
         body.append('user_designation', user_designation);
         body.append('user_birthday', user_dob);
 
-        return this.http.post(this.API_ENDPOINT + 'update-institute/'+id, body,
+        return this.http.post(this.API_ENDPOINT + 'update-institute/'+ editId, body,
             {
                 headers: headers
             })

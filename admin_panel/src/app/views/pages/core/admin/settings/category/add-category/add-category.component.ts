@@ -68,7 +68,10 @@ export class AddCategoryComponent implements OnInit{
             formData.tamil_name,
             formData.category_status
         ).subscribe(
-            success => {this.addingCategoryStatus = success.success}
+            success => {
+                this.addingCategoryStatus = success.success;
+                this.categoryForm.reset();
+            }
         );   
     }
 }

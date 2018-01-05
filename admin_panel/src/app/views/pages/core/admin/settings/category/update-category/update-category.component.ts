@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from "../../../../../../../services/businessservices/core/settings/category.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'update-category',
@@ -11,19 +12,31 @@ import { CategoryService } from "../../../../../../../services/businessservices/
 export class UpdateCategoryComponent implements OnInit{
     public category = new Category();
     public categoryForm: FormGroup;
-    public id;
     public editCategoryList;
+
+    public sub: any;
+    public id: number;
+    public editId;
+
     public updateCategoryList;
     public categoryUpdatingStatus;
-    public 
-
+    
     constructor(
         private formBuilder: FormBuilder,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.initializeCategoryForm();
+
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editCategory();
     }
 
@@ -67,7 +80,7 @@ export class UpdateCategoryComponent implements OnInit{
      */
     editCategory(){
         this.categoryService.editCategoriesList(
-            this.id=4
+            this.editId
         )
             .subscribe(
                 success => {
@@ -85,7 +98,7 @@ export class UpdateCategoryComponent implements OnInit{
      */
     updateCategory(formData){
         this.categoryService.updateCategory(
-            this.id=4,
+            this.editId,
             formData.english_name,
             formData.sinhala_name,
             formData.tamil_name,
@@ -93,6 +106,7 @@ export class UpdateCategoryComponent implements OnInit{
         ).subscribe(
             success => {
                 this.categoryUpdatingStatus = success.success;
+                this.categoryForm.reset();
             }
         );
     }

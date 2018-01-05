@@ -16,9 +16,6 @@ export class ViewModuleComponent implements OnInit{
     public moduleList;
     private loggedInUserList;
 
-    public moduleDeletingStatus;
-    public deleteId = 6;
-
     constructor(
         private moduleService: ModuleService,
         private router: Router,
@@ -26,18 +23,14 @@ export class ViewModuleComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
+
+        setTimeout(function(){
+            $('#moduleTable').DataTable({
+            });
+ 
+        }, 2000);
+
         this.getModules();
-        this.dataTable();
-        this.deleteModule();
-
-    }
-
-
-    dataTable() {
-        $('#moduleTable').DataTable({
-
-        });
-
     }
 
     /**
@@ -48,30 +41,17 @@ export class ViewModuleComponent implements OnInit{
             .subscribe(
             success => {
                 this.moduleList = success.success;
-                $("#moduleTable").find('tbody').empty();
-                var dataClaims = this.moduleList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    $('#moduleTable').dataTable().fnAddData([
-                        (i + 1),
-                        dataClaims[i].module_name,
-                        '<a [routerLink]="[' + "'" + "../../../settings/module/update-module" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    ]);
-                }
+                // $("#moduleTable").find('tbody').empty();
+                // var dataClaims = this.moduleList;
+                // for (let i = 0; i < dataClaims.length; i++) {
+                //     $('#moduleTable').dataTable().fnAddData([
+                //         (i + 1),
+                //         dataClaims[i].module_name,
+                //         '<a [routerLink]="[' + "'" + "../../../settings/module/update-module" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                //     ]);
+                // }
             }
             );
-    }
-
-    /**
-     * delete role
-     */
-    deleteModule() {
-        this.moduleService.deleteModule(
-            this.deleteId
-        ).subscribe(
-            success => {
-                this.moduleDeletingStatus = success.success
-            }
-        );
     }
 }

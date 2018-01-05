@@ -16,7 +16,7 @@
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-file-o"></i>&emsp;<b>Content Authorizer Registration Form</b></div>
-        <form id="form1" name="form1" [formGroup]="authorizerForm" (ngSubmit)="addAuthorizer(form1.value)">
+        <form id="authorizerForm" [formGroup]="authorizerForm" (ngSubmit)="addAuthorizer(authorizerForm.value)">
             <br>
                 <div class="row">
                     <div class="col-md-12">
@@ -51,8 +51,8 @@
                             </div>
                             <div id="gender1" class="col-md-7">
                                 <select id="caGender" name="caGender" class="form-control form-control-sm drop" [(ngModel)]="authorizer.caGender" formControlName="caGender" [ngClass]="displayFieldCss('caGender')">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
 
                                 <div *ngIf="authorizerForm.controls['caGender'].hasError('required') && authorizerForm.controls['caGender'].touched" class="error">
@@ -263,11 +263,7 @@
                                 <label id="label6">Qualification:</label>
                             </div>
                             <div class="row">
-                                <select class="form-control form-control-sm quali2" formControlName="pro_qualification_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_1">
-                                    <option>CIMA</option>
-                                    <option>SLIIT</option>
-                                    <option>NSBM</option>
-                                </select>
+                                <input type="text" id="pro_qualification_1" class="form-control form-control-sm quali2" formControlName="pro_qualification_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_1">
                             </div>
                         </div>
 
@@ -285,12 +281,7 @@
                                 <label id="label8">Grade recieved:</label>
                             </div>
                             <div class="row">
-                                <!-- <?php echo $select4; ?> -->
-                                <select class="form-control form-control-sm quali2" formControlName="pro_grade_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_1">
-                                    <option>First class</option>
-                                    <option>Second Upper</option>
-                                    <option>Second Lower</option>
-                                </select>
+                                <input type="text" id="pro_grade_1" class="form-control form-control-sm quali2" formControlName="pro_grade_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_1">
                             </div>
                         </div>
 
@@ -330,11 +321,7 @@
                     <div id="row_2" class="row" style="display:none; width:100%;">
                         <div class="col-md-2">
                             <div class="row">
-                                <select class="form-control form-control-sm quali2" formControlName="pro_qualification_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_2">
-                                    <option>CIMA</option>
-                                    <option>SLIIT</option>
-                                    <option>NSBM</option>
-                                </select>
+                                <input type="text" id="pro_qualification_2" class="form-control form-control-sm quali2" formControlName="pro_qualification_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_2">
                             </div>
                         </div>
 
@@ -346,11 +333,7 @@
 
                         <div class="col-md-2">
                             <div class="row">
-                                <select class="form-control form-control-sm quali2" formControlName="pro_grade_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_2">
-                                    <option>First class</option>
-                                    <option>Second Upper</option>
-                                    <option>Second Lower</option>
-                                </select>
+                                <input type="text" id="pro_grade_2" class="form-control form-control-sm quali2" formControlName="pro_grade_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_2">
                             </div>
                         </div>
 
@@ -381,11 +364,7 @@
                     <!--third row-->
                     <div id="row_3" class="row" style="display:none;">
                         <div class="col-md-2">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_3">
-                                <option>CIMA</option>
-                                <option>SLIIT</option>
-                                <option>NSBM</option>
-                            </select>
+                            <input type="text" id="pro_qualification_3" class="form-control form-control-sm quali2" formControlName="pro_qualification_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_3">
                         </div>
 
                         <div class="col-md-3">
@@ -393,11 +372,7 @@
                         </div>
 
                         <div class="col-md-2">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_3">
-                                <option>First class</option>
-                                <option>Second Upper</option>
-                                <option>Second Lower</option>
-                            </select>
+                            <input type="text" id="pro_grade_3" class="form-control form-control-sm quali2" formControlName="pro_grade_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_3">
                         </div>
 
                         <div class="col-md-2">

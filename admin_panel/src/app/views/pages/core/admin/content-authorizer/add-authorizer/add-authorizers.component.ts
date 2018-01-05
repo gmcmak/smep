@@ -88,33 +88,33 @@ export class AddAuthorizersComponent implements OnInit{
             }),
             professionalQualification: new FormGroup({
 
-                pro_qualification_1: new FormControl(''),
-                pro_institute_1: new FormControl(''),
-                pro_grade_1: new FormControl(''),
-                pro_year_1: new FormControl(''),
-                pro_country_1: new FormControl(''),
+                pro_qualification_1: new FormControl(),
+                pro_institute_1: new FormControl(),
+                pro_grade_1: new FormControl(),
+                pro_year_1: new FormControl(),
+                pro_country_1: new FormControl(),
 
-                pro_qualification_2: new FormControl(''),
-                pro_institute_2: new FormControl(''),
-                pro_grade_2: new FormControl(''),
-                pro_year_2: new FormControl(''),
-                pro_country_2: new FormControl(''),
+                pro_qualification_2: new FormControl(),
+                pro_institute_2: new FormControl(),
+                pro_grade_2: new FormControl(),
+                pro_year_2: new FormControl(),
+                pro_country_2: new FormControl(),
 
 
-                pro_qualification_3: new FormControl(''),
-                pro_institute_3: new FormControl(''),
-                pro_grade_3: new FormControl(''),
-                pro_year_3: new FormControl(''),
-                pro_country_3: new FormControl('')
+                pro_qualification_3: new FormControl(),
+                pro_institute_3: new FormControl(),
+                pro_grade_3: new FormControl(),
+                pro_year_3: new FormControl(),
+                pro_country_3: new FormControl()
             }),
 
             otherInfo: new FormGroup({
-                expert1: new FormControl(''),
-                expert2: new FormControl(''),
-                expert3: new FormControl(''),
-                //radioValue: new FormControl(),
-                //courses: new FormControl(),
-                //cpId: new FormControl(),
+                expert1: new FormControl(),
+                expert2: new FormControl(),
+                expert3: new FormControl(),
+                radioValue: new FormControl(),
+                courses: new FormControl(),
+                cpId: new FormControl(),
 
             }),
             check1: new FormControl('', Validators.required)
@@ -248,185 +248,185 @@ export class AddAuthorizersComponent implements OnInit{
          */
         addAuthorizer(formData){
             //professional quali row 1
-            // if (formData.pro_qualification_1){
-            //     var pro_qualification_1 = formData.pro_qualification_1;
+            // if (formData.professionalQualification.pro_qualification_1){
+            //     var pro_qualification_1 = formData.professionalQualification.pro_qualification_1;
             // }else{
             //     pro_qualification_1 = "";
             // }
 
-            // if (formData.pro_institute_1) {
-            //     var pro_institute_1 = formData.pro_institute_1;
+            // if (formData.professionalQualification.pro_institute_1) {
+            //     var pro_institute_1 = formData.professionalQualification.pro_institute_1;
             // } else {
             //     pro_institute_1 = "";
             // }
 
-            // if (formData.pro_grade_1) {
-            //     var pro_grade_1 = formData.pro_grade_1;
+            // if (formData.professionalQualification.pro_grade_1) {
+            //     var pro_grade_1 = formData.professionalQualification.pro_grade_1;
             // } else {
             //     pro_grade_1 = "";
             // }
 
-            // if (formData.pro_grade_1) {
-            //     var pro_grade_1 = formData.pro_grade_1;
+            // if (formData.professionalQualification.pro_grade_1) {
+            //     var pro_grade_1 = formData.professionalQualification.pro_grade_1;
             // } else {
             //     pro_grade_1 = "";
             // }
 
-            // if (formData.pro_year_1) {
-            //     var pro_year_1 = formData.pro_year_1;
+            // if (formData.professionalQualification.pro_year_1) {
+            //     var pro_year_1 = formData.professionalQualification.pro_year_1;
             // } else {
             //     pro_year_1 = "";
             // }
 
-            // if (formData.pro_country_1) {
-            //     var pro_country_1 = formData.pro_country_1;
+            // if (formData.professionalQualification.pro_country_1) {
+            //     var pro_country_1 = formData.professionalQualification.pro_country_1;
             // } else {
             //     pro_country_1 = "";
             // }
 
             // //professional quali row 2
-            // if (formData.pro_qualification_2) {
-            //     var pro_qualification_2 = formData.pro_qualification_2;
+            // if (formData.professionalQualification.pro_qualification_2) {
+            //     var pro_qualification_2 = formData.professionalQualification.pro_qualification_2;
             // } else {
             //     pro_qualification_2 = "";
             // }
 
-            // if (formData.pro_institute_2) {
-            //     var pro_institute_2 = formData.pro_institute_2;
+            // if (formData.professionalQualification.pro_institute_2) {
+            //     var pro_institute_2 = formData.professionalQualification.pro_institute_2;
             // } else {
             //     pro_institute_2 = "";
             // }
 
-            // if (formData.pro_grade_2) {
-            //     var pro_grade_2 = formData.pro_grade_2;
+            // if (formData.professionalQualification.pro_grade_2) {
+            //     var pro_grade_2 = formData.professionalQualification.pro_grade_2;
             // } else {
             //     pro_grade_2 = "";
             // }
 
-            // if (formData.pro_grade_2) {
-            //     var pro_grade_2 = formData.pro_grade_2;
+            // if (formData.professionalQualification.pro_grade_2) {
+            //     var pro_grade_2 = formData.professionalQualification.pro_grade_2;
             // } else {
             //     pro_grade_2 = "";
             // }
 
-            // if (formData.pro_year_2) {
-            //     var pro_year_2 = formData.pro_year_2;
+            // if (formData.professionalQualification.pro_year_2) {
+            //     var pro_year_2 = formData.professionalQualification.pro_year_2;
             // } else {
             //     pro_year_2 = "";
             // }
 
-            // if (formData.pro_country_2) {
-            //     var pro_country_2 = formData.pro_country_2;
+            // if (formData.professionalQualification.pro_country_2) {
+            //     var pro_country_2 = formData.professionalQualification.pro_country_2;
             // } else {
             //     pro_country_2 = "";
             // }
 
             // //professional quali row 3
-            // if (formData.pro_qualification_3) {
-            //     var pro_qualification_3 = formData.pro_qualification_3;
+            // if (formData.professionalQualification.pro_qualification_3) {
+            //     var pro_qualification_3 = formData.professionalQualification.pro_qualification_3;
             // } else {
             //     pro_qualification_3 = "";
             // }
 
-            // if (formData.pro_institute_3) {
-            //     var pro_institute_3 = formData.pro_institute_3;
+            // if (formData.professionalQualification.pro_institute_3) {
+            //     var pro_institute_3 = formData.professionalQualification.pro_institute_3;
             // } else {
             //     pro_institute_3 = "";
             // }
 
-            // if (formData.pro_grade_3) {
-            //     var pro_grade_3 = formData.pro_grade_3;
+            // if (formData.professionalQualification.pro_grade_3) {
+            //     var pro_grade_3 = formData.professionalQualification.pro_grade_3;
             // } else {
             //     pro_grade_3 = "";
             // }
 
-            // if (formData.pro_grade_3) {
-            //     var pro_grade_3 = formData.pro_grade_3;
+            // if (formData.professionalQualification.pro_grade_3) {
+            //     var pro_grade_3 = formData.professionalQualification.pro_grade_3;
             // } else {
             //     pro_grade_3 = "";
             // }
 
-            // if (formData.pro_year_3) {
-            //     var pro_year_3 = formData.pro_year_3;
+            // if (formData.professionalQualification.pro_year_3) {
+            //     var pro_year_3 = formData.professionalQualification.pro_year_3;
             // } else {
             //     pro_year_3 = "";
             // }
 
-            // if (formData.pro_country_3) {
-            //     var pro_country_3 = formData.pro_country_3;
+            // if (formData.professionalQualification.pro_country_3) {
+            //     var pro_country_3 = formData.professionalQualification.pro_country_3;
             // } else {
             //     pro_country_3 = "";
             // }
 
             // //expert1
-            // if (formData.expert1) {
-            //     var expert1 = formData.expert1;
+            // if (formData.otherInfo.expert1) {
+            //     var expert1 = formData.otherInfo.expert1;
             // } else {
             //     expert1 = "";
             // }
 
             // //expert2
-            // if (formData.expert2) {
-            //     var expert2 = formData.expert2;
+            // if (formData.otherInfo.expert2) {
+            //     var expert2 = formData.otherInfo.expert2;
             // } else {
             //     expert2 = "";
             // }
 
             // //expert3
-            // if (formData.expert3) {
-            //     var expert3 = formData.expert3;
+            // if (formData.otherInfo.expert3) {
+            //     var expert3 = formData.otherInfo.expert3;
             // } else {
             //     expert3 = "";
             // }
 
-            alert(11);
-           // alert(formData.caDesignation);
-            //alert(formData.expert2);
-            // this.authorizerService.addAuthorizers(
-            //     formData.caName,
-            //     formData.caFullName,
-            //     formData.caGender,
-            //     formData.caNic,
-            //     formData.caDesignation,
-            //     formData.caDob,
-            //     formData.caEmail,
-            //     formData.caMobile,
-            //     formData.caPassword1,
-            //     formData.caPassword2,
-            //     formData.highest_quali,
-            //     formData.highest_uni,
-            //     formData.highest_grade,
-            //     formData.highest_Country,
-            //     formData.highest_Year,
+            this.authorizerService.addAuthorizers(
+                formData.caName,
+                formData.caFullName,
+                formData.caGender,
+                formData.caNic,
+                formData.caDesignation,
+                formData.caDob,
+                formData.caEmail,
+                formData.caMobile,
+                formData.caPassword1,
+                formData.caPassword2,
 
-            //     formData.pro_qualification_1,
-            //     formData.pro_institute_1,
-            //     formData.pro_grade_1,
-            //     formData.pro_year_1,
-            //     formData.pro_country_1,
+                formData.highestQulification.highest_quali,
+                formData.highestQulification.highest_uni,
+                formData.highestQulification.highest_grade,
+                formData.highestQulification.highest_Country,
+                formData.highestQulification.highest_Year,
 
-            //     formData.pro_qualification_2,
-            //     formData.pro_institute_2,
-            //     formData.pro_grade_2,
-            //     formData.pro_year_2,
-            //     formData.pro_country_2,
+                formData.professionalQualification.pro_qualification_1,
+                formData.professionalQualification.pro_institute_1,
+                formData.professionalQualification.pro_grade_1,
+                formData.professionalQualification.pro_year_1,
+                formData.professionalQualification.pro_country_1,
 
-            //     formData.pro_qualification_3,
-            //     formData.pro_institute_3,
-            //     formData.pro_grade_3,
-            //     formData.pro_year_3,
-            //     formData.pro_country_3,
+                formData.professionalQualification.pro_qualification_2,
+                formData.professionalQualification.pro_institute_2,
+                formData.professionalQualification.pro_grade_2,
+                formData.professionalQualification.pro_year_2,
+                formData.professionalQualification.pro_country_2,
 
-            //     formData.expert1,
-            //     formData.expert2,
-            //     formData.expert3,
-            //     this.status = 0,
-            //     this.deleted = 0
-            // ).subscribe(
-            //     success => {
-            //         this.authorizerRegisterStatus = success.success;
-            //     }
-            // );
+                formData.professionalQualification.pro_qualification_3,
+                formData.professionalQualification.pro_institute_3,
+                formData.professionalQualification.pro_grade_3,
+                formData.professionalQualification.pro_year_3,
+                formData.professionalQualification.pro_country_3,
+
+                formData.otherInfo.expert1,
+                formData.otherInfo.expert2,
+                formData.otherInfo.expert3,
+                
+                this.status = 0,
+                this.deleted = 0
+            ).subscribe(
+                success => {
+                    this.authorizerRegisterStatus = success.success;
+                    this.authorizerForm.reset();
+                }
+            );
         }
 }
 

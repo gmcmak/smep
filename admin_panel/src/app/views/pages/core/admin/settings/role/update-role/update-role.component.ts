@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from "../../../../../../../services/businessservices/core/settings/role.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'update-role.component.ts',
@@ -13,16 +14,28 @@ export class UpdateRoleComponent implements OnInit{
     public role = new Role();
     public roleForm: FormGroup;
     public roleList;
-    public id;
+
+    public sub: any;
+    public id: number;
+    public editId: number;
     public roleupdatingStatus;
 
     constructor(
         private formBuilder: FormBuilder,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.initializeRoleForm();
+
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editRole();
     }
 
@@ -64,7 +77,7 @@ export class UpdateRoleComponent implements OnInit{
      */
     editRole(){
         this.roleService.editRolesList(
-            this.id=1
+            this.editId
         ).subscribe(
             success => {
                 this.roleList = success.success;
@@ -79,12 +92,13 @@ export class UpdateRoleComponent implements OnInit{
      */
     updateRole(formData){
         this.roleService.updateRoleList(
-            this.id=1,
+            this.editId,
             formData.role_name,
             formData.role_status
         ).subscribe(
             success => {
-                this.roleupdatingStatus = success.success
+                this.roleupdatingStatus = success.success;
+                this.roleForm.reset();
             }
         );
     }

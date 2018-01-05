@@ -56,14 +56,14 @@ export class ExploreService{
     /**
      * get explore's details for update
      */
-    public editExploresList(id) {
+    public editExploresList(editId) {
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'get-explore/'+id,
+        return this.http.get(this.API_ENDPOINT + 'get-explore/'+ editId,
             {
                 headers: headers
             })
@@ -73,7 +73,7 @@ export class ExploreService{
     /**
      * update explore details
      */
-    public updateExploresList(id, parent_id, english_name, sinhala_name, tamil_name, explore_status, deleted) {
+    public updateExploresList(editId, parent_id, english_name, sinhala_name, tamil_name, explore_status, deleted) {
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -87,7 +87,7 @@ export class ExploreService{
         body.append('ta_tag', tamil_name);
         body.append('status', explore_status);
         body.append('deleted', deleted);
-        return this.http.post(this.API_ENDPOINT + 'update-explore/'+id+'/edit', body,
+        return this.http.post(this.API_ENDPOINT + 'update-explore/'+editId+'/edit', body,
             {
                 headers: headers
             })

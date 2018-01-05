@@ -10,12 +10,15 @@
         <a>Add Providers</a>
     </li>
 </ol>
+
+<div class="alert alert-success" *ngIf="providerRegisterStatus">{{providerRegisterStatus}}</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-file-o"></i>&emsp;
         <b>Content Provider Registration Form</b>
     </div>
-    <form id="form1" name="form1" method="POST" [formGroup]="individualForm" (ngSubmit)="onSubmit()" action="">
+    <form id="individualForm" [formGroup]="individualForm" (ngSubmit)="addProvider(individualForm.value)">
         <div id="individual-category">
             <!--individual form-->
             <div class="row">
@@ -266,11 +269,7 @@
                             <label id="label6">Qualification achieved:</label>
                         </div>
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_1" [(ngModel)]="provider.professionalQualification.pro_qualification_1">
-                                <option>CIMA</option>
-                                <option>SLIIT</option>
-                                <option>NSBM</option>
-                            </select>
+                            <input type="text" id="pro_qualification_1" class="form-control form-control-sm quali2" formControlName="pro_qualification_1" [(ngModel)]="provider.professionalQualification.pro_qualification_1">
                         </div>
                     </div>
 
@@ -288,11 +287,7 @@
                             <label id="label8">Grade recieved:</label>
                         </div>
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_1" [(ngModel)]="provider.professionalQualification.pro_grade_1">
-                                <option>First class</option>
-                                <option>Second Upper</option>
-                                <option>Second Lower</option>
-                            </select>
+                            <input type="text" id="pro_grade_1" class="form-control form-control-sm quali2" formControlName="pro_grade_1" [(ngModel)]="provider.professionalQualification.pro_grade_1">
                         </div>
                     </div>
 
@@ -332,11 +327,7 @@
                 <div id="row_2" class="row" style="display:none; width:100%;">
                     <div class="col-md-2">
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_qualification_2" [(ngModel)]="provider.professionalQualification.pro_qualification_2">
-                                <option>CIMA</option>
-                                <option>SLIIT</option>
-                                <option>NSBM</option>
-                            </select>
+                            <input type="text" id="pro_qualification_2" class="form-control form-control-sm quali2" formControlName="pro_qualification_2" [(ngModel)]="provider.professionalQualification.pro_qualification_2">
                         </div>
                     </div>
 
@@ -348,11 +339,7 @@
 
                     <div class="col-md-2">
                         <div class="row">
-                            <select class="form-control form-control-sm quali2" formControlName="pro_grade_2" [(ngModel)]="provider.professionalQualification.pro_grade_2">
-                                <option>First class</option>
-                                <option>Second Upper</option>
-                                <option>Second Lower</option>
-                            </select>
+                            <input type="text" id="pro_grade_2" class="form-control form-control-sm quali2" formControlName="pro_grade_2" [(ngModel)]="provider.professionalQualification.pro_grade_2">
                         </div>
                     </div>
 
@@ -383,11 +370,7 @@
                 <!--third row-->
                 <div id="row_3" class="row" style="display:none;">
                     <div class="col-md-2">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_qualification_3" [(ngModel)]="provider.professionalQualification.pro_qualification_3">
-                            <option>CIMA</option>
-                            <option>SLIIT</option>
-                            <option>NSBM</option>
-                        </select>
+                        <input type="text" id="pro_qualification_3" class="form-control form-control-sm quali2" formControlName="pro_qualification_3" [(ngModel)]="provider.professionalQualification.pro_qualification_3">
                     </div>
 
                     <div class="col-md-3">
@@ -395,11 +378,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_grade_3" [(ngModel)]="provider.professionalQualification.pro_grade_3">
-                            <option>First class</option>
-                            <option>Second Upper</option>
-                            <option>Second Lower</option>
-                        </select>
+                        <input type="text" id="pro_grade_3" class="form-control form-control-sm quali2" formControlName="pro_grade_3" [(ngModel)]="provider.professionalQualification.pro_grade_3">
                     </div>
 
                     <div class="col-md-2">
@@ -460,22 +439,17 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <hr>
-                </div>
-
                 <!--Content Provider Identification No:-->
-                <div class="row">
+                <!-- <div class="row">
                     <div id="x4" class="col-md-4">
                         <h6 class="subTitle">Content Provider Identification No:</h6>
                     </div>
                     <div class="col-md-4">
-                        <!-- <input name="cpId" id="cpId" class="form-control form-control-sm" type="text" value="<?php echo $cp_id; ?>" readonly><br> -->
                         <input id="cpId" name="cpId" class="form-control form-control-sm" type="text" readonly formControlName="cpId">
                     </div>
                     <div class="col-md-4">
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">
@@ -503,13 +477,9 @@
                     <br>
                 </div>
             </div>
-            <!-- <div class="error" *ngIf="checkBoxControl.hasError('required')">
-                                Required
-                            </div> -->
 
             <div id="form1_submit_row" class="row">
                 <div class="col-md-10">
-                    <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
                 </div>
                 <div class="col-md-2">
                     &emsp;

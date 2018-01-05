@@ -1,22 +1,25 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../dashboard']">Home</a>
+        <a [routerLink]="['../../../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../content-authorizer/view-authorizers']">Content Authorizer</a>
+        <a [routerLink]="['../../../content-authorizer/view-authorizers']">Content Authorizer</a>
     </li>
     <li class="breadcrumb-item">
         <a>Update Authorizers</a>
     </li>
 </ol>
 
+<div class="alert alert-success" *ngIf="authorizerUpdatingStatus">{{authorizerUpdatingStatus}}</div>
+
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-file-o"></i>&emsp;
         <b>Content Authorizer Updating Form</b>
     </div>
-    <form id="form1" name="form1" method="POST" [formGroup]="authorizerForm" (ngSubmit)="onSubmit()" action="">
+    <form id="authorizerForm" [formGroup]="authorizerForm" (ngSubmit)="updateAuthorizer(authorizerForm.value)">
         <br>
         <div class="row">
             <div class="col-md-12">
@@ -54,8 +57,8 @@
                     <div id="gender1" class="col-md-7">
                         <select id="caGender" name="caGender" class="form-control form-control-sm drop" [(ngModel)]="authorizer.caGender" formControlName="caGender"
                             [ngClass]="displayFieldCss('caGender')">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
 
                         <div *ngIf="authorizerForm.controls['caGender'].hasError('required') && authorizerForm.controls['caGender'].touched" class="error">
@@ -134,7 +137,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-6">
                 <input type="text" id="caPassword1" name="caPassword1" class="form-control form-control-sm" type="password" placeholder="Password: *"
                     [(ngModel)]="authorizer.caPassword1" formControlName="caPassword1" [ngClass]="displayFieldCss('caPassword1')">
@@ -158,7 +161,7 @@
                     Passwords are not matched !
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col-md-12">
@@ -282,11 +285,7 @@
                         <label id="label6">Qualification:</label>
                     </div>
                     <div class="row">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_qualification_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_1">
-                            <option>CIMA</option>
-                            <option>SLIIT</option>
-                            <option>NSBM</option>
-                        </select>
+                        <input type="text" id="pro_qualification_1" class="form-control form-control-sm quali2" formControlName="pro_qualification_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_1">
                     </div>
                 </div>
 
@@ -305,12 +304,7 @@
                         <label id="label8">Grade recieved:</label>
                     </div>
                     <div class="row">
-                        <!-- <?php echo $select4; ?> -->
-                        <select class="form-control form-control-sm quali2" formControlName="pro_grade_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_1">
-                            <option>First class</option>
-                            <option>Second Upper</option>
-                            <option>Second Lower</option>
-                        </select>
+                        <input type="text" id="pro_grade_1" class="form-control form-control-sm quali2" formControlName="pro_grade_1" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_1">
                     </div>
                 </div>
 
@@ -350,11 +344,7 @@
             <div id="row_2" class="row" style="display:none; width:100%;">
                 <div class="col-md-2">
                     <div class="row">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_qualification_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_2">
-                            <option>CIMA</option>
-                            <option>SLIIT</option>
-                            <option>NSBM</option>
-                        </select>
+                        <input type="text" id="pro_qualification_2" class="form-control form-control-sm quali2" formControlName="pro_qualification_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_2">
                     </div>
                 </div>
 
@@ -367,11 +357,7 @@
 
                 <div class="col-md-2">
                     <div class="row">
-                        <select class="form-control form-control-sm quali2" formControlName="pro_grade_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_2">
-                            <option>First class</option>
-                            <option>Second Upper</option>
-                            <option>Second Lower</option>
-                        </select>
+                        <input type="text" id="pro_grade_2" class="form-control form-control-sm quali2" formControlName="pro_grade_2" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_2">
                     </div>
                 </div>
 
@@ -402,11 +388,7 @@
             <!--third row-->
             <div id="row_3" class="row" style="display:none;">
                 <div class="col-md-2">
-                    <select class="form-control form-control-sm quali2" formControlName="pro_qualification_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_3">
-                        <option>CIMA</option>
-                        <option>SLIIT</option>
-                        <option>NSBM</option>
-                    </select>
+                    <input type="text" id="pro_qualification_3" class="form-control form-control-sm quali2" formControlName="pro_qualification_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_qualification_3">
                 </div>
 
                 <div class="col-md-3">
@@ -415,11 +397,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <select class="form-control form-control-sm quali2" formControlName="pro_grade_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_3">
-                        <option>First class</option>
-                        <option>Second Upper</option>
-                        <option>Second Lower</option>
-                    </select>
+                    <input type="text" id="pro_grade_3" class="form-control form-control-sm quali2" formControlName="pro_grade_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_grade_3">
                 </div>
 
                 <div class="col-md-2">
@@ -429,7 +407,6 @@
                 </div>
 
                 <div class="col-md-2">
-                    <!-- <?php echo $select_country12; ?> -->
                     <select class="form-control form-control-sm quali2" formControlName="pro_country_3" [(ngModel)]="authorizer.ProfessionalQualifications.pro_country_3">
                         <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
                     </select>
@@ -458,7 +435,6 @@
                 </div>
 
                 <div class="col-md-3">
-                    <!-- <?php echo $select_subject1; ?> -->
                     <select class="form-control form-control-sm quali2" formControlName="expert1" [(ngModel)]="authorizer.SubjectAreas.expert1">
                         <option *ngFor="let subject of subjectList" [value]="subject.id">{{subject.name}}</option>
                     </select>
@@ -466,7 +442,6 @@
                 </div>
 
                 <div class="col-md-3">
-                    <!-- <?php echo $select_subject2; ?> -->
                     <select id="expert_subject2" class="form-control form-control-sm" formControlName="expert2" [(ngModel)]="authorizer.SubjectAreas.expert2">
                         <option *ngFor="let subject of subjectList" [value]="subject.id">{{subject.name}}</option>
                     </select>
@@ -475,7 +450,6 @@
                 </div>
 
                 <div class="col-md-3">
-                    <!-- <?php echo $select_subject3; ?> -->
                     <select id="expert_subject3" class="form-control form-control-sm" formControlName="expert3" [(ngModel)]="authorizer.SubjectAreas.expert3">
                         <option *ngFor="let subject of subjectList" [value]="subject.id">{{subject.name}}</option>
                     </select>
@@ -510,7 +484,7 @@
                         </div>
                     </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4" id="other-field1">
                     <h6 class="subTitle">If other, please specify:</h6>
                 </div>
@@ -518,26 +492,25 @@
                     <input id="other-details" name="other-details" class="form-control form-control-sm" type="text" formControlName="courses">
                 </div>
                 <div class="col-md-4"></div>
-            </div>
+            </div> -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12">
                     <hr>
                 </div>
-            </div>
+            </div> -->
 
             <!--Content Provider Identification No:-->
-            <div class="row">
+            <!-- <div class="row">
                 <div id="x4" class="col-md-4">
                     <h6 class="subTitle">Content Authorizer Identification No:</h6>
                 </div>
                 <div class="col-md-4">
-                    <!-- <input name="cpId" id="cpId" class="form-control form-control-sm" type="text" value="<?php echo $cp_id; ?>" readonly><br> -->
                     <input id="cpId" name="cpId" class="form-control form-control-sm" type="text" readonly formControlName="cpId">
                 </div>
                 <div class="col-md-4">
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="row">
@@ -545,17 +518,18 @@
                 <hr>
             </div>
         </div>
+        <br>
 
         <!--Terms &amp; conditions-->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 <textarea id="terms" name="terms" class="form-control" id="exampleFormControlTextarea1" rows="5" col="1" placeholder="Terms &amp; Conditions"
                     readonly></textarea>
                 <br>
             </div>
-        </div>
+        </div> -->
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 &emsp;&emsp;
                 <input type="checkbox" id="check1" name="check1" class="form-check-input" [(ngModel)]="checkBox" formControlName="check1">
@@ -564,19 +538,12 @@
                 <br>
                 <br>
             </div>
-        </div>
-        <!-- <div class="error" *ngIf="checkBoxControl.hasError('required')">
-                                Required
-                            </div> -->
+        </div> -->
 
         <div id="form1_submit_row" class="row">
-            <div class="col-md-10">
-                <!-- <input type="text" id="count_new" name="count_new" value="<?php echo $count_new; ?>" style="display:none;"> -->
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-12" align="right">
                 &emsp;
-                <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!authorizerForm.valid"
-                    (click)="submitForm1()">Submit</button>
+                <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn" [disabled]="!authorizerForm.valid">Update</button>
                 <!-- <button type="submit" id="cancel1" name="cancel1" class="btn-primary search_btn">Cancel</button> -->
                 <br>
                 <br>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModuleService } from "../../../../../../../services/businessservices/core/module/module.service";
+import { ActivatedRoute } from "@angular/router";
 
 
 @Component({
@@ -13,16 +14,28 @@ export class UpdateModuleComponent implements OnInit{
     public module = new Module();
     public moduleForm: FormGroup;
     public moduleList;
-    public id;
+
+    public id: number;
+    public sub: any;
+    public editId: number;
     public moduleupdatingStatus;
 
     constructor(
         private formBuilder: FormBuilder,
-        private moduleService: ModuleService
+        private moduleService: ModuleService,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {
         this.initializeModuleForm();
+
+        /**
+        * get param id value from the router
+        */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editModule();
     }
 
@@ -48,7 +61,7 @@ export class UpdateModuleComponent implements OnInit{
      */
     editModule() {
         this.moduleService.editModulesList(
-            this.id = 7
+            this.editId
         ).subscribe(
             success => {
                 this.moduleList = success.success;
@@ -62,11 +75,12 @@ export class UpdateModuleComponent implements OnInit{
      */
     updateModule(formData) {
         this.moduleService.updateModule(
-            this.id = 7,
+            this.editId,
             formData.module_name
         ).subscribe(
             success => {
-                this.moduleupdatingStatus = success.success
+                this.moduleupdatingStatus = success.success;
+                this.moduleForm.reset();
             }
             );
     }

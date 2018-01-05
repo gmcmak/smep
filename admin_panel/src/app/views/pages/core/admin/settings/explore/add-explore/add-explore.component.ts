@@ -70,7 +70,10 @@ export class AddExploreComponent implements OnInit{
             formData.explore_status,
             this.deleted=0,
         ).subscribe(
-            success => {this.exploreAddingStatus = success.success}
+            success => {
+                this.exploreAddingStatus = success.success;
+                this.exploreForm.reset();
+            }
         );
     }
 }

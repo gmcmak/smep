@@ -10,6 +10,8 @@
         <a>View Consumers</a>
     </li>
 </ol>
+
+<div class="alert alert-success" *ngIf="consumerDeletingStatus"><strong>{{consumerDeletingStatus}} !</strong></div>
     
 <div class="card mb-3">
     <div class="card-header">
@@ -32,19 +34,31 @@
                     
                 </tfoot>
                 <tbody>
-                    <!-- <tr>
-                        <td>Deshan Hasantha</td>
-                        <td>http://www.ucsc.lk</td>
-                        <td>Permission 1</td>
+                    <tr *ngFor="let record of consumerList  let i = index" [attr.data-index]="i">
+                        <td>{{i+1}}</td>
+                        <td>{{record.name}}</td>
+                        <td>{{record.url}}</td>
+                        <td>
+                            <ul *ngFor="let permision of record.modules">
+                                <li>
+                                    {{permision.module_name}}
+                                </li>
+                            </ul>
+                        </td>
                         <td align="center">
                             <label class="switch">
                                 <input type="checkbox">
                                 <span class="slider round"></span>
                             </label>
                         </td>
-                        <td align="center"><a [routerLink]="['../../content-consumer/update-consumers']" class="fa fa-1x fa-pencil-square-o"></a></td>
-                        <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td>
-                    </tr> -->
+                        <td align="center"><a [routerLink]="['../../content-consumer/update-consumers', record.id]" class="fa fa-1x fa-pencil-square-o"></a></td>
+                        <!-- <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td> -->
+                        <td align="center">
+                            <button class="dlt_btn" (click)="deleteConsumer(record.id)">
+                                <li class="fa  fa-1x fa-trash">
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

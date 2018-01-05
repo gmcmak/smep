@@ -56,14 +56,14 @@ export class KeywordService{
     /**
      * get keyword's details for update
      */
-    public editKeywordList(id) {
+    public editKeywordList(editId) {
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'edit-keyword/'+id,
+        return this.http.get(this.API_ENDPOINT + 'edit-keyword/'+ editId,
             {
                headers: headers
             })
@@ -73,7 +73,7 @@ export class KeywordService{
     /**
      * update keyword details
      */
-    public updateKeywordList(id, english_name, sinhala_name, tamil_name) {
+    public updateKeywordList(editId, english_name, sinhala_name, tamil_name) {
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -84,7 +84,7 @@ export class KeywordService{
         body.append('en_name', english_name);
         body.append('si_name', sinhala_name);
         body.append('ta_name', tamil_name);
-        return this.http.post(this.API_ENDPOINT + 'update-keyword/'+id, body,
+        return this.http.post(this.API_ENDPOINT + 'update-keyword/'+ editId, body,
             {
                 headers: headers
             })

@@ -63,7 +63,10 @@ export class AddAuthorComponent implements OnInit{
             formData.sinhala_name,
             formData.tamil_name
         ).subscribe(
-            success => { this.authorAddingStatus = success.success}
+            success => {
+                this.authorAddingStatus = success.success;
+                this.authorForm.reset();
+            }
         );
     }
 }

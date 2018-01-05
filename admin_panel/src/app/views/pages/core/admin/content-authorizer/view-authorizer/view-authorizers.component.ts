@@ -17,6 +17,8 @@ export class ViewAuthorizersComponent implements OnInit {
     public authorizerList;
     private loggedInUserList;
 
+    public authorizerDeletingStatus;
+
     constructor(
         private authorizerService: AuthorizerService,
         private router: Router,
@@ -24,17 +26,17 @@ export class ViewAuthorizersComponent implements OnInit {
     ){}
 
     ngOnInit(): void {
-       this.dataTable();
        this.getAuthorizerDetails();
-    }
-
-
-    dataTable(){
-        $('#dataTableAuthorizer').DataTable({
-            "language": {
-                "search": "Search by: (Authorizer's name/ Institute represented/ Subject area)"
-              }
-        });
+       //this.deleteAuthorizer();
+        setTimeout(
+            function() {
+                $('#dataTableAuthorizer').DataTable({
+                    "language": {
+                        "search": "Search by: (Authorizer's name/ Institute represented/ Subject area)"
+                    }
+                });
+            }, 2000
+        );
     }
 
     /**
@@ -45,24 +47,37 @@ export class ViewAuthorizersComponent implements OnInit {
             .subscribe(
             success => {
                 this.authorizerList = success.success;
-                $("#dataTableAuthorizer").find('tbody').empty();
-                var dataClaims = this.authorizerList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    $('#dataTableAuthorizer').dataTable().fnAddData([
-                        (i + 1),
-                        dataClaims[i].name,
-                        dataClaims[i].name,
-                        dataClaims[i].name,
-                        '<a>10</a>',
-                        '<a>5</a>',
-                        '<a>15</a>',
-                        '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                        '<a [routerLink]="[' + "'" + "../../content-authorizer/update-authorizers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                        '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    ]);
-                }
+                // $("#dataTableAuthorizer").find('tbody').empty();
+                // var dataClaims = this.authorizerList;
+                // for (let i = 0; i < dataClaims.length; i++) {
+                //     $('#dataTableAuthorizer').dataTable().fnAddData([
+                //         (i + 1),
+                //         dataClaims[i].name,
+                //         dataClaims[i].name,
+                //         dataClaims[i].name,
+                //         '<a>10</a>',
+                //         '<a>5</a>',
+                //         '<a>15</a>',
+                //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
+                //         '<a [routerLink]="[' + "'" + "../../content-authorizer/update-authorizers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
+                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
+                //     ]);
+                // }
             }
             );
     }
 
+    /**
+     * delete authorizer
+     */
+    deleteAuthorizer(deleteId){
+        this.authorizerService.deleteAuthorizer(
+            deleteId
+        ).subscribe(
+            success => {
+                this.authorizerDeletingStatus = success.success;
+                this.getAuthorizerDetails();
+            }
+        );
+    }
 }

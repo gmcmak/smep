@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExploreService } from "../../../../../../../services/businessservices/core/settings/explore.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'update-explore',
@@ -13,19 +14,32 @@ export class UpdateExploreComponent implements OnInit{
     public explore = new Explore();
     public exploreForm: FormGroup;
     public editExploreList;
-    public id;
     public parent_id;
+
+    public sub:any;
+    public id:number;
+    public editId: number;
+
     public exploreUpdatingStatus;
     public updateExploreList;
     public deleted;
 
     constructor(
         private formBuilder: FormBuilder,
-        private exploreService: ExploreService
+        private exploreService: ExploreService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.initializeExploreForm();
+
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
         this.editExplore();
     }
 
@@ -69,7 +83,7 @@ export class UpdateExploreComponent implements OnInit{
      */
     editExplore(){
         this.exploreService.editExploresList(
-            this.id=2
+            this.editId
         ).subscribe(
             success => {
                 this.editExploreList = success.success;
@@ -86,7 +100,7 @@ export class UpdateExploreComponent implements OnInit{
      */
     updateExplore(formData){
         this.exploreService.updateExploresList(
-            this.id=2,
+            this.editId,
             this.parent_id=0,
             formData.english_name,
             formData.sinhala_name,
@@ -96,6 +110,7 @@ export class UpdateExploreComponent implements OnInit{
         ).subscribe(
             success => {
                 this.exploreUpdatingStatus = success.success;
+                this.exploreForm.reset();
             }
         );
     }

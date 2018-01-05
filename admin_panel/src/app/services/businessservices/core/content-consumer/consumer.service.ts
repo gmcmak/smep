@@ -70,4 +70,42 @@ export class ConsumerService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * update consumer details
+     */
+    public updateConsumer(editId, caName, caWebUrl, status, permission) {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        let body = new URLSearchParams;
+        body.append('name', caName);
+        body.append('url', caWebUrl);
+        body.append('status', status);
+        body.append('modules', permission);
+        return this.http.post(this.API_ENDPOINT + 'update-consumer/'+ editId, body,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * delete consumer
+     */
+    public deleteConsumer(deleteId) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-consumer/'+ deleteId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

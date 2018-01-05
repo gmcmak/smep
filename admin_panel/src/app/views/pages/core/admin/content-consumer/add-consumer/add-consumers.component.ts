@@ -89,7 +89,8 @@ export class AddConsumersComponent implements OnInit{
             this.permissions
         ).subscribe(
             success => {
-                this.consumerAddingStatus = success.success
+                this.consumerAddingStatus = success.success;
+                this.consumerForm.reset();
             }
         );
     }

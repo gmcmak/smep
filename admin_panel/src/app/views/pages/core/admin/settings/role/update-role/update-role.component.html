@@ -1,13 +1,13 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../../dashboard']">Home</a>
+        <a [routerLink]="['../../../../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../../settings/author/view-author']">Settings</a>
+        <a [routerLink]="['../../../../settings/author/view-author']">Settings</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../../settings/role/view-role']">Role</a>
+        <a [routerLink]="['../../../../settings/role/view-role']">Role</a>
     </li>
     <li class="breadcrumb-item">
         <a>Update Role</a>
@@ -66,8 +66,8 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-3"></div>
                 <div class="col-md-5" align="right">
-                    <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Reset</button>
-                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Submit</button>
+                    <!-- <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Reset</button> -->
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Update</button>
                 </div>
                 <div class="col-md-2"></div>
             </div>

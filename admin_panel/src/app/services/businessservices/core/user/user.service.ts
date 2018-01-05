@@ -106,13 +106,13 @@ export class UserService {
      * get user details for edit
      * 
      */
-    public editUsersList(id) {
+    public editUsersList(editId) {
       this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
       let headers = new Headers();
       headers.append('Accept', 'application/json');
       headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
       let body = '';
-      return this.http.get(this.API_ENDPOINT + 'edit-details/'+id,
+      return this.http.get(this.API_ENDPOINT + 'edit-details/' + editId,
         {
           headers: headers
         })
@@ -122,7 +122,7 @@ export class UserService {
     /**
      * update user's details
      */
-  updateUserList(id, role_id, user_fullName, user_nameWithInitials, user_email, user_nic, user_mobile, user_designation, user_gender, user_dob, user_status, deleted) {
+  updateUserList(editId, role_id, user_fullName, user_nameWithInitials, user_email, user_nic, user_mobile, user_designation, user_gender, user_dob, user_status, deleted) {
       this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
       let headers = new Headers();
       headers.append('Accept', 'application/json');
@@ -141,12 +141,29 @@ export class UserService {
       body.append('role_id', role_id);
       body.append('deleted', deleted);
 
-      return this.http.post(this.API_ENDPOINT + 'update-details/'+id, body,
+      return this.http.post(this.API_ENDPOINT + 'update-details/'+ editId, body,
         {
           headers: headers
         })
         .map((response: Response) => response.json());
     }
+
+  /**
+   * delete users
+   * 
+   */
+  public deleteUser(deleteId) {
+    this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    let body = '';
+    return this.http.get(this.API_ENDPOINT + 'delete-details/' + deleteId,
+      {
+        headers: headers
+      })
+      .map((response: Response) => response.json());
+  }
 
 
 

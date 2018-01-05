@@ -66,7 +66,10 @@ export class AddKeywordComponent implements OnInit{
             formData.sinhala_name,
             formData.tamil_name
         ).subscribe(
-            success => {this.keywordAddingStatus = success.success}
+            success => {
+                this.keywordAddingStatus = success.success;
+                this.keywordForm.reset();
+            }
         );
     }
 }

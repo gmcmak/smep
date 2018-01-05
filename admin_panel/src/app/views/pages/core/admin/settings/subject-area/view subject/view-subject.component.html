@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="subjectDeletingStatus">{{subjectDeletingStatus}}</div>
+<div class="alert alert-success" *ngIf="subjectDeletingStatus"><strong>{{subjectDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -37,25 +37,25 @@
 
                 </tfoot>
                 <tbody>
-                    <!-- <tr *ngFor="let record of roleList; let i = index">
+                    <tr *ngFor="let record of subjectList; let i = index" [attr.data-index]="i">
                         <td>{{i+1}}</td>
                         <td>{{record.name}}</td>
+                        <td>{{record.description}}</td>
                         <td align="center">
-                            <label class="switch">
-                                <input type="checkbox" [(ngModel)]="record.status">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
-                        <td align="center">
-                            <a [routerLink]="['../../../settings/module/update-module']" class="fa fa-1x fa-pencil-square-o">
+                            <a [routerLink]="['../../../settings/subject-area/update-subject', record.id]" class="fa fa-1x fa-pencil-square-o">
                             </a>
                         </td>
-                        <td align="center">
+                        <!-- <td align="center">
                             <a data-toggle="modal" data-target="#deleteModal">
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
+                        </td> -->
+                        <td align="center">
+                            <button class="dlt_btn" (click)="deleteSubject(record.id)">
+                                <li class="fa  fa-1x fa-trash">
+                            </button>
                         </td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
         </div>

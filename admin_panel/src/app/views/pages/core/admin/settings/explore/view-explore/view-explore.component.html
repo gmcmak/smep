@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="exploreDeletingStatus">{{exploreDeletingStatus}}</div>
+<div class="alert alert-success" *ngIf="exploreDeletingStatus"><strong>{{exploreDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -26,6 +26,7 @@
             <table class="table table-bordered" id="exploreTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>English Tag</th>
                         <th>Sinhala Tag</th>
                         <th>Tamil Tag</th>
@@ -38,7 +39,8 @@
 
                 </tfoot>
                 <tbody>
-                    <!-- <tr *ngFor="let record of exploreList">
+                    <tr *ngFor="let record of exploreList; let i=index" [attr.data-inex]="i">
+                        <td>{{i+1}}</td>
                         <td>{{record.en_tag}}</td>
                         <td>{{record.si_tag}}</td>
                         <td>{{record.ta_tag}}</td>
@@ -49,15 +51,20 @@
                             </label>
                         </td>
                         <td align="center">
-                            <a [routerLink]="['../../../settings/explore/update-explore']" class="fa fa-1x fa-pencil-square-o">
+                            <a [routerLink]="['../../../settings/explore/update-explore', record.id]" class="fa fa-1x fa-pencil-square-o">
                             </a>
                         </td>
-                        <td align="center">
+                        <!-- <td align="center">
                             <a data-toggle="modal" data-target="#deleteModal">
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
+                        </td> -->
+                        <td align="center">
+                            <button class="dlt_btn" (click)="deleteExplore(record.id)">
+                                <li class="fa  fa-1x fa-trash">
+                            </button>
                         </td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
         </div>

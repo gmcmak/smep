@@ -26,6 +26,8 @@ export class ViewUsersComponent implements OnInit{
     private loggedInUserList;
     private usersList;
 
+    public userDeletingStatus;
+
     constructor(
         private translate: TranslateService, 
         private router: Router, 
@@ -51,8 +53,20 @@ export class ViewUsersComponent implements OnInit{
                     }
                 });                
             }
-            , 2000);          
+            , 2000);
+        //this.hideAlert();
     }
+
+    /**
+     * hide success alert
+     */
+    // hideAlert(){
+    //     window.setTimeout(function () {
+    //         $(".alert").fadeTo(500, 0).slideUp(500, function () {
+    //             $(this).remove();
+    //         });
+    //     }, 4000);
+    // }
  
     /**
      * user data list
@@ -65,7 +79,22 @@ export class ViewUsersComponent implements OnInit{
                     this.usersList = success.success;
                 }
             );      
-    }        
+    }
+    
+    /**
+     * delete user
+     */
+    deleteUser(deleteId){
+        
+        this.UserService.deleteUser(
+            deleteId
+        ).subscribe(
+            success => {
+                this.userDeletingStatus = success.success;
+                this.getUsers(); 
+            }
+        );
+    }
 
 
 }

@@ -1,10 +1,10 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../dashboard']">Home</a>
+        <a [routerLink]="['../../../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../users/view-users']">Users</a>
+        <a [routerLink]="['../../../users/view-users']">Users</a>
     </li>
     <li class="breadcrumb-item">
         <a>Update Users</a>
@@ -141,7 +141,6 @@
                     </label>
                     <select class="form-control form-control-sm" name="user_gender" id="user_gender" formControlName="user_gender" [(ngModel)]="user.gender"
                         [ngClass]="displayFieldCss('user_gender')">
-                        <option value="0" disabled>Male/Female</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>

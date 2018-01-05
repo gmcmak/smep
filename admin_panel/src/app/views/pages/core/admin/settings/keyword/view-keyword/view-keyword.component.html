@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div class="alert alert-success" *ngIf="keywordDeletingStatus">{{keywordDeletingStatus}}</div>
+<div class="alert alert-success" *ngIf="keywordDeletingStatus"><strong>{{keywordDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -38,20 +38,26 @@
 
                 </tfoot>
                 <tbody>
-                    <!-- <tr *ngFor="let record of keywordList">
+                    <tr *ngFor="let record of keywordList; let i=index" [attr.data-index]="i">
+                        <td>{{i+1}}</td>
                         <td>{{record.en_name}}</td>
                         <td>{{record.si_name}}</td>
                         <td>{{record.ta_name}}</td>
                         <td align="center">
-                            <a [routerLink]="['../../../settings/keyword/update-keyword']" class="fa fa-1x fa-pencil-square-o">
+                            <a [routerLink]="['../../../settings/keyword/update-keyword', record.id]" class="fa fa-1x fa-pencil-square-o">
                             </a>
                         </td>
-                        <td align="center">
+                        <!-- <td align="center">
                             <a data-toggle="modal" data-target="#deleteModal">
                                 <li class="fa  fa-1x fa-trash"></li>
                             </a>
+                        </td> -->
+                        <td align="center">
+                            <button class="dlt_btn" (click)="deleteKeyword(record.id)">
+                                <li class="fa  fa-1x fa-trash">
+                            </button>
                         </td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
         </div>
