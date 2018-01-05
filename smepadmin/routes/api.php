@@ -116,7 +116,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('delete-institute/{id}','API\InstituteController@deleteInstitute');
         Route::get('status-institute/{id}/{status}','API\InstituteController@statusInstitute');
 
-        //Route::get('insert-institute-authorizer/{nic}','API\InstituteController@insertInstituteAuthorizer');
+        Route::get('insert-institute-authorizer/{nic}/{institute_id}','API\InstituteController@insertInstituteAuthorizer');
         Route::get('get-institute-authorizer/{id}','API\InstituteController@viewInstituteAuthorizer');
         Route::get('get-institute-provider/{id}','API\InstituteController@viewInstituteProvider');
         Route::get('remove-institute-authorizer/{institute_id}/{user_id}','API\InstituteController@removeInstituteAuthorizer');

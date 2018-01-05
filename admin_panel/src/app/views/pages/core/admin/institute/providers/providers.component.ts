@@ -28,17 +28,17 @@ export class ProvidersComponent implements OnInit{
 
     ngOnInit(): void {
         this.validateProviderId();
-        this.dataTable();
+        
+        setTimeout(function(){
+            $('#providerTable').DataTable({
+                "language": {
+                    "search": "Search by: (ID/ Name/ Subject Areas)"
+                }
+
+            });
+        }, 2000);
+
         this.getAddedProviders();
-    }
-
-    dataTable() {
-        $('#providerTable').DataTable({
-            "language": {
-                "search": "Search by: (ID/ Name/ Subject Areas)"
-            }
-
-        });
     }
 
     private validateProviderId(): void{
@@ -58,10 +58,6 @@ export class ProvidersComponent implements OnInit{
         };
     }
 
-    public onSubmit(): void{
-        this.showDiv = this.providerId;
-    }
-
     /**
     * get added providers details 
     */
@@ -71,21 +67,12 @@ export class ProvidersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.providerList = success.success;
-                $("#providerTable").find('tbody').empty();
-                var dataClaims = this.providerList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    for (let j = 0; j < dataClaims[i].institute_users.length; j++) {
-                        $('#providerTable').dataTable().fnAddData([
-                            (i + 1),
-                            dataClaims[i].institute_users[j].id,
-                            dataClaims[i].institute_users[j].name,
-                            '<a>Mathsssss</a>',
-                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa fa-1x fa-trash"></li></a>'
-                        ]);
-                    }
-                }
             }
             );
+    }
+
+    showId(id){
+        alert(id);
     }
 
 }

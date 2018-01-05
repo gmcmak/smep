@@ -131,7 +131,25 @@
             
                             </tfoot>
                             <tbody>
-                                
+                                <tr *ngFor="let record of providerList; let i=index" [attr.data-index]="i">
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <ul *ngFor="let provider of record.institute_users">
+                                            <li>{{provider.id}}</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul *ngFor="let provider of record.institute_users">
+                                            <li>{{provider.name}}</li>
+                                        </ul>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <button class="dlt_btn" (click)="showId(provider.id)">
+                                            <li class="fa  fa-1x fa-trash">
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

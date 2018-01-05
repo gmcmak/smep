@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Institute;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -271,7 +272,7 @@ class InstituteController extends Controller
     public function viewInstituteAuthorizer($id){
         $authorizersData = Institute::with(
             array('instituteUsers' => function($query){
-                $query->where('role_id', 4); 
+                $query->where(['role_id'=>4, 'deleted'=>0]); 
             })
         )->where('id', [$id])->get();
         if($authorizersData){
@@ -288,7 +289,7 @@ class InstituteController extends Controller
     public function viewInstituteProvider($id){
         $providersData = Institute::with(
             array('instituteUsers' => function($query){
-                $query->where('role_id', 3); 
+                $query->where(['role_id'=>3, 'deleted'=>0]); 
             })
         )->where('id', [$id])->get();
         if($providersData){
@@ -319,7 +320,26 @@ class InstituteController extends Controller
     /**
     * add authorizer as user
     **/
-    public function insertInstituteAuthorizer($nic){
+    public function insertInstituteAuthorizer($nic,$institute_id){
+        $table = new Institute();
+        $authorizer_table = new User();
+        $authorizer_id = DB::table('users')->where(['role_id'=>4, 'nic'=>$nic])->pluck('id');
+
+        if(!empty($authorizer_id)){
+
+            $table->id = $institute_id;
+
+            $data = $table->instituteUsers()->attach($authorizer_id);
+            //return response()->json(['success'=>'insert successfully']);
+            return response()->json(['success'=>$authorizer_id]);
+
+        }
+        else{
+            return response()->json(['success'=>'Invalid NIC']);
+        }
+
         
+
+
     }
 }
