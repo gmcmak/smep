@@ -7,8 +7,7 @@
         <a>Profile</a>
     </li>
 </ol>
-
-<form id="userForm">
+<form action="form1">
     <div class="card mb-3">
         <div class="card-header">
             <i class="fa fa-user-o"></i>&emsp;<b>My Profile</b>
@@ -18,33 +17,33 @@
                 <div class="col-md-1"></div>
                 <div class="contenair col-md-3">
                     <div class="col-md-12">
-                        <h6>H.M Namal Pathirana</h6>
-                    </div><br>
+                        <h6>{{userDataList.name}}</h6>
+                    </div>
                     <div class="col-md-12">
                         <i class="fa fa-envelope-o"></i>&emsp;
-                        <span>sbdeshan@gmail.com</span>
+                        <span>{{userDataList.email}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-id-card-o"></i>&emsp;
-                        <span>930282138V</span>
+                        <span>{{userDataList.nic}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-user-o"></i>&emsp;
-                        <span>Lecturer</span>
+                        <span>{{userDataList.designation}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-phone"></i>&emsp;
-                        <span>0714856956</span>
+                        <span>{{userDataList.mobile}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-venus-mars"></i>&emsp;
-                        <span>Male</span>
+                        <span>{{userDataList.gender}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-calendar-o"></i>&emsp;
-                        <span>1990.01.25</span>
+                        <span>{{userDataList.birthday}}</span>
                     </div>
-                    
+    
                 </div>
                 <div class="contenair col-md-7">
                     <ul class="nav nav-tabs">
@@ -64,70 +63,49 @@
                             <br>
                             <h6>Highest Qualification</h6>
                             <p><i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
-                                <span>B.Sc Management and Information Technology</span><br>
+                                <span>{{userDataList.highest_education.qualification}}</span><br>
                                 <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
-                                <span>University of Kelaniya</span><br>
+                                <span>{{userDataList.highest_education.university}}</span><br>
                                 <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
-                                <span>Fist class honours</span><br>
+                                <span>{{userDataList.highest_education.grade}}</span><br>
                                 <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
-                                <span>Sri Lanka</span><br>
+                                <span>{{userDataList.highest_education.country.name}}</span><br>
                                 <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
-                                <span>2015</span><br> 
+                                <span>{{userDataList.highest_education.year}}</span><br> 
                             </p>
                         </div>
                         <div id="menu1" class="tab-pane fade">
                             <br>
                             <h6>Professional Qualification</h6>
-                            <ol>
-                                <li>
+                            <!-- <ol *ngFor="let record of userDataList">
+                                <li *ngFor="let profEdu of record.professional_educations">
                                     <p>
                                         <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>B.Sc Information Technology</span>
+                                        <span>{{profEdu.qualification}}</span>
                                         <br>
                                         <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>SLIIT</span>
+                                        <span>{{profEdu.university}}</span>
                                         <br>
                                         <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>Second class upper</span>
+                                        <span>{{profEdu.grade}}</span>
                                         <br>
                                         <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>Sri Lanka</span>
+                                        <span>{{profEdu.country.name}}</span>
                                         <br>
                                         <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>2016</span>
+                                        <span>{{profEdu.year}}</span>
                                         <br>
                                     </p>
                                 </li>
-                                <li>
-                                    <p>
-                                        <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>Charterd Accounting</span>
-                                        <br>
-                                        <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>CIMA</span>
-                                        <br>
-                                        <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>A+</span>
-                                        <br>
-                                        <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>Sri Lanka</span>
-                                        <br>
-                                        <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>2017</span>
-                                        <br>
-                                    </p>
-                                </li>
-                            </ol>
+                            </ol> -->
                             
                         </div>
                         <div id="menu2" class="tab-pane fade">
                             <br>
                             <h6>Subject Areas</h6>
-                            <ul class="list">
-                                <li><span>Science</span></li>
-                                <li><span>Maths</span></li>
-                                <li><span>Information Technology</span></li>
-                            </ul>
+                            <!-- <ul class="list" *ngFor="let record of userDataList">
+                                <li *ngFor="let subject of record.subject_areas">{{subject.name}}</li>
+                            </ul> -->
                         </div>
                     </div>
                 </div>
@@ -144,6 +122,5 @@
         </div>
     </div>
 </form>
-
 <br>
 <br>

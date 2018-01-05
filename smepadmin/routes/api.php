@@ -26,6 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         // user details    
         Route::post('register', 'API\PassportController@register');    
         Route::get('get-details', 'API\PassportController@getDetails');
+        Route::get('get-all-users', 'API\PassportController@getAllUsers');
         Route::get('edit-details/{id}', 'API\PassportController@editDetails');
         Route::post('update-details/{id}', 'API\PassportController@updateDetails');
         Route::get('delete-details/{id}', 'API\PassportController@deleteDetails');

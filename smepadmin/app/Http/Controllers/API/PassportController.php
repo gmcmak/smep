@@ -76,8 +76,21 @@ class PassportController extends Controller
     public function getDetails()
     {
         // $user = Auth::user();
-        $user = Auth::user()::with('role', 'highestEducation.country', 'professionalEducations.country','institues')->find(Auth::user()->id);
+        $user = Auth::user()::with('role', 'highestEducation.country', 'professionalEducations.country','institues','subjectAreas')->find(Auth::user()->id);
        // $user = Auth::user()::with('role', 'highestEducation.country', 'professionalEducations.country','institues')->get();
+        // $user = Auth::user();
+        // $user->roles;
+        return response()->json(['success' => $user], $this->successStatus);
+    }
+
+    /**
+     * get all users' detals
+     */
+    public function getAllUsers()
+    {
+        $user = Auth::user();
+        //$user = Auth::user()::with('role', 'highestEducation.country', 'professionalEducations.country','institues','subjectAreas')->find(Auth::user()->id);
+        $user = Auth::user()::with('role', 'highestEducation', 'professionalEducations','institues', 'subjectAreas')->get();
         // $user = Auth::user();
         // $user->roles;
         return response()->json(['success' => $user], $this->successStatus);
