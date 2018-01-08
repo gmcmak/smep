@@ -266,7 +266,7 @@ class InstituteController extends Controller
     	}
     }
 
-    /**
+     /**
     * get all authorizers data assigned to institute
     */
     public function viewInstituteAuthorizer($id){
@@ -275,12 +275,59 @@ class InstituteController extends Controller
                 $query->where(['role_id'=>4, 'deleted'=>0]); 
             })
         )->where('id', [$id])->get();
+
         if($authorizersData){
-            return response()->json(['success'=>$authorizersData]);
+            return response()->json(['success'=>$authorizersData, 'error'=>0]);
         }
         else{
-            return response()->json(['error'=>'Error occured']);
+            return response()->json(['error'=>'Error occured', 'error'=>1]);
         }
+    }
+
+    /**
+    * add authorizer as user
+    **/
+    public function insertInstituteAuthorizer($nic,$institute_id){
+        $table = new Institute();
+        $authorizer_table = new User();
+        $authorizer_id = DB::table('users')->where(['role_id'=>4, 'nic'=>$nic])->pluck('id');
+
+        $checkEmpty = $authorizer_id->isEmpty();
+
+        if($checkEmpty == false){
+
+            $table->id = $institute_id;
+
+            //check record is available or not
+            $findRecord = $table->instituteUsers()->find(['user_id'=>$authorizer_id, 'institute_id'=>$institute_id]);
+            $checkFindRecord = $findRecord->isEmpty();
+
+            if($checkFindRecord == true){
+                $data = $table->instituteUsers()->attach($authorizer_id);  
+                return response()->json(['success'=>'Successfully added', 'error'=>0]);
+            }
+
+            else{
+                return response()->json(['success'=>'Authorizer is already added', 'error'=>1]);
+            }
+
+        }
+        else{
+            return response()->json(['success'=>'No authorizer for entered nic','error'=>1]);
+        }
+    }
+
+    /**
+    * remove added authorizers
+    */
+    public function removeInstituteAuthorizer($user_id, $institute_id){
+        $table = new Institute();
+
+        $institute = Institute::find($institute_id);
+
+        $removeAuthorizer = $institute->instituteUsers()->detach($user_id);
+
+        return response()->json(['success'=>'Successfully removed', 'error'=>0]); 
     }
 
     /**
@@ -293,7 +340,7 @@ class InstituteController extends Controller
             })
         )->where('id', [$id])->get();
         if($providersData){
-            return response()->json(['success'=>$providersData]);
+            return response()->json(['success'=>$providersData, 'error'=>0]);
         }
         else{
             return response()->json(['error'=>'Error occured']);
@@ -301,45 +348,50 @@ class InstituteController extends Controller
     }
 
     /**
-    * remove added authorizers
-    */
-    public function removeInstituteAuthorizer($institute_id,$user_id){
-         $removeAuthorizer = Institute::with(
-            array('instituteUsers' => function($query) use ($institute_id,$user_id){
-                $query->where('user_id',[$user_id])->where('institute_id',[$institute_id]); 
-            }))->get();
-        if($removeAuthorizer){
-            return response()->json(['success'=>$removeAuthorizer]);
-        }
-        else{
-            return response()->json(['error'=>'Error occured']);
-        }
-    }
-
-
-    /**
-    * add authorizer as user
+    * add provider as user
     **/
-    public function insertInstituteAuthorizer($nic,$institute_id){
+    public function insertInstituteProvider($nic,$institute_id){
         $table = new Institute();
         $authorizer_table = new User();
-        $authorizer_id = DB::table('users')->where(['role_id'=>4, 'nic'=>$nic])->pluck('id');
+        $provider_id = DB::table('users')->where(['role_id'=>3, 'nic'=>$nic])->pluck('id');
 
-        if(!empty($authorizer_id)){
+        $checkEmpty = $provider_id->isEmpty();
+
+        if($checkEmpty == false){
 
             $table->id = $institute_id;
 
-            $data = $table->instituteUsers()->attach($authorizer_id);
-            //return response()->json(['success'=>'insert successfully']);
-            return response()->json(['success'=>$authorizer_id]);
+            //check record is available or not
+            $findRecord = $table->instituteUsers()->find(['user_id'=>$provider_id, 'institute_id'=>$institute_id]);
+            $checkFindRecord = $findRecord->isEmpty();
+
+            if($checkFindRecord == true){
+                $data = $table->instituteUsers()->attach($provider_id);  
+                return response()->json(['success'=>'Successfully added', 'error'=>0]);
+            }
+
+            else{
+                return response()->json(['success'=>'Provider is already added', 'error'=>1]);
+            }
 
         }
         else{
-            return response()->json(['success'=>'Invalid NIC']);
+            return response()->json(['success'=>'No provider for entered nic','error'=>1]);
         }
-
-        
-
-
     }
+
+    /**
+    * remove added providers
+    */
+    public function removeInstituteProvider($user_id, $institute_id){
+        $table = new Institute();
+
+        $institute = Institute::find($institute_id);
+
+        $removeProvider = $institute->instituteUsers()->detach($user_id);
+
+        return response()->json(['success'=>'Successfully removed', 'error'=>0]);
+        
+    }
+
 }

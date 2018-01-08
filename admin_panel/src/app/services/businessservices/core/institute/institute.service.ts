@@ -152,13 +152,77 @@ export class InstituteService{
     /**
      * get added providers' details
      */
-    public getAddedProviders(id) {
+    public getAddedProviders(institute_id) {
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
         let body = '';
-        return this.http.get(this.API_ENDPOINT + 'get-institute-provider/' + id,
+        return this.http.get(this.API_ENDPOINT + 'get-institute-provider/' + institute_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * add authorizer
+     */
+    public addAuthorizer(institute_id, authorizerNic) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'insert-institute-authorizer/' + authorizerNic +'/'+ institute_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * add provider
+     */
+    public addProvider(institute_id, providerNic) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'insert-institute-provider/' + providerNic + '/' + institute_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * remove provider
+     */
+    public removeProvider(deleteId, institute_id) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'remove-institute-provider/' + deleteId + '/' + institute_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+     * remove authorizer
+     */
+    public removeAuthorizer(deleteId, institute_id) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'remove-institute-authorizer/' + deleteId + '/' + institute_id,
             {
                 headers: headers
             })

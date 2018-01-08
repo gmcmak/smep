@@ -11,6 +11,8 @@
     </li>
 </ol>
 
+<div id="success_alert" class="alert alert-success" *ngIf="providerStatus" [ngClass]="changeAlertClass()">{{providerStatus}}</div>
+
 <form id="userForm">
     <div class="card mb-3">
         <div class="card-header">
@@ -23,7 +25,7 @@
                     <h6 class="subTitle">Add Providers,</h6>
                 </div>
             </div>
-            <form id="form1" name="form1" [formGroup]="addProviderForm" (ngSubmit)="onSubmit()" action="">
+            <form id="addProviderForm" name="addProviderForm" [formGroup]="addProviderForm" (ngSubmit)="addProvider(addProviderForm.value)">
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-4">
@@ -32,8 +34,8 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="input-group">
-                                <input class="form-control group-text" type="text" placeholder="Enter N.I.C (932472189V)" formControlName="providerId" [(ngModel)]="providerId"
-                                    [ngClass]="displayFieldCss('providerId')" maxlength="10">
+                                <input class="form-control group-text" type="text" placeholder="Enter N.I.C (932472189V)" formControlName="providerNic" [(ngModel)]="providerNic"
+                                    [ngClass]="displayFieldCss('providerNic')" maxlength="10">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit" id="providerSearchBtn" [disabled]="!addProviderForm.valid">
                                         <i class="fa fa-plus-circle"></i>
@@ -41,10 +43,10 @@
                                 </span>
                             </div>
                         </div>
-                        <div *ngIf="addProviderForm.controls['providerId'].hasError('required') && addProviderForm.controls['providerId'].touched" class="row error">
+                        <div *ngIf="addProviderForm.controls['providerNic'].hasError('required') && addProviderForm.controls['providerNic'].touched" class="row error">
                             N.I.C number is required !
                         </div>
-                        <div *ngIf="addProviderForm.controls['providerId'].hasError('pattern') && addProviderForm.controls['providerId'].touched"
+                        <div *ngIf="addProviderForm.controls['providerNic'].hasError('pattern') && addProviderForm.controls['providerNic'].touched"
                             class="row error">
                             Entered invalid number !
                         </div>
@@ -131,21 +133,13 @@
             
                             </tfoot>
                             <tbody>
-                                <tr *ngFor="let record of providerList; let i=index" [attr.data-index]="i">
+                                <tr *ngFor="let record of providerList[0].institute_users;  let i = index" [attr.data-index]="i">
                                     <td>{{i+1}}</td>
-                                    <td>
-                                        <ul *ngFor="let provider of record.institute_users">
-                                            <li>{{provider.id}}</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul *ngFor="let provider of record.institute_users">
-                                            <li>{{provider.name}}</li>
-                                        </ul>
-                                    </td>
+                                    <td>{{record.id}}</td>
+                                    <td>{{record.name}}</td>
                                     <td></td>
-                                    <td>
-                                        <button class="dlt_btn" (click)="showId(provider.id)">
+                                    <td align="center">
+                                        <button class="dlt_btn" (click)="deleteProvider(record.id)">
                                             <li class="fa  fa-1x fa-trash">
                                         </button>
                                     </td>

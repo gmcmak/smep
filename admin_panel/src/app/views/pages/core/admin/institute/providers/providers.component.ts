@@ -14,10 +14,12 @@ const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 })
 
 export class ProvidersComponent implements OnInit{
-    public providerId: string;
+    public providerNic: string;
     public showDiv: string = '';
 
-    public id=17; //institute id
+    public providerStatus;
+    public institute_id = 17; //institute id
+    public error;
     public providerList;
 
     public addProviderForm: FormGroup;
@@ -43,7 +45,7 @@ export class ProvidersComponent implements OnInit{
 
     private validateProviderId(): void{
         this.addProviderForm = this.formBuilder.group({
-            'providerId': [null, [Validators.required, Validators.pattern(NIC_REGEX)]]
+            'providerNic': [null, [Validators.required, Validators.pattern(NIC_REGEX)]]
         });
     }
 
@@ -59,11 +61,46 @@ export class ProvidersComponent implements OnInit{
     }
 
     /**
+        * hide success alert
+        */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
+     * add authorizer
+     */
+    addProvider(formData) {
+        this.instituteService.addProvider(
+            this.institute_id,
+            formData.providerNic
+        ).subscribe(
+            success => {
+                this.providerStatus = success.success;
+                this.error = success.error;
+                this.addProviderForm.reset();
+                this.hideAlert();
+                this.getAddedProviders();
+            }
+            );
+    }
+
+    /**
+     * change alert design
+     */
+    public changeAlertClass() {
+        return this.error === 0 ? 'alert-success' : 'alert-danger';
+    }
+
+    /**
     * get added providers details 
     */
     public getAddedProviders() {
         this.instituteService.getAddedProviders(
-            this.id
+            this.institute_id
         ).subscribe(
             success => {
                 this.providerList = success.success;
@@ -71,8 +108,21 @@ export class ProvidersComponent implements OnInit{
             );
     }
 
-    showId(id){
-        alert(id);
+    /**
+     * remove added providers
+     */
+    deleteProvider(deleteId){
+        this.instituteService.removeProvider(
+            deleteId,
+            this.institute_id
+        ).subscribe(
+            success => {
+                this.providerStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+                this.getAddedProviders();
+            }
+        );
     }
 
 }

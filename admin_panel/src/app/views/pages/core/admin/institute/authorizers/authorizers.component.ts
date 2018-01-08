@@ -14,11 +14,14 @@ const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 })
 
 export class AuthorizersComponent implements OnInit{
-    public authorizerId: string;
+    public authorizerNic: string;
     public showDiv: string = 'kamal';
 
-    public id = 14; //institute id
+    public institute_id = 19; //institute id
     public authorizersList;
+
+    public authorizerStatus;
+    public error=0;
 
     public addAuthorizerForm: FormGroup;
     constructor(
@@ -28,22 +31,22 @@ export class AuthorizersComponent implements OnInit{
 
     ngOnInit(): void {
         this.validateAuthorizerId();
-        this.dataTable();
+
+        setTimeout(function(){
+            $('#authorizerTable').DataTable({
+                "language": {
+                    "search": "Search by: (ID/ Name/ Subject Areas)"
+                }
+
+            });
+        }, 2000);
+
         this.getAddedAuthorizers();
-    }
-
-    dataTable() {
-        $('#authorizerTable').DataTable({
-            "language": {
-                "search": "Search by: (ID/ Name/ Subject Areas)"
-            }
-
-        });
     }
 
     private validateAuthorizerId(): void {
         this.addAuthorizerForm = this.formBuilder.group({
-            'authorizerId': [null, [Validators.required, Validators.pattern(NIC_REGEX)]]
+            'authorizerNic': [null, [Validators.required, Validators.pattern(NIC_REGEX)]]
         });
     }
 
@@ -58,8 +61,45 @@ export class AuthorizersComponent implements OnInit{
         };
     }
 
-    public onSubmit(): void {
-        this.showDiv = this.authorizerId;
+    /**
+        * hide success alert
+        */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
+    * change alert design
+    */
+    public changeAlertClass() {
+        console.log('this.error ' + this.error);
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        };
+        
+    }
+
+    /**
+     * add authorizer
+     */
+    addAuthorizer(formData){
+        this.instituteService.addAuthorizer(
+            this.institute_id = 19,
+            formData.authorizerNic
+        ).subscribe(
+            success => {
+                console.log('addAuthorizer ' + success);
+                this.error = success.error;
+                this.authorizerStatus = success.success;
+                this.addAuthorizerForm.reset();
+                this.hideAlert();
+                this.getAddedAuthorizers();
+            }
+        );
     }
 
     /**
@@ -67,25 +107,31 @@ export class AuthorizersComponent implements OnInit{
     */
     public getAddedAuthorizers() {
         this.instituteService.getAddedAuthorizers(
-            this.id
+            this.institute_id
         ).subscribe(
             success => {
                 this.authorizersList = success.success;
-                $("#authorizerTable").find('tbody').empty();
-                var dataClaims = this.authorizersList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    for(let j=0; j<dataClaims[i].institute_users.length; j++){
-                        $('#authorizerTable').dataTable().fnAddData([
-                            (i + 1),
-                            dataClaims[i].institute_users[j].id,
-                            dataClaims[i].institute_users[j].name,
-                            '<a>Mathsssss</a>',
-                            '<a data-toggle="modal" data-target="#deleteModal"><li class="fa fa-1x fa-trash"></li></a>'
-                        ]);
-                    }    
-                }
             }
             );
+    }
+
+    /**
+     * remove authorizer
+     */
+    public deleteAuthorizer(deleteId){
+        this.instituteService.removeAuthorizer(
+            deleteId,
+            this.institute_id
+        ).subscribe(
+            success => {
+                console.log('succes ' + success);
+                this.error = success.error;
+                this.authorizerStatus = success.success;
+                this.hideAlert();
+                
+                this.getAddedAuthorizers();
+            }
+        );
     }
 
 }
