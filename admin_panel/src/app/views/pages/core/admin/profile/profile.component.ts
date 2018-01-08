@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { UserService } from "../../../../../services/businessservices/core/user/user.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'profile',
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit{
     }
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private router: Router
     ){}
 
     /**
@@ -30,5 +32,17 @@ export class ProfileComponent implements OnInit{
             }
         );
     }
+
+    // public changeRouter(userId){
+    //     if(userId==4){
+    //         this.router.navigate(['../../content-authorizer/update-authorizers/', userId]);
+    //     }
+    //     if (userId == 3) {
+    //         this.router.navigate(['../../content-provider/update-providers/', userId]);
+    //     }
+    //     if (userId == 5) {
+    //         this.router.navigate(['../../institute/update-institute/', userId]);
+    //     }
+    // }
 
 }

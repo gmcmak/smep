@@ -273,7 +273,7 @@ class InstituteController extends Controller
         $authorizersData = Institute::with(
             array('instituteUsers' => function($query){
                 $query->where(['role_id'=>4, 'deleted'=>0]); 
-            })
+            }, 'instituteUsers.subjectAreas')
         )->where('id', [$id])->get();
 
         if($authorizersData){
@@ -337,7 +337,7 @@ class InstituteController extends Controller
         $providersData = Institute::with(
             array('instituteUsers' => function($query){
                 $query->where(['role_id'=>3, 'deleted'=>0]); 
-            })
+            }, 'instituteUsers.subjectAreas')
         )->where('id', [$id])->get();
         if($providersData){
             return response()->json(['success'=>$providersData, 'error'=>0]);

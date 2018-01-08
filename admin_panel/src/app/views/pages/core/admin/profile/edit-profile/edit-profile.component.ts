@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from "@angular/router";
+import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -17,8 +19,11 @@ const MOBILE_REGEX = /^[0-9]{10}/;
 export class EditProfileComponent implements OnInit{
     public authorizer = new Authorizer();
 
+    public id;
+    public sub;
+    public editId;
+
     ngOnInit(): void {
-        //throw new Error("Method not implemented.");
         this.intializeAuthorizerUpdateForm();
 
         $("#caDob").datepicker({
@@ -27,14 +32,23 @@ export class EditProfileComponent implements OnInit{
             changeYear: true
         }).on('change', e => this.authorizer.caDob = e.target.value);
 
+        /**
+         * get param id value from the router
+         */
+        this.sub = this.route.params.subscribe(params => {
+            this.editId = +params['id'];
+        });
+
     }
 
 
     public authorizerForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
-
-    }
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private userService: UserService
+    ) {}
 
     private intializeAuthorizerUpdateForm(): void {
         //get individual form input data
@@ -117,14 +131,6 @@ export class EditProfileComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
-    }
-
-    onReset() {
-        this.authorizerForm.reset;
-    }
-
-    onSubmit() {
-        console.log(this.authorizerForm.value);
     }
 
     //show professional qualification row2

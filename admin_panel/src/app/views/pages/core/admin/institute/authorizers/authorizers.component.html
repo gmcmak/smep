@@ -144,7 +144,13 @@
                                     <td>{{i+1}}</td>
                                     <td>{{record.id}}</td>
                                     <td>{{record.name}}</td>
-                                    <td></td>
+                                    <td>
+                                        <ul *ngFor="let subject of record.subject_areas">
+                                            <li>
+                                                {{subject.name}}
+                                            </li>
+                                        </ul>
+                                    </td>
                                     <td align="center">
                                         <button class="dlt_btn" (click)="deleteAuthorizer(record.id)">
                                             <li class="fa  fa-1x fa-trash">

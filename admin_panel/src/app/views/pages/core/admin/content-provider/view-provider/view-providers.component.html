@@ -39,7 +39,13 @@
             <tr *ngFor="let record of providerList;  let i = index" [attr.data-index]="i">
                 <td>{{i+1}}</td>
                 <td>{{record.name}}</td>
-                <td></td>
+                <td>
+                    <ul *ngFor="let institute of record.institues">
+                        <li>
+                            {{institute.name}}
+                        </li>
+                    </ul>
+                </td>
                 <td>
                     <ul *ngFor="let subject of record.subject_areas">
                         <li>
