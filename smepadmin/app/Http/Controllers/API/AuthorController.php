@@ -35,10 +35,10 @@ class AuthorController extends Controller
         $table->updated_at = now();
         $table->save();
         if($table->save()){
-          return response()->json(['success'=>'Successfully inserted']);
+          return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
         }
         else{
-          return response()->json(['error'=>'Error occured']);
+          return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
@@ -96,10 +96,10 @@ class AuthorController extends Controller
           'ta_name' => $ta_name
         ];
         $data = DB::table('authors')->whereIn('id', [$id])->update($update);
-        return response()->json(['success'=>'Successfully updated']);
+        return response()->json(['success'=>'Successfully updated', 'error'=>0]);
       }
       catch(\Illuminate\Database\QueryException $ex){
-        return response()->json($ex->getMessage());
+        return response()->json('success'=>'Error occured', 'error'=>1);
       }
     }
 
@@ -112,10 +112,10 @@ class AuthorController extends Controller
       $data = DB::table('authors')->whereIn('id', [$id])->delete();
 
       if($data){
-        return response()->json(['success'=>'Successfully deleted']);
+        return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
       }
       else{
-        return response()->json(['error'=>'Error ocuured']);
+        return response()->json(['success'=>'Error ocuured', 'error'=>1]);
       }
     }
 }

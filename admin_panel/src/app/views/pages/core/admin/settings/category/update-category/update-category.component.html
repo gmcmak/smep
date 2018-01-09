@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="categoryUpdatingStatus">{{categoryUpdatingStatus}}</div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="categoryUpdatingStatus"><strong>{{categoryUpdatingStatus}} !</strong></div>
 
 <form id="categoryForm" [formGroup]="categoryForm" (ngSubmit)="updateCategory(categoryForm.value)">
     <div class="card mb-3">

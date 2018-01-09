@@ -15,6 +15,7 @@ declare var jQuery: any;
 export class ViewAuthorComponent implements OnInit{
     public authorList;
     private loggedInUserList;
+    public error = 0;
 
     public authorDeletingStatus;
 
@@ -45,23 +46,21 @@ export class ViewAuthorComponent implements OnInit{
         }, 2000);
     }
 
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
     private getAuthors(){
         this.AuthorService.getAuthorsList()
             .subscribe(
                 success=>{
                     this.authorList = success.success;
-                    // $("#authorsTable").find('tbody').empty();
-                    // var dataClaims = this.authorList;
-                    // for (let i = 0; i < dataClaims.length; i++) {
-                    //     $('#authorsTable').dataTable().fnAddData([
-                    //         (i + 1),
-                    //         dataClaims[i].en_name,
-                    //         dataClaims[i].si_name,
-                    //         dataClaims[i].ta_name,
-                    //         '<a [routerLink]="[' + "'" + "../../../settings/author/update-author" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    //     ]);
-                    // }
                 }
             );
     }
@@ -72,6 +71,7 @@ export class ViewAuthorComponent implements OnInit{
         ).subscribe(
             success => {
                 this.authorDeletingStatus = success.success;
+                this.error = success.error;
                 this.getAuthors();
                 this.hideAlert();
             }

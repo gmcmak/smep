@@ -36,10 +36,10 @@ class CategoryController extends Controller
         $table->updated_at = now();
         $table->save();
         if($table->save()){
-          return response()->json(['success'=>'Successfully inserted']);
+          return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
         }
         else{
-          return response()->json(['error'=>'Error occured']);
+          return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
@@ -99,11 +99,11 @@ class CategoryController extends Controller
           ];
 
           $data = DB::table('categories')->whereIn('id', [$id])->update($update);
-          return response()->json(['success'=>'Successfully updated']);
+          return response()->json(['success'=>'Successfully updated', 'error'=>0]);
 
         }
         catch(\Illuminate\Database\QueryException $ex){
-            return response()->json($ex->getMessage());
+            return response()->json('success'=>'Error occured', 'error'=>1);
         }
       }
     }
@@ -116,10 +116,10 @@ class CategoryController extends Controller
       $update = ['deleted'=>1];
       $data = DB::table('categories')->whereIn('id', [$id])->update($update);
       if($data){
-        return response()->json(['success'=>'Successfully deleted']);
+        return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
       }
       else{
-        return response()->json(['error'=>'Error occured']);
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
       }
     }
 

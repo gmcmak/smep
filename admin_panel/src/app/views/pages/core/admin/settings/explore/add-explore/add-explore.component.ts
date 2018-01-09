@@ -17,6 +17,7 @@ export class AddExploreComponent implements OnInit{
     public exploreForm: FormGroup;
     private deleted;
     public exploreAddingStatus;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -35,6 +36,16 @@ export class AddExploreComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeExploreForm(): void {
@@ -85,6 +96,7 @@ export class AddExploreComponent implements OnInit{
         ).subscribe(
             success => {
                 this.exploreAddingStatus = success.success;
+                this.error = success.error;
                 this.exploreForm.reset();
                 this.hideAlert();
             }

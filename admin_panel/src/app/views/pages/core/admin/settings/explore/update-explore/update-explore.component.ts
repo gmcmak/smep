@@ -18,6 +18,7 @@ export class UpdateExploreComponent implements OnInit{
     public exploreForm: FormGroup;
     public editExploreList;
     public parent_id;
+    public error = 0;
 
     public sub:any;
     public id:number;
@@ -54,6 +55,16 @@ export class UpdateExploreComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeExploreForm(): void {
@@ -123,6 +134,7 @@ export class UpdateExploreComponent implements OnInit{
         ).subscribe(
             success => {
                 this.exploreUpdatingStatus = success.success;
+                this.error = success.error;
                 this.exploreForm.reset();
                 this.hideAlert();
             }

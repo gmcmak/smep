@@ -23,6 +23,7 @@ export class UpdateInstituteComponent implements OnInit{
     public instituteForm: FormGroup;
     public instituteUpdatingStatus;
     private deleted;
+    public error = 0;
 
     public sub: any;
     public id: number;
@@ -72,6 +73,16 @@ export class UpdateInstituteComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeInstituteForm(): void {
@@ -183,6 +194,7 @@ export class UpdateInstituteComponent implements OnInit{
         ).subscribe(
             success => {
                 this.instituteUpdatingStatus = success.success;
+                this.error = success.error;
                 this.instituteForm.reset();
                 this.hideAlert();
             }

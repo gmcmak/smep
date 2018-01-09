@@ -29,6 +29,7 @@ export class UpdateUsersComponent implements OnInit{
     public id: number;
     public editId: number;
     public editUserList;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -113,6 +114,16 @@ export class UpdateUsersComponent implements OnInit{
     }
 
     /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
+    /**
      * get role list
      * @param  
      */
@@ -120,7 +131,7 @@ export class UpdateUsersComponent implements OnInit{
         this.UserService.getRolesList()
             .subscribe(
             success => {
-                this.rolesList = success.success
+                this.rolesList = success.success;
             }
             );
     }
@@ -170,6 +181,7 @@ export class UpdateUsersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.userUpdatingStatus = success.success;
+                this.error = success.error;
                 this.userForm.reset();
                 this.hideAlert();
             }

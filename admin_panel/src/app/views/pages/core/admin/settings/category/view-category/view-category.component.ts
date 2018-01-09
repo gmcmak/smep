@@ -18,6 +18,7 @@ export class ViewCategoryComponent implements OnInit{
     private loggedInUserList;
 
     public categoryDeletingStatus;
+    public error = 0;
 
     constructor(
         private CategoryService: CategoryService,
@@ -47,6 +48,16 @@ export class ViewCategoryComponent implements OnInit{
     }
 
     /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
+    /**
      * get category details for category table
      */
     getCategories(){
@@ -54,19 +65,6 @@ export class ViewCategoryComponent implements OnInit{
             .subscribe(
                 success=>{
                     this.categoryList=success.success;
-                    // $("#categoryTable").find('tbody').empty();
-                    // var dataClaims = this.categoryList;
-                    // for (let i = 0; i < dataClaims.length; i++) {
-                    //     $('#categoryTable').dataTable().fnAddData([
-                    //         (i + 1),
-                    //         dataClaims[i].en_name,
-                    //         dataClaims[i].si_name,
-                    //         dataClaims[i].ta_name,
-                    //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                    //         '<a [routerLink]="[' + "'" + "../../../settings/category/update-category" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    //     ]);
-                    // }
                 }
             );
     }
@@ -80,6 +78,7 @@ export class ViewCategoryComponent implements OnInit{
         ).subscribe(
             success => {
                 this.categoryDeletingStatus = success.success;
+                this.error = success.error;
                 this.getCategories();
                 this.hideAlert();
             }

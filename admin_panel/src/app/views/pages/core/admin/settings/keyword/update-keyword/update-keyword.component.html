@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="keywordupdatingStatus">{{keywordupdatingStatus}}</div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="keywordupdatingStatus"><strong>{{keywordupdatingStatus}} !</strong></div>
 
 <form id="keywordForm" [formGroup]="keywordForm" (ngSubmit)="updateKeyword(keywordForm.value)">
     <div class="card mb-3">

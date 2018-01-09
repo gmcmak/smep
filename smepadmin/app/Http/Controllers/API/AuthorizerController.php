@@ -144,10 +144,10 @@ class AuthorizerController extends Controller
     			$insert_highest_quali = $user_table->highestEducation()->insert($highest_edu_quali);
     			$insert_proff_quali = $user_table->professionalEducations()->insert($proff_edu_quali);
     			$insert_subject_areas = $user_table->subjectAreas()->attach($subject_area);
-    			return response()->json(['success'=>'Successfully inserted']);
+    			return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
     		}
     		else{
-    			return response()->json(['error'=>'Error occured'], 401);
+    			return response()->json(['success'=>'Error occured', 'error'=>1], 401);
     		}
     	}
     }
@@ -300,10 +300,10 @@ class AuthorizerController extends Controller
                 $authorizer->subjectAreas()->detach();
                 $table->id = $id;
                 $updatingSubject = $table->subjectAreas()->attach($subject_area);
-                return response()->json(['success'=>'Successfully updated']);
+                return response()->json(['success'=>'Successfully updated', 'error'=>0]);
             }
             catch(\Illuminate\Database\QueryException $ex){
-                return response()->json($ex->getMessage());
+                return response()->json(['success'=>'Error occured', 'error'=>1]);
             }
             
         }
@@ -323,10 +323,10 @@ class AuthorizerController extends Controller
             $authorizer->professionalEducations()->delete();
             $authorizer->subjectAreas()->detach();
 
-            return response()->json(['success'=>'Successfully deleted']);
+            return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
         }
         else{
-            return response()->json(['error'=>'Error occured']);
+            return response()->json(['success'=>'Error occured', 'error'=> 1]);
         }    
     }
 }

@@ -80,10 +80,10 @@ class InstituteController extends Controller
                 $insert_user_id = $table->users()->insertGetId($user_details);
                 $id = array($insert_user_id); 
                 $data = $table->instituteUsers()->attach($id);
-    			return response()->json(['success'=>'Successfully inserted']);
+    			return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
     		}
     		else{
-    			return response()->json(['error'=>'Error occured']);
+    			return response()->json(['success'=>'Error occured', 'error'=>1]);
     		}
     	}
     }
@@ -147,7 +147,7 @@ class InstituteController extends Controller
             'user_birthday' => 'required|date'
     	]);
     	if($validator->fails()){
-    		return response()->json(['error'=>$validator->errors()], 401);
+    		return response()->json(['success'=>$validator->errors(), 'error'=>1], 401);
     	}
     	else{
 
@@ -195,11 +195,11 @@ class InstituteController extends Controller
                 })
             )->where([['id', '=', $id],])->get();
 
-            return response()->json(['success'=>'Successfully updated']);
+            return response()->json(['success'=>'Successfully updated', 'error'=>0]);
 
             }
             catch(\Illuminate\Database\QueryException $ex){
-                return response()->json($ex->getMessage());
+                return response()->json('success'=>'Error occured', 'error'=>1);
             }	
     	}
     }
@@ -221,10 +221,10 @@ class InstituteController extends Controller
                 })
             )->where([['id', '=', $id],])->get();
 
-    		return response()->json(['success'=>'Successfully deleted']);
+    		return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
     	}
     	else{
-    		return response()->json(['error'=>'Error occured'], 401);
+    		return response()->json(['success'=>'Error occured', 'error'=>1], 401);
     	}
     }     
 

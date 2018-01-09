@@ -28,6 +28,8 @@ export class AddProvidersComponent implements OnInit{
     public providerRegisterStatus;
     private deleted;
     private status;
+
+    public error = 0;
    
     public individualForm: FormGroup;
 
@@ -60,6 +62,16 @@ export class AddProvidersComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     /**
@@ -286,6 +298,7 @@ export class AddProvidersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.providerRegisterStatus = success.success;
+                this.error = success.error;
                 this.individualForm.reset();
                 this.hideAlert();
             }

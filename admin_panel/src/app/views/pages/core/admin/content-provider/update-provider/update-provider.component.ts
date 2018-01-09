@@ -29,10 +29,11 @@ export class UpdateProvidersComponent implements OnInit{
     public providerUpdateStatus;
     private deleted;
     private status;
+    public error = 0;
 
     public sub: any;
     public id: number;
-    private editId = 73;
+    private editId;
     public editProviderList;
 
     public individualForm: FormGroup;
@@ -76,6 +77,16 @@ export class UpdateProvidersComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     /**
@@ -329,7 +340,7 @@ export class UpdateProvidersComponent implements OnInit{
     }
 
     /**
-     * insert provider's details
+     * update provider's details
      */
     updateProvider(formData) {
         this.providerService.updateProvider(
@@ -376,6 +387,7 @@ export class UpdateProvidersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.providerUpdateStatus = success.success;
+                this.error = success.error;
                 this.individualForm.reset();
                 this.hideAlert();
             }

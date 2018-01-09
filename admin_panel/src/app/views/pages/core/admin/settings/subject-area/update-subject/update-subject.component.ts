@@ -17,6 +17,7 @@ export class UpdateSubjectComponent implements OnInit{
     public subjectForm: FormGroup;
     public subjectUpdatingStatus;
     public subjectList;
+    public error = 0;
 
     public id: number;
     public sub: any;
@@ -49,6 +50,16 @@ export class UpdateSubjectComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeSubjectForm(): void {
@@ -92,6 +103,7 @@ export class UpdateSubjectComponent implements OnInit{
         ).subscribe(
             success => { 
                 this.subjectUpdatingStatus = success.success;
+                this.error = success.error;
                 this.subjectForm.reset();
                 this.hideAlert();
             });

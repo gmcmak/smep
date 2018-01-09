@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="authorizerUpdatingStatus">{{authorizerUpdatingStatus}}</div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="authorizerUpdatingStatus"><strong>{{authorizerUpdatingStatus}} !</strong></div>
 
 
 <div class="card mb-3">

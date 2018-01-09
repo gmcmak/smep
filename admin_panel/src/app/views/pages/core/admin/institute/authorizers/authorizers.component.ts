@@ -75,7 +75,6 @@ export class AuthorizersComponent implements OnInit{
     * change alert design
     */
     public changeAlertClass() {
-        console.log('this.error ' + this.error);
         return {
             'alert-success': this.error === 0,
             'alert-danger': this.error != 0

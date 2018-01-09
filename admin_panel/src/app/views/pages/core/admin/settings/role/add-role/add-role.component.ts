@@ -16,6 +16,7 @@ export class AddRoleComponent implements OnInit{
     public role = new Role();
     public roleForm: FormGroup;
     public roleAddingStatus;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -34,6 +35,16 @@ export class AddRoleComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeRoleForm(): void {
@@ -76,6 +87,7 @@ export class AddRoleComponent implements OnInit{
         ).subscribe(
             success => {
                 this.roleAddingStatus = success.success;
+                this.error = success.error;
                 this.roleForm.reset();
                 this.hideAlert();
             }

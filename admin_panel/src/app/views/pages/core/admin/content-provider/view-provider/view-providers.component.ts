@@ -17,6 +17,7 @@ export class ViewProvidersComponent implements OnInit {
     public providerList;
 
     public providerDeletingStatus;
+    public error = 0;
 
     constructor(
         private providerService: ProviderService,
@@ -49,6 +50,16 @@ export class ViewProvidersComponent implements OnInit {
     }
 
     /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
+    /**
      * get providers data list
      */
     private getProvidersList() {
@@ -56,21 +67,6 @@ export class ViewProvidersComponent implements OnInit {
             .subscribe(
             success => {
                 this.providerList = success.success;
-                // $("#dataTableProviders").find('tbody').empty();
-                // var dataClaims = this.providerList;
-                // for (let i = 0; i < dataClaims.length; i++) {
-                //     $('#dataTableProviders').dataTable().fnAddData([
-                //         (i + 1),
-                //         dataClaims[i].name,
-                //         dataClaims[i].name,
-                //         dataClaims[i].name,
-                //         '<a>10</a>',
-                //         '<a>5</a>',
-                //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                //         '<a [routerLink]="[' + "'" + "../../content-provider/update-providers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                //     ]);
-                // }
             }
             );
     }
@@ -84,6 +80,7 @@ export class ViewProvidersComponent implements OnInit {
         ).subscribe(
             success => {
                 this.providerDeletingStatus = success.success;
+                this.error = success.error;
                 this.getProvidersList();
                 this.hideAlert();
             }

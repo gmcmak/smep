@@ -63,9 +63,8 @@ class PassportController extends Controller
         $user = User::create($input);
         $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
-        $success['message'] = "User has been added";
 
-        return response()->json(['success'=>$success], $this->successStatus);
+        return response()->json(['success'=>'User has been added', 'error'=>0], $this->successStatus);
     }
 
     /**
@@ -127,7 +126,7 @@ class PassportController extends Controller
             'role_id' => 'required'
         ]);
         if($validator->fails()){
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error'=>$validator->errors(), 'error'=>1], 401);
         }
         else{
 
@@ -150,10 +149,10 @@ class PassportController extends Controller
             $updateDetails = DB::table('users')->whereIn('id', [$id])->update($update);
 
             if($updateDetails){
-                return response()->json(['success'=>'Successfully updated']);
+                return response()->json(['success'=>'Successfully updated', 'error'=>0]);
             }
             else{
-                return response()->json(['error'=>'Error occured']);
+                return response()->json(['error'=>'Error occured', 'error'=>1]);
             }
         }
     }
@@ -166,10 +165,10 @@ class PassportController extends Controller
         $update = ['deleted'=>1];
         $delete = DB::table('users')->where('id', [$id])->update($update);
         if($delete){
-            return response()->json(['success'=>'Successfully deleted']);
+            return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
         }
         else{
-            return response()->json(['error'=>'Error occured']);
+            return response()->json(['error'=>'Error occured', 'error'=>1]);
         }
     }
 
@@ -182,14 +181,14 @@ class PassportController extends Controller
         $updateStatus = DB::table('users')->where('id', $id)->update($update);
         if($updateStatus){
             if($status==1){
-                return response()->json(['success'=>'Successfully enabled']);
+                return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
             }
             else{
-                return response()->json(['success'=>'Successfully disabled']);
+                return response()->json(['success'=>'Successfully disabled', 'error'=>0]);
             }
         }
         else{
-            return response()->json(['error'=>'Error occured']);
+            return response()->json(['error'=>'Error occured', 'error'=>1]);
         }
     }
 }

@@ -48,10 +48,10 @@ class ExploreController extends Controller
             $table->save();
         }
         if($table->save()){
-            return response()->json(['success' => 'Successfully inserted']);
+            return response()->json(['success' => 'Successfully inserted', 'error'=>0]);
         }
         else{
-            return response()->json(['error' => 'Error occured']);
+            return response()->json(['success' => 'Error occured', 'error'=>1]);
         }      
     }
 
@@ -75,7 +75,7 @@ class ExploreController extends Controller
         }
         $input = $request->all();
         $this->update($id, $input);
-        return response()->json(['success'=>'Successfully updated'], $this->successStatus);  
+        return response()->json(['success'=>'Successfully updated', 'error'=>0], $this->successStatus);  
     }
 
     /**
@@ -134,12 +134,12 @@ class ExploreController extends Controller
         $explore = Explore::find($id);
         if($explore != null){
             if($explore->delete()){
-                return response()->json(['success'=>'Successfully deleted'], $this->successStatus);  
+                return response()->json(['success'=>'Successfully deleted', 'error'=>0], $this->successStatus);  
             }else{
-                return response()->json(['error'=>'Error occured'], 401);
+                return response()->json(['success'=>'Error occured', 'error'=>1], 401);
             }
         }else{
-            return response()->json(['error'=>'Error occured'], 401);
+            return response()->json(['success'=>'Error occured', 'error'=>1], 401);
         }
 
     }

@@ -26,6 +26,7 @@ export class AddUsersComponent implements OnInit {
     private deleted;
     public userForm: FormGroup;
     private userRegisterStatus;
+    public error = 0;
     constructor(
         private formBuilder: FormBuilder,
         private UserService:UserService
@@ -70,6 +71,16 @@ export class AddUsersComponent implements OnInit {
         }, 2000);
     }
 
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
 
     /**
      * add user
@@ -93,6 +104,7 @@ export class AddUsersComponent implements OnInit {
         ).subscribe( 
             success => {
                 this.userRegisterStatus = success.success.message;
+                this.error = success.error;
                 this.userForm.reset();
                 this.hideAlert();
             }

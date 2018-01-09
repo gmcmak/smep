@@ -26,6 +26,8 @@ export class ViewUsersComponent implements OnInit{
     private loggedInUserList;
     private usersList;
 
+    public error = 0;
+
     public userDeletingStatus;
 
     constructor(
@@ -64,6 +66,16 @@ export class ViewUsersComponent implements OnInit{
             $('#success_alert').slideUp("slow");
         }, 2000);
     }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
  
     /**
      * user data list
@@ -88,6 +100,7 @@ export class ViewUsersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.userDeletingStatus = success.success;
+                this.error = success.error;
                 this.getUsers();
                 this.hideAlert();  
             }
