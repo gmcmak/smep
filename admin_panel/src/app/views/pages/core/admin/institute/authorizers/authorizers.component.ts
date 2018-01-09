@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { InstituteService } from "../../../../../../services/businessservices/core/institute/institute.service";
+import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -22,11 +23,13 @@ export class AuthorizersComponent implements OnInit{
 
     public authorizerStatus;
     public error=0;
+    public instituteDataList;
 
     public addAuthorizerForm: FormGroup;
     constructor(
         private formBuilder: FormBuilder,
-        private instituteService: InstituteService
+        private instituteService: InstituteService,
+        private userService: UserService
     ) { }
 
     ngOnInit(): void {
@@ -42,6 +45,7 @@ export class AuthorizersComponent implements OnInit{
         }, 2000);
 
         this.getAddedAuthorizers();
+        this.getLoggedUserData();
     }
 
     private validateAuthorizerId(): void {
@@ -80,6 +84,18 @@ export class AuthorizersComponent implements OnInit{
             'alert-danger': this.error != 0
         };
         
+    }
+
+    /**
+    * get logged institute data
+    */
+    getLoggedUserData() {
+        this.userService.getLoggedUser().subscribe(
+            success => {
+                this.instituteDataList = success.success;
+                console.log(this.instituteDataList.id); //logged user id
+            }
+        );
     }
 
     /**

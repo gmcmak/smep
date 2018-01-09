@@ -54,6 +54,13 @@ export class ChangePasswordComponent implements OnInit{
             'is-valid': this.isFieldValid(field)
         };
     }
+
+    /**
+     * clear form
+     */
+    public clearForm(){
+        this.changePassForm.reset();
+    }
 }
 
 export class Passwords{

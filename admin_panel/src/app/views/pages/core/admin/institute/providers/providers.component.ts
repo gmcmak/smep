@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { InstituteService } from "../../../../../../services/businessservices/core/institute/institute.service";
+import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -21,11 +22,13 @@ export class ProvidersComponent implements OnInit{
     public institute_id = 17; //institute id
     public error;
     public providerList;
+    public instituteDataList;
 
     public addProviderForm: FormGroup;
     constructor(
         private formBuilder:FormBuilder,
-        private instituteService: InstituteService
+        private instituteService: InstituteService,
+        private userService: UserService
     ){  }
 
     ngOnInit(): void {
@@ -41,6 +44,7 @@ export class ProvidersComponent implements OnInit{
         }, 2000);
 
         this.getAddedProviders();
+        this.getLoggedUserData();
     }
 
     private validateProviderId(): void{
@@ -68,6 +72,18 @@ export class ProvidersComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+    * get logged institute data
+    */
+    getLoggedUserData() {
+        this.userService.getLoggedUser().subscribe(
+            success => {
+                this.instituteDataList = success.success;
+                console.log(this.instituteDataList.id);
+            }
+        );
     }
 
     /**
