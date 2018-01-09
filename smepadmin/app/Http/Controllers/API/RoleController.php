@@ -97,7 +97,7 @@ class RoleController extends Controller
             return response()->json(['success'=>'Successfully updated', 'error'=>0]);
           }
           catch(\Illuminate\Database\QueryException $ex){
-            return response()->json('success'=>'Error occured', 'error'=>1);
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
           }
         }
     }
@@ -133,14 +133,14 @@ class RoleController extends Controller
       $data = DB::table('roles')->where('id', $id)->update($update);
       if($data){
         if($status == 1){
-          return response()->json(['success'=>'Successfully enabled']);
+          return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
         }
         else{
-          return response()->json(['success'=>'Successfully disabled']);
+          return response()->json(['success'=>'Successfully disabled', 'error'=>0]);
         }
       }
       else{
-        return response()->json(['error'=>'Error occured']);
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
       }
     }
 

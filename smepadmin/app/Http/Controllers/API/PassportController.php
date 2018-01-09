@@ -188,7 +188,7 @@ class PassportController extends Controller
             }
         }
         else{
-            return response()->json(['error'=>'Error occured', 'error'=>1]);
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
     }
 }

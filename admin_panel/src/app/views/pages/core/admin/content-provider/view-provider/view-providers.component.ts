@@ -18,6 +18,7 @@ export class ViewProvidersComponent implements OnInit {
 
     public providerDeletingStatus;
     public error = 0;
+    public statusId = 0;
 
     constructor(
         private providerService: ProviderService,
@@ -67,6 +68,28 @@ export class ViewProvidersComponent implements OnInit {
             .subscribe(
             success => {
                 this.providerList = success.success;
+            }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.providerService.updateProviderStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.providerDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
             }
             );
     }

@@ -42,7 +42,7 @@
                         <td>{{record.name}}</td>
                         <td align="center">
                             <label class="switch">
-                                <input type="checkbox" [(ngModel)]="record.status">
+                                <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
                                 <span class="slider round"></span>
                             </label>
                         </td>

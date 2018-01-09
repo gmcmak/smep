@@ -161,4 +161,20 @@ export class ProviderService{
             .map((response: Response) => response.json());
     }
 
+    /**
+    * update provider's status
+    */
+    public updateProviderStatus(id,statusId) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'provider-status/' + id + '/' + statusId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
 }

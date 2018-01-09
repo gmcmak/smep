@@ -181,6 +181,22 @@ export class UserService {
       .map((response: Response) => response.json());
   }
 
+  /**
+     * update user's status
+     */
+  public updateUserStatus(id,statusId) {
+
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    let body = '';
+    return this.http.get(this.API_ENDPOINT + 'status-details/' + id + '/' + statusId,
+      {
+        headers: headers
+      })
+      .map((response: Response) => response.json());
+  }
+
 }
 
 

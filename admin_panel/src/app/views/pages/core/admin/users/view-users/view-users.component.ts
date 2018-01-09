@@ -27,6 +27,7 @@ export class ViewUsersComponent implements OnInit{
     private usersList;
 
     public error = 0;
+    public statusId = 0;
 
     public userDeletingStatus;
 
@@ -88,6 +89,28 @@ export class ViewUsersComponent implements OnInit{
                     this.usersList = success.success;
                 }
             );      
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.UserService.updateUserStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.userDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
+            );
     }
     
     /**

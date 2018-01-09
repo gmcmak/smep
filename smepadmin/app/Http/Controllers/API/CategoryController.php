@@ -103,7 +103,7 @@ class CategoryController extends Controller
 
         }
         catch(\Illuminate\Database\QueryException $ex){
-            return response()->json('success'=>'Error occured', 'error'=>1);
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
@@ -135,14 +135,14 @@ class CategoryController extends Controller
       $data = DB::table('categories')->where('id', [$id])->update($update);
       if($data){
         if($status == 1){
-          return response()->json(['success'=>'Successfully enabled']);
+          return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
         }
         else{
-          return response()->json(['success'=>'successfully disabled']);
+          return response()->json(['success'=>'successfully disabled', 'error'=>0]);
         }
       }
       else{
-        return response()->json(['error'=>'Error occured']);
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
       }
     }
 }

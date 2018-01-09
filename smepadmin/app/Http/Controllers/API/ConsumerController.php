@@ -124,7 +124,7 @@ class ConsumerController extends Controller
           return response()->json(['success'=>'Successfully updated', 'error'=>0]);
         }
         catch(\Illuminate\Database\QueryException $ex){
-            return response()->json('success'=>'Error occured', 'error'=>1);
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
@@ -155,14 +155,14 @@ class ConsumerController extends Controller
       $data = DB::table('consumers')->whereIn('id', [$id])->update($update);
       if($data){
         if($status == 1){
-          return response()->json(['success'=>'Succesfully enabled']);
+          return response()->json(['success'=>'Succesfully approved', 'error'=>0]);
         }
         else{
-          return response()->json(['success'=>'Successfully disabled']);
+          return response()->json(['success'=>'Successfully rejected', 'error'=>0]);
         }
       }
       else{
-        return response()->json(['error'=>'Error']);
+        return response()->json(['success'=>'Error occued', 'error'=>1]);
       }
     }
 }

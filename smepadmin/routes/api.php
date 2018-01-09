@@ -49,6 +49,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::post('update-explore/{id}/edit', 'API\ExploreController@updateRecord');
         Route::get('get-explore/{id}', 'API\ExploreController@edit');
         Route::get('delete-explore/{id}', 'API\ExploreController@delete');
+        Route::get('status-explore/{id}/{status}','API\ExploreController@statusExplore');
 
         /**
         * for modules
@@ -135,6 +136,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('edit-authorizer/{id}', 'API\AuthorizerController@editAuthorizer');
         Route::post('update-authorizer/{id}', 'API\AuthorizerController@updateAuthorizer');
         Route::get('delete-authorizer/{id}', 'API\AuthorizerController@deleteAuthorizer');
+        Route::get('authorizer-status/{id}/{status}', 'API\AuthorizerController@authorizerStatus');
 
         /**
         * for providers
@@ -145,6 +147,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('edit-provider/{id}', 'API\ProviderController@editProvider');
         Route::post('update-provider/{id}', 'API\ProviderController@updateProvider');
         Route::get('delete-provider/{id}', 'API\ProviderController@deleteProvider');
+        Route::get('provider-status/{id}/{status}', 'API\ProviderController@providerStatus');
 
         /**
         * for country

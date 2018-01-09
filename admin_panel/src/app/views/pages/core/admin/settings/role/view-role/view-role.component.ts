@@ -17,6 +17,7 @@ export class ViewRoleComponent implements OnInit{
     public roleList;
     private loggedInUserList;
     public error = 0;
+    public statusId = 0;
 
     public roleDeletingStatus;
 
@@ -69,6 +70,28 @@ export class ViewRoleComponent implements OnInit{
                 success => {
                     this.roleList = success.success;
                 }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.RoleService.updateRoleStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.roleDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
             );
     }
 

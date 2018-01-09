@@ -19,6 +19,7 @@ export class ViewCategoryComponent implements OnInit{
 
     public categoryDeletingStatus;
     public error = 0;
+    public statusId = 0;
 
     constructor(
         private CategoryService: CategoryService,
@@ -66,6 +67,28 @@ export class ViewCategoryComponent implements OnInit{
                 success=>{
                     this.categoryList=success.success;
                 }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.CategoryService.updateCategoryStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.categoryDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
             );
     }
 

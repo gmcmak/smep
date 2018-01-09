@@ -17,6 +17,7 @@ export class ViewInstituteComponent implements OnInit{
     public instituteList;
     private loggedInUserList;
     public error = 0;
+    public statusId = 0;
 
     public instituteDeletingStatus;
 
@@ -67,6 +68,28 @@ export class ViewInstituteComponent implements OnInit{
             .subscribe(
             success => {
                 this.instituteList = success.success;
+            }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.InstituteService.updateInstituteStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.instituteDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
             }
             );
     }

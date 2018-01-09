@@ -16,6 +16,7 @@ export class ViewConsumersComponent implements OnInit {
     public consumerList;
     public consumerDeletingStatus;
     public error = 0;
+    public statusId = 0;
 
     ngOnInit(): void {
         setTimeout(function(){
@@ -63,6 +64,28 @@ export class ViewConsumersComponent implements OnInit {
                 this.consumerList = success.success;
             }
         );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.consumerService.updateConsumerStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.consumerDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
+            );
     }
 
     /**

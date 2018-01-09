@@ -199,7 +199,7 @@ class InstituteController extends Controller
 
             }
             catch(\Illuminate\Database\QueryException $ex){
-                return response()->json('success'=>'Error occured', 'error'=>1);
+                return response()->json(['success'=>'Error occured', 'error'=>1]);
             }	
     	}
     }
@@ -234,36 +234,18 @@ class InstituteController extends Controller
     */
     public function statusInstitute($id, $status){
     	$update = ['status' => $status];
-    	$updateStatus = DB::table('institutes')->whereIn('id', [$id])->update($update);
-    	if($updateStatus){
-    		if($status == 1){
-
-                $enableUser = Institute::with(
-                array('instituteUsers' => function($query) use ($status){
-                    $query->where('role_id', 5)->update([
-                        'status' => $status
-                    ]); 
-                })
-                )->where([['id', '=', $id],])->get();
-
-    		  	return response()->json(['success'=>'Successfully enabled']);
-    		}
-    		if($status == 0){
-
-                $enableUser = Institute::with(
-                array('instituteUsers' => function($query) use ($status){
-                    $query->where('role_id', 5)->update([
-                        'status' => $status
-                    ]); 
-                })
-                )->where([['id', '=', $id],])->get();
-
-    			return response()->json(['success'=>'Successfully disabled']);
-    		}
-    	}
-    	else{
-    		return response()->json(['error'=>'Error ocured']);
-    	}
+        $data = DB::table('institutes')->where('id', $id)->update($update);
+          if($data){
+            if($status == 1){
+              return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
+            }
+            else{
+              return response()->json(['success'=>'Successfully disabled', 'error'=>0]);
+            }
+          }
+          else{
+            return response()->json(['error'=>'Error occured', 'error'=>1]);
+          }
     }
 
      /**

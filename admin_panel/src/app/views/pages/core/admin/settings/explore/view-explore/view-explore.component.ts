@@ -17,6 +17,7 @@ export class ViewExploreComponent implements OnInit{
     public exploreList;
     private loggedInUserList;
     public error = 0;
+    public statusId = 0;
 
     public exploreDeletingStatus;
     
@@ -67,6 +68,28 @@ export class ViewExploreComponent implements OnInit{
                 success =>{
                     this.exploreList = success.success;
                 }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.ExploreService.updateExploreStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.exploreDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
             );
     }
 

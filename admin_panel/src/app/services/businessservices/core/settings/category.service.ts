@@ -97,4 +97,19 @@ export class CategoryService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * update category status
+     */
+    public updateCategoryStatus(id,statusId) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'status-category/' + id + '/' + statusId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

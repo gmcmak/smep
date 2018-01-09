@@ -99,7 +99,7 @@ class AuthorController extends Controller
         return response()->json(['success'=>'Successfully updated', 'error'=>0]);
       }
       catch(\Illuminate\Database\QueryException $ex){
-        return response()->json('success'=>'Error occured', 'error'=>1);
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
       }
     }
 

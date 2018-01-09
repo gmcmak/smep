@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Explore as Explore;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class ExploreController extends Controller
@@ -142,5 +143,28 @@ class ExploreController extends Controller
             return response()->json(['success'=>'Error occured', 'error'=>1], 401);
         }
 
+    }
+
+    /**
+    * @param id and status
+    * @return message
+    */
+    public function statusExplore($id, $status){
+
+      $update = [
+        'status' => $status
+      ];
+      $data = DB::table('explores')->where('id', [$id])->update($update);
+      if($data){
+        if($status == 1){
+          return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
+        }
+        else{
+          return response()->json(['success'=>'successfully disabled', 'error'=>0]);
+        }
+      }
+      else{
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
+      }
     }
 }

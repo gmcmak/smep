@@ -353,4 +353,26 @@ class ProviderController extends Controller
             return response()->json(['success'=>'Error occured', 'error'=>1]);
         }    
     }
+
+    /**
+    * @param array get data
+    * @return message
+    */
+    public function providerStatus($id, $status){
+      $update = [
+        'status' => $status
+      ];
+      $data = DB::table('users')->where('id', $id)->update($update);
+      if($data){
+        if($status == 1){
+          return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
+        }
+        else{
+          return response()->json(['success'=>'Successfully disabled', 'error'=>0]);
+        }
+      }
+      else{
+        return response()->json(['error'=>'Error occured', 'error'=>1]);
+      }
+    }
 }

@@ -108,4 +108,20 @@ export class ConsumerService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * update consumer's status
+     */
+    public updateConsumerStatus(id,statusId) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'status-consumer/' + id + '/' + statusId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

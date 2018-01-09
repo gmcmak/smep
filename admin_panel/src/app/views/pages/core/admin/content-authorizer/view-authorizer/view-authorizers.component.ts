@@ -19,6 +19,7 @@ export class ViewAuthorizersComponent implements OnInit {
 
     public authorizerDeletingStatus;
     public error = 0;
+    public statusId = 0;
 
     constructor(
         private authorizerService: AuthorizerService,
@@ -70,6 +71,28 @@ export class ViewAuthorizersComponent implements OnInit {
                 this.authorizerList = success.success;
             }
             );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id,status){
+        if(status == false){
+            this.statusId = 0;
+        }
+        else{
+            this.statusId = 1;
+        }
+        this.authorizerService.updateAuthorizerStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.authorizerDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
+        );
     }
 
     /**
