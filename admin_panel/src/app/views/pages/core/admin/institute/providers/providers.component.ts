@@ -111,18 +111,20 @@ export class ProvidersComponent implements OnInit{
     /**
      * remove added providers
      */
-    deleteProvider(deleteId){
-        this.instituteService.removeProvider(
-            deleteId,
-            this.institute_id
-        ).subscribe(
-            success => {
-                this.providerStatus = success.success;
-                this.error = success.error;
-                this.hideAlert();
-                this.getAddedProviders();
-            }
-        );
+    deleteProvider(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.instituteService.removeProvider(
+                deleteId,
+                this.institute_id
+            ).subscribe(
+                success => {
+                    this.providerStatus = success.success;
+                    this.error = success.error;
+                    this.hideAlert();
+                    this.getAddedProviders();
+                }
+                );
+        }
     }
 
 }

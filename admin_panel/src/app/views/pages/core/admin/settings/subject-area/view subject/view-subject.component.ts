@@ -71,16 +71,18 @@ export class ViewSubjectComponent implements OnInit{
     /**
      * delete subject
      */
-    deleteSubject(deleteId) {
-        this.subjectService.deleteSubject(
-            deleteId
-        ).subscribe(
-            success => {
-                this.subjectDeletingStatus = success.success;
-                this.error = success.error;
-                this.getSubjects();
-                this.hideAlert();
-            }
-            );
+    deleteSubject(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.subjectService.deleteSubject(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.subjectDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getSubjects();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 }

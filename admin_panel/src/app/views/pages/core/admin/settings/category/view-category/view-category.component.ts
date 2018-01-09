@@ -95,16 +95,18 @@ export class ViewCategoryComponent implements OnInit{
     /**
      * delete category
      */
-    deleteCategory(deleteId){
-        this.CategoryService.deleteCategory(
-            deleteId
-        ).subscribe(
-            success => {
-                this.categoryDeletingStatus = success.success;
-                this.error = success.error;
-                this.getCategories();
-                this.hideAlert();
-            }
-        );
+    deleteCategory(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.CategoryService.deleteCategory(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.categoryDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getCategories();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 }

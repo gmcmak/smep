@@ -97,17 +97,19 @@ export class ViewProvidersComponent implements OnInit {
     /**
      * delete provider
      */
-    deleteProvider(deleteId){
-        this.providerService.deleteProvider(
-            deleteId
-        ).subscribe(
-            success => {
-                this.providerDeletingStatus = success.success;
-                this.error = success.error;
-                this.getProvidersList();
-                this.hideAlert();
-            }
-        );
+    deleteProvider(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.providerService.deleteProvider(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.providerDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getProvidersList();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 }

@@ -97,17 +97,19 @@ export class ViewInstituteComponent implements OnInit{
     /**
      * delete institute data
      */
-    deleteInstitute(deleteId){
-        this.InstituteService.deleteInstitute(
-            deleteId
-        ).subscribe(
-            success => {
-                this.instituteDeletingStatus = success.success;
-                this.error = success.error;
-                this.getInstitutes();
-                this.hideAlert();
-            }
-        );
+    deleteInstitute(deleteId,name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.InstituteService.deleteInstitute(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.instituteDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getInstitutes();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 }

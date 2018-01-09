@@ -98,17 +98,19 @@ export class ViewRoleComponent implements OnInit{
     /**
      * delete role
      */
-    deleteRole(deleteId){
-        this.RoleService.deleteRole(
-            deleteId
-        ).subscribe(
-            success => {
-                this.roleDeletingStatus = success.success;
-                this.error = success.error;
-                this.getRoles();
-                this.hideAlert();
-            }
-        );
+    deleteRole(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.RoleService.deleteRole(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.roleDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getRoles();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 }

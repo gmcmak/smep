@@ -96,16 +96,18 @@ export class ViewExploreComponent implements OnInit{
     /**
      * delete explore
      */
-    deleteExplore(deleteId){
-        this.ExploreService.deleteExplore(
-            deleteId
-        ).subscribe(
-            success => {
-                this.exploreDeletingStatus = success.success;
-                this.error = success.error;
-                this.getExplores();
-                this.hideAlert();
-            }
-        );
+    deleteExplore(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.ExploreService.deleteExplore(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.exploreDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getExplores();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 }

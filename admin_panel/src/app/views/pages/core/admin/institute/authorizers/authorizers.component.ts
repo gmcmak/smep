@@ -117,20 +117,22 @@ export class AuthorizersComponent implements OnInit{
     /**
      * remove authorizer
      */
-    public deleteAuthorizer(deleteId){
-        this.instituteService.removeAuthorizer(
-            deleteId,
-            this.institute_id
-        ).subscribe(
-            success => {
-                console.log('succes ' + success);
-                this.error = success.error;
-                this.authorizerStatus = success.success;
-                this.hideAlert();
-                
-                this.getAddedAuthorizers();
-            }
-        );
+    public deleteAuthorizer(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.instituteService.removeAuthorizer(
+                deleteId,
+                this.institute_id
+            ).subscribe(
+                success => {
+                    console.log('succes ' + success);
+                    this.error = success.error;
+                    this.authorizerStatus = success.success;
+                    this.hideAlert();
+
+                    this.getAddedAuthorizers();
+                }
+                );
+        }
     }
 
 }

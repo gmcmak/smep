@@ -71,17 +71,19 @@ export class ViewKeywordComponent implements OnInit{
     /**
      * delete keyword
      */
-    deleteKeyword(deleteId){
-        this.KeywordService.deleteKeyword(
-            deleteId
-        ).subscribe(
-            success => {
-                this.keywordDeletingStatus = success.success;
-                this.error = success.error;
-                this.getKeywords();
-                this.hideAlert();
-            }
-        );
+    deleteKeyword(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.KeywordService.deleteKeyword(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.keywordDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getKeywords();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
     

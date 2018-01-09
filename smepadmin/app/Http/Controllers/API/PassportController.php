@@ -89,7 +89,7 @@ class PassportController extends Controller
     {
         $user = Auth::user();
         //$user = Auth::user()::with('role', 'highestEducation.country', 'professionalEducations.country','institues','subjectAreas')->find(Auth::user()->id);
-        $user = Auth::user()::with('role', 'highestEducation', 'professionalEducations','institues', 'subjectAreas')->get();
+        $user = Auth::user()::with('role', 'highestEducation', 'professionalEducations','institues', 'subjectAreas')->where(['deleted'=>0])->get();
         // $user = Auth::user();
         // $user->roles;
         return response()->json(['success' => $user], $this->successStatus);

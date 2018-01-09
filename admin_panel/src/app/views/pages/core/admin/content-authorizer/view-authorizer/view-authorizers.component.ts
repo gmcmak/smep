@@ -98,16 +98,19 @@ export class ViewAuthorizersComponent implements OnInit {
     /**
      * delete authorizer
      */
-    deleteAuthorizer(deleteId){
-        this.authorizerService.deleteAuthorizer(
-            deleteId
-        ).subscribe(
-            success => {
-                this.authorizerDeletingStatus = success.success;
-                this.error = success.error;
-                this.getAuthorizerDetails();
-                this.hideAlert();
-            }
-        );
+    deleteAuthorizer(deleteId, name){
+        if(confirm("Are you sure to delete ' "+ name+" ' ?")){
+            this.authorizerService.deleteAuthorizer(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.authorizerDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getAuthorizerDetails();
+                    this.hideAlert();
+                }
+                );
+        }
+        
     }
 }

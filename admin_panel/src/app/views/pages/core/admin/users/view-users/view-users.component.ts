@@ -116,18 +116,19 @@ export class ViewUsersComponent implements OnInit{
     /**
      * delete user
      */
-    deleteUser(deleteId){
-        
-        this.UserService.deleteUser(
-            deleteId
-        ).subscribe(
-            success => {
-                this.userDeletingStatus = success.success;
-                this.error = success.error;
-                this.getUsers();
-                this.hideAlert();  
-            }
-        );
+    deleteUser(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.UserService.deleteUser(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.userDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getUsers();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 

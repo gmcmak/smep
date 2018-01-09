@@ -325,10 +325,10 @@ class ProviderController extends Controller
                 $provider->subjectAreas()->detach();
                 $table->id = $id;
                 $updateSubjectArea = $table->subjectAreas()->attach($subject_area);
-                return response()->json(['success'=>'Successfully updated']);
+                return response()->json(['success'=>'Successfully updated', 'error'=>0]);
             }
             catch(\Illuminate\Database\QueryException $ex){
-                return response()->json($ex->getMessage());
+                return response()->json(['success'=>'Error occured','error'=>1]);
             }
         }
     }

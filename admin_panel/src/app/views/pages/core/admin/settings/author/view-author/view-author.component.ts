@@ -56,6 +56,9 @@ export class ViewAuthorComponent implements OnInit{
         }
     }
 
+    /**
+     * get authors' details
+     */
     private getAuthors(){
         this.AuthorService.getAuthorsList()
             .subscribe(
@@ -65,17 +68,24 @@ export class ViewAuthorComponent implements OnInit{
             );
     }
 
-    deleteAuthor(deleteId){
-        this.AuthorService.deleteAuthor(
-            deleteId
-        ).subscribe(
-            success => {
-                this.authorDeletingStatus = success.success;
-                this.error = success.error;
-                this.getAuthors();
-                this.hideAlert();
-            }
-        );
+    /**
+     * delete author
+     * @param deleteId 
+     * @param name 
+     */
+    deleteAuthor(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.AuthorService.deleteAuthor(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.authorDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getAuthors();
+                    this.hideAlert();
+                }
+                );
+        }
     }
     
 }

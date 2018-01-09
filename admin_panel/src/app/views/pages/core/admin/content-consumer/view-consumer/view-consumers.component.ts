@@ -91,17 +91,19 @@ export class ViewConsumersComponent implements OnInit {
     /**
      * delete consumer data
      */
-    deleteConsumer(deleteId){
-        this.consumerService.deleteConsumer(
-            deleteId
-        ).subscribe(
-            success => {
-                this.consumerDeletingStatus = success.success;
-                this.error = success.error;
-                this.getConsumersList();
-                this.hideAlert();
-            }
-        );
+    deleteConsumer(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.consumerService.deleteConsumer(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.consumerDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getConsumersList();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 

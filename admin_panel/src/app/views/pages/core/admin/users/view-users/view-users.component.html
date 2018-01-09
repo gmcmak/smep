@@ -43,7 +43,7 @@
                             </label>
                         </td>
                         <td align="center"><a [routerLink]="['../../users/update-users', record.id]"><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
-                        <td align="center"><button class="dlt_btn" (click)="deleteUser(record.id)">
+                        <td align="center"><button class="dlt_btn" (click)="deleteUser(record.id,record.name)">
                             <li class="fa  fa-1x fa-trash">
                         </button></td>
                      </tr>   
