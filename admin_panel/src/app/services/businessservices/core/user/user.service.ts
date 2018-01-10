@@ -48,7 +48,7 @@ export class UserService {
       headers.append('Accept', 'application/json');
       headers.append('Authorization', 'Bearer '+this.loggedInUserList.token);
       let body = '';
-      return this.http.get(this.API_ENDPOINT+'get-details', 
+      return this.http.get(this.API_ENDPOINT + 'get-all-users', 
           {
             headers: headers
           })
@@ -165,9 +165,37 @@ export class UserService {
       .map((response: Response) => response.json());
   }
 
+  /**
+     * get logged user details
+     */
+  public getLoggedUser() {
 
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    let body = '';
+    return this.http.get(this.API_ENDPOINT + 'get-details',
+      {
+        headers: headers
+      })
+      .map((response: Response) => response.json());
+  }
 
+  /**
+     * update user's status
+     */
+  public updateUserStatus(id,statusId) {
 
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    let body = '';
+    return this.http.get(this.API_ENDPOINT + 'status-details/' + id + '/' + statusId,
+      {
+        headers: headers
+      })
+      .map((response: Response) => response.json());
+  }
 
 }
 

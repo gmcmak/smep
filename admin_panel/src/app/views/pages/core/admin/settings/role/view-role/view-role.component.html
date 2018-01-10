@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="roleDeletingStatus"><strong>{{roleDeletingStatus}} !</strong></div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="roleDeletingStatus"><strong>{{roleDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -42,7 +42,7 @@
                         <td>{{record.name}}</td>
                         <td align="center">
                             <label class="switch">
-                                <input type="checkbox" [(ngModel)]="record.status">
+                                <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
                                 <span class="slider round"></span>
                             </label>
                         </td>
@@ -56,7 +56,7 @@
                             </a>
                         </td> -->
                         <td align="center">
-                            <button class="dlt_btn" (click)="deleteRole(record.id)">
+                            <button class="dlt_btn" (click)="deleteRole(record.id,record.name)">
                                 <li class="fa  fa-1x fa-trash">
                             </button>
                         </td>

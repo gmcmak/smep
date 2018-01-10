@@ -16,6 +16,8 @@ export class ViewExploreComponent implements OnInit{
 
     public exploreList;
     private loggedInUserList;
+    public error = 0;
+    public statusId = 0;
 
     public exploreDeletingStatus;
     
@@ -47,6 +49,16 @@ export class ViewExploreComponent implements OnInit{
     }
 
     /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
+    /**
      * get explore details for table
      */
     getExplores(){
@@ -55,35 +67,47 @@ export class ViewExploreComponent implements OnInit{
             .subscribe(
                 success =>{
                     this.exploreList = success.success;
-                    // $("#exploreTable").find('tbody').empty();
-                    // var dataClaims = this.exploreList;
-                    // for (let i = 0; i < dataClaims.length; i++) {
-                    //     $('#exploreTable').dataTable().fnAddData([
-                    //         (i + 1),
-                    //         dataClaims[i].en_tag,
-                    //         dataClaims[i].si_tag,
-                    //         dataClaims[i].ta_tag,
-                    //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                    //         '<a [routerLink]="[' + "'" + "../../../settings/explore/update-explore" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    //     ]);
-                    // }
                 }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.ExploreService.updateExploreStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.exploreDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
             );
     }
 
     /**
      * delete explore
      */
-    deleteExplore(deleteId){
-        this.ExploreService.deleteExplore(
-            deleteId
-        ).subscribe(
-            success => {
-                this.exploreDeletingStatus = success.success;
-                this.getExplores();
-                this.hideAlert();
-            }
-        );
+    deleteExplore(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.ExploreService.deleteExplore(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.exploreDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getExplores();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 }

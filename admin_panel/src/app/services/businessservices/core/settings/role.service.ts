@@ -105,4 +105,20 @@ export class RoleService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * update role's status
+     */
+    public updateRoleStatus(id,statusId) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'status-role/' + id + '/' + statusId,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

@@ -16,6 +16,8 @@ export class ViewInstituteComponent implements OnInit{
 
     public instituteList;
     private loggedInUserList;
+    public error = 0;
+    public statusId = 0;
 
     public instituteDeletingStatus;
 
@@ -41,6 +43,16 @@ export class ViewInstituteComponent implements OnInit{
         }, 2000);
     }
 
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
     constructor(
         private InstituteService: InstituteService,
         private router: Router,
@@ -56,22 +68,28 @@ export class ViewInstituteComponent implements OnInit{
             .subscribe(
             success => {
                 this.instituteList = success.success;
-                // $("#instituteTable").find('tbody').empty();
-                // var dataClaims = this.instituteList;
-                // for (let i = 0; i < dataClaims.length; i++) {
-                //     $('#instituteTable').dataTable().fnAddData([
-                //         (i + 1),
-                //         dataClaims[i].name,
-                //         dataClaims[i].registration_number,
-                //         dataClaims[i].registered_date,
-                //         dataClaims[i].email,
-                //         dataClaims[i].contact_number,
-                //         dataClaims[i].address,
-                //         '<label class="switch"><input type= "checkbox" value= "'+dataClaims[i].status+'" ><span class="slider round" > </span></label>',
-                //         '<a id="'+dataClaims[i].id+'" class="updateContent fa fa-1x fa-pencil-square-o"></a>',
-                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa fa-1x fa-trash"></li></a>'
-                //     ]);
-                // }
+            }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.InstituteService.updateInstituteStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.instituteDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
             }
             );
     }
@@ -79,16 +97,19 @@ export class ViewInstituteComponent implements OnInit{
     /**
      * delete institute data
      */
-    deleteInstitute(deleteId){
-        this.InstituteService.deleteInstitute(
-            deleteId
-        ).subscribe(
-            success => {
-                this.instituteDeletingStatus = success.success;
-                this.getInstitutes();
-                this.hideAlert();
-            }
-        );
+    deleteInstitute(deleteId,name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.InstituteService.deleteInstitute(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.instituteDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getInstitutes();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 }

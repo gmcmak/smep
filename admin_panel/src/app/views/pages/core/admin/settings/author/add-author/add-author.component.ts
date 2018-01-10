@@ -16,6 +16,7 @@ export class AddAuthorComponent implements OnInit{
     public author = new Author();
     public authorAddingStatus;
     public authorForm: FormGroup;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -43,6 +44,17 @@ export class AddAuthorComponent implements OnInit{
             $('#success_alert').slideUp("slow");
         }, 2000);
     }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+    
 
     checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
         return (group: FormGroup) => {
@@ -78,6 +90,7 @@ export class AddAuthorComponent implements OnInit{
         ).subscribe(
             success => {
                 this.authorAddingStatus = success.success;
+                this.error = success.error;
                 this.authorForm.reset();
                 this.hideAlert();
             }

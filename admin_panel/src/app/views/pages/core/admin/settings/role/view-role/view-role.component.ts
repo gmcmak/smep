@@ -16,6 +16,8 @@ export class ViewRoleComponent implements OnInit{
 
     public roleList;
     private loggedInUserList;
+    public error = 0;
+    public statusId = 0;
 
     public roleDeletingStatus;
 
@@ -50,6 +52,16 @@ export class ViewRoleComponent implements OnInit{
     }
 
     /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error !=0
+        }
+    }
+
+    /**
      * get roles' details
      */
     getRoles(){
@@ -57,34 +69,48 @@ export class ViewRoleComponent implements OnInit{
             .subscribe(
                 success => {
                     this.roleList = success.success;
-                    // $("#roleTable").find('tbody').empty();
-                    // var dataClaims = this.roleList;
-                    // for (let i = 0; i < dataClaims.length; i++) {
-                    //     $('#roleTable').dataTable().fnAddData([
-                    //         (i + 1),
-                    //         dataClaims[i].name,
-                    //         '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                    //         '<a [routerLink]="[' + "'" + "../../../settings/role/update-role" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                    //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                    //     ]);
-                    // }
                 }
+            );
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.RoleService.updateRoleStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.roleDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
             );
     }
 
     /**
      * delete role
      */
-    deleteRole(deleteId){
-        this.RoleService.deleteRole(
-            deleteId
-        ).subscribe(
-            success => {
-                this.roleDeletingStatus = success.success;
-                this.getRoles();
-                this.hideAlert();
-            }
-        );
+    deleteRole(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.RoleService.deleteRole(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.roleDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getRoles();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 }

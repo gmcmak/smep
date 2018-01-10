@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="instituteUpdatingStatus">{{instituteUpdatingStatus}}</div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="instituteUpdatingStatus"><strong>{{instituteUpdatingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">

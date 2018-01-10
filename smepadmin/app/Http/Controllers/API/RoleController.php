@@ -34,10 +34,10 @@ class RoleController extends Controller
          $table->updated_at = now();
          $table->save();
          if($table->save()){
-           return response()->json(['success'=>'Successfully inserted']);
+           return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
          }
          else{
-           return response()->json(['error'=>'Error occured']);
+           return response()->json(['success'=>'Error occured', 'error'=>1]);
          }
        }
     }
@@ -94,10 +94,10 @@ class RoleController extends Controller
             ];
 
             $data = DB::table('roles')->whereIn('id', [$id])->update($update);
-            return response()->json(['success'=>'Successfully updated']);
+            return response()->json(['success'=>'Successfully updated', 'error'=>0]);
           }
           catch(\Illuminate\Database\QueryException $ex){
-            return response()->json($ex->getMessage());
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
           }
         }
     }
@@ -115,10 +115,10 @@ class RoleController extends Controller
       $data = DB::table('roles')->whereIn('id', [$id])->update($update);
 
       if($data){
-        return response()->json(['success'=>'Successfully deleted']);
+        return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
       }
       else{
-        return response()->json(['error'=>'Error occured']);
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
       }
     }
 
@@ -133,14 +133,14 @@ class RoleController extends Controller
       $data = DB::table('roles')->where('id', $id)->update($update);
       if($data){
         if($status == 1){
-          return response()->json(['success'=>'Successfully enabled']);
+          return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
         }
         else{
-          return response()->json(['success'=>'Successfully disabled']);
+          return response()->json(['success'=>'Successfully disabled', 'error'=>0]);
         }
       }
       else{
-        return response()->json(['error'=>'Error occured']);
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
       }
     }
 

@@ -15,6 +15,8 @@ export class ViewConsumersComponent implements OnInit {
 
     public consumerList;
     public consumerDeletingStatus;
+    public error = 0;
+    public statusId = 0;
 
     ngOnInit(): void {
         setTimeout(function(){
@@ -42,6 +44,16 @@ export class ViewConsumersComponent implements OnInit {
     }
 
     /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
+    /**
      * get all consumers' details
      */
     getConsumersList(){
@@ -50,42 +62,48 @@ export class ViewConsumersComponent implements OnInit {
         ).subscribe(
             success => {
                 this.consumerList = success.success;
-                // $("#dataTableConsumers").find('tbody').empty();
-                // var dataClaims = this.consumerList;
-                // for (let i = 0; i < dataClaims.length; i++) {
-                //     var modules = "<ul>";
-                //     for (let j = 0; j < dataClaims[i].modules.length; j++) {
-                //         modules = modules.concat("<li>"+dataClaims[i].modules[j].module_name+"</li>");
-                //     }
-               
-                //     modules = modules.concat("</ul>");
-                //     $('#dataTableConsumers').dataTable().fnAddData([
-                //         (i + 1),
-                //         dataClaims[i].name,
-                //         dataClaims[i].url,
-                //         modules,
-                //         '<a href="www.g">10</a>',
-                //         '<a [routerLink]='+'"['+"'"+ '../../content-consumer/update-consumers' + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                //     ]);
-                // }
             }
         );
     }
 
     /**
-     * delete consumer data
+     * change status
      */
-    deleteConsumer(deleteId){
-        this.consumerService.deleteConsumer(
-            deleteId
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.consumerService.updateConsumerStatus(
+            id,
+            this.statusId
         ).subscribe(
             success => {
                 this.consumerDeletingStatus = success.success;
-                this.getConsumersList();
+                this.error = success.error;
                 this.hideAlert();
             }
-        );
+            );
+    }
+
+    /**
+     * delete consumer data
+     */
+    deleteConsumer(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.consumerService.deleteConsumer(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.consumerDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getConsumersList();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 

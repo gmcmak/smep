@@ -51,10 +51,10 @@ class ConsumerController extends Controller
         $table->save();
         if($table->save()){
           $data = $table->modules()->attach($moduleArray);
-            return response()->json(['success'=>'Successfully inserted']);
+            return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
         }
         else{
-          return response()->json(['error'=>'Error occured']);
+          return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
@@ -121,10 +121,10 @@ class ConsumerController extends Controller
           $consumer->modules()->detach();
           $table->id = $id;
           $updateModules = $table->modules()->attach($moduleArray);
-          return response()->json(['success'=>'Successfully updated']);
+          return response()->json(['success'=>'Successfully updated', 'error'=>0]);
         }
         catch(\Illuminate\Database\QueryException $ex){
-            return response()->json($ex->getMessage());
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
@@ -139,10 +139,10 @@ class ConsumerController extends Controller
       if($data){
         $consumer = Consumer::find($id);
         $consumer->modules()->detach();
-        return response()->json(['success'=>'Deleted successfully']);
+        return response()->json(['success'=>'Deleted successfully', 'error'=>0]);
       }
       else{
-        return reponse()->json(['error'=>'Error']);
+        return reponse()->json(['success'=>'Error occured', 'error'=>1]);
       }
     }
 
@@ -155,14 +155,14 @@ class ConsumerController extends Controller
       $data = DB::table('consumers')->whereIn('id', [$id])->update($update);
       if($data){
         if($status == 1){
-          return response()->json(['success'=>'Succesfully enabled']);
+          return response()->json(['success'=>'Succesfully approved', 'error'=>0]);
         }
         else{
-          return response()->json(['success'=>'Successfully disabled']);
+          return response()->json(['success'=>'Successfully rejected', 'error'=>0]);
         }
       }
       else{
-        return response()->json(['error'=>'Error']);
+        return response()->json(['success'=>'Error occued', 'error'=>1]);
       }
     }
 }

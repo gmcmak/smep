@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="authorDeletingStatus"><strong>{{authorDeletingStatus}} !</strong></div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="authorDeletingStatus"><strong>{{authorDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -52,7 +52,7 @@
                             </a>
                         </td> -->
                         <td align="center">
-                            <button class="dlt_btn" (click)="deleteAuthor(record.id)">
+                            <button class="dlt_btn" (click)="deleteAuthor(record.id,record.en_name)">
                                 <li class="fa  fa-1x fa-trash">
                             </button>
                         </td>

@@ -16,6 +16,7 @@ export class AddKeywordComponent implements OnInit{
     public keyword = new Keyword();
     public keywordForm: FormGroup;
     public keywordAddingStatus;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -34,6 +35,16 @@ export class AddKeywordComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error !=0
+        }
     }
 
     private initializeKeywordForm(): void {
@@ -78,6 +89,7 @@ export class AddKeywordComponent implements OnInit{
         ).subscribe(
             success => {
                 this.keywordAddingStatus = success.success;
+                this.error = success.error;
                 this.keywordForm.reset();
                 this.hideAlert();
             }

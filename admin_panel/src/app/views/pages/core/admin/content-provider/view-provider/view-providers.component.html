@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="providerDeletingStatus"><strong>{{providerDeletingStatus}} !</strong></div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="providerDeletingStatus"><strong>{{providerDeletingStatus}} !</strong></div>
     
 <div class="card mb-3">
     <div class="card-header">
@@ -27,7 +27,7 @@
                 <th>Subject areas</th>
                 <th>Approved</th>
                 <th>Rejected</th>
-                <th>Enable/ Disable</th>
+                <th data-orderable="false">Enable/ Disable</th>
                 <th data-orderable="false">View</th>
                 <th data-orderable="false">Delete</th>
             </tr>
@@ -39,7 +39,13 @@
             <tr *ngFor="let record of providerList;  let i = index" [attr.data-index]="i">
                 <td>{{i+1}}</td>
                 <td>{{record.name}}</td>
-                <td></td>
+                <td>
+                    <ul *ngFor="let institute of record.institues">
+                        <li>
+                            {{institute.name}}
+                        </li>
+                    </ul>
+                </td>
                 <td>
                     <ul *ngFor="let subject of record.subject_areas">
                         <li>
@@ -51,14 +57,14 @@
                 <td align="center"><a href="">5</a></td>
                 <td align="center">
                     <label class="switch">
-                        <input type="checkbox" [(ngModel)]="record.status">
+                        <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
                         <span class="slider round"></span>
                     </label>
                 </td>
                 <td align="center"><a [routerLink]="['../../content-provider/update-providers', record.id]" class="fa fa-1x fa-pencil-square-o"></a></td>
                 <!-- <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td> -->
                 <td align="center">
-                    <button class="dlt_btn" (click)="deleteProvider(record.id)">
+                    <button class="dlt_btn" (click)="deleteProvider(record.id,record.name)">
                         <li class="fa  fa-1x fa-trash">
                     </button>
                 </td>

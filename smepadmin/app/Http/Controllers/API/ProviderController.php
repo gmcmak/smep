@@ -156,10 +156,10 @@ class ProviderController extends Controller
     			$insert_highest_quali = $user_table->highestEducation()->insert($highest_edu_quali);
     			$insert_proff_quali = $user_table->professionalEducations()->insert($proff_edu_quali);
     			$insert_subject_areas = $user_table->subjectAreas()->attach($subject_area);
-    			return response()->json(['success'=>'Successfully inserted']);
+    			return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
     		}
     		else{
-    			return response()->json(['error'=>'Error occured'], 401);
+    			return response()->json(['success'=>'Error occured', 'error'=>1], 401);
     		}
     	}
     }
@@ -325,10 +325,10 @@ class ProviderController extends Controller
                 $provider->subjectAreas()->detach();
                 $table->id = $id;
                 $updateSubjectArea = $table->subjectAreas()->attach($subject_area);
-                return response()->json(['success'=>'Successfully updated']);
+                return response()->json(['success'=>'Successfully updated', 'error'=>0]);
             }
             catch(\Illuminate\Database\QueryException $ex){
-                return response()->json($ex->getMessage());
+                return response()->json(['success'=>'Error occured','error'=>1]);
             }
         }
     }
@@ -347,10 +347,32 @@ class ProviderController extends Controller
             $provider->professionalEducations()->delete();
             $provider->subjectAreas()->detach();
 
-            return response()->json(['success'=>'Successfully deleted']);
+            return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
         }
         else{
-            return response()->json(['error'=>'Error occured']);
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
         }    
+    }
+
+    /**
+    * @param array get data
+    * @return message
+    */
+    public function providerStatus($id, $status){
+      $update = [
+        'status' => $status
+      ];
+      $data = DB::table('users')->where('id', $id)->update($update);
+      if($data){
+        if($status == 1){
+          return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
+        }
+        else{
+          return response()->json(['success'=>'Successfully disabled', 'error'=>0]);
+        }
+      }
+      else{
+        return response()->json(['error'=>'Error occured', 'error'=>1]);
+      }
     }
 }

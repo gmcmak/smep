@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="userDeletingStatus"><strong>{{userDeletingStatus}} !</strong></div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="userDeletingStatus"><strong>{{userDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -38,12 +38,12 @@
                         <td>{{record.role.name}}</td>
                         <td align="center">
                             <label class="switch">
-                                <input type="checkbox" [(ngModel)]="record.status" disabled>
+                                <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
                                 <span class="slider round"></span>
                             </label>
                         </td>
                         <td align="center"><a [routerLink]="['../../users/update-users', record.id]"><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
-                        <td align="center"><button class="dlt_btn" (click)="deleteUser(record.id)">
+                        <td align="center"><button class="dlt_btn" (click)="deleteUser(record.id,record.name)">
                             <li class="fa  fa-1x fa-trash">
                         </button></td>
                      </tr>   

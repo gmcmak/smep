@@ -31,6 +31,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         // user details    
         Route::post('register', 'API\PassportController@register');    
         Route::get('get-details', 'API\PassportController@getDetails');
+        Route::get('get-all-users', 'API\PassportController@getAllUsers');
         Route::get('edit-details/{id}', 'API\PassportController@editDetails');
         Route::post('update-details/{id}', 'API\PassportController@updateDetails');
         Route::get('delete-details/{id}', 'API\PassportController@deleteDetails');
@@ -53,6 +54,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::post('update-explore/{id}/edit', 'API\ExploreController@updateRecord');
         Route::get('get-explore/{id}', 'API\ExploreController@edit');
         Route::get('delete-explore/{id}', 'API\ExploreController@delete');
+        Route::get('status-explore/{id}/{status}','API\ExploreController@statusExplore');
 
         /**
         * for modules
@@ -123,9 +125,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
         Route::get('insert-institute-authorizer/{nic}/{institute_id}','API\InstituteController@insertInstituteAuthorizer');
         Route::get('get-institute-authorizer/{id}','API\InstituteController@viewInstituteAuthorizer');
+        Route::get('insert-institute-provider/{nic}/{institute_id}','API\InstituteController@insertInstituteProvider');
         Route::get('get-institute-provider/{id}','API\InstituteController@viewInstituteProvider');
-        Route::get('remove-institute-authorizer/{institute_id}/{user_id}','API\InstituteController@removeInstituteAuthorizer');
-        Route::get('get-institute-provider/{id}','API\InstituteController@viewInstituteProvider');
+
+        Route::get('remove-institute-authorizer/{user_id}/{institute_id}','API\InstituteController@removeInstituteAuthorizer');
+        Route::get('remove-institute-provider/{user_id}/{institute_id}','API\InstituteController@removeInstituteProvider');
+
 
         /**
         * for authorizers
@@ -136,6 +141,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('edit-authorizer/{id}', 'API\AuthorizerController@editAuthorizer');
         Route::post('update-authorizer/{id}', 'API\AuthorizerController@updateAuthorizer');
         Route::get('delete-authorizer/{id}', 'API\AuthorizerController@deleteAuthorizer');
+        Route::get('authorizer-status/{id}/{status}', 'API\AuthorizerController@authorizerStatus');
 
         /**
         * for providers
@@ -146,6 +152,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('edit-provider/{id}', 'API\ProviderController@editProvider');
         Route::post('update-provider/{id}', 'API\ProviderController@updateProvider');
         Route::get('delete-provider/{id}', 'API\ProviderController@deleteProvider');
+        Route::get('provider-status/{id}/{status}', 'API\ProviderController@providerStatus');
 
         /**
         * for country

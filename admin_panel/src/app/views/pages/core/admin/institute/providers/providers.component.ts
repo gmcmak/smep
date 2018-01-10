@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { InstituteService } from "../../../../../../services/businessservices/core/institute/institute.service";
+import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -14,16 +15,20 @@ const NIC_REGEX = /^[0-9]{9}[VXvx]/;
 })
 
 export class ProvidersComponent implements OnInit{
-    public providerId: string;
+    public providerNic: string;
     public showDiv: string = '';
 
-    public id=17; //institute id
+    public providerStatus;
+    public institute_id = 17; //institute id
+    public error;
     public providerList;
+    public instituteDataList;
 
     public addProviderForm: FormGroup;
     constructor(
         private formBuilder:FormBuilder,
-        private instituteService: InstituteService
+        private instituteService: InstituteService,
+        private userService: UserService
     ){  }
 
     ngOnInit(): void {
@@ -39,11 +44,12 @@ export class ProvidersComponent implements OnInit{
         }, 2000);
 
         this.getAddedProviders();
+        this.getLoggedUserData();
     }
 
     private validateProviderId(): void{
         this.addProviderForm = this.formBuilder.group({
-            'providerId': [null, [Validators.required, Validators.pattern(NIC_REGEX)]]
+            'providerNic': [null, [Validators.required, Validators.pattern(NIC_REGEX)]]
         });
     }
 
@@ -59,11 +65,58 @@ export class ProvidersComponent implements OnInit{
     }
 
     /**
+        * hide success alert
+        */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
+    * get logged institute data
+    */
+    getLoggedUserData() {
+        this.userService.getLoggedUser().subscribe(
+            success => {
+                this.instituteDataList = success.success;
+                console.log(this.instituteDataList.id);
+            }
+        );
+    }
+
+    /**
+     * add authorizer
+     */
+    addProvider(formData) {
+        this.instituteService.addProvider(
+            this.institute_id,
+            formData.providerNic
+        ).subscribe(
+            success => {
+                this.providerStatus = success.success;
+                this.error = success.error;
+                this.addProviderForm.reset();
+                this.hideAlert();
+                this.getAddedProviders();
+            }
+            );
+    }
+
+    /**
+     * change alert design
+     */
+    public changeAlertClass() {
+        return this.error === 0 ? 'alert-success' : 'alert-danger';
+    }
+
+    /**
     * get added providers details 
     */
     public getAddedProviders() {
         this.instituteService.getAddedProviders(
-            this.id
+            this.institute_id
         ).subscribe(
             success => {
                 this.providerList = success.success;
@@ -71,8 +124,23 @@ export class ProvidersComponent implements OnInit{
             );
     }
 
-    showId(id){
-        alert(id);
+    /**
+     * remove added providers
+     */
+    deleteProvider(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.instituteService.removeProvider(
+                deleteId,
+                this.institute_id
+            ).subscribe(
+                success => {
+                    this.providerStatus = success.success;
+                    this.error = success.error;
+                    this.hideAlert();
+                    this.getAddedProviders();
+                }
+                );
+        }
     }
 
 }

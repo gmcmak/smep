@@ -15,6 +15,7 @@ declare var jQuery: any;
 export class ViewSubjectComponent implements OnInit{
     public subjectList;
     private loggedInUserList;
+    public error = 0;
 
     public subjectDeletingStatus;
 
@@ -46,6 +47,16 @@ export class ViewSubjectComponent implements OnInit{
     }
 
     /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error !=0
+        }
+    }
+
+    /**
      * get subjects' details
      */
     getSubjects() {
@@ -53,17 +64,6 @@ export class ViewSubjectComponent implements OnInit{
             .subscribe(
             success => {
                 this.subjectList = success.success;
-                // $("#subjectTable").find('tbody').empty();
-                // var dataClaims = this.subjectList;
-                // for (let i = 0; i < dataClaims.length; i++) {
-                //     $('#subjectTable').dataTable().fnAddData([
-                //         (i + 1),
-                //         dataClaims[i].name,
-                //         dataClaims[i].description,
-                //         '<a [routerLink]="[' + "'" + "../../../settings/module/update-module" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>',
-                //         '<a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a>'
-                //     ]);
-                // }
             }
             );
     }
@@ -71,15 +71,18 @@ export class ViewSubjectComponent implements OnInit{
     /**
      * delete subject
      */
-    deleteSubject(deleteId) {
-        this.subjectService.deleteSubject(
-            deleteId
-        ).subscribe(
-            success => {
-                this.subjectDeletingStatus = success.success;
-                this.getSubjects();
-                this.hideAlert();
-            }
-            );
+    deleteSubject(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.subjectService.deleteSubject(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.subjectDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getSubjects();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 }

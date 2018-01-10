@@ -15,6 +15,7 @@ export class AddModuleComponent implements OnInit{
     public module = new Module();
     public moduleForm: FormGroup;
     public moduleAddingStatus;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -33,6 +34,16 @@ export class AddModuleComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeModuleForm(): void {
@@ -58,6 +69,7 @@ export class AddModuleComponent implements OnInit{
         ).subscribe(
             success => { 
                 this.moduleAddingStatus = success.success;
+                this.error = success.error;
                 this.moduleForm.reset();
                 this.hideAlert();
             }

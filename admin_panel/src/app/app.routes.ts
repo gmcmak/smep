@@ -140,7 +140,7 @@ export const routes: Routes = [
   { path: 'settings/subject-area/view-subject', component: ViewSubjectComponent },
   { path: 'settings/subject-area/update-subject/:id', component: UpdateSubjectComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'edit-profile/:id', component: EditProfileComponent },
   // content authorizer
   {
     path: 'ca-content-authorization', component: ContentAuthorizationComponent,

@@ -11,7 +11,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="providerRegisterStatus">{{providerRegisterStatus}}</div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="providerRegisterStatus"><strong>{{providerRegisterStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -97,7 +97,7 @@
                         </div>
                         <div id="dob" class="col-md-7">
                             <input type="text" id="cpDob" name="cpDob" class="form-control form-control-sm" [(ngModel)]="provider.cpDob" formControlName="cpDob"
-                                placeholder="dd/mm/yy" [ngClass]="displayFieldCss('cpDob')">
+                                placeholder="YYYY-MM-DD" [ngClass]="displayFieldCss('cpDob')">
 
                             <div *ngIf="individualForm.controls['cpDob'].hasError('required') && individualForm.controls['cpDob'].touched" class="error">
                                 Date of birth is required !

@@ -26,6 +26,9 @@ export class ViewUsersComponent implements OnInit{
     private loggedInUserList;
     private usersList;
 
+    public error = 0;
+    public statusId = 0;
+
     public userDeletingStatus;
 
     constructor(
@@ -64,6 +67,16 @@ export class ViewUsersComponent implements OnInit{
             $('#success_alert').slideUp("slow");
         }, 2000);
     }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
  
     /**
      * user data list
@@ -77,21 +90,45 @@ export class ViewUsersComponent implements OnInit{
                 }
             );      
     }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.UserService.updateUserStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.userDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+            }
+            );
+    }
     
     /**
      * delete user
      */
-    deleteUser(deleteId){
-        
-        this.UserService.deleteUser(
-            deleteId
-        ).subscribe(
-            success => {
-                this.userDeletingStatus = success.success;
-                this.getUsers();
-                this.hideAlert();  
-            }
-        );
+    deleteUser(deleteId, name) {
+        if (confirm("Are you sure to delete ' " + name + " ' ?")) {
+            this.UserService.deleteUser(
+                deleteId
+            ).subscribe(
+                success => {
+                    this.userDeletingStatus = success.success;
+                    this.error = success.error;
+                    this.getUsers();
+                    this.hideAlert();
+                }
+                );
+        }
     }
 
 

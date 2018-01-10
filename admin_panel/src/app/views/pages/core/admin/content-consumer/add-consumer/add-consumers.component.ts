@@ -24,6 +24,7 @@ export class AddConsumersComponent implements OnInit{
     public consumerForm: FormGroup;
     public modulesList;
     private permissions;
+    public error = 0;
 
     public consumerAddingStatus;
 
@@ -57,6 +58,16 @@ export class AddConsumersComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     get products() { 
@@ -100,6 +111,7 @@ export class AddConsumersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.consumerAddingStatus = success.success;
+                this.error = success.error;
                 this.consumerForm.reset();
                 this.hideAlert();
             }

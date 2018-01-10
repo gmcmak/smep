@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Explore as Explore;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class ExploreController extends Controller
@@ -48,10 +49,10 @@ class ExploreController extends Controller
             $table->save();
         }
         if($table->save()){
-            return response()->json(['success' => 'Successfully inserted']);
+            return response()->json(['success' => 'Successfully inserted', 'error'=>0]);
         }
         else{
-            return response()->json(['error' => 'Error occured']);
+            return response()->json(['success' => 'Error occured', 'error'=>1]);
         }      
     }
 
@@ -75,7 +76,7 @@ class ExploreController extends Controller
         }
         $input = $request->all();
         $this->update($id, $input);
-        return response()->json(['success'=>'Successfully updated'], $this->successStatus);  
+        return response()->json(['success'=>'Successfully updated', 'error'=>0], $this->successStatus);  
     }
 
     /**
@@ -134,13 +135,36 @@ class ExploreController extends Controller
         $explore = Explore::find($id);
         if($explore != null){
             if($explore->delete()){
-                return response()->json(['success'=>'Successfully deleted'], $this->successStatus);  
+                return response()->json(['success'=>'Successfully deleted', 'error'=>0], $this->successStatus);  
             }else{
-                return response()->json(['error'=>'Error occured'], 401);
+                return response()->json(['success'=>'Error occured', 'error'=>1], 401);
             }
         }else{
-            return response()->json(['error'=>'Error occured'], 401);
+            return response()->json(['success'=>'Error occured', 'error'=>1], 401);
         }
 
+    }
+
+    /**
+    * @param id and status
+    * @return message
+    */
+    public function statusExplore($id, $status){
+
+      $update = [
+        'status' => $status
+      ];
+      $data = DB::table('explores')->where('id', [$id])->update($update);
+      if($data){
+        if($status == 1){
+          return response()->json(['success'=>'Successfully enabled', 'error'=>0]);
+        }
+        else{
+          return response()->json(['success'=>'successfully disabled', 'error'=>0]);
+        }
+      }
+      else{
+        return response()->json(['success'=>'Error occured', 'error'=>1]);
+      }
     }
 }

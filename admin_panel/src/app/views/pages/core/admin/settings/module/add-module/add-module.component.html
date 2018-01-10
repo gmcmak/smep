@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="moduleAddingStatus">{{moduleAddingStatus}}</div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="moduleAddingStatus"><strong>{{moduleAddingStatus}} !</strong></div>
 
 <form id="moduleForm" [formGroup]="moduleForm" (ngSubmit)="addModule(moduleForm.value)">
     <div class="card mb-3">

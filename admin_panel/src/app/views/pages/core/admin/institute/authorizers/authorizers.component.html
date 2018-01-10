@@ -11,6 +11,8 @@
     </li>
 </ol>
 
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="authorizerStatus"><strong>{{authorizerStatus}} !</strong></div>
+
 <form id="userForm">
     <div class="card mb-3">
         <div class="card-header">
@@ -23,7 +25,7 @@
                     <h6 class="subTitle">Add Authorizers,</h6>
                 </div>
             </div>
-            <form id="form1" name="form1" [formGroup]="addAuthorizerForm" (ngSubmit)="onSubmit()" action="">
+            <form id="addAuthorizerForm" name="addAuthorizerForm" [formGroup]="addAuthorizerForm" (ngSubmit)="addAuthorizer(addAuthorizerForm.value)" action="">
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-4">
@@ -34,8 +36,8 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="input-group">
-                                <input class="form-control group-text" type="text" placeholder="Enter N.I.C (932472189V)" formControlName="authorizerId" [(ngModel)]="authorizerId"
-                                    [ngClass]="displayFieldCss('authorizerId')" maxlength="10">
+                                <input class="form-control group-text" type="text" placeholder="Enter N.I.C (932472189V)" formControlName="authorizerNic" [(ngModel)]="authorizerNic"
+                                    [ngClass]="displayFieldCss('authorizerNic')" maxlength="10">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit" id="authorizerSearchBtn" [disabled]="!addAuthorizerForm.valid">
                                         <i class="fa fa-plus-circle"></i>
@@ -43,11 +45,11 @@
                                 </span>
                             </div>
                         </div>
-                        <div *ngIf="addAuthorizerForm.controls['authorizerId'].hasError('required') && addAuthorizerForm.controls['authorizerId'].touched"
+                        <div *ngIf="addAuthorizerForm.controls['authorizerNic'].hasError('required') && addAuthorizerForm.controls['authorizerNic'].touched"
                             class="row error">
                             N.I.C number is required !
                         </div>
-                        <div *ngIf="addAuthorizerForm.controls['authorizerId'].hasError('pattern') && addAuthorizerForm.controls['authorizerId'].touched"
+                        <div *ngIf="addAuthorizerForm.controls['authorizerNic'].hasError('pattern') && addAuthorizerForm.controls['authorizerNic'].touched"
                             class="row error">
                             Entered invalid number !
                         </div>
@@ -137,8 +139,24 @@
                             <tfoot>
             
                             </tfoot>
-                            <tbody>
-                                
+                            <tbody *ngIf="authorizersList && authorizersList[0] && authorizersList[0].institute_users">
+                                <tr *ngFor="let record of authorizersList[0].institute_users;  let i = index" [attr.data-index]="i">
+                                    <td>{{i+1}}</td>
+                                    <td>{{record.id}}</td>
+                                    <td>{{record.name}}</td>
+                                    <td>
+                                        <ul *ngFor="let subject of record.subject_areas">
+                                            <li>
+                                                {{subject.name}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td align="center">
+                                        <button class="dlt_btn" (click)="deleteAuthorizer(record.id,record.name)">
+                                            <li class="fa  fa-1x fa-trash">
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

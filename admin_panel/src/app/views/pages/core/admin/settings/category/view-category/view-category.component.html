@@ -14,7 +14,7 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" *ngIf="categoryDeletingStatus"><strong>{{categoryDeletingStatus}} !</strong></div>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="categoryDeletingStatus"><strong>{{categoryDeletingStatus}} !</strong></div>
 
 <div class="card mb-3">
     <div class="card-header">
@@ -46,7 +46,7 @@
                         <td>{{record.ta_name}}</td>
                         <td align="center">
                             <label class="switch">
-                                <input type="checkbox" [(ngModel)]="record.status">
+                                <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
                                 <span class="slider round"></span>
                             </label>
                         </td>
@@ -60,7 +60,7 @@
                             </a>
                         </td> -->
                         <td align="center">
-                            <button class="dlt_btn" (click)="deleteCategory(record.id)">
+                            <button class="dlt_btn" (click)="deleteCategory(record.id,record.en_name)">
                                 <li class="fa  fa-1x fa-trash">
                             </button>
                         </td>

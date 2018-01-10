@@ -16,6 +16,7 @@ export class UpdateCategoryComponent implements OnInit{
     public category = new Category();
     public categoryForm: FormGroup;
     public editCategoryList;
+    public error = 0;
 
     public sub: any;
     public id: number;
@@ -51,6 +52,16 @@ export class UpdateCategoryComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeCategoryForm(): void {
@@ -119,6 +130,7 @@ export class UpdateCategoryComponent implements OnInit{
         ).subscribe(
             success => {
                 this.categoryUpdatingStatus = success.success;
+                this.error = success.error;
                 this.categoryForm.reset();
                 this.hideAlert();
             }

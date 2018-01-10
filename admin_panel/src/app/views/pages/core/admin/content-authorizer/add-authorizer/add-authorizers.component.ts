@@ -31,8 +31,9 @@ export class AddAuthorizersComponent implements OnInit{
     private status;
     private deleted;
 
+    public error = 0;
+
     ngOnInit(): void {
-        //throw new Error("Method not implemented.");
         this.intializeAuthorizerForm();
         
         $("#caDob").datepicker({
@@ -251,141 +252,19 @@ export class AddAuthorizersComponent implements OnInit{
         }
 
         /**
+         * change alert class
+         */
+        public changeAlertClass(){
+            return{
+                'alert-success': this.error === 0,
+                'alert-danger': this.error != 0
+            }
+        }
+
+        /**
          * add authorizer
          */
         addAuthorizer(formData){
-            //professional quali row 1
-            // if (formData.professionalQualification.pro_qualification_1){
-            //     var pro_qualification_1 = formData.professionalQualification.pro_qualification_1;
-            // }else{
-            //     pro_qualification_1 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_institute_1) {
-            //     var pro_institute_1 = formData.professionalQualification.pro_institute_1;
-            // } else {
-            //     pro_institute_1 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_grade_1) {
-            //     var pro_grade_1 = formData.professionalQualification.pro_grade_1;
-            // } else {
-            //     pro_grade_1 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_grade_1) {
-            //     var pro_grade_1 = formData.professionalQualification.pro_grade_1;
-            // } else {
-            //     pro_grade_1 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_year_1) {
-            //     var pro_year_1 = formData.professionalQualification.pro_year_1;
-            // } else {
-            //     pro_year_1 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_country_1) {
-            //     var pro_country_1 = formData.professionalQualification.pro_country_1;
-            // } else {
-            //     pro_country_1 = "";
-            // }
-
-            // //professional quali row 2
-            // if (formData.professionalQualification.pro_qualification_2) {
-            //     var pro_qualification_2 = formData.professionalQualification.pro_qualification_2;
-            // } else {
-            //     pro_qualification_2 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_institute_2) {
-            //     var pro_institute_2 = formData.professionalQualification.pro_institute_2;
-            // } else {
-            //     pro_institute_2 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_grade_2) {
-            //     var pro_grade_2 = formData.professionalQualification.pro_grade_2;
-            // } else {
-            //     pro_grade_2 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_grade_2) {
-            //     var pro_grade_2 = formData.professionalQualification.pro_grade_2;
-            // } else {
-            //     pro_grade_2 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_year_2) {
-            //     var pro_year_2 = formData.professionalQualification.pro_year_2;
-            // } else {
-            //     pro_year_2 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_country_2) {
-            //     var pro_country_2 = formData.professionalQualification.pro_country_2;
-            // } else {
-            //     pro_country_2 = "";
-            // }
-
-            // //professional quali row 3
-            // if (formData.professionalQualification.pro_qualification_3) {
-            //     var pro_qualification_3 = formData.professionalQualification.pro_qualification_3;
-            // } else {
-            //     pro_qualification_3 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_institute_3) {
-            //     var pro_institute_3 = formData.professionalQualification.pro_institute_3;
-            // } else {
-            //     pro_institute_3 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_grade_3) {
-            //     var pro_grade_3 = formData.professionalQualification.pro_grade_3;
-            // } else {
-            //     pro_grade_3 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_grade_3) {
-            //     var pro_grade_3 = formData.professionalQualification.pro_grade_3;
-            // } else {
-            //     pro_grade_3 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_year_3) {
-            //     var pro_year_3 = formData.professionalQualification.pro_year_3;
-            // } else {
-            //     pro_year_3 = "";
-            // }
-
-            // if (formData.professionalQualification.pro_country_3) {
-            //     var pro_country_3 = formData.professionalQualification.pro_country_3;
-            // } else {
-            //     pro_country_3 = "";
-            // }
-
-            // //expert1
-            // if (formData.otherInfo.expert1) {
-            //     var expert1 = formData.otherInfo.expert1;
-            // } else {
-            //     expert1 = "";
-            // }
-
-            // //expert2
-            // if (formData.otherInfo.expert2) {
-            //     var expert2 = formData.otherInfo.expert2;
-            // } else {
-            //     expert2 = "";
-            // }
-
-            // //expert3
-            // if (formData.otherInfo.expert3) {
-            //     var expert3 = formData.otherInfo.expert3;
-            // } else {
-            //     expert3 = "";
-            // }
-
             this.authorizerService.addAuthorizers(
                 formData.caName,
                 formData.caFullName,
@@ -431,6 +310,7 @@ export class AddAuthorizersComponent implements OnInit{
             ).subscribe(
                 success => {
                     this.authorizerRegisterStatus = success.success;
+                    this.error = success.error;
                     this.authorizerForm.reset();
                     this.hideAlert();
                 }

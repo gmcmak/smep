@@ -16,6 +16,7 @@ export class AddCategoryComponent implements OnInit{
     public category = new Category();
     public addingCategoryStatus;
     public categoryForm: FormGroup;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -43,6 +44,16 @@ export class AddCategoryComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
@@ -83,6 +94,7 @@ export class AddCategoryComponent implements OnInit{
         ).subscribe(
             success => {
                 this.addingCategoryStatus = success.success;
+                this.error = success.error;
                 this.categoryForm.reset();
                 this.hideAlert();
             }

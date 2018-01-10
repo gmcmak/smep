@@ -38,6 +38,8 @@ export class UpdateAuthorizersComponent implements OnInit{
     private status = 0;
     private deleted = 0;
 
+    public error = 0;
+
     ngOnInit(): void {
         
         this.intializeAuthorizerForm();
@@ -71,6 +73,16 @@ export class UpdateAuthorizersComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     /**
@@ -382,6 +394,7 @@ export class UpdateAuthorizersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.authorizerUpdatingStatus = success.success;
+                this.error = success.error;
                 this.authorizerForm.reset();
                 this.hideAlert();
             }

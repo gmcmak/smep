@@ -21,6 +21,7 @@ export class UpdateAuthorComponent{
     public authorUpdatingStatus;
     public editAuthorList;
     public updateAuthorList;
+    public error = 0;
 
     public sub: any;
     public id: number;
@@ -55,6 +56,16 @@ export class UpdateAuthorComponent{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeAuthorsForm(): void {
@@ -121,6 +132,7 @@ export class UpdateAuthorComponent{
         ).subscribe(
             success => {
                 this.authorUpdatingStatus = success.success;
+                this.error = success.error;
                 this.authorForm.reset();
                 this.hideAlert();
             }

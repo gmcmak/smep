@@ -15,6 +15,7 @@ export class AddSubjectComponent implements OnInit{
     public subject = new Subject();
     public subjectForm: FormGroup;
     public subjectAddingStatus;
+    public error = 0;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -33,6 +34,16 @@ export class AddSubjectComponent implements OnInit{
         setTimeout(function () {
             $('#success_alert').slideUp("slow");
         }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass(){
+        return{
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     private initializeSubjectForm(): void {
@@ -60,6 +71,7 @@ export class AddSubjectComponent implements OnInit{
         ).subscribe(
             success => { 
                 this.subjectAddingStatus = success.success;
+                this.error = success.error;
                 this.subjectForm.reset();
                 this.hideAlert();
             }

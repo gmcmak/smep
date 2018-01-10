@@ -31,10 +31,10 @@ class ModuleController extends Controller
         $table->save();
 
         if($table->save()){
-          return response()->json(['success'=>'Successfully inserted']);
+          return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
         }
         else{
-          return response()->json(['error'=>'Error occured']);
+          return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
@@ -90,10 +90,10 @@ class ModuleController extends Controller
 
             $data = DB::table('modules')->whereIn('id', [$id])->update($update);
 
-            return response()->json(['success'=>'Successfully updated']);
+            return response()->json(['success'=>'Successfully updated', 'error'=>0]);
         }
         catch(\Illuminate\Database\QueryException $ex){
-            return response()->json($ex->getMessage());
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
       }
     }
