@@ -1,0 +1,9 @@
+/*lable inside the data table*/
+.table_btn{
+    
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 12px;
+}

@@ -85,6 +85,9 @@ import { AddSubjectComponent } from './views/pages/core/admin/settings/subject-a
 import { ViewSubjectComponent } from './views/pages/core/admin/settings/subject-area/view subject/view-subject.component';
 import { UpdateSubjectComponent } from './views/pages/core/admin/settings/subject-area/update-subject/update-subject.component';
 import { ProviderProfileComponent } from './views/pages/core/content-authorizer/view-content-providers/provider-profile/provider-profile.component';
+import { AddSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/add-submission/add-submission.component';
+import { ViewSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/view-submission/view-submission.component';
+import { UpdateSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/update-submission/update-submission.component';
 
 
 export const routes: Routes = [
@@ -171,6 +174,9 @@ export const routes: Routes = [
   { path: 'provider-profile/:id', component: ProviderProfileComponent},
 
   //content provider
+  { path: 'submissions/add', component: AddSubmissionComponent },
+  { path: 'submissions/view', component: ViewSubmissionComponent },
+  { path: 'submissions/update/:id/:user_id', component: UpdateSubmissionComponent },
   { path: 'submissions/cp-single-submission', component: SingleSubmissionComponent },
   {
     path: 'submissions/cp-multiple-submission', component: MultipleSubmissionComponent,

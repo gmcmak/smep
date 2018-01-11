@@ -1,0 +1,99 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Submissions</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Add</a>
+    </li>
+</ol>
+
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="submissionAddingStatus">
+    <strong>{{submissionAddingStatus}} !</strong>
+</div>
+
+<form id="submissionForm" [formGroup]="submissionForm" (ngSubmit)="addSubmission(submissionForm.value)">
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-file-o"></i>&emsp;<b>Submission Adding Form</b>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label for="name">Name:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="name" type="text" formControlName="name"
+                        [(ngModel)]="submission.f_name" placeholder="SLIIT" [ngClass]="displayFieldCss('name')">
+
+                    <div *ngIf="submissionForm.controls['name'].hasError('required') && submissionForm.controls['name'].touched" class="error">
+                        Name is required !
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label for="url">Url:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-7">
+                    <input class="form-control form-control-sm" id="url" type="text" formControlName="url"
+                        [(ngModel)]="submission.f_url" placeholder="http://research.sliit.lk/faculty-of-business" [ngClass]="displayFieldCss('url')">
+
+                    <div *ngIf="submissionForm.controls['url'].hasError('required') && submissionForm.controls['url'].touched" class="error">
+                        Url is required !
+                    </div>
+                    <div *ngIf="submissionForm.controls['url'].hasError('pattern') && submissionForm.controls['url'].touched" class="error">
+                        URL is not valid !
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <label for="level">Level:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <select id="level" class="form-control form-control-sm drop" [(ngModel)]="submission.f_level" formControlName="level"
+                        [ngClass]="displayFieldCss('level')">
+                        <option value="0" selected>Single Submission</option>
+                        <option value="1">Multiple Submission</option>
+                    </select>
+                    <div *ngIf="submissionForm.controls['level'].hasError('required') && submissionForm.controls['level'].touched"
+                        class="error">
+                        Select the level !
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!submissionForm.valid">Submit</button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>

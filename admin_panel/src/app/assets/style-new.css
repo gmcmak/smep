@@ -191,3 +191,12 @@ div table{
 .list{
     font-size: 14px;
 }
+
+/*lable inside the data table*/
+.table_btn{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 12px;
+}

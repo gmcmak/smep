@@ -152,6 +152,10 @@ import { ViewSubjectComponent } from './views/pages/core/admin/settings/subject-
 import { SubjectService } from './services/businessservices/core/subject-area/subject.service';
 import { CountryService } from './services/businessservices/core/country/country.service';
 import { ProviderProfileComponent } from './views/pages/core/content-authorizer/view-content-providers/provider-profile/provider-profile.component';
+import { AddSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/add-submission/add-submission.component';
+import { ViewSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/view-submission/view-submission.component';
+import { UpdateSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/update-submission/update-submission.component';
+import { SubmissionService } from './services/businessservices/core/submission/submission.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -234,6 +238,9 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ImagesHistoryComponent,
     VideoClipHistoryComponent,
 
+    AddSubmissionComponent,
+    ViewSubmissionComponent,
+    UpdateSubmissionComponent,
     SingleSubmissionComponent, //content provider
     MultipleSubmissionComponent,
     ContentProviderHistoryComponent,
@@ -313,6 +320,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ToastService,
     ToastCommunicationService,
     DialogsService,
+    SubmissionService,
     LocalStorageStore
   ],
   exports: [
