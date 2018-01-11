@@ -14,10 +14,20 @@ declare var jQuery: any;
 export class ViewContentProvidersComponent implements OnInit{
 
     public providerList;
+    public statusId;
+    public providerStatus;
+    public error = 0;
 
     ngOnInit(): void {
-        //throw new Error("Method not implemented.");
-        this.dataTable();
+       
+        setTimeout(function(){
+            $('#dataTableProviders').DataTable({
+                "language": {
+                    "search": "Search By: (Provider Name/ Institute Represented/ Subject Areas)"
+                }
+            });
+        }, 2000);
+        
         this.getProvidersList();
     }
 
@@ -26,12 +36,46 @@ export class ViewContentProvidersComponent implements OnInit{
         private router: Router
     ){}
 
-    dataTable(){
-        $('#dataTableProviders').DataTable({
-            "language": {
-                "search" : "Search By: (Provider Name/ Institute Represented/ Subject Areas)"
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass() {
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
+    /**
+     * change status
+     */
+    public changeStatus(id, status) {
+        if (status == false) {
+            this.statusId = 0;
+        }
+        else {
+            this.statusId = 1;
+        }
+        this.providerService.updateProviderStatus(
+            id,
+            this.statusId
+        ).subscribe(
+            success => {
+                this.providerStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
             }
-        });
+            );
     }
 
     /**
@@ -43,20 +87,6 @@ export class ViewContentProvidersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.providerList = success.success;
-                $("#dataTableProviders").find('tbody').empty();
-                var dataClaims = this.providerList;
-                for (let i = 0; i < dataClaims.length; i++) {
-                    $('#dataTableProviders').dataTable().fnAddData([
-                        (i + 1),
-                        dataClaims[i].name,
-                        '<a>NSBM</a>',
-                        '<ul><li>Science</li><li>Management</li></ul>',
-                        '<a>10</a>',
-                        '<a>10</a>',
-                        '<label class="switch"><input type= "checkbox" value= "' + dataClaims[i].status + '" ><span class="slider round" > </span></label>',
-                        '<a [routerLink]="[' + "'" + "../../content-consumer/update-consumers" + "'" + ']"' + ' class="fa fa-1x fa-pencil-square-o"></a>'
-                    ]);
-                }
             }
             );
     }

@@ -4,46 +4,50 @@
         <a [routerLink]="['../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a>Profile</a>
+        <a [routerLink]="['../../ca-content-providers']">Content Providers</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Provider Profile</a>
     </li>
 </ol>
 <form>
-    <div class="card mb-3">
+    <div class="card mb-3" *ngIf="providerDataList">
         <div class="card-header">
-            <i class="fa fa-user-o"></i>&emsp;<b>My Profile</b>
+            <i class="fa fa-user-o"></i>&emsp;
+            <b>{{providerDataList[0].name_with_initials}}</b>
         </div>
         <div class="card-body">
-            <div class="row" *ngIf="userDataList">
+            <div class="row">
                 <div class="col-md-1"></div>
                 <div class="contenair col-md-3">
                     <div class="col-md-12">
-                        <h6>{{userDataList.name}}</h6>
+                        <h6>{{providerDataList[0].name}}</h6>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-envelope-o"></i>&emsp;
-                        <span>{{userDataList.email}}</span>
+                        <span>{{providerDataList[0].email}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-id-card-o"></i>&emsp;
-                        <span>{{userDataList.nic}}</span>
+                        <span>{{providerDataList[0].nic}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-user-o"></i>&emsp;
-                        <span>{{userDataList.designation}}</span>
+                        <span>{{providerDataList[0].designation}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-phone"></i>&emsp;
-                        <span>{{userDataList.mobile}}</span>
+                        <span>{{providerDataList[0].mobile}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-venus-mars"></i>&emsp;
-                        <span>{{userDataList.gender}}</span>
+                        <span>{{providerDataList[0].gender}}</span>
                     </div>
                     <div class="col-md-12">
                         <i class="fa fa-calendar-o"></i>&emsp;
-                        <span>{{userDataList.birthday}}</span>
+                        <span>{{providerDataList[0].birthday}}</span>
                     </div>
-    
+
                 </div>
                 <div class="contenair col-md-7">
                     <ul class="nav nav-tabs">
@@ -62,23 +66,29 @@
                         <div id="home" class="tab-pane fade in active">
                             <br>
                             <h6>Highest Qualification</h6>
-                            <p><i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{userDataList.highest_education.qualification}}</span><br>
+                            <p>
+                                <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
+                                <span>{{providerDataList[0].highest_education.qualification}}</span>
+                                <br>
                                 <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{userDataList.highest_education.university}}</span><br>
+                                <span>{{providerDataList[0].highest_education.university}}</span>
+                                <br>
                                 <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{userDataList.highest_education.grade}}</span><br>
+                                <span>{{providerDataList[0].highest_education.grade}}</span>
+                                <br>
                                 <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{userDataList.highest_education.country.name}}</span><br>
+                                <span>{{providerDataList[0].highest_education.country.name}}</span>
+                                <br>
                                 <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{userDataList.highest_education.year}}</span><br> 
+                                <span>{{providerDataList[0].highest_education.year}}</span>
+                                <br>
                             </p>
                         </div>
                         <div id="menu1" class="tab-pane fade">
                             <br>
                             <h6>Professional Qualification</h6>
-                            <ol *ngIf="userDataList && userDataList.professional_educations">
-                                <li *ngFor="let profEdu of userDataList.professional_educations">
+                            <ol *ngIf="providerDataList && providerDataList[0].professional_educations">
+                                <li *ngFor="let profEdu of providerDataList[0].professional_educations">
                                     <p>
                                         <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
                                         <span>{{profEdu.qualification}}</span>
@@ -98,12 +108,12 @@
                                     </p>
                                 </li>
                             </ol>
-                            
+
                         </div>
-                        <div id="menu2" class="tab-pane fade" *ngIf="userDataList && userDataList.subject_areas">
+                        <div id="menu2" class="tab-pane fade" *ngIf="providerDataList && providerDataList[0].subject_areas">
                             <br>
                             <h6>Subject Areas</h6>
-                            <ul class="list" *ngFor="let record of userDataList.subject_areas">
+                            <ul class="list" *ngFor="let record of providerDataList[0].subject_areas">
                                 <li>{{record.name}}</li>
                             </ul>
                         </div>
@@ -111,18 +121,6 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            <div class="row">
-                <div class="col-md-12" align="right">
-                    <!-- <a href="javascript:void(0)" [routerLink]="changeRouter(userDataList.id)" routerLinkActive="active" class="fa fa-1x fa-pencil-square-o"></a> -->
-                     
-
-                    <a [routerLink]="['../edit-profile']" class="fa fa-1x fa-pencil-square-o"></a>
-
-                    <!-- <button class="btn-primary edit_btn" style="float:right;">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button> -->
-                </div>
-            </div>    
         </div>
     </div>
 </form>

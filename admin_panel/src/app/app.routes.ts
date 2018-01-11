@@ -84,6 +84,7 @@ import { UpdateModuleComponent } from './views/pages/core/admin/settings/module/
 import { AddSubjectComponent } from './views/pages/core/admin/settings/subject-area/add-subject/add-subject.component';
 import { ViewSubjectComponent } from './views/pages/core/admin/settings/subject-area/view subject/view-subject.component';
 import { UpdateSubjectComponent } from './views/pages/core/admin/settings/subject-area/update-subject/update-subject.component';
+import { ProviderProfileComponent } from './views/pages/core/content-authorizer/view-content-providers/provider-profile/provider-profile.component';
 
 
 export const routes: Routes = [
@@ -167,6 +168,7 @@ export const routes: Routes = [
     ]
   },
   { path: 'ca-content-providers', component: ViewContentProvidersComponent },
+  { path: 'provider-profile/:id', component: ProviderProfileComponent},
 
   //content provider
   { path: 'submissions/cp-single-submission', component: SingleSubmissionComponent },

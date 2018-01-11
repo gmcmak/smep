@@ -8,6 +8,10 @@
     </li>
 </ol>
 
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="providerStatus">
+    <strong>{{providerStatus}} !</strong>
+</div>
+
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-table"></i>&emsp;<b>Content Providers List</b></div>
@@ -43,7 +47,7 @@
                         <th>Subject areas specified</th>
                         <th>Approved</th>
                         <th>Rejected</th>
-                        <th>Enable/ Disable</th>
+                        <th data-orderable="false">Enable/ Disable</th>
                         <th data-orderable="false">View</th>
                     </tr>
                 </thead>
@@ -51,6 +55,35 @@
 
                 </tfoot>
                 <tbody>
+                    <tr *ngFor="let record of providerList; let i=index" [attr.data-index]="i">
+                        <td>{{i+1}}</td>
+                        <td>{{record.name}}</td>
+                        <td>
+                            <ul *ngFor="let institute of record.institues">
+                                <li>{{institute.name}}</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul *ngFor="let subject of record.subject_areas">
+                                <li>{{subject.name}}</li>
+                            </ul>
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            20
+                        </td>
+                        <td align="center">
+                            <label class="switch">
+                                <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                        <td align="center">
+                            <a [routerLink]="['../provider-profile', record.id]" class="fa fa-1x fa-pencil-square-o"></a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
