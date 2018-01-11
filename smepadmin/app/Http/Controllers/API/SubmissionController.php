@@ -85,7 +85,5 @@ class SubmissionController extends Controller
         		return response()->json(['success'=>'Error occured', 'error'=>1]);
       		}
     	}
-    	
-
     }
-}
+   }
