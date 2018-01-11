@@ -177,7 +177,7 @@ class ProviderController extends Controller
     * @return dataset or message
     */
     public function editProvider($id){
-        $providerDetails = User::with('highestEducation','professionalEducations','institues', 'subjectAreas')->where('id',[$id])->get();
+        $providerDetails = User::with('highestEducation.country','professionalEducations.country','institues', 'subjectAreas')->where('id',[$id])->get();
         return response()->json(['success'=>$providerDetails]);
     }
 

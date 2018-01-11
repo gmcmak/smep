@@ -151,6 +151,7 @@ import { UpdateSubjectComponent } from './views/pages/core/admin/settings/subjec
 import { ViewSubjectComponent } from './views/pages/core/admin/settings/subject-area/view subject/view-subject.component';
 import { SubjectService } from './services/businessservices/core/subject-area/subject.service';
 import { CountryService } from './services/businessservices/core/country/country.service';
+import { ProviderProfileComponent } from './views/pages/core/content-authorizer/view-content-providers/provider-profile/provider-profile.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -217,6 +218,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ContentAuthorizationComponent, //content authorizers
     AuthorizationHistoryComponent,
     ViewContentProvidersComponent,
+    ProviderProfileComponent,
 
     ArticlesComponent,
     AudioClipComponent,

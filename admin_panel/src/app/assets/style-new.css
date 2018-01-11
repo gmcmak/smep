@@ -186,3 +186,8 @@ div table{
     overflow: hidden;
     outline:none;
 }
+
+/*profile subject area list*/
+.list{
+    font-size: 14px;
+}
