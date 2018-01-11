@@ -35,4 +35,3 @@ Route::get('provider', function () {
    echo 'abc';
 });
 
-
