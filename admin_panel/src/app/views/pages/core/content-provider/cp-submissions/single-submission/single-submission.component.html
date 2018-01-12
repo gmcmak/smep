@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <input class="form-control form-control-sm fontClz" id="sub_video_url" name="sub_video_url" type="text" formControlName="sub_video_url"
                     [(ngModel)]="singleSubmission.sub_video_url1" placeholder="Video Url:" [ngClass]="displayFieldCss('sub_video_url')">
@@ -72,21 +72,21 @@
                     Video url is not valid !
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="sub_Keyword" class="fontClz">Keyword:
+                        <label for="sub_keyword" class="fontClz">Keyword:
                             <span class="required">*</span>
                         </label>
                     </div>
                     <div class="col-md-8">
-                        <select id="sub_Keyword" name="sub_Keyword" class="form-control form-control-sm drop fontClz" formControlName="sub_Keyword"
-                            [(ngModel)]="singleSubmission.sub_Keyword1" [ngClass]="displayFieldCss('sub_Keyword')">
+                        <select id="sub_keyword" name="sub_keyword" class="form-control form-control-sm drop fontClz" formControlName="sub_keyword"
+                            [(ngModel)]="singleSubmission.sub_keyword1" [ngClass]="displayFieldCss('sub_keyword')">
                             <option *ngFor="let record of keywordList" [value]="record.id">{{record.en_name}}</option>
                         </select>
-                        <div *ngIf="singleSubForm.controls['sub_Keyword'].hasError('required') && singleSubForm.controls['sub_Keyword'].touched"
+                        <div *ngIf="singleSubForm.controls['sub_keyword'].hasError('required') && singleSubForm.controls['sub_keyword'].touched"
                             class="error">
                             Type is required !
                         </div>
@@ -109,16 +109,16 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="sub_categoty" class="fontClz">Category:
+                        <label for="sub_category" class="fontClz">Category:
                             <span class="required">*</span>
                         </label>
                     </div>
                     <div class="col-md-8">
-                        <select id="sub_categoty" name="sub_categoty" class="form-control form-control-sm drop fontClz" formControlName="sub_categoty"
-                            [(ngModel)]="singleSubmission.sub_categoty1" [ngClass]="displayFieldCss('sub_categoty')">
+                        <select id="sub_category" name="sub_category" class="form-control form-control-sm drop fontClz" formControlName="sub_category"
+                            [(ngModel)]="singleSubmission.sub_category1" [ngClass]="displayFieldCss('sub_category')">
                             <option *ngFor="let record of categoryList" [value]="record.id">{{record.en_name}}</option>
                         </select>
-                        <div *ngIf="singleSubForm.controls['sub_categoty'].hasError('required') && singleSubForm.controls['sub_categoty'].touched"
+                        <div *ngIf="singleSubForm.controls['sub_category'].hasError('required') && singleSubForm.controls['sub_category'].touched"
                             class="error">
                             Type is required !
                         </div>
@@ -159,7 +159,7 @@
                 <br>
                 <br>
             </div>
-        </div>
+        </div> -->
     </form>
 </div>
 </div>
