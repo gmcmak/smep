@@ -1,30 +1,30 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
 <li class="breadcrumb-item">
-<a [routerLink]="['../../dashboard']">Home</a>
+    <a [routerLink]="['../../dashboard']">Home</a>
 </li>
 <li class="breadcrumb-item">
-<a [routerLink]="['../../submissions/add']">Submissions</a>
+    <a [routerLink]="['../../submissions/add']">Submissions</a>
 </li>
 <li class="breadcrumb-item">
-<a [routerLink]="['../../submissions/view']">View</a>
+    <a [routerLink]="['../../submissions/view']">View</a>
 </li>
 <li class="breadcrumb-item">
-<a>Single Submission</a>
+    <a>Single Submission</a>
 </li>
 </ol>
 
 
 <div class="card mb-3">
-<div class="card-header">
-    <i class="fa fa-file-text-o"></i>&emsp;
-    <b>Single Submission Form</b>
-</div>
+    <div class="card-header">
+        <i class="fa fa-file-text-o"></i>&emsp;
+        <b>Single Submission Form</b>
+    </div>
 <div class="card-body">
-    <form id="singleSubForm" [formGroup]="singleSubForm">
+    <form id="singleSubForm" name="singleSubForm" [formGroup]="singleSubForm">
         <div class="row">
             <div class="col-md-12">
-                <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="singleSubmission.sub_url"
+                <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="singleSubmission.sub_url1"
                     placeholder="Url: *" [ngClass]="displayFieldCss('sub_url')">
                 <div *ngIf="singleSubForm.controls['sub_url'].hasError('required') && singleSubForm.controls['sub_url'].touched" class="error">
                     URL is required !
@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-md-9">
                 <input class="form-control form-control-sm fontClz" id="sub_title" name="sub_title" type="text" formControlName="sub_title"
-                    [(ngModel)]="singleSubmission.sub_title" placeholder="Title: *" [ngClass]="displayFieldCss('sub_title')">
+                    [(ngModel)]="singleSubmission.sub_title1" placeholder="Title: *" [ngClass]="displayFieldCss('sub_title')">
                 <div *ngIf="singleSubForm.controls['sub_title'].hasError('required') && singleSubForm.controls['sub_title'].touched" class="error">
                     Title is required !
                 </div>
@@ -50,13 +50,11 @@
                         </label>
                     </div>
                     <div class="col-md-8">
-                        <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="singleSubmission.sub_type"
+                        <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="singleSubmission.sub_type1"
                             [ngClass]="displayFieldCss('sub_type')">
-                            <!-- <option value="0" disabled>Type</option> -->
-                            <option Value="1">Article</option>
-                            <option Value="2">Audio</option>
+                            <option Value="1">All</option>
+                            <option Value="2">Image</option>
                             <option value="3">Video</option>
-                            <option Value="3">Art</option>
                         </select>
                         <div *ngIf="singleSubForm.controls['sub_type'].hasError('required') && singleSubForm.controls['sub_type'].touched" class="error">
                             Type is required !
@@ -65,16 +63,16 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 <input class="form-control form-control-sm fontClz" id="sub_video_url" name="sub_video_url" type="text" formControlName="sub_video_url"
-                    [(ngModel)]="singleSubmission.sub_video_url" placeholder="Video Url:" [ngClass]="displayFieldCss('sub_video_url')">
+                    [(ngModel)]="singleSubmission.sub_video_url1" placeholder="Video Url:" [ngClass]="displayFieldCss('sub_video_url')">
                 <div *ngIf="singleSubForm.controls['sub_video_url'].hasError('pattern') && singleSubForm.controls['sub_video_url'].touched"
                     class="error">
                     Video url is not valid !
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
@@ -85,12 +83,8 @@
                     </div>
                     <div class="col-md-8">
                         <select id="sub_Keyword" name="sub_Keyword" class="form-control form-control-sm drop fontClz" formControlName="sub_Keyword"
-                            [(ngModel)]="singleSubmission.sub_Keyword" [ngClass]="displayFieldCss('sub_Keyword')">
-                            <!-- <option value="0" disabled>Type</option> -->
-                            <option Value="1">Article</option>
-                            <option Value="2">Audio</option>
-                            <option value="3">Video</option>
-                            <option Value="3">Art</option>
+                            [(ngModel)]="singleSubmission.sub_Keyword1" [ngClass]="displayFieldCss('sub_Keyword')">
+                            <option *ngFor="let record of keywordList" [value]="record.id">{{record.en_name}}</option>
                         </select>
                         <div *ngIf="singleSubForm.controls['sub_Keyword'].hasError('required') && singleSubForm.controls['sub_Keyword'].touched"
                             class="error">
@@ -106,7 +100,7 @@
                     </div>
                     <div class="col-md-7">
                         <input class="form-control form-control-sm fontClz" id="sub_free" name="sub_free" type="text" formControlName="sub_free"
-                            [(ngModel)]="singleSubmission.sub_free" placeholder="" [ngClass]="displayFieldCss('sub_free')">
+                            [(ngModel)]="singleSubmission.sub_free1" placeholder="" [ngClass]="displayFieldCss('sub_free')">
                     </div>
                 </div>
             </div>
@@ -121,12 +115,8 @@
                     </div>
                     <div class="col-md-8">
                         <select id="sub_categoty" name="sub_categoty" class="form-control form-control-sm drop fontClz" formControlName="sub_categoty"
-                            [(ngModel)]="singleSubmission.sub_categoty" [ngClass]="displayFieldCss('sub_categoty')">
-                            <!-- <option value="0" disabled>Type</option> -->
-                            <option Value="1">Article</option>
-                            <option Value="2">Audio</option>
-                            <option value="3">Video</option>
-                            <option Value="3">Art</option>
+                            [(ngModel)]="singleSubmission.sub_categoty1" [ngClass]="displayFieldCss('sub_categoty')">
+                            <option *ngFor="let record of categoryList" [value]="record.id">{{record.en_name}}</option>
                         </select>
                         <div *ngIf="singleSubForm.controls['sub_categoty'].hasError('required') && singleSubForm.controls['sub_categoty'].touched"
                             class="error">
@@ -142,12 +132,8 @@
                     </div>
                     <div class="col-md-8">
                         <select id="sub_explore" name="sub_explore" class="form-control form-control-sm drop fontClz" formControlName="sub_explore"
-                            [(ngModel)]="singleSubmission.sub_explore" [ngClass]="displayFieldCss('sub_explore')">
-                            <!-- <option value="0" disabled>Type</option> -->
-                            <option Value="1">Article</option>
-                            <option Value="2">Audio</option>
-                            <option value="3">Video</option>
-                            <option Value="3">Art</option>
+                            [(ngModel)]="singleSubmission.sub_explore1" [ngClass]="displayFieldCss('sub_explore')">
+                            <option *ngFor="let record of exploreList" [value]="record.id">{{record.en_tag}}</option>
                         </select>
                         <div *ngIf="singleSubForm.controls['sub_explore'].hasError('required') && singleSubForm.controls['sub_explore'].touched"
                             class="error">
@@ -158,7 +144,7 @@
             </div>
             <div class="col-md-8">
                 <textarea id="sub_description" class="form-control form-control-sm" rows="3" id="sub_description" name="sub_description"
-                    type="text" formControlName="sub_description" [(ngModel)]="singleSubmission.sub_description" placeholder="A brief description of the content:"></textarea>
+                    type="text" formControlName="sub_description" [(ngModel)]="singleSubmission.sub_description1" placeholder="A brief description of the content:"></textarea>
             </div>
         </div>
         <br>
