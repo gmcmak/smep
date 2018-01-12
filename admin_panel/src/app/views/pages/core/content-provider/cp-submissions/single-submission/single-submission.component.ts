@@ -23,12 +23,15 @@ export class SingleSubmissionComponent implements OnInit{
 
     private initializeSingleForm(): void{
         this.singleSubForm = this.formBuilder.group({
-            'url': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
-            'type1': [null, [Validators.required]],
-            'title1': [null, [Validators.required]],
-            'keyword': [null, [Validators.required]],
-            'category': [null, [Validators.required]],
-            'description': [null]
+            'sub_url': [null, [Validators.required, Validators.pattern(URL_REGEX)]],
+            'sub_type': [null, [Validators.required]],
+            'sub_title': [null, [Validators.required]], 
+            'sub_video_url': [null, [Validators.pattern(URL_REGEX)]],
+            'sub_keyword': [null, [Validators.required]],
+            'sub_free': [null],
+            'sub_category': [null, [Validators.required]],
+            'sub_explore': [null, [Validators.required]],
+            'sub_description': [null]
         });
     }
 
@@ -47,9 +50,12 @@ export class SingleSubmissionComponent implements OnInit{
 
 export class SingleSubmission{
     public sub_url: string;
-    public sub_type1: number;
-    public sub_title1: string;
-    public sub_keyword: string;
+    public sub_type: number;
+    public sub_title: string;
+    public sub_video_url: string;
+    public sub_Keyword: number;
+    public sub_free: string;
     public sub_category: number;
+    public sub_explore: number;
     public sub_description: string;
 }

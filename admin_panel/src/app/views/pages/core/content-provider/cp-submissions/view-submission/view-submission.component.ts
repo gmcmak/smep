@@ -27,7 +27,6 @@ export class ViewSubmissionComponent implements OnInit{
                 });
             }, 2000
         );
-        
     }
 
     constructor(

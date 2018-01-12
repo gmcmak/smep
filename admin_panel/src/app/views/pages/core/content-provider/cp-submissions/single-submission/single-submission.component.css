@@ -1,6 +1,7 @@
 div input{
     margin-top: 8px;
     margin-bottom: 10px;
+    /* //font-size: 12px; */
 }
 
 div select{
@@ -19,4 +20,8 @@ div textarea{
 
 div label{
     margin-top: 10px;
+}
+
+.fontClz{
+    font-size: 13px;
 }
