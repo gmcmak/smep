@@ -200,3 +200,13 @@ div table{
     padding-right: 2px;
     font-size: 12px;
 }
+
+/*angular2- multiselect drop down style*/
+.selected-list[_ngcontent-c2] .c-btn[_ngcontent-c2]{
+    padding: 4px !important;
+    box-shadow: none !important;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border-left: 5px solid lightseagreen;
+}

@@ -25,3 +25,11 @@ div label{
 .fontClz{
     font-size: 13px;
 }
+
+.col_md_3_style{  
+    padding-right: 0px;
+}
+
+#submit_row{ 
+    margin-top: 50px;
+}
