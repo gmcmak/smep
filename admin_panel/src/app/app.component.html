@@ -291,15 +291,27 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submissions">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#subList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-file-text-o"></i>&nbsp;
-            <span class="nav-link-text" [routerLink]="['submissions/cp-single-submission']">Submissions</span>
+            <span class="nav-link-text" [routerLink]="['submissions/add']">Submissions</span>
           </a>
           <ul class="sidenav-second-level collapse" id="subList">
+            <li>
+              <a [routerLink]="['submissions/add']">Add Submission</a>
+            </li>
+            <li>
+            <li>
+              <a [routerLink]="['submissions/view']">View Submission</a>
+            </li>
+            <li>
+            <!-- <li>
+              <a [routerLink]="['submissions/update/:id/:user_id']">Update Submission</a>
+            </li>
+            <li>
             <li>
               <a [routerLink]="['submissions/cp-single-submission']">Single Submission</a>
             </li>
             <li>
               <a [routerLink]="['submissions/cp-multiple-submission']">Multiple Submission</a>
-            </li>
+            </li> -->
           </ul>
         </li>
         

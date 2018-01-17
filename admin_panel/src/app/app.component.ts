@@ -33,7 +33,7 @@ export class AppComponent {
     private username;
     private token;
     loggedInUserList: any[];
-    
+   
 
     constructor(
         private translate: TranslateService, 

@@ -57,21 +57,6 @@ export class AddExploreComponent implements OnInit{
         });
     }
 
-    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-        return (group: FormGroup) => {
-            let passwordInput = group.controls[passwordKey],
-                passwordConfirmationInput = group.controls[passwordConfirmationKey];
-            if (passwordInput.value !== passwordConfirmationInput.value) {
-                return passwordConfirmationInput.setErrors({ notEquivalent: true })
-            }
-            else {
-                if (passwordConfirmationInput.touched) {
-                    return passwordConfirmationInput.setErrors(null);
-                }
-            }
-        }
-    }
-
     public isFieldValid(field: string) {
         return !this.exploreForm.get(field).valid && this.exploreForm.get(field).touched;
     }

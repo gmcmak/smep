@@ -155,6 +155,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('provider-status/{id}/{status}', 'API\ProviderController@providerStatus');
 
         /**
+        * for submission
+        */
+        Route::post('add-submission', 'API\SubmissionController@addSubmission');
+        Route::get('view-submission/{user_id}', 'API\SubmissionController@viewSubmission');
+        Route::post('update-submission/{id}/{user_id}', 'API\SubmissionController@updateSubmission');
+
+        /**
         * for country
         */
         Route::get('get-country','API\CountryController@getCountryList');

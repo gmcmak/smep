@@ -29,7 +29,7 @@ export class ViewAuthorizersComponent implements OnInit {
 
     ngOnInit(): void {
        this.getAuthorizerDetails();
-       //this.deleteAuthorizer();
+       
         setTimeout(
             function() {
                 $('#dataTableAuthorizer').DataTable({
