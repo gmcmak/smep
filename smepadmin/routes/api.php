@@ -155,6 +155,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('provider-status/{id}/{status}', 'API\ProviderController@providerStatus');
 
         /**
+        * for contents
+        */
+        Route::get('get-content/{id}', 'API\ContentController@getContent');
+        Route::post('add-content/{id}/{submission_id}', 'API\ContentController@addContent');
+        Route::get('update-content/{id}', 'API\ContentController@updateContent');
+
+        /**
         * for submission
         */
         Route::post('add-submission', 'API\SubmissionController@addSubmission');

@@ -10,23 +10,3 @@
         <a>Update</a>
     </li>
 </ol>
-
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-file-o"></i>&emsp;
-            <b>Submission Adding Form</b>
-        </div>
-        <div class="card-body">
-        <angular2-multiselect [data]="itemList" 
-            [(ngModel)]="selectedItems" 
-            [settings]="settings" 
-            (onSelect)="onItemSelect($event)"
-            (onDeSelect)="OnItemDeSelect($event)" 
-            (onSelectAll)="onSelectAll($event)" 
-            (onDeSelectAll)="onDeSelectAll($event)">
-        </angular2-multiselect>
-        </div>
-    </div>
-
-<br>
-<br>

@@ -3,6 +3,8 @@ import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms'
 import { CategoryService } from "../../../../../../services/businessservices/core/settings/category.service";
 import { ExploreService } from "../../../../../../services/businessservices/core/settings/explore.service";
 import { KeywordService } from "../../../../../../services/businessservices/core/settings/keyword.service";
+import { ActivatedRoute } from "@angular/router";
+import { ContentService } from "../../../../../../services/businessservices/core/content/content.service";
 
 const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}');
 
@@ -37,21 +39,34 @@ export class SingleSubmissionComponent implements OnInit{
     selectedExplore = [];
     explore_setting = {};
 
+    public submission_id;
+    public sub;
 
+    public contentDetails;
+    public keywords;
 
     constructor(
         private formBuilder:FormBuilder,
         private categoryService: CategoryService,
         private exploreService: ExploreService,
-        private keywordService: KeywordService
+        private keywordService: KeywordService,
+        private route: ActivatedRoute,
+        private contentService: ContentService
     ){}
 
     ngOnInit(): void {
+
+        /**
+        * get param id value from the router
+        */
+        this.sub = this.route.params.subscribe(params => {
+            this.submission_id = +params['id'];
+        });
+
         this.initializeSingleForm();
         this.getCategories();
         this.getExplores();
         this.getKeywords();
-
 
         //for keyword drop down
         this.keyword_setting = {
@@ -84,6 +99,8 @@ export class SingleSubmissionComponent implements OnInit{
             badgeShowLimit: 3
             // classes: "myclass custom-class"
         };
+
+        this.getContentDetails();
     }
 
     //keyword drop down list functions
@@ -214,8 +231,24 @@ export class SingleSubmissionComponent implements OnInit{
         );
     }
 
-    public displayValue(formData){
-        // console.log('Input Data '+ this.singleSubmission.selectedCategory);
+    /**
+     * get content data
+     */
+    public getContentDetails(){
+        this.contentService.getContentList(
+            this.submission_id
+        ).subscribe(
+            success => {
+                this.contentDetails = success.success;
+                this.singleSubmission.sub_url1 = this.contentDetails[0].url;
+            }
+        );
+    }
+
+    public addContents(){
+        // this.contentService(
+
+        // ).subscribe();
     }
 }
 

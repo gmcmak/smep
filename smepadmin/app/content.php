@@ -21,6 +21,6 @@ class Content extends Model
     public function category()
     {
         return $this->belongsToMany('App\Category');
-    }      
+    }   
     
 }
