@@ -48,6 +48,7 @@ import { DialogsModule } from './services/dialog/dialogs.module';
 import { LocalStorageStore } from './services/storage/local-storage.service';
 import { DataTableComponent } from './views/widgets/widget/data-table/data-table.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 /**
  * backend connectivity
@@ -278,6 +279,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ReactiveFormsModule,
     DataTableModule,
     AngularMultiSelectModule,
+    MultiselectDropdownModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -58,6 +58,9 @@ export class SingleSubmissionComponent implements OnInit{
             text: "Select Keyword",
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
+            singleSelection: false,
+            enableSearchFilter: true,
+            badgeShowLimit: 3, //show only three selected
             // classes: "myclass custom-class"
         };
 
@@ -66,6 +69,9 @@ export class SingleSubmissionComponent implements OnInit{
             text: "Select Category",
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
+            enableSearchFilter: true,
+            badgeShowLimit: 3,
+            stopScrollPropagation: false,
             // classes: "myclass custom-class"
         };
 
@@ -74,6 +80,8 @@ export class SingleSubmissionComponent implements OnInit{
             text: "Select Explore",
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
+            enableSearchFilter: true,
+            badgeShowLimit: 3
             // classes: "myclass custom-class"
         };
     }
