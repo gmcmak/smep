@@ -20,16 +20,16 @@ class ContentController extends Controller
     //add content details
     public function addContent(Request $request, $id,$submission_id){
     	$validator = Validator::make($request->all(), [
-    		'url' => 'required|url',
+    		//'url' => 'required|url',
     		'title' => 'required',
     		'type' => 'required',
-    		// 'keyword' => 'required',
-    		// 'category' => 'required',
-    		// 'explore' => 'required'
+    		'keyword' => 'required',
+    		'category' => 'required',
+    		'explore' => 'required'
     	]);
 
     	if($validator->fails()){
-    		return response()->json(['error'=>$validator->error()], 401);
+    		return response()->json(['success'=>'Issue of validation', 'error'=>1], 401);
     	}
     	else{
 
@@ -46,20 +46,25 @@ class ContentController extends Controller
 	    			'updated_at' => now()
 	    		];
 
-	    		$keyword = array(1,3);
-	    		$category = array(1,4,5,6);
-	    		$explore = array(3,5);
+	    		$keyword = $request->input('keyword');
+	    		$keywordArray = explode(",",$keyword);
+
+	    		$category = $request->input('category');
+	    		$categoryArray = explode(",",$category);
+
+	    		$explore = $request->input('explore');
+	    		$exploreArray = explode(",",$explore);
 
 	    		$content_update = DB::table('contents')->where(['id'=>$id, 'submission_id'=>$submission_id])->update($content_update_data);
 
 	    		if($content_update){
 	    			$content_table_id = Content::find($id);
 		    		$content_table_id->keyword()->detach();
-		    		$insert_keywords = $content_table_id->keyword()->attach($keyword);
+		    		$insert_keywords = $content_table_id->keyword()->attach($keywordArray);
 		    		$content_table_id->explore()->detach();
-		    		$insert_explore = $content_table_id->explore()->attach($explore);
+		    		$insert_explore = $content_table_id->explore()->attach($exploreArray);
 		    		$content_table_id->category()->detach();
-		    		$insert_categories = $content_table_id->category()->attach($category);
+		    		$insert_categories = $content_table_id->category()->attach($categoryArray);
 		    		
 		    		return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
 	    		}
@@ -69,7 +74,7 @@ class ContentController extends Controller
 	    		
     		}
     		catch(\Illuminate\Database\QueryException $ex){
-    			return response()->json(['success'=>'Error occured', 'error'=>1]);
+    			return response()->json(['success'=>$request->input('explore'), 'error'=>1]);
     		}
     		
     	}

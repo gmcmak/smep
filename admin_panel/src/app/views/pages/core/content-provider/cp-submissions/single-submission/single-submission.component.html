@@ -14,6 +14,10 @@
     </li>
 </ol>
 
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="insertContentStatus">
+    <strong>{{insertContentStatus}} !</strong>
+</div>
+
 
 <div class="card mb-3">
     <div class="card-header">
@@ -43,7 +47,7 @@
                     <tr>
                         <td><b>{{index+1}}.</b></td>
                         <td>
-                            <form id="singleSubForm" name="singleSubForm" [formGroup]="singleSubForm" (ngSubmit)="addContents(singleSubForm.value)">
+                            <form id="singleSubForm" name="singleSubForm" [formGroup]="singleSubForm">
                                 <div class="row">
                                     <div class="col-md-1 col_md_3_style">
                                         <label for="sub_url" class="fontClz">Url:
@@ -52,7 +56,7 @@
                                     </div>
                                     <div class="col-md-11">
                                         <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="singleSubmission.sub_url1"
-                                            placeholder="" [ngClass]="displayFieldCss('sub_url')">
+                                            placeholder="" [ngClass]="displayFieldCss('sub_url')" readonly>
                                         <div *ngIf="singleSubForm.controls['sub_url'].hasError('required') && singleSubForm.controls['sub_url'].touched" class="error">
                                             URL is required !
                                         </div>
@@ -128,7 +132,7 @@
                                                         </div> -->
                             
                                                     <angular2-multiselect [data]="keywordItemList" formControlName="sub_keyword" name="keywords" [(ngModel)]="singleSubmission.selectedKeyword"
-                                                        [settings]="keyword_setting" (onSelect)="onItemSelect1($event)" (onDeSelect)="OnItemDeSelect1($event)"
+                                                        [settings]="keyword_setting" (onSelect)="onItemSelect1($event)" (onDeSelect)="onItemDeSelect1($event)"
                                                         (onSelectAll)="onSelectAll1($event)" (onDeSelectAll)="onDeSelectAll1($event)" class="form-control form-control-sm drop fontClz">
                                                     </angular2-multiselect>
                                                     <div *ngIf="singleSubForm.controls['sub_keywords'].controls['sub_keyword'].hasError('required') && singleSubForm.controls['sub_keywords'].controls['sub_keyword'].touched"
@@ -172,7 +176,7 @@
                                                     </div> -->
                             
                                                     <angular2-multiselect [data]="CategoryItemList" formControlName="sub_category" [(ngModel)]="singleSubmission.selectedCategory"
-                                                        [settings]="category_setting" (onSelect)="onItemSelect2($event)" (onDeSelect)="OnItemDeSelect2($event)"
+                                                        [settings]="category_setting" (onSelect)="onItemSelect2($event)" (onDeSelect)="onItemDeSelect2($event)"
                                                         (onSelectAll)="onSelectAll2($event)" (onDeSelectAll)="onDeSelectAll2($event)" class="form-control form-control-sm drop fontClz">
                                                     </angular2-multiselect>
                                                     <div *ngIf="singleSubForm.controls['sub_categories'].controls['sub_category'].hasError('required') && singleSubForm.controls['sub_categories'].controls['sub_category'].touched"
@@ -200,7 +204,7 @@
                                                     </div> -->
                             
                                                     <angular2-multiselect [data]="ExploreItemList" formControlName="sub_explore" [(ngModel)]="singleSubmission.selectedExplore"
-                                                        [settings]="explore_setting" (onSelect)="onItemSelect3($event)" (onDeSelect)="OnItemDeSelect3($event)"
+                                                        [settings]="explore_setting" (onSelect)="onItemSelect3($event)" (onDeSelect)="onItemDeSelect3($event)"
                                                         (onSelectAll)="onSelectAll3($event)" (onDeSelectAll)="onDeSelectAll3($event)">
                                                     </angular2-multiselect>
                                                     <div *ngIf="singleSubForm.controls['sub_explores'].controls['sub_explore'].hasError('required') && singleSubForm.controls['sub_explores'].controls['sub_explore'].touched"
@@ -217,7 +221,7 @@
                                     </div>
                                     <div class="col-md-1" align="left">
                                         <div class="row" id="submit_row">
-                                            <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!singleSubForm.valid">Submit</button>
+                                            <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!singleSubForm.valid" (click)="addContents()">Submit</button>
                                         </div>
                                     </div>
                                 </div>

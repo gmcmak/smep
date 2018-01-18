@@ -30,15 +30,15 @@ export class SingleSubmissionComponent implements OnInit{
     public keywordList;
 
     public keywordItemList = new Array();
-    selectedKeyword = [];
+    selectedKeyword1 = [];
     keyword_setting = {};
 
     public CategoryItemList = new Array();
-    selectedCategory = [];
+    selectedCategory1 = [];
     category_setting = {};
 
     public ExploreItemList = new Array();
-    selectedExplore = [];
+    selectedExplore1 = [];
     explore_setting = {};
 
     public submission_id;
@@ -46,7 +46,14 @@ export class SingleSubmissionComponent implements OnInit{
     public submission_level;
 
     public contentDetails;
-    public keywords;
+    public content_id;
+    public status = 0;
+    public insertContentStatus;
+    public error = 0;
+
+    public exploreArray = new Array();
+    public keywordArray = new Array();
+    public categoryArray = new Array();
 
     constructor(
         private formBuilder:FormBuilder,
@@ -109,67 +116,113 @@ export class SingleSubmissionComponent implements OnInit{
 
     //keyword drop down list functions
     onItemSelect1(item: any) {
-        //console.log(item);
-        console.log(this.selectedKeyword);
+        for (let i = 0; i < item.length; i++) {
+            this.singleSubmission.selectedKeyword[i] = new Array();
+            this.singleSubmission.selectedKeyword[i]['id'] = item[i]['id'];
+            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i]['itemName'];
+        }
+        return this.singleSubmission.selectedKeyword;
     }
-    OnItemDeSelect1(item: any) {
-        //console.log(item);
-        console.log(this.selectedKeyword);
+    onItemDeSelect1(item: any) {
+        for (let i = 0; i < item.length; i++) {
+            this.singleSubmission.selectedKeyword[i] = new Array();
+            this.singleSubmission.selectedKeyword[i]['id'] = item[i]['id'];
+            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i]['itemName'];
+        }
+        return this.singleSubmission.selectedKeyword;
     }
     onSelectAll1(items: any) {
-        console.log(items);
+        for (let i = 0; i < this.keywordItemList.length; i++) {
+            this.singleSubmission.selectedKeyword[i] = new Array();
+            this.singleSubmission.selectedKeyword[i]['id'] = this.keywordItemList[i].id;
+            this.singleSubmission.selectedKeyword[i]['itemName'] = this.keywordItemList[i].itemName;
+        }
+        return this.singleSubmission.selectedKeyword;
     }
     onDeSelectAll1(items: any) {
-        console.log(items);
+        this.singleSubmission.selectedKeyword = [];
+        return this.singleSubmission.selectedKeyword;
     }
 
     //category drop down list functions
     onItemSelect2(item: any) {
-        //console.log(item);
-        console.log(this.selectedCategory);
+        for (let i = 0; i < item.length; i++) {
+            this.singleSubmission.selectedCategory[i] = new Array();
+            this.singleSubmission.selectedCategory[i]['id'] = item[i].id;
+            this.singleSubmission.selectedCategory[i]['itemName'] = item[i].itemName;
+        }
+        return this.singleSubmission.selectedCategory;
     }
-    OnItemDeSelect2(item: any) {
-        //console.log(item);
-        console.log(this.selectedCategory);
+    onItemDeSelect2(item: any) {
+        for (let i = 0; i < item.length; i++) {
+            this.singleSubmission.selectedCategory[i] = new Array();
+            this.singleSubmission.selectedCategory[i]['id'] = item[i]['id'];
+            this.singleSubmission.selectedCategory[i]['itemName'] = item[i]['itemName'];
+        }
+        return this.singleSubmission.selectedCategory;
     }
     onSelectAll2(items: any) {
-        console.log(items);
+        for (let i = 0; i < this.CategoryItemList.length; i++) {
+            this.singleSubmission.selectedCategory[i] = new Array();
+            this.singleSubmission.selectedCategory[i]['id'] = this.CategoryItemList[i].id;
+            this.singleSubmission.selectedCategory[i]['itemName'] = this.CategoryItemList[i].itemName;
+        }
+        return this.singleSubmission.selectedCategory;
     }
     onDeSelectAll2(items: any) {
-        console.log(items);
+        this.singleSubmission.selectedCategory = [];
+        return this.singleSubmission.selectedCategory;
     }
 
     //explore drop down list functions
     onItemSelect3(item: any) {
-        //console.log(item);
-        console.log(this.selectedExplore);
+        for(let i=0; i<item.length; i++){
+            this.singleSubmission.selectedExplore[i] = new Array();
+            this.singleSubmission.selectedExplore[i]['id'] = item[i]['id'];
+            this.singleSubmission.selectedExplore[i]['itemName'] = item[i]['itemName'];
+        }
+        return this.singleSubmission.selectedExplore;
+        //console.log(this.singleSubmission.selectedExplore);
+        
     }
-    OnItemDeSelect3(item: any) {
-        //console.log(item);
-        console.log(this.selectedExplore);
+    onItemDeSelect3(item: any) {
+        for (let i = 0; i < item.length; i++) {
+            this.singleSubmission.selectedExplore[i] = new Array();
+            this.singleSubmission.selectedExplore[i]['id'] = item[i]['id'];
+            this.singleSubmission.selectedExplore[i]['itemName'] = item[i]['itemName'];
+        }
+        return this.singleSubmission.selectedExplore;
+        //console.log(this.singleSubmission.selectedExplore);
     }
     onSelectAll3(items: any) {
-        console.log(items);
+        for (let i = 0; i < this.ExploreItemList.length; i++) {
+            this.singleSubmission.selectedExplore[i] = new Array();
+            this.singleSubmission.selectedExplore[i]['id'] = this.ExploreItemList[i]['id'];
+            this.singleSubmission.selectedExplore[i]['itemName'] = this.ExploreItemList[i]['itemName'];
+        }
+        return this.singleSubmission.selectedExplore;
+        //console.log(this.singleSubmission.selectedExplore);
     }
     onDeSelectAll3(items: any) {
-        console.log(items);
+        this.singleSubmission.selectedExplore = [];
+        return this.singleSubmission.selectedExplore;
     }
 
     private initializeSingleForm(): void{
         this.singleSubForm = this.formBuilder.group({
-            'sub_url': ['', [Validators.required, Validators.pattern(URL_REGEX)]],
+            'sub_url': [''],
             'sub_type': ['', [Validators.required]],
             'sub_title': ['', [Validators.required]], 
             'sub_video_url': ['', [Validators.pattern(URL_REGEX)]],
             'sub_keywords': new FormGroup({
-                'sub_keyword': new FormControl('', Validators.required),
+                'sub_keyword': new FormControl([]),
                 'sub_free': new FormControl('')
             }),
             'sub_categories': new FormGroup({
-                'sub_category': new FormControl('', Validators.required)
+                'sub_category': new FormControl([])
             }),
             'sub_explores': new FormGroup({
-                'sub_explore': new FormControl('', Validators.required)
+                'sub_explore': new FormControl([])
             }),
             'sub_description': ['']
         });
@@ -184,6 +237,26 @@ export class SingleSubmissionComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass() {
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     /**
@@ -241,6 +314,9 @@ export class SingleSubmissionComponent implements OnInit{
     public increaseIndex(){
         if (this.index < this.contentDetails.length){
             this.index = this.index + 1;
+            this.singleSubmission.selectedKeyword = [];
+            this.singleSubmission.selectedCategory = [];
+            this.singleSubmission.selectedExplore = [];
             this.getContentDetails(this.index);
         } 
     }
@@ -251,6 +327,9 @@ export class SingleSubmissionComponent implements OnInit{
     public decreaseIndex() {
         if(this.index>=1){
             this.index = this.index - 1;
+            this.singleSubmission.selectedKeyword = [];
+            this.singleSubmission.selectedCategory = [];
+            this.singleSubmission.selectedExplore = [];
             this.getContentDetails(this.index);
         }  
     }
@@ -265,20 +344,89 @@ export class SingleSubmissionComponent implements OnInit{
             success => {
                 this.contentDetails = success.success;
                 this.contentArrayLength = this.contentDetails.length;
+                this.content_id = this.contentDetails[x].id;
                 this.singleSubmission.sub_url1 = this.contentDetails[x].url;
                 this.singleSubmission.sub_description1 = this.contentDetails[x].description;
                 this.singleSubmission.sub_title1 = this.contentDetails[x].title;
                 this.singleSubmission.sub_video_url1 = this.contentDetails[x].video_url;
                 this.singleSubmission.sub_type1 = this.contentDetails[x].type;
                 this.singleSubmission.sub_free1 = this.contentDetails[x].freeform_keyword;
+
+                if (this.contentDetails[x].keyword.length > 0){
+                    for (let i = 0; i < this.contentDetails[x].keyword.length; i++) {
+                        this.singleSubmission.selectedKeyword[i] = new Array();
+                        this.singleSubmission.selectedKeyword[i]['id'] = this.contentDetails[x].keyword[i].id;
+                        this.singleSubmission.selectedKeyword[i]['itemName'] = this.contentDetails[x].keyword[i].en_name;
+                    }
+                }
+                
+                if (this.contentDetails[x].category.length > 0){
+                    for (let i = 0; i < this.contentDetails[x].category.length; i++) {
+                        this.singleSubmission.selectedCategory[i] = new Array();
+                        this.singleSubmission.selectedCategory[i]['id'] = this.contentDetails[x].category[i].id;
+                        this.singleSubmission.selectedCategory[i]['itemName'] = this.contentDetails[x].category[i].en_name;
+                    }
+                }
+                
+                if (this.contentDetails[x].explore.length > 0){
+                    for (let i = 0; i < this.contentDetails[x].explore.length; i++) {
+                        this.singleSubmission.selectedExplore[i] = new Array();
+                        this.singleSubmission.selectedExplore[i]['id'] = this.contentDetails[x].explore[i].id;
+                        this.singleSubmission.selectedExplore[i]['itemName'] = this.contentDetails[x].explore[i].en_tag;
+                    }  
+                }
             }
         );
     }
 
+    /**
+     * add or update contents
+     * @param formData 
+     */
     public addContents(){
-        // this.contentService(
+        //console.log(this.singleSubmission.selectedKeyword);
+        this.exploreArray = [];
+        this.categoryArray = [];
+        this.keywordArray = [];
 
-        // ).subscribe();
+        for (let i = 0; i < this.singleSubmission.selectedExplore.length; i++) {
+            
+            this.exploreArray.push(this.singleSubmission.selectedExplore[i].id);
+            //this.exploreArray[i] = this.singleSubmission.selectedExplore[i].id;
+        }
+
+        for (let i = 0; i < this.singleSubmission.selectedKeyword.length; i++) {
+
+            this.keywordArray.push(this.singleSubmission.selectedKeyword[i].id);
+            //this.exploreArray[i] = this.singleSubmission.selectedExplore[i].id;
+        }
+
+        for (let i = 0; i < this.singleSubmission.selectedCategory.length; i++) {
+
+            this.categoryArray.push(this.singleSubmission.selectedCategory[i].id);
+            //this.exploreArray[i] = this.singleSubmission.selectedExplore[i].id;
+        }
+        
+        this.contentService.addContentData(
+            this.content_id,
+            this.submission_id,
+            this.singleSubmission.sub_title1,
+            this.singleSubmission.sub_type1,
+            this.singleSubmission.sub_video_url1,
+            this.keywordArray,
+            this.singleSubmission.sub_free1,
+            this.categoryArray,
+            this.exploreArray,
+            this.singleSubmission.sub_description1,
+            this.status
+        ).subscribe(
+            success => {
+                this.insertContentStatus = success.success;
+                this.error = success.error;
+                this.singleSubForm.reset();
+                this.hideAlert();
+            }
+        );
     }
 }
 
@@ -287,9 +435,9 @@ export class SingleSubmission{
     public sub_type1: number;
     public sub_title1: string;
     public sub_video_url1: string;
-    public selectedKeyword: number;
+    public selectedKeyword = new Array();
     public sub_free1: string;
-    public selectedCategory: number;
-    public selectedExplore: number;
+    public selectedCategory = new Array();
+    public selectedExplore = new Array();
     public sub_description1: string;
 }
