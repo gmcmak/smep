@@ -1,13 +1,13 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../../dashboard']">Home</a>
+        <a [routerLink]="['../../../../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../../submissions/add']">Submissions</a>
+        <a [routerLink]="['../../../../submissions/add']">Submissions</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../../submissions/view']">View</a>
+        <a [routerLink]="['../../../../submissions/view']">View</a>
     </li>
     <li class="breadcrumb-item">
         <a>Content Submission</a>
@@ -27,8 +27,11 @@
                     <tr>
                         <th>#</th>
                         <th>Add Content Data
-                            <button class="dlt_btn">
-                                <li class="fa fa-chevron-circle-right">
+                            <button class="dlt_btn arrow_btn" *ngIf="submission_level==1" (click)="increaseIndex()" [disabled]="index == contentArrayLength - 1">
+                                <li class="fa fa-2x fa-chevron-circle-right arrow_btn_icon">
+                            </button>
+                            <button class="dlt_btn arrow_btn" *ngIf="submission_level==1 && index>0" (click)="decreaseIndex()">
+                                <li class="fa fa-2x fa-chevron-circle-left arrow_btn_icon">
                             </button>
                         </th>
                     </tr>
@@ -38,7 +41,7 @@
                 </tfoot>
                 <tbody>
                     <tr>
-                        <td><b>1.</b></td>
+                        <td><b>{{index+1}}.</b></td>
                         <td>
                             <form id="singleSubForm" name="singleSubForm" [formGroup]="singleSubForm" (ngSubmit)="addContents(singleSubForm.value)">
                                 <div class="row">
@@ -81,9 +84,9 @@
                                             <div class="col-md-8">
                                                 <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="singleSubmission.sub_type1"
                                                     [ngClass]="displayFieldCss('sub_type')">
-                                                    <option Value="1">All</option>
-                                                    <option Value="2">Image</option>
-                                                    <option value="3">Video</option>
+                                                    <option [value]="0">All</option>
+                                                    <option [value]="1">Image</option>
+                                                    <option [value]="2">Video</option>
                                                 </select>
                                                 <div *ngIf="singleSubForm.controls['sub_type'].hasError('required') && singleSubForm.controls['sub_type'].touched" class="error">
                                                     Type is required !

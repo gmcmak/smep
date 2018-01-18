@@ -33,3 +33,12 @@ div label{
 #submit_row{ 
     margin-top: 50px;
 }
+
+/*table arrow buttons*/
+.arrow_btn_icon{
+    color:#808080;
+}
+
+.arrow_btn{
+    float:right;
+}

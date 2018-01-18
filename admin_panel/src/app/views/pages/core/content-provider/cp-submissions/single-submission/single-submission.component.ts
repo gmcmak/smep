@@ -21,6 +21,8 @@ declare var jQuery:any;
 export class SingleSubmissionComponent implements OnInit{
 
     public singleSubmission = new SingleSubmission();
+    public index = 0; //content submission form page index
+    public contentArrayLength = 0;
 
     public singleSubForm: FormGroup;
     public categoryList;
@@ -41,6 +43,7 @@ export class SingleSubmissionComponent implements OnInit{
 
     public submission_id;
     public sub;
+    public submission_level;
 
     public contentDetails;
     public keywords;
@@ -61,6 +64,7 @@ export class SingleSubmissionComponent implements OnInit{
         */
         this.sub = this.route.params.subscribe(params => {
             this.submission_id = +params['id'];
+            this.submission_level = +params['level'];
         });
 
         this.initializeSingleForm();
@@ -100,7 +104,7 @@ export class SingleSubmissionComponent implements OnInit{
             // classes: "myclass custom-class"
         };
 
-        this.getContentDetails();
+        this.getContentDetails(this.index);
     }
 
     //keyword drop down list functions
@@ -232,15 +236,41 @@ export class SingleSubmissionComponent implements OnInit{
     }
 
     /**
+     * increase index using arrow button
+     */
+    public increaseIndex(){
+        if (this.index < this.contentDetails.length){
+            this.index = this.index + 1;
+            this.getContentDetails(this.index);
+        } 
+    }
+
+    /**
+     * increase index using arrow button
+     */
+    public decreaseIndex() {
+        if(this.index>=1){
+            this.index = this.index - 1;
+            this.getContentDetails(this.index);
+        }  
+    }
+
+    /**
      * get content data
      */
-    public getContentDetails(){
+    public getContentDetails(x){
         this.contentService.getContentList(
             this.submission_id
         ).subscribe(
             success => {
                 this.contentDetails = success.success;
-                this.singleSubmission.sub_url1 = this.contentDetails[0].url;
+                this.contentArrayLength = this.contentDetails.length;
+                this.singleSubmission.sub_url1 = this.contentDetails[x].url;
+                this.singleSubmission.sub_description1 = this.contentDetails[x].description;
+                this.singleSubmission.sub_title1 = this.contentDetails[x].title;
+                this.singleSubmission.sub_video_url1 = this.contentDetails[x].video_url;
+                this.singleSubmission.sub_type1 = this.contentDetails[x].type;
+                this.singleSubmission.sub_free1 = this.contentDetails[x].freeform_keyword;
             }
         );
     }

@@ -177,7 +177,7 @@ export const routes: Routes = [
   { path: 'submissions/add', component: AddSubmissionComponent },
   { path: 'submissions/view', component: ViewSubmissionComponent },
   { path: 'submissions/update/:id/:user_id', component: UpdateSubmissionComponent },
-  { path: 'submissions/content-submission/:id', component: SingleSubmissionComponent },
+  { path: 'submissions/content-submission/:id/:level', component: SingleSubmissionComponent },
   {
     path: 'submissions/cp-multiple-submission', component: MultipleSubmissionComponent,
     children: [
