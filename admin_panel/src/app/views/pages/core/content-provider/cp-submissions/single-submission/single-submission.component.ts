@@ -78,6 +78,7 @@ export class SingleSubmissionComponent implements OnInit{
         this.getCategories();
         this.getExplores();
         this.getKeywords();
+        this.getContentDetails(this.index);
 
         //for keyword drop down
         this.keyword_setting = {
@@ -111,23 +112,23 @@ export class SingleSubmissionComponent implements OnInit{
             // classes: "myclass custom-class"
         };
 
-        this.getContentDetails(this.index);
+        
     }
 
     //keyword drop down list functions
     onItemSelect1(item: any) {
         for (let i = 0; i < item.length; i++) {
             this.singleSubmission.selectedKeyword[i] = new Array();
-            this.singleSubmission.selectedKeyword[i]['id'] = item[i]['id'];
-            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i]['itemName'];
+            this.singleSubmission.selectedKeyword[i]['id'] = item[i].id;
+            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i].itemName;
         }
         return this.singleSubmission.selectedKeyword;
     }
     onItemDeSelect1(item: any) {
         for (let i = 0; i < item.length; i++) {
             this.singleSubmission.selectedKeyword[i] = new Array();
-            this.singleSubmission.selectedKeyword[i]['id'] = item[i]['id'];
-            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i]['itemName'];
+            this.singleSubmission.selectedKeyword[i]['id'] = item[i].id;
+            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i].itemName;
         }
         return this.singleSubmission.selectedKeyword;
     }
@@ -156,8 +157,8 @@ export class SingleSubmissionComponent implements OnInit{
     onItemDeSelect2(item: any) {
         for (let i = 0; i < item.length; i++) {
             this.singleSubmission.selectedCategory[i] = new Array();
-            this.singleSubmission.selectedCategory[i]['id'] = item[i]['id'];
-            this.singleSubmission.selectedCategory[i]['itemName'] = item[i]['itemName'];
+            this.singleSubmission.selectedCategory[i]['id'] = item[i].id;
+            this.singleSubmission.selectedCategory[i]['itemName'] = item[i].itemName;
         }
         return this.singleSubmission.selectedCategory;
     }
@@ -178,30 +179,26 @@ export class SingleSubmissionComponent implements OnInit{
     onItemSelect3(item: any) {
         for(let i=0; i<item.length; i++){
             this.singleSubmission.selectedExplore[i] = new Array();
-            this.singleSubmission.selectedExplore[i]['id'] = item[i]['id'];
-            this.singleSubmission.selectedExplore[i]['itemName'] = item[i]['itemName'];
+            this.singleSubmission.selectedExplore[i]['id'] = item[i].id;
+            this.singleSubmission.selectedExplore[i]['itemName'] = item[i].itemName;
         }
-        return this.singleSubmission.selectedExplore;
-        //console.log(this.singleSubmission.selectedExplore);
-        
+        return this.singleSubmission.selectedExplore;   
     }
     onItemDeSelect3(item: any) {
         for (let i = 0; i < item.length; i++) {
             this.singleSubmission.selectedExplore[i] = new Array();
-            this.singleSubmission.selectedExplore[i]['id'] = item[i]['id'];
-            this.singleSubmission.selectedExplore[i]['itemName'] = item[i]['itemName'];
+            this.singleSubmission.selectedExplore[i]['id'] = item[i].id;
+            this.singleSubmission.selectedExplore[i]['itemName'] = item[i].itemName;
         }
         return this.singleSubmission.selectedExplore;
-        //console.log(this.singleSubmission.selectedExplore);
     }
     onSelectAll3(items: any) {
         for (let i = 0; i < this.ExploreItemList.length; i++) {
             this.singleSubmission.selectedExplore[i] = new Array();
-            this.singleSubmission.selectedExplore[i]['id'] = this.ExploreItemList[i]['id'];
-            this.singleSubmission.selectedExplore[i]['itemName'] = this.ExploreItemList[i]['itemName'];
+            this.singleSubmission.selectedExplore[i]['id'] = this.ExploreItemList[i].id;
+            this.singleSubmission.selectedExplore[i]['itemName'] = this.ExploreItemList[i].itemName;
         }
         return this.singleSubmission.selectedExplore;
-        //console.log(this.singleSubmission.selectedExplore);
     }
     onDeSelectAll3(items: any) {
         this.singleSubmission.selectedExplore = [];
@@ -215,14 +212,14 @@ export class SingleSubmissionComponent implements OnInit{
             'sub_title': ['', [Validators.required]], 
             'sub_video_url': ['', [Validators.pattern(URL_REGEX)]],
             'sub_keywords': new FormGroup({
-                'sub_keyword': new FormControl([]),
+                'sub_keyword': new FormControl([], Validators.required),
                 'sub_free': new FormControl('')
             }),
             'sub_categories': new FormGroup({
-                'sub_category': new FormControl([])
+                'sub_category': new FormControl([], Validators.required)
             }),
             'sub_explores': new FormGroup({
-                'sub_explore': new FormControl([])
+                'sub_explore': new FormControl([], Validators.required)
             }),
             'sub_description': ['']
         });
@@ -353,24 +350,27 @@ export class SingleSubmissionComponent implements OnInit{
                 this.singleSubmission.sub_free1 = this.contentDetails[x].freeform_keyword;
 
                 if (this.contentDetails[x].keyword.length > 0){
+                    this.singleSubmission.selectedKeyword= new Array();
                     for (let i = 0; i < this.contentDetails[x].keyword.length; i++) {
-                        this.singleSubmission.selectedKeyword[i] = new Array();
-                        this.singleSubmission.selectedKeyword[i]['id'] = this.contentDetails[x].keyword[i].id;
-                        this.singleSubmission.selectedKeyword[i]['itemName'] = this.contentDetails[x].keyword[i].en_name;
+                        this.singleSubmission.selectedKeyword[i] = {};
+                        this.singleSubmission.selectedKeyword[i].id = this.contentDetails[x].keyword[i].id;
+                        this.singleSubmission.selectedKeyword[i].itemName = this.contentDetails[x].keyword[i].en_name;
                     }
                 }
                 
                 if (this.contentDetails[x].category.length > 0){
+                    this.singleSubmission.selectedCategory = new Array();
                     for (let i = 0; i < this.contentDetails[x].category.length; i++) {
-                        this.singleSubmission.selectedCategory[i] = new Array();
+                        this.singleSubmission.selectedCategory[i] = {};
                         this.singleSubmission.selectedCategory[i]['id'] = this.contentDetails[x].category[i].id;
                         this.singleSubmission.selectedCategory[i]['itemName'] = this.contentDetails[x].category[i].en_name;
                     }
                 }
                 
                 if (this.contentDetails[x].explore.length > 0){
+                    this.singleSubmission.selectedExplore = new Array();
                     for (let i = 0; i < this.contentDetails[x].explore.length; i++) {
-                        this.singleSubmission.selectedExplore[i] = new Array();
+                        this.singleSubmission.selectedExplore[i] = {};
                         this.singleSubmission.selectedExplore[i]['id'] = this.contentDetails[x].explore[i].id;
                         this.singleSubmission.selectedExplore[i]['itemName'] = this.contentDetails[x].explore[i].en_tag;
                     }  
@@ -384,7 +384,7 @@ export class SingleSubmissionComponent implements OnInit{
      * @param formData 
      */
     public addContents(){
-        //console.log(this.singleSubmission.selectedKeyword);
+        
         this.exploreArray = [];
         this.categoryArray = [];
         this.keywordArray = [];
@@ -398,13 +398,11 @@ export class SingleSubmissionComponent implements OnInit{
         for (let i = 0; i < this.singleSubmission.selectedKeyword.length; i++) {
 
             this.keywordArray.push(this.singleSubmission.selectedKeyword[i].id);
-            //this.exploreArray[i] = this.singleSubmission.selectedExplore[i].id;
         }
 
         for (let i = 0; i < this.singleSubmission.selectedCategory.length; i++) {
 
             this.categoryArray.push(this.singleSubmission.selectedCategory[i].id);
-            //this.exploreArray[i] = this.singleSubmission.selectedExplore[i].id;
         }
         
         this.contentService.addContentData(
