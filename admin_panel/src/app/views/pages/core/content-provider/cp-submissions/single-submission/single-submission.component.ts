@@ -350,7 +350,7 @@ export class SingleSubmissionComponent implements OnInit{
                 this.singleSubmission.sub_free1 = this.contentDetails[x].freeform_keyword;
 
                 if (this.contentDetails[x].keyword.length > 0){
-                    this.singleSubmission.selectedKeyword= new Array();
+                    this.singleSubmission.selectedKeyword = new Array();
                     for (let i = 0; i < this.contentDetails[x].keyword.length; i++) {
                         this.singleSubmission.selectedKeyword[i] = {};
                         this.singleSubmission.selectedKeyword[i].id = this.contentDetails[x].keyword[i].id;
@@ -421,8 +421,8 @@ export class SingleSubmissionComponent implements OnInit{
             success => {
                 this.insertContentStatus = success.success;
                 this.error = success.error;
-                this.singleSubForm.reset();
                 this.hideAlert();
+
             }
         );
     }

@@ -62,6 +62,20 @@ class SubmissionController extends Controller
     }
 
     /**
+    * get details for update
+    */
+    public function editSubmission(request $request, $id, $user_id){
+        $table = new Submission();
+        $data = DB::table('submissions')->where(['id'=>$id, 'user_id'=>$user_id])->get();
+        if($data){
+            return response()->json(['success'=>$data]);
+        }
+        else{
+            return response()->json(['error'=>'Error occured']);
+        }
+    }
+
+    /**
     * update submission
     */
     public function updateSubmission(request $request, $id, $user_id){

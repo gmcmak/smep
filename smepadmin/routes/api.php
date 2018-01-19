@@ -166,6 +166,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         */
         Route::post('add-submission', 'API\SubmissionController@addSubmission');
         Route::get('view-submission/{user_id}', 'API\SubmissionController@viewSubmission');
+        Route::get('edit-submission/{id}/{user_id}', 'API\SubmissionController@editSubmission');
         Route::post('update-submission/{id}/{user_id}', 'API\SubmissionController@updateSubmission');
 
         /**

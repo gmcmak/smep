@@ -60,6 +60,24 @@ div table{
     /* background-color: #acf; */
  }
 
+ .important {
+    color: #F93232;
+    font-size: 12px;
+    font-style: italic;
+    text-align: left;
+    font-weight: bold;
+    /* background-color: #acf; */
+ }
+
+ .important_right {
+    color: #F93232;
+    font-size: 12px;
+    font-style: italic;
+    text-align: right;
+    font-weight: bold;
+    /* background-color: #acf; */
+ }
+
 .required { 
     color: red;
 }

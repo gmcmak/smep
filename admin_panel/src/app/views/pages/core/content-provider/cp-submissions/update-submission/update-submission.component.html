@@ -7,6 +7,74 @@
         <a [routerLink]="['../../../../submissions/add']">Submissions</a>
     </li>
     <li class="breadcrumb-item">
+        <a [routerLink]="['../../../../submissions/view']">View</a>
+    </li>
+    <li class="breadcrumb-item">
         <a>Update</a>
     </li>
 </ol>
+
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="submissionUpdatingStatus">
+    <strong>{{submissionUpdatingStatus}} !</strong>
+</div>
+
+<form id="subForm" [formGroup]="subForm" (ngSubmit)="updateSubmission(subForm.value)">
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-file-o"></i>&emsp;<b>Submission Updating Form</b>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    <label for="subName">Name:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="subName" type="text" name="subName" formControlName="subName"
+                        [(ngModel)]="submissionForm.subName" placeholder="SLIIT" [ngClass]="displayFieldCss('subName')">
+
+                    <div *ngIf="subForm.controls['subName'].hasError('required') && subForm.controls['subName'].touched" class="error">
+                        Name is required !
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    <label for="subName">Url:</label>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control form-control-sm" id="subUrl" type="text" name="subUrl" formControlName="subUrl" [(ngModel)]="submissionForm.subUrl" readonly>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-8 important">
+                   ( Important: You are not able to edit entered url )
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-6" align="right">
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!subForm.valid">Update</button>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>

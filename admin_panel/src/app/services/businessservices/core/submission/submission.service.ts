@@ -53,4 +53,38 @@ export class SubmissionService{
             .map((response: Response) => response.json());
     }
 
+    /**
+    * get submission data for edit
+    */
+    public editSubmissionData(id, user_id) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        return this.http.get(this.API_ENDPOINT + 'edit-submission/' + id + '/' + user_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+    * update submission
+    */
+    public updateSubmission(id, user_id, subName) {
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        let body = new URLSearchParams;
+        body.append('name', subName);
+        return this.http.post(this.API_ENDPOINT + 'update-submission/' + id + '/' + user_id, body,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
 }
