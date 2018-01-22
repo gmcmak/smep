@@ -5,6 +5,7 @@ import { ExploreService } from "../../../../../../services/businessservices/core
 import { KeywordService } from "../../../../../../services/businessservices/core/settings/keyword.service";
 import { ActivatedRoute } from "@angular/router";
 import { ContentService } from "../../../../../../services/businessservices/core/content/content.service";
+import { TypeService } from "../../../../../../services/businessservices/core/type/type.service";
 
 const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}');
 
@@ -28,6 +29,7 @@ export class SingleSubmissionComponent implements OnInit{
     public categoryList;
     public exploreList;
     public keywordList;
+    public typeList;
 
     public keywordItemList = new Array();
     selectedKeyword1 = [];
@@ -61,7 +63,8 @@ export class SingleSubmissionComponent implements OnInit{
         private exploreService: ExploreService,
         private keywordService: KeywordService,
         private route: ActivatedRoute,
-        private contentService: ContentService
+        private contentService: ContentService,
+        private typeService: TypeService
     ){}
 
     ngOnInit(): void {
@@ -78,6 +81,7 @@ export class SingleSubmissionComponent implements OnInit{
         this.getCategories();
         this.getExplores();
         this.getKeywords();
+        this.getTypes();
         this.getContentDetails(this.index);
 
         //for keyword drop down
@@ -306,6 +310,18 @@ export class SingleSubmissionComponent implements OnInit{
     }
 
     /**
+     * get type details
+     */
+    public getTypes(){
+        this.typeService.getTypeData().subscribe(
+            success => {
+                this.typeList = success.success;
+                console.log(this.typeList);
+            }
+        );
+    }
+
+    /**
      * increase index using arrow button
      */
     public increaseIndex(){
@@ -346,7 +362,7 @@ export class SingleSubmissionComponent implements OnInit{
                 this.singleSubmission.sub_description1 = this.contentDetails[x].description;
                 this.singleSubmission.sub_title1 = this.contentDetails[x].title;
                 this.singleSubmission.sub_video_url1 = this.contentDetails[x].video_url;
-                this.singleSubmission.sub_type1 = this.contentDetails[x].type;
+                this.singleSubmission.sub_type1 = this.contentDetails[x].type_id;
                 this.singleSubmission.sub_free1 = this.contentDetails[x].freeform_keyword;
 
                 if (this.contentDetails[x].keyword.length > 0){

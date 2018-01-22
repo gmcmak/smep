@@ -88,9 +88,7 @@
                                             <div class="col-md-8">
                                                 <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="singleSubmission.sub_type1"
                                                     [ngClass]="displayFieldCss('sub_type')">
-                                                    <option [value]="0">All</option>
-                                                    <option [value]="1">Image</option>
-                                                    <option [value]="2">Video</option>
+                                                    <option *ngFor="let record of typeList" [value]="record.id">{{record.name}}</option>
                                                 </select>
                                                 <div *ngIf="singleSubForm.controls['sub_type'].hasError('required') && singleSubForm.controls['sub_type'].touched" class="error">
                                                     Type is required !
@@ -198,6 +196,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12 important_right">
+                                        ( Important: Required fields are mentioned by * )
+                                    </div>
+                                </div>
                             </form>
                         </td>
                     </tr>
@@ -206,3 +210,4 @@
         </div>
     </div>
 </div>
+<br>

@@ -21,6 +21,10 @@ class Content extends Model
     public function category()
     {
         return $this->belongsToMany('App\Category');
-    }   
+    }
+
+    public function submission(){
+        return $this->belongsTo('App\Submission');
+    }  
     
 }

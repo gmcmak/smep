@@ -159,6 +159,7 @@ import { ViewSubmissionComponent } from './views/pages/core/content-provider/cp-
 import { UpdateSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/update-submission/update-submission.component';
 import { SubmissionService } from './services/businessservices/core/submission/submission.service';
 import { ContentService } from './services/businessservices/core/content/content.service';
+import { TypeService } from './services/businessservices/core/type/type.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -323,6 +324,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     SubjectService,
     CountryService,
     ContentService,
+    TypeService,
     ToastService,
     ToastCommunicationService,
     DialogsService,

@@ -40,7 +40,7 @@ class ContentController extends Controller
 	    			'title' => $request->input('title'),
 	    			'description' => $request->input('description'),
 	    			'video_url' => $request->input('video_url'),
-	    			'type' => $request->input('type'),
+	    			'type_id' => $request->input('type'),
 	    			'freeform_keyword' => $request->input('freeform_keyword'),
 	    			'status' => $request->input('status'),
 	    			'updated_at' => now()
@@ -74,9 +74,32 @@ class ContentController extends Controller
 	    		
     		}
     		catch(\Illuminate\Database\QueryException $ex){
-    			return response()->json(['success'=>$request->input('explore'), 'error'=>1]);
+    			return response()->json(['success'=>'Error occured', 'error'=>1]);
     		}
     		
     	}
     }
+
+    //get content data to specific user
+    public function getContentInfo($user_id, $type_id){
+    	$content_data = Content::with(array(
+    			'submission' => function($query) use ($user_id){
+    				$query->where(['user_id'=> $user_id]);
+    			}
+    		))->where(['type_id'=>$type_id])->get();
+
+    	return response()->json(['success'=>$content_data]);
+    }
+
+    //get content details count
+    public function getContentCount($user_id, $type_id){
+    	$content_count = Content::with(array(
+    			'submission' => function($query) use ($user_id){
+    				$query->where(['user_id'=> $user_id]);
+    			}
+    		))->where(['type_id'=>$type_id])->count();
+
+    	return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
+    }
+
 }

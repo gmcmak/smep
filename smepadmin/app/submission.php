@@ -10,4 +10,8 @@ class Submission extends Model
         'name', 'url', ' user_id', 'status', 'level'
     ];
 
+    public function user(){
+    	return $this->belongsTo('App\User');
+    }
+
 }

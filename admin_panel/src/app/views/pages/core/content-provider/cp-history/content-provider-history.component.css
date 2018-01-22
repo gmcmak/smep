@@ -56,6 +56,15 @@ div label{
   padding-bottom: 4px;
   bottom: 1px;
 }
+
+/*table arrow buttons*/
+.arrow_btn_icon{
+    color:#808080;
+}
+
+.arrow_btn{
+    float:right;
+}
   
   
   

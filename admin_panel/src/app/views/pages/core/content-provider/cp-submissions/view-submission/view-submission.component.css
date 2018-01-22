@@ -7,3 +7,28 @@
     padding-right: 4px;
     font-size: 12px;
 }
+
+/*disabled buttons colours*/
+.btn.btn-primary[disabled] {
+    color: #fff;
+    background-color: #024675;
+    border-color: #024675;
+}
+
+.btn.btn-danger[disabled] {
+    color: #fff;
+    background-color: #CF1229;
+    border-color: #CF1229;
+}
+
+.btn.btn-success[disabled] {
+    color: #fff;
+    background-color: #237C05;
+    border-color: #237C05;
+}
+
+.btn.btn-default[disabled] {
+    color: #fff;
+    background-color: #5B5A5B;
+    border-color: #5B5A5B;
+}
