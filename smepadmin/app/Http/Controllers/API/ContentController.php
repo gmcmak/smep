@@ -36,12 +36,33 @@ class ContentController extends Controller
     		try{
     			$content_table = new Content();
 
+    			if(is_null($request->input('video_url'))){
+    				$videoUrl = '';
+    			}
+    			else{
+    				$videoUrl = $request->input('video_url');
+    			}
+
+    			if(is_null($request->input('freeform_keyword'))){
+    				$freeformKeyword = '';
+    			}
+    			else{
+    				$freeformKeyword = $request->input('freeform_keyword');
+    			}
+
+    			if(is_null($request->input('description'))){
+    				$description1 = '';
+    			}
+    			else{
+    				$description1 = $request->input('description');
+    			}
+
 	    		$content_update_data = [
 	    			'title' => $request->input('title'),
-	    			'description' => $request->input('description'),
-	    			'video_url' => $request->input('video_url'),
+	    			'description' => $description1,
+	    			'video_url' => $videoUrl,
 	    			'type_id' => $request->input('type'),
-	    			'freeform_keyword' => $request->input('freeform_keyword'),
+	    			'freeform_keyword' => $freeformKeyword,
 	    			'status' => $request->input('status'),
 	    			'updated_at' => now()
 	    		];
@@ -74,19 +95,29 @@ class ContentController extends Controller
 	    		
     		}
     		catch(\Illuminate\Database\QueryException $ex){
-    			return response()->json(['success'=>'Error occured', 'error'=>1]);
+    			return response()->json(['success'=>'Error occured1', 'error'=>1]);
     		}
     		
     	}
     }
 
-    //get content data to specific user
-    public function getContentInfo($user_id, $type_id){
+    public function getContentAll($user_id, $type_id){
     	$content_data = Content::with(array(
     			'submission' => function($query) use ($user_id){
     				$query->where(['user_id'=> $user_id]);
-    			}
+    			}, 'category', 'keyword', 'explore'
     		))->where(['type_id'=>$type_id])->get();
+
+    	return response()->json(['success'=>$content_data]);
+    }
+
+    //get content data to specific user
+    public function getContentInfo($user_id, $type_id, $status_id){
+    	$content_data = Content::with(array(
+    			'submission' => function($query) use ($user_id){
+    				$query->where(['user_id'=> $user_id]);
+    			}, 'category', 'keyword', 'explore'
+    		))->where(['type_id'=>$type_id, 'status'=>$status_id])->get();
 
     	return response()->json(['success'=>$content_data]);
     }
@@ -98,6 +129,17 @@ class ContentController extends Controller
     				$query->where(['user_id'=> $user_id]);
     			}
     		))->where(['type_id'=>$type_id])->count();
+
+    	return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
+    }
+
+    //get content approve,reject,pending,all count
+    public function getContentAllCount($user_id, $type_id, $status_id){
+    	$content_count = Content::with(array(
+    			'submission' => function($query) use ($user_id){
+    				$query->where(['user_id'=> $user_id]);
+    			}
+    		))->where(['type_id'=>$type_id, 'status'=>$status_id])->count();
 
     	return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
     }

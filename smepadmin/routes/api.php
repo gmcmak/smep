@@ -160,8 +160,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('get-content/{id}', 'API\ContentController@getContent');
         Route::post('add-content/{id}/{submission_id}', 'API\ContentController@addContent');
         Route::get('update-content/{id}', 'API\ContentController@updateContent');
-        Route::get('get-content-info/{user_id}/{type_id}', 'API\ContentController@getContentInfo'); //get content details for show submission history
+        Route::get('get-content-all/{user_id}/{type_id}', 'API\ContentController@getContentAll');
+        Route::get('get-content-info/{user_id}/{type_id}/{status_id}', 'API\ContentController@getContentInfo'); //get content details for show submission history
         Route::get('get-content-count/{user_id}/{type_id}', 'API\ContentController@getContentCount');
+        Route::get('get-content-all-count/{user_id}/{type_id}/{status_id}', 'API\ContentController@getContentAllCount');
 
         /**
         * for submission

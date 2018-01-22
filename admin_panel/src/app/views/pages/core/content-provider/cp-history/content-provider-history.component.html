@@ -8,7 +8,7 @@
     </li>
 </ol>
 
-<form id="userForm">
+<form id="contentForm">
     <div class="card mb-3">
         <div class="card-header">
             <i class="fa fa-history"></i>&emsp;<b>Content Provider - Submission History</b>
@@ -40,13 +40,13 @@
             <div id="exTab2" class="container">
                 <ul class="nav nav-tabs">
                     <li class="active" *ngFor="let record of typeList">
-                        <a class="tab" data-toggle="tab" href="#home" (click)="getContentCount(record.id)">{{record.name}} <span *ngIf="record.id==type_id">({{contentCount}})</span></a>
+                        <a class="tab" data-toggle="tab" href="#home" (click)="getContentCount(record.id); getContentHistory(record.id)"><b>{{record.name}} <span *ngIf="record.id==type_id">({{contentCount}})</span></b></a>
                     </li>
                 </ul>
                 <br>
 
                 <div class="tab-content" align="center">
-                    <div id="home" class="tab-pane">
+                    <div id="home" class="tab-pane active">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="authorsTable" width="100%" cellspacing="0">
                                 <thead>
@@ -58,26 +58,26 @@
                                                                 <label>Filter by : </label>
                                                             </div> -->
                                                 <div class="col-md-2" align="center">
-                                                    <input type="radio" name="status" id="all" checked>
-                                                    <label>&emsp;All</label>
+                                                    <input type="radio" name="status" id="all" (click)="all()" [value]="0" [(ngModel)]="content.radioValue" checked>
+                                                    <label>&emsp;All ({{contentCount}})</label>
                                                 </div>
                                                 <div class="col-md-2" align="center">
-                                                    <input type="radio" name="status" id="approve">
-                                                    <label>&emsp;Approve</label>
+                                                    <input type="radio" name="status" id="approve" (click)="approved()" [value]="1"  [(ngModel)]="content.radioValue">
+                                                    <label>&emsp;Approve ({{approvedCount}})</label>
                                                 </div>
                                                 <div class="col-md-2" align="center">
-                                                    <input type="radio" name="status" id="reject">
-                                                    <label>&emsp;Reject</label>
+                                                    <input type="radio" name="status" id="reject" (click)="rejected()" [value]="2"  [(ngModel)]="content.radioValue">
+                                                    <label>&emsp;Reject ({{rejectedCount}})</label>
                                                 </div>
                                                 <div class="col-md-2" align="center">
-                                                    <input type="radio" name="status" id="pending">
-                                                    <label>&emsp;Pending</label>
+                                                    <input type="radio" name="status" id="pending" (click)="pending()" [value]="3"  [(ngModel)]="content.radioValue">
+                                                    <label>&emsp;Pending ({{pendingCount}})</label>
                                                 </div>
                                                 <div class="col-md-4" align="center">
-                                                    <button class="dlt_btn arrow_btn" (click)="increaseIndex()">
+                                                    <button class="dlt_btn arrow_btn" (click)="increaseIndex()" [disabled]="index == contentHistoryListLength - 1" *ngIf="contentHistoryListLength != 0">
                                                         <li class="fa fa-2x fa-chevron-circle-right arrow_btn_icon">
                                                     </button>
-                                                    <button class="dlt_btn arrow_btn" (click)="decreaseIndex()">
+                                                    <button class="dlt_btn arrow_btn" *ngIf="index>0" (click)="decreaseIndex()">
                                                         <li class="fa fa-2x fa-chevron-circle-left arrow_btn_icon">
                                                     </button>
                                                 </div>
@@ -89,7 +89,7 @@
                         
                                 </tfoot>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngIf="contentHistoryList[index]">
                                         <td>
                                             <b>{{index+1}}.</b>
                                         </td>
@@ -98,32 +98,46 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <h6>
-                                                            <a href="">1. Management Information System</a>
+                                                            <a href="{{contentHistoryList[index].url}}">{{contentHistoryList[index].title}}</a>
                                                         </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>Keywords : </label>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label *ngFor="let item of contentHistoryList[index].keyword; let isLast=last;">
+                                                            {{item.en_name}}{{isLast ? '' : ', '}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label>Other Keywords : </label>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label>{{contentHistoryList[index].freeform_keyword}}</label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-2">
                                                         <label>Category : </label>
                                                     </div>
-                                                    <div class="col-md-7">
-                                                        <label>Information Technology</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <em>
-                                                            <label class="historyLabel">Content Submission No: C0002</label>
-                                                        </em>
+                                                    <div class="col-md-10">
+                                                        <label *ngFor="let item of contentHistoryList[index].category; let isLast=last;">
+                                                            {{item.en_name}}{{isLast ? '' : ', '}}
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <label>Keywords/ Tags : </label>
+                                                        <label>Description : </label>
                                                     </div>
                                                     <div class="col-md-10">
-                                                        <label>Information Technology, IT, TPS, DSS, Database</label>
+                                                        <textarea id="sub_description" class="form-control form-control-sm" rows="3" id="sub_description" name="sub_description"
+                                                            type="text" readonly>{{contentHistoryList[index].description}}</textarea>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                 </div>
                                                 <br>
                                             </form>
