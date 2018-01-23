@@ -98,8 +98,18 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <h6>
-                                                            <a href="{{contentHistoryList[index].url}}">{{contentHistoryList[index].title}}</a>
+                                                            <a href="{{contentHistoryList[index].url}}" target="blank">{{contentHistoryList[index].title}}</a>
                                                         </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="changingTypeId == 3">
+                                                    <div class="col-md-2">
+                                                        <label>Video Url : </label>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label>
+                                                            <a href="{{contentHistoryList[index].video_url}}" target="blank">{{contentHistoryList[index].video_url}}</a>
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="row">

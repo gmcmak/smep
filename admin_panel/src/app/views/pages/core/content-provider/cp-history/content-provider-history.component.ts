@@ -23,7 +23,7 @@ export class ContentProviderHistoryComponent implements OnInit{
     public status_id; //default status id
     public contentHistoryList = new Array();
     public contentHistoryListLength: number;
-    public changingTypeId: number;
+    public changingTypeId: number; //change type id selecting all, video and image
 
     public approvedCount: number = 0;
     public rejectedCount: number = 0;
@@ -37,7 +37,6 @@ export class ContentProviderHistoryComponent implements OnInit{
     ngOnInit(): void {
         this.loadTypes();
         this.content.radioValue = 0;
-        //this.getContentHistory();
         this.getContentHistory(1);
         this.getContentCount(1)
     }
@@ -86,6 +85,9 @@ export class ContentProviderHistoryComponent implements OnInit{
         );
     }
 
+    /**
+     * get approved content details
+     */
     public approved(){
         this.contentService.getContentHistory(
             this.user_id,
@@ -97,22 +99,18 @@ export class ContentProviderHistoryComponent implements OnInit{
                 this.contentHistoryListLength = this.contentHistoryList.length;
             }
         );
-
-        this.contentService.getContentAllCount(
-            this.user_id,
-            this.changingTypeId,
-            this.status_id = 1   
-        ).subscribe(
-            success => {
-                this.approvedCount = success.success;
-            }
-        );
     }
 
+    /**
+     * get all content details
+     */
     public all() {
         this.getContentHistory(this.changingTypeId);
     }
 
+    /**
+     * get rejected content details
+     */
     public rejected(){
         this.contentService.getContentHistory(
             this.user_id,
@@ -124,18 +122,11 @@ export class ContentProviderHistoryComponent implements OnInit{
                 this.contentHistoryListLength = this.contentHistoryList.length;
             }
         );
-
-        this.contentService.getContentAllCount(
-            this.user_id,
-            this.changingTypeId,
-            this.status_id = 2
-        ).subscribe(
-            success => {
-                this.rejectedCount = success.success;
-            }
-            );
     }
 
+    /**
+     * get pending content details
+     */
     public pending(){
         this.contentService.getContentHistory(
             this.user_id,
@@ -147,16 +138,6 @@ export class ContentProviderHistoryComponent implements OnInit{
                 this.contentHistoryListLength = this.contentHistoryList.length;
             }
         );
-
-        this.contentService.getContentAllCount(
-            this.user_id,
-            this.changingTypeId,
-            this.status_id = 0
-        ).subscribe(
-            success => {
-                this.pendingCount = success.success;
-            }
-            );
     }
 
     /**
@@ -164,9 +145,6 @@ export class ContentProviderHistoryComponent implements OnInit{
      */
     public getContentHistory(type_id1){
             this.index = 0;
-            this.approvedCount = 0;
-            this.rejectedCount = 0;
-            this.pendingCount = 0;
             this.contentService.getContentAllHistory(
                 this.user_id,
                 type_id1
@@ -176,41 +154,62 @@ export class ContentProviderHistoryComponent implements OnInit{
                     this.contentHistoryListLength = this.contentHistoryList.length;
                     this.content.radioValue = 0;
                     this.changingTypeId = type_id1;
+                    this.getApprovedCount();
+                    this.getRejectedCount();
+                    this.getPendingCount();
                 }
-            );
+            ); 
+    }
 
-        // this.contentService.getContentAllCount(
-        //     this.user_id,
-        //     this.changingTypeId,
-        //     this.status_id = 1
-        // ).subscribe(
-        //     success => {
-        //         this.approvedCount = 0;
-        //         this.approvedCount = success.success;
-        //     }
-        //     );
+    /**
+     * get approved content count
+     */
+    public getApprovedCount(){
+        this.contentService.getContentAllCount(
+            this.user_id,
+            this.changingTypeId,
+            this.status_id = 1
+        ).subscribe(
+            success => {
+                this.approvedCount = 0;
+                this.approvedCount = success.success;
+                //console.log('approved count = ' + this.approvedCount);
+            }
+        );
+    }
 
-        // this.contentService.getContentAllCount(
-        //     this.user_id,
-        //     this.changingTypeId,
-        //     this.status_id = 2
-        // ).subscribe(
-        //     success => {
-        //         this.rejectedCount = 0;
-        //         this.rejectedCount = success.success;
-        //     }
-        //     );
+    /**
+     * get rejected content count
+     */
+    public getRejectedCount(){
+        this.contentService.getContentAllCount(
+            this.user_id,
+            this.changingTypeId,
+            this.status_id = 2
+        ).subscribe(
+            success => {
+                this.rejectedCount = 0;
+                this.rejectedCount = success.success;
+                //console.log('rejected count = ' + this.rejectedCount);
+            }
+        );
+    }
 
-        // this.contentService.getContentAllCount(
-        //     this.user_id,
-        //     this.changingTypeId,
-        //     this.status_id = 0
-        // ).subscribe(
-        //     success => {
-        //         this.pendingCount = 0;
-        //         this.pendingCount = success.success;
-        //     }
-        //     );
+    /**
+     * get pending content count
+     */
+    public getPendingCount(){
+        this.contentService.getContentAllCount(
+            this.user_id,
+            this.changingTypeId,
+            this.status_id = 0
+        ).subscribe(
+            success => {
+                this.pendingCount = 0;
+                this.pendingCount = success.success;
+                //console.log('pending count = ' + this.pendingCount);
+            }
+        );
     }
   
 }
