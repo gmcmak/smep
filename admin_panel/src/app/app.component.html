@@ -262,6 +262,23 @@
                   </li> -->
                 </ul>
               </li>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#typeList" data-parent="#settingList">
+                  <i class="fa fa-ellipsis-v"></i>&nbsp;
+                  <span class="nav-link-text" [routerLink]="['settings/type/view-type']">Type</span>
+                </a>
+                <ul class="sidenav-third-level collapse" id="typeList">
+                  <li>
+                    <a [routerLink]="['settings/type/view-type']">View Type</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['settings/type/add-type']">Add Type</a>
+                  </li>
+                  <!-- <li>
+                                  <a [routerLink]="['settings/module/update-module']">Update Module</a>
+                                </li> -->
+                </ul>
+              </li>
           </ul>
         </li>
         

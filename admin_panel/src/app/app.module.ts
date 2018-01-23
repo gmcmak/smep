@@ -161,6 +161,9 @@ import { SubmissionService } from './services/businessservices/core/submission/s
 import { ContentService } from './services/businessservices/core/content/content.service';
 import { TypeService } from './services/businessservices/core/type/type.service';
 import { EditContentComponent } from './views/pages/core/content-provider/cp-history/edit-content/edit-content.component';
+import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-type/add-type.component';
+import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
+import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -271,7 +274,11 @@ export function startupServiceFactory(startupService: StartupService): Function 
 
     AddSubjectComponent,
     UpdateSubjectComponent,
-    ViewSubjectComponent
+    ViewSubjectComponent,
+
+    AddTypeComponent,
+    UpdateTypeComponent,
+    ViewTypeComponent
   ],
   imports: [
     BrowserModule,

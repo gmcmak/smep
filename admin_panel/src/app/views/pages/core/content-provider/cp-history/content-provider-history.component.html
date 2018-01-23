@@ -153,7 +153,7 @@
                                                 <div class="row" *ngIf="pending_id == true">
                                                     <div class="col-md-12" align="right">
                                                         <button type="submit" id="submit" name="submit" class="dlt_btn">
-                                                            <a [routerLink]="['../cp-history/edit-component', contentHistoryList[index].id, contentHistoryList[index].submission_id]" class="fa fa-1x fa-pencil-square-o"></a>
+                                                            <a id="edit_link" [routerLink]="['../cp-history/edit-component', contentHistoryList[index].id, contentHistoryList[index].submission_id]" class="fa fa-1x fa-pencil-square-o"></a>
                                                         </button>
                                                     </div>
                                                 </div>

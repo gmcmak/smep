@@ -89,6 +89,9 @@ import { AddSubmissionComponent } from './views/pages/core/content-provider/cp-s
 import { ViewSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/view-submission/view-submission.component';
 import { UpdateSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/update-submission/update-submission.component';
 import { EditContentComponent } from './views/pages/core/content-provider/cp-history/edit-content/edit-content.component';
+import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-type/add-type.component';
+import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
+import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
 
 
 export const routes: Routes = [
@@ -144,6 +147,9 @@ export const routes: Routes = [
   { path: 'settings/subject-area/add-subject', component: AddSubjectComponent },
   { path: 'settings/subject-area/view-subject', component: ViewSubjectComponent },
   { path: 'settings/subject-area/update-subject/:id', component: UpdateSubjectComponent },
+  { path: 'settings/type/add-type', component: AddTypeComponent },
+  { path: 'settings/type/view-type', component: ViewTypeComponent },
+  { path: 'settings/type/update-type/:id', component: UpdateTypeComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'edit-profile/:id', component: EditProfileComponent },
   // content authorizer

@@ -1,0 +1,90 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../../settings/author/view-author']">Settings</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../../settings/type/view-type']">Type</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Update Type</a>
+    </li>
+</ol>
+
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="typeUpdatingStatus">
+    <strong>{{typeUpdatingStatus}} !</strong>
+</div>
+
+<form id="typeForm" [formGroup]="typeForm" (ngSubmit)="updateType(typeForm.value)">
+    <div class="card mb-3">
+        <div class="card-header">
+            <b>Type Updating Form</b>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="typeName">Type Name:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="typeName" type="text" name="type_name" formControlName="type_name"
+                        [(ngModel)]="type.typeName" placeholder="Video" [ngClass]="displayFieldCss('type_name')">
+
+                    <div *ngIf="typeForm.controls['type_name'].hasError('required') && typeForm.controls['type_name'].touched" class="error">
+                        Type name is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="typeDescription">Description:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <textarea class="form-control form-control-sm" id="typeDescription" name="type_description" formControlName="type_description" [(ngModel)]="type.typeDescription"
+                        placeholder="Video type" [ngClass]="displayFieldCss('type_description')" rows="3"></textarea>
+            
+                    <div *ngIf="typeForm.controls['type_description'].hasError('required') && typeForm.controls['type_description'].touched" class="error">
+                        Description is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-5" align="right">
+                    <!-- <button type="submit" id="submit1" name="submit1" class="btn-primary search_btn btn_right" [disabled]="!roleForm.valid">Reset</button> -->
+                    <button type="submit" id="submit" name="submit" class="btn-primary search_btn btn_right" [disabled]="!typeForm.valid">Update</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 important">
+                    ( Important: Required fields are mentioned by * )
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>

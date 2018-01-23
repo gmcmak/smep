@@ -187,5 +187,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         * for type
         */
         Route::get('get-type', 'API\TypeController@getType');
+        Route::post('insert-type', 'API\TypeController@insertType');
+        Route::get('edit-type/{id}', 'API\TypeController@editType');
+        Route::post('update-type/{id}', 'API\TypeController@updateType');
 
     });

@@ -66,6 +66,11 @@ div label{
 .arrow_btn{
     float:right;
 }
+
+/*edit lick color*/
+#edit_link{
+  color: blue;
+}
   
   
   
