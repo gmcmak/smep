@@ -144,4 +144,10 @@ class ContentController extends Controller
     	return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
     }
 
+    //get content details for edit on cp history
+    public function editContent($id, $submission_id){
+    	$data = Content::with('keyword', 'category', 'explore')->where(['id'=>$id, 'submission_id'=>$submission_id])->get();
+    	return response()->json(['success'=>$data]);
+    }
+
 }

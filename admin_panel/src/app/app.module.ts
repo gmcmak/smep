@@ -160,6 +160,7 @@ import { UpdateSubmissionComponent } from './views/pages/core/content-provider/c
 import { SubmissionService } from './services/businessservices/core/submission/submission.service';
 import { ContentService } from './services/businessservices/core/content/content.service';
 import { TypeService } from './services/businessservices/core/type/type.service';
+import { EditContentComponent } from './views/pages/core/content-provider/cp-history/edit-content/edit-content.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -248,6 +249,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     SingleSubmissionComponent, //content provider
     MultipleSubmissionComponent,
     ContentProviderHistoryComponent,
+    EditContentComponent,
 
     CpArticlesComponent, //multiple submission component @ content provider
     CpAudioClipComponent,

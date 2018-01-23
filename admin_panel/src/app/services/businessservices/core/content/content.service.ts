@@ -114,4 +114,19 @@ export class ContentService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+    * get a content details for edit
+    */
+    public editContent(id, submission_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'edit-content/' + id + '/' + submission_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

@@ -29,6 +29,8 @@ export class ContentProviderHistoryComponent implements OnInit{
     public rejectedCount: number = 0;
     public pendingCount: number = 0;
 
+    public pending_id: boolean = false; //show and hide submbit button on pending page
+
     constructor(
         private typeService: TypeService,
         private contentService: ContentService
@@ -89,6 +91,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      * get approved content details
      */
     public approved(){
+        this.pending_id = false;
         this.contentService.getContentHistory(
             this.user_id,
             this.changingTypeId,
@@ -105,6 +108,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      * get all content details
      */
     public all() {
+        this.pending_id = false;
         this.getContentHistory(this.changingTypeId);
     }
 
@@ -112,6 +116,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      * get rejected content details
      */
     public rejected(){
+        this.pending_id = false;
         this.contentService.getContentHistory(
             this.user_id,
             this.changingTypeId,
@@ -128,6 +133,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      * get pending content details
      */
     public pending(){
+        this.pending_id = true;
         this.contentService.getContentHistory(
             this.user_id,
             this.changingTypeId,
@@ -145,6 +151,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      */
     public getContentHistory(type_id1){
             this.index = 0;
+            this.pending_id = false;
             this.contentService.getContentAllHistory(
                 this.user_id,
                 type_id1
@@ -210,6 +217,11 @@ export class ContentProviderHistoryComponent implements OnInit{
                 //console.log('pending count = ' + this.pendingCount);
             }
         );
+    }
+
+    public show(id, submission_id){
+        console.log('id = '+id);
+        console.log('sub id = '+submission_id);
     }
   
 }
