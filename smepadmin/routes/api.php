@@ -172,6 +172,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('edit-content/{id}/{submission_id}', 'API\ContentController@editContent');
         Route::get('update-content/{id}/{submission_id}', 'API\ContentController@updateContent');
 
+        //get approved or rejected count
+        Route::get('get-count/{user_id}/{status_id}', 'API\ContentController@getCount');
+
 
         /**
         * for submission

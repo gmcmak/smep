@@ -33,7 +33,7 @@ export class AuthorizersComponent implements OnInit{
         private formBuilder: FormBuilder,
         private instituteService: InstituteService,
         private userService: UserService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
 
@@ -41,26 +41,19 @@ export class AuthorizersComponent implements OnInit{
         this.validateAuthorizerId();
         //this.getAddedAuthorizers();  
 
-        this.loadTable();
-        // setTimeout(function(){
-        //     $('#authorizerTable').DataTable({
-        //         "language": {
-        //             "search": "Search by: (ID/ Name/ Subject Areas)"
-        //         }
-
-        //     });
-        // }, 5000);   
+        //this.loadTable();
+     
     }
 
     public loadTable(){
         setTimeout(function () {
-            this.table = $('#authorizerTable').DataTable({
+            $('#authorizerTable').DataTable({
                 "language": {
                     "search": "Search by: (ID/ Name/ Subject Areas)"
                 }
 
             });
-        }, 5000);
+        }, 2000);
     }
 
     private validateAuthorizerId(): void {

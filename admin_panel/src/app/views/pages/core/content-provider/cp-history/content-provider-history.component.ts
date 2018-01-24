@@ -3,6 +3,7 @@ import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { TypeService } from "../../../../../services/businessservices/core/type/type.service";
 import { ContentService } from "../../../../../services/businessservices/core/content/content.service";
 import { FormGroup } from "@angular/forms";
+import { UserService } from "../../../../../services/businessservices/core/user/user.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -18,9 +19,10 @@ export class ContentProviderHistoryComponent implements OnInit{
     public content = new Content();
     public contentForm: FormGroup;
     public contentDeletingStatus;
+    public userDataList;
 
     public typeList = new Array();
-    public user_id = 61; //logged user id
+    public user_id = 0;
     public contentCount: number;
     public type_id: number; //type_id taken from backend
     public index = 0;
@@ -39,14 +41,31 @@ export class ContentProviderHistoryComponent implements OnInit{
 
     constructor(
         private typeService: TypeService,
-        private contentService: ContentService
+        private contentService: ContentService,
+        private userService: UserService
     ){}
 
     ngOnInit(): void {
+        this.getLoggedUserData();
         this.loadTypes();
         this.content.radioValue = 0;
-        this.getContentHistory(1);
-        this.getContentCount(1)
+        // this.getContentHistory(1);
+        // this.getContentCount(1)
+    }
+
+    /**
+     * get logged user data
+     */
+    public getLoggedUserData() {
+        this.userService.getLoggedUser().subscribe(
+            success => {
+                this.userDataList = success.success;
+                //console.log(this.userDataList.id);
+                this.user_id = this.userDataList.id;
+                this.getContentHistory(1);
+                this.getContentCount(1);
+            }
+        );
     }
 
     /**
@@ -250,6 +269,11 @@ export class ContentProviderHistoryComponent implements OnInit{
         );
     }
 
+    /**
+     * delete contents
+     * @param id 
+     * @param submission_id 
+     */
     public deleteContent(id, submission_id){
         if (confirm("Do you want to delete?")) {
         this.contentService.deleteContent(
@@ -261,6 +285,7 @@ export class ContentProviderHistoryComponent implements OnInit{
                 this.error = success.error;
                 this.hideAlert();
                 this.getContentHistory(1);
+                this.getContentCount(1);
             }
         );
         }

@@ -252,6 +252,7 @@ class InstituteController extends Controller
     * get all authorizers data assigned to institute
     */
     public function viewInstituteAuthorizer($id){
+
         $authorizersData = Institute::with(
             array('instituteUsers' => function($query){
                 $query->where(['role_id'=>4, 'deleted'=>0]); 
@@ -316,11 +317,13 @@ class InstituteController extends Controller
     * get all providers data assigned to institute
     */
     public function viewInstituteProvider($id){
+
         $providersData = Institute::with(
             array('instituteUsers' => function($query){
                 $query->where(['role_id'=>3, 'deleted'=>0]); 
             }, 'instituteUsers.subjectAreas')
         )->where('id', [$id])->get();
+
         if($providersData){
             return response()->json(['success'=>$providersData, 'error'=>0]);
         }

@@ -119,53 +119,62 @@ class ContentController extends Controller
         }
     }
 
+    //get all content details
     public function getContentAll($user_id, $type_id){
-    	$content_data = Content::with(array(
-    			'submission' => function($query) use ($user_id){
-    				$query->where(['user_id'=> $user_id]);
-    			}, 'category', 'keyword', 'explore'
-    		))->where(['type_id'=>$type_id])->get();
+        $content_data = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->get();
 
-    	return response()->json(['success'=>$content_data]);
+        return response()->json(['success'=>$content_data]);
     }
 
     //get content data to specific user
     public function getContentInfo($user_id, $type_id, $status_id){
-    	$content_data = Content::with(array(
-    			'submission' => function($query) use ($user_id){
-    				$query->where(['user_id'=> $user_id]);
-    			}, 'category', 'keyword', 'explore'
-    		))->where(['type_id'=>$type_id, 'status'=>$status_id])->get();
+        $content_data = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->get();
 
-    	return response()->json(['success'=>$content_data]);
+        return response()->json(['success'=>$content_data]);
     }
 
     //get content details count
     public function getContentCount($user_id, $type_id){
-    	$content_count = Content::with(array(
-    			'submission' => function($query) use ($user_id){
-    				$query->where(['user_id'=> $user_id]);
-    			}
-    		))->where(['type_id'=>$type_id])->count();
+        $content_count = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->count();
 
-    	return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
+        return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
     }
 
     //get content approve,reject,pending,all count
     public function getContentAllCount($user_id, $type_id, $status_id){
-    	$content_count = Content::with(array(
-    			'submission' => function($query) use ($user_id){
-    				$query->where(['user_id'=> $user_id]);
-    			}
-    		))->where(['type_id'=>$type_id, 'status'=>$status_id])->count();
+        $content_count = Content::with('submission','keyword','explore','category')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->count();
 
-    	return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
+        return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
     }
 
     //get content details for edit on cp history
     public function editContent($id, $submission_id){
     	$data = Content::with('keyword', 'category', 'explore')->where(['id'=>$id, 'submission_id'=>$submission_id])->get();
     	return response()->json(['success'=>$data]);
+    }
+
+    //get approved or rejected count
+    public function getCount($user_id, $status_id){
+
+        $userIds = array();
+        $userIds = explode(",",$user_id);
+        $contentCount = array();
+
+        for($i=0; $i<sizeof($userIds); $i++){
+
+            $userId = $userIds[$i];
+
+            $count = Content::with('submission')->whereHas('submission', function($query) use($userId){$query->where(['user_id'=>$userId]);})->where(['status'=>$status_id])->count();
+
+            $contentCount[$i] = $count;
+        }
+        // $count = Content::with('submission')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['status'=>$status_id])->count();
+
+        // $details = Content::with('submission')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['status'=>$status_id])->get();
+
+        //return response()->json(['count'=>$count, 'details'=>$details]);
+
+        return response()->json(['count'=>$contentCount]);
     }
 
 }

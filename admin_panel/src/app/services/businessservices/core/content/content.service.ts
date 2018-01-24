@@ -144,4 +144,19 @@ export class ContentService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+    * get approved, rejected count for provider's table
+    */
+    public getCount(userIdArray, status_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        return this.http.get(this.API_ENDPOINT + 'get-count/' + userIdArray + '/' + status_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

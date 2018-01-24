@@ -36,7 +36,7 @@
     
             </tfoot>
             <tbody>
-            <tr *ngFor="let record of providerList;  let i = index" [attr.data-index]="i">
+            <tr *ngFor="let record of providerList; let i = index" [attr.data-index]="i">
                 <td>{{i+1}}</td>
                 <td>{{record.name}}</td>
                 <td>
@@ -53,8 +53,10 @@
                         </li>
                     </ul>
                 </td>
-                <td align="center"><a href="">10</a></td>
-                <td align="center"><a href="">5</a></td>
+                <td align="center"><a href="" *ngIf="approvedIds[i] != 0">{{approvedIds[i]}}</a>
+                    <a *ngIf="approvedIds[i] == 0" disabled>0</a></td>
+                <td align="center"><a href="" *ngIf="rejectedIds[i] != 0">{{rejectedIds[i]}}</a>
+                    <a *ngIf="rejectedIds[i] == 0" disabled>0</a></td>
                 <td align="center">
                     <label class="switch">
                         <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
