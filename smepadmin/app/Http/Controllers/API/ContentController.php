@@ -101,6 +101,24 @@ class ContentController extends Controller
     	}
     }
 
+    //delete content details
+    public function deleteContent($id, $submission_id){
+        $content = Content::find($id);
+        $content->keyword()->detach();
+        $content->explore()->detach();
+        $content->category()->detach();
+        
+        $table = new Content();
+        $deleteData = DB::table('contents')->where(['id'=>$id, 'submission_id'=>$submission_id])->delete();
+        if($deleteData){
+
+            return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
+        }
+        else{
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
+        }
+    }
+
     public function getContentAll($user_id, $type_id){
     	$content_data = Content::with(array(
     			'submission' => function($query) use ($user_id){

@@ -67,9 +67,8 @@ div label{
     float:right;
 }
 
-/*edit lick color*/
-#edit_link{
-  color: blue;
+.icon-cog {
+  color: black;
 }
   
   

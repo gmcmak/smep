@@ -4,6 +4,9 @@ import { TypeService } from "../../../../../services/businessservices/core/type/
 import { ContentService } from "../../../../../services/businessservices/core/content/content.service";
 import { FormGroup } from "@angular/forms";
 
+declare var $: any;
+declare var jQuery: any;
+
 @Component({
     selector: 'cp-history',
     templateUrl: 'content-provider-history.component.html',
@@ -14,6 +17,7 @@ export class ContentProviderHistoryComponent implements OnInit{
 
     public content = new Content();
     public contentForm: FormGroup;
+    public contentDeletingStatus;
 
     public typeList = new Array();
     public user_id = 61; //logged user id
@@ -24,12 +28,14 @@ export class ContentProviderHistoryComponent implements OnInit{
     public contentHistoryList = new Array();
     public contentHistoryListLength: number;
     public changingTypeId: number; //change type id selecting all, video and image
+    public error = 0;
 
     public approvedCount: number = 0;
     public rejectedCount: number = 0;
     public pendingCount: number = 0;
 
-    public pending_id: boolean = false; //show and hide submbit button on pending page
+    public pending_id: boolean = false; //show and hide edit button on pending page
+    public deleted: boolean = false; //show and hide delete button on rejected page
 
     constructor(
         private typeService: TypeService,
@@ -41,6 +47,26 @@ export class ContentProviderHistoryComponent implements OnInit{
         this.content.radioValue = 0;
         this.getContentHistory(1);
         this.getContentCount(1)
+    }
+
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass() {
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
     }
 
     /**
@@ -92,6 +118,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      */
     public approved(){
         this.pending_id = false;
+        this.deleted = false;
         this.contentService.getContentHistory(
             this.user_id,
             this.changingTypeId,
@@ -109,6 +136,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      */
     public all() {
         this.pending_id = false;
+        this.deleted = false;
         this.getContentHistory(this.changingTypeId);
     }
 
@@ -117,6 +145,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      */
     public rejected(){
         this.pending_id = false;
+        this.deleted = true;
         this.contentService.getContentHistory(
             this.user_id,
             this.changingTypeId,
@@ -134,6 +163,7 @@ export class ContentProviderHistoryComponent implements OnInit{
      */
     public pending(){
         this.pending_id = true;
+        this.deleted = true;
         this.contentService.getContentHistory(
             this.user_id,
             this.changingTypeId,
@@ -152,6 +182,7 @@ export class ContentProviderHistoryComponent implements OnInit{
     public getContentHistory(type_id1){
             this.index = 0;
             this.pending_id = false;
+            this.deleted = false;
             this.contentService.getContentAllHistory(
                 this.user_id,
                 type_id1
@@ -219,9 +250,20 @@ export class ContentProviderHistoryComponent implements OnInit{
         );
     }
 
-    public show(id, submission_id){
-        console.log('id = '+id);
-        console.log('sub id = '+submission_id);
+    public deleteContent(id, submission_id){
+        if (confirm("Do you want to delete?")) {
+        this.contentService.deleteContent(
+            id,
+            submission_id
+        ).subscribe(
+            success => {
+                this.contentDeletingStatus = success.success;
+                this.error = success.error;
+                this.hideAlert();
+                this.getContentHistory(1);
+            }
+        );
+        }
     }
   
 }

@@ -46,10 +46,10 @@
                             <button class="btn btn-danger table_btn" *ngIf="record.level==1" disabled>Multiple</button>
                         </td>
                         <td align="center">
-                            <button class="btn btn-default table_btn" *ngIf="record.status==0" disabled>Pending</button>
-                            <button class="btn btn-danger table_btn" *ngIf="record.status==1" disabled>Processing</button>
-                            <button class="btn btn-primary table_btn" *ngIf="record.status==2" disabled>Ready</button>
-                            <button class="btn btn-success table_btn" *ngIf="record.status==3" disabled>Done</button>
+                            <button class="btn btn-default table_btn" *ngIf="record.status==0" data-toggle="tooltip" title="Wait, pending request" disabled>Pending</button>
+                            <button class="btn btn-danger table_btn" *ngIf="record.status==1" title="Wait, process is going on" disabled>Processing</button>
+                            <button class="btn btn-primary table_btn" *ngIf="record.status==2" title="Your contents are ready" disabled>Ready</button>
+                            <button class="btn btn-success table_btn" *ngIf="record.status==3" title="Your contents are accepted" disabled>Done</button>
                         </td>
                         <td align="center">
                             <a [routerLink]="['../../submissions/update', record.id, record.user_id]" class="fa fa-1x fa-pencil-square-o"></a>

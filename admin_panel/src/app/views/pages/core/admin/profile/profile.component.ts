@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit{
         this.userService.getLoggedUser().subscribe(
             success => {
                 this.userDataList = success.success;
+                //console.log(this.userDataList.id);
             }
         );
     }

@@ -45,5 +45,4 @@ export class ViewSubmissionComponent implements OnInit{
             }
         );
     }
-
 }

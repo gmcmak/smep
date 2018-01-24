@@ -197,6 +197,22 @@ export class UserService {
       .map((response: Response) => response.json());
   }
 
+  /**
+     * get institute id for logged user (Institute)
+     */
+  public loadInstituteId(user_id) {
+
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    let body = '';
+    return this.http.get(this.API_ENDPOINT + 'get-institute-id/' +user_id,
+      {
+        headers: headers
+      })
+      .map((response: Response) => response.json());
+  }
+
 }
 
 

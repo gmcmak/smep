@@ -37,6 +37,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('delete-details/{id}', 'API\PassportController@deleteDetails');
         Route::get('status-details/{id}/{status}', 'API\PassportController@statusDetails'); //enable and disable
         Route::get('get-countries', 'API\ExploreController@getCountryList');
+        //get login user's institute id
+        Route::get('get-institute-id/{user_id}', 'API\PassportController@getInstituteId');
 
         // consumers
         Route::get('get-consumer', 'API\ConsumerController@index');
@@ -161,6 +163,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::post('add-content/{id}/{submission_id}', 'API\ContentController@addContent');
         Route::get('update-content/{id}', 'API\ContentController@updateContent');
         Route::get('get-content-all/{user_id}/{type_id}', 'API\ContentController@getContentAll');
+        Route::get('delete-content/{id}/{submission_id}', 'API\ContentController@deleteContent');
         //for cp history
         Route::get('get-content-info/{user_id}/{type_id}/{status_id}', 'API\ContentController@getContentInfo'); //get content details for show submission history
         Route::get('get-content-count/{user_id}/{type_id}', 'API\ContentController@getContentCount');
