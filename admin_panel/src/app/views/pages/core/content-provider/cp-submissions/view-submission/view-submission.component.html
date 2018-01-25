@@ -40,7 +40,7 @@
                     <tr *ngFor="let record of submissionDataList; let i = index" [attr.data-index]="i">
                         <td>{{i+1}}</td>
                         <td>{{record.name}}</td>
-                        <td>{{record.url}}</td>
+                        <td><a href="{{record.url}}" target="_blank">{{record.url}}</a></td>
                         <td align="center">
                             <button class="btn btn-primary table_btn" *ngIf="record.level==0" disabled>Single</button>
                             <button class="btn btn-danger table_btn" *ngIf="record.level==1" disabled>Multiple</button>

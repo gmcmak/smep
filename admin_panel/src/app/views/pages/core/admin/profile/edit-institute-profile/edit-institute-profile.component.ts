@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { InstituteService } from "../../../../../../services/businessservices/core/institute/institute.service";
 import { ActivatedRoute } from "@angular/router";
+import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-])/;
@@ -27,6 +28,8 @@ export class EditInstituteProfileComponent{
 
     public sub: any;
     public id: number;
+    public user_id: number;
+    public instituteDataList;
     public editId;
     public instituteList;
     //public id=19;
@@ -34,7 +37,8 @@ export class EditInstituteProfileComponent{
     constructor(
         private formBuilder: FormBuilder,
         private instituteService: InstituteService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private userService: UserService
     ) {
 
     }
@@ -58,10 +62,12 @@ export class EditInstituteProfileComponent{
          * get param id value from the router
          */
         this.sub = this.route.params.subscribe(params => {
-            this.editId = +params['id'];
+            this.user_id = +params['id'];
         });
 
-        this.editInstitute();
+        this.getInstituteId(this.user_id);
+
+        //this.editInstitute();
 
     }
 
@@ -140,11 +146,30 @@ export class EditInstituteProfileComponent{
     }
 
     /**
+     * get logged user institute id
+     */
+    private getInstituteId(user_id){
+        this.userService.loadInstituteId(
+            user_id
+        ).subscribe(
+            success => {
+                this.instituteDataList = success.success;
+                this.editInstitute(this.instituteDataList[0].id);
+                this.editId = this.instituteDataList[0].id
+                console.log(this.editId);
+                return this.editId;
+                
+
+            }
+        );
+    }
+
+    /**
      * get institute details for update
      */
-    editInstitute() {
+    editInstitute(editId) {
         this.instituteService.editInstitute(
-            this.editId
+            editId
         ).subscribe(
             success => {
                 this.instituteList = success.success;
