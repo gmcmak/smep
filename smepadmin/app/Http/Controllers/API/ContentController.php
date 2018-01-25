@@ -177,4 +177,11 @@ class ContentController extends Controller
         return response()->json(['count'=>$contentCount]);
     }
 
+    //get content history details (providers)
+    public function getContentHistory($user_id, $status_id){
+        $details = Content::with('submission')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['status'=>$status_id])->get();
+
+        return response()->json(['success'=>$details]);
+    }
+
 }

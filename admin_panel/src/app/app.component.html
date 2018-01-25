@@ -23,7 +23,7 @@
           </a>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#userList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-users"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['users/view-users']">Users</span>
@@ -44,9 +44,9 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorizers">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorizers"><!--*ngIf="userRoleId === 1"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#authorizerList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>&nbsp;
+            <i class="fa fa-fw fa-user"></i>&nbsp; 
             <span class="nav-link-text" [routerLink]="['content-authorizer/view-authorizers']">Content Authorizer</span>
           </a>
           <ul class="sidenav-second-level collapse" id="authorizerList">
@@ -62,7 +62,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Providers">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Providers"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#providerList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['content-provider/view-providers']">Content Provider</span>
@@ -80,7 +80,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#instituteList" data-parent="#exampleAccordion">
             <i class="fa fa-university"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['institute/view-institute']">Institute</span>
@@ -95,16 +95,16 @@
             <!-- <li>
               <a [routerLink]="['institute/update-institute']">Update Institutes</a>
             </li> -->
-            <li>
+            <!-- <li>
               <a [routerLink]="['institute/authorizers']">Add Authorizers</a>
             </li>
             <li>
               <a [routerLink]="['institute/providers']">Add Providers</a>
-            </li>
+            </li> -->
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Consumers">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Consumers"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#consumerList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['content-consumer/view-consumers']">Content Consumer</span>
@@ -122,7 +122,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#reportList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-file-text"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['reports/content-authorizer-report']">Reports</span>
@@ -137,7 +137,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingList" data-parent="#exampleAccordion">
             <i class="fa fa-cog"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['settings/author/view-author']">Settings</span>
@@ -275,29 +275,46 @@
                     <a [routerLink]="['settings/type/add-type']">Add Type</a>
                   </li>
                   <!-- <li>
-                                  <a [routerLink]="['settings/module/update-module']">Update Module</a>
-                                </li> -->
+                    <a [routerLink]="['settings/module/update-module']">Update Module</a>
+                  </li> -->
                 </ul>
               </li>
           </ul>
         </li>
+
+        <!--Content Institutes-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes_add">
+          <!--*ngIf="userRoleId == 5"-->
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#instituteList_add" data-parent="#exampleAccordion">
+            <i class="fa fa-users"></i>&nbsp;
+            <span class="nav-link-text" [routerLink]="['institute/authorizers']">Add Member</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="instituteList_add">
+            <li>
+              <a [routerLink]="['institute/authorizers']">Add Authorizers</a>
+            </li>
+            <li>
+              <a [routerLink]="['institute/providers']">Add Providers</a>
+            </li>
+          </ul>
+        </li>
         
         <!-- Content Authorizer -->
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Authorization">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Authorization"><!--*ngIf="userRoleId == 4"-->
           <a class="nav-link" [routerLink]="['ca-content-authorization']">
             <i class="fa fa-fw fa-pencil-square-o"></i>&nbsp;
             <span class="nav-link-text">Content Authorization</span>
           </a>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorization History">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorization History"><!-- *ngIf="userRoleId == 4"-->
           <a class="nav-link" [routerLink]="['ca-authorization-history']">
             <i class="fa fa-fw fa-history"></i>&nbsp;
             <span class="nav-link-text">Authorization History</span>
           </a>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Providers' List">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Providers' List"><!--*ngIf="userRoleId == 4"-->
           <a class="nav-link" [routerLink]="['ca-content-providers']">
             <i class="fa fa-fw fa-info-circle"></i>&nbsp;
             <span class="nav-link-text">View Content Providers</span>
@@ -305,7 +322,7 @@
         </li>
 
         <!-- content provider -->
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submissions">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submissions"><!--*ngIf="userRoleId == 3"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#subList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-file-text-o"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['submissions/add']">Submissions</span>
@@ -332,7 +349,7 @@
           </ul>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submission History">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submission History"><!--*ngIf="userRoleId == 4"-->
           <a class="nav-link" [routerLink]="['cp-history']">
             <i class="fa fa-fw fa-history"></i>&nbsp;
             <span class="nav-link-text">Submission History</span>

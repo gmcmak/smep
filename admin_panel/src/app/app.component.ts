@@ -33,6 +33,8 @@ export class AppComponent {
     private username;
     private token;
     loggedInUserList: any[];
+    public userDataList; //logged user details
+    public userRoleId;
    
 
     constructor(
@@ -74,6 +76,9 @@ export class AppComponent {
     }
 
     ngOnInit() {
+
+        this.getLoggedUserData();
+
         // If there is no startup data received (maybe an error!)
         // navigate to error route
         if (!this.startup.startupData) {
@@ -100,6 +105,20 @@ export class AppComponent {
             this.router.navigate(['/login']);
         }
                     
+    }
+
+    /**
+     * get logged user data
+     */
+    getLoggedUserData() {
+        this.UserService.getLoggedUser().subscribe(
+            success => {
+                this.userDataList = success.success;
+                this.userRoleId = this.userDataList.role_id;
+                return this.userRoleId;
+                //console.log("logged user role id "+this.userDataList.role_id);
+            }
+        );
     }
 
     /**

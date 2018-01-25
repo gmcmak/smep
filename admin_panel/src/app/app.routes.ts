@@ -92,6 +92,7 @@ import { EditContentComponent } from './views/pages/core/content-provider/cp-his
 import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-type/add-type.component';
 import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
 import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
+import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
 
 
 export const routes: Routes = [
@@ -113,6 +114,7 @@ export const routes: Routes = [
   { path: 'content-authorizer/update-authorizers/:id', component: UpdateAuthorizersComponent },
   { path: 'content-provider/add-providers', component: AddProvidersComponent},
   { path: 'content-provider/view-providers', component: ViewProvidersComponent},
+  { path: 'content-provider/content-history/:user_id/:status_id', component: CpContentHistoryComponent },
   { path: 'content-provider/update-providers/:id', component: UpdateProvidersComponent },
   //{ path: 'content-provider/individual/view-individual', component: ViewIndividualComponent },
   //{ path: 'content-provider/individual/add-individual', component: AddIndividualComponent },

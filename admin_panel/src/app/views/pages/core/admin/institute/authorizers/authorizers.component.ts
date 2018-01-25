@@ -135,7 +135,6 @@ export class AuthorizersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.authorizersList = success.success;
-                console.log(institute_id);
                 this.loadTable();
             }
             );
@@ -170,8 +169,8 @@ export class AuthorizersComponent implements OnInit{
             success => {
                 this.instituteDataList = success.success;
                 this.institute_id = this.instituteDataList[0].id;
-                this.getAddedAuthorizers(this.institute_id);
-                
+                console.log(this.institute_id);
+                this.getAddedAuthorizers(this.institute_id);   
             }
         );
     }

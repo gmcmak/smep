@@ -164,6 +164,7 @@ import { EditContentComponent } from './views/pages/core/content-provider/cp-his
 import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-type/add-type.component';
 import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
 import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
+import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -196,6 +197,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     AddProvidersComponent, //admin add content providers
     ViewProvidersComponent, //admin add content providers
     UpdateProvidersComponent,
+    CpContentHistoryComponent,
     //ViewIndividualComponent,
     //AddIndividualComponent,
     ViewInstituteComponent,

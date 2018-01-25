@@ -174,6 +174,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
         //get approved or rejected count
         Route::get('get-count/{user_id}/{status_id}', 'API\ContentController@getCount');
+        Route::get('get-history/{user_id}/{status_id}', 'API\ContentController@getContentHistory');
 
 
         /**
