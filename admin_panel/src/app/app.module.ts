@@ -165,6 +165,8 @@ import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-typ
 import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
 import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
 import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
+import { CaProviderHistoryComponent } from './views/pages/core/content-authorizer/view-content-providers/ca-provider-history/ca-provider-history.component';
+import { EditInstituteProfileComponent } from './views/pages/core/admin/profile/edit-institute-profile/edit-institute-profile.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -228,11 +230,13 @@ export function startupServiceFactory(startupService: StartupService): Function 
     UpdateRoleComponent,
     ProfileComponent,
     EditProfileComponent,
+    EditInstituteProfileComponent,
 
     ContentAuthorizationComponent, //content authorizers
     AuthorizationHistoryComponent,
     ViewContentProvidersComponent,
     ProviderProfileComponent,
+    CaProviderHistoryComponent,
 
     ArticlesComponent,
     AudioClipComponent,

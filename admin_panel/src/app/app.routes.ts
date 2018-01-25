@@ -93,6 +93,8 @@ import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-typ
 import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
 import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
 import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
+import { CaProviderHistoryComponent } from './views/pages/core/content-authorizer/view-content-providers/ca-provider-history/ca-provider-history.component';
+import { EditInstituteProfileComponent } from './views/pages/core/admin/profile/edit-institute-profile/edit-institute-profile.component';
 
 
 export const routes: Routes = [
@@ -154,6 +156,7 @@ export const routes: Routes = [
   { path: 'settings/type/update-type/:id', component: UpdateTypeComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'edit-profile/:id', component: EditProfileComponent },
+  { path: 'edit-institute-profile/:id', component: EditInstituteProfileComponent },
   // content authorizer
   {
     path: 'ca-content-authorization', component: ContentAuthorizationComponent,
@@ -181,6 +184,7 @@ export const routes: Routes = [
   },
   { path: 'ca-content-providers', component: ViewContentProvidersComponent },
   { path: 'provider-profile/:id', component: ProviderProfileComponent},
+  { path: 'ca-content-providers/history/:user_id/:status_id', component: CaProviderHistoryComponent },
 
   //content provider
   { path: 'submissions/add', component: AddSubmissionComponent },

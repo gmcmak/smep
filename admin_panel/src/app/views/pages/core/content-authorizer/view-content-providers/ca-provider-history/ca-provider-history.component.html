@@ -1,0 +1,49 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../../ca-content-providers']">Content Providers</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Content History</a>
+    </li>
+</ol>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i>&emsp;
+        <b *ngIf="status_id == 1">Content Provider's approved content</b>
+        <b *ngIf="status_id == 2">Content Provider's rejected content</b>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="providerContentHistory" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Url</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tfoot>
+
+                </tfoot>
+                <tbody>
+                    <tr *ngFor="let record of contentData; let i = index" [attr.data-index]="i">
+                        <td>{{i+1}}</td>
+                        <td>{{record.title}}</td>
+                        <td>
+                            <a href="{{record.url}}" target="_blank">{{record.url}}</a>
+                        </td>
+                        <td>{{record.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+<br>

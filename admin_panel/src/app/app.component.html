@@ -2,7 +2,10 @@
 
 <div id="page-top"></div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"  *ngIf="loginSettings()" >
-    <a class="navbar-brand" href="index.html">Admin Panel</a>
+    <a class="navbar-brand" *ngIf="userRoleId == 1 || userRoleId == 2" [routerLink]="['dashboard']">Admin Panel</a>
+    <a class="navbar-brand" *ngIf="userRoleId == 3" [routerLink]="['dashboard']">Content Provider Panel</a>
+    <a class="navbar-brand" *ngIf="userRoleId == 4" [routerLink]="['dashboard']">Content Authorizer Panel</a>
+    <a class="navbar-brand" *ngIf="userRoleId == 5" [routerLink]="['dashboard']">Institute Panel</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,7 +26,7 @@
           </a>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#userList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-users"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['users/view-users']">Users</span>
@@ -44,7 +47,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorizers"><!--*ngIf="userRoleId === 1"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorizers" *ngIf="userRoleId === 1 || userRoleId === 2"><!--*ngIf="userRoleId === 1"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#authorizerList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-user"></i>&nbsp; 
             <span class="nav-link-text" [routerLink]="['content-authorizer/view-authorizers']">Content Authorizer</span>
@@ -62,7 +65,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Providers"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Providers" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#providerList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['content-provider/view-providers']">Content Provider</span>
@@ -80,7 +83,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#instituteList" data-parent="#exampleAccordion">
             <i class="fa fa-university"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['institute/view-institute']">Institute</span>
@@ -104,7 +107,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Consumers"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Consumers" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#consumerList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['content-consumer/view-consumers']">Content Consumer</span>
@@ -122,7 +125,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#reportList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-file-text"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['reports/content-authorizer-report']">Reports</span>
@@ -137,7 +140,7 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingList" data-parent="#exampleAccordion">
             <i class="fa fa-cog"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['settings/author/view-author']">Settings</span>
@@ -283,7 +286,7 @@
         </li>
 
         <!--Content Institutes-->
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes_add">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes_add" *ngIf="userRoleId == 5">
           <!--*ngIf="userRoleId == 5"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#instituteList_add" data-parent="#exampleAccordion">
             <i class="fa fa-users"></i>&nbsp;
@@ -300,21 +303,21 @@
         </li>
         
         <!-- Content Authorizer -->
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Authorization"><!--*ngIf="userRoleId == 4"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Authorization" *ngIf="userRoleId == 4"><!--*ngIf="userRoleId == 4"-->
           <a class="nav-link" [routerLink]="['ca-content-authorization']">
             <i class="fa fa-fw fa-pencil-square-o"></i>&nbsp;
             <span class="nav-link-text">Content Authorization</span>
           </a>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorization History"><!-- *ngIf="userRoleId == 4"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Authorization History" *ngIf="userRoleId == 4"><!-- *ngIf="userRoleId == 4"-->
           <a class="nav-link" [routerLink]="['ca-authorization-history']">
             <i class="fa fa-fw fa-history"></i>&nbsp;
             <span class="nav-link-text">Authorization History</span>
           </a>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Providers' List"><!--*ngIf="userRoleId == 4"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Content Providers' List" *ngIf="userRoleId == 4"><!--*ngIf="userRoleId == 4"-->
           <a class="nav-link" [routerLink]="['ca-content-providers']">
             <i class="fa fa-fw fa-info-circle"></i>&nbsp;
             <span class="nav-link-text">View Content Providers</span>
@@ -322,7 +325,7 @@
         </li>
 
         <!-- content provider -->
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submissions"><!--*ngIf="userRoleId == 3"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submissions" *ngIf="userRoleId == 3"><!--*ngIf="userRoleId == 3"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#subList" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-file-text-o"></i>&nbsp;
             <span class="nav-link-text" [routerLink]="['submissions/add']">Submissions</span>
@@ -349,7 +352,7 @@
           </ul>
         </li>
         
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submission History"><!--*ngIf="userRoleId == 4"-->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Submission History" *ngIf="userRoleId == 3"><!--*ngIf="userRoleId == 3"-->
           <a class="nav-link" [routerLink]="['cp-history']">
             <i class="fa fa-fw fa-history"></i>&nbsp;
             <span class="nav-link-text">Submission History</span>
