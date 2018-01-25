@@ -36,10 +36,6 @@ export class ProvidersComponent implements OnInit{
     ngOnInit(): void {
         this.getLoggedUserData();
         this.validateProviderId();
-        this.loadTable();
-        
-
-        //this.getAddedProviders();
     }
 
     public loadTable(){
@@ -50,7 +46,20 @@ export class ProvidersComponent implements OnInit{
                 }
 
             });
-        }, 5000);
+        }, 2000);
+    }
+
+    //destroy dataTable
+    public destroyTable() {
+        var x = 0;
+
+        var table = $('#providerTable').DataTable();
+        if (table.destroy()) {
+            x = 1;
+        }
+        if (x == 1) {
+            this.loadTable();
+        }
     }
 
     private validateProviderId(): void{
@@ -115,7 +124,10 @@ export class ProvidersComponent implements OnInit{
      * change alert design
      */
     public changeAlertClass() {
-        return this.error === 0 ? 'alert-success' : 'alert-danger';
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        };
     }
 
     /**
@@ -127,7 +139,7 @@ export class ProvidersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.providerList = success.success;
-                this.loadTable();
+                this.destroyTable();
             }
         );
     }

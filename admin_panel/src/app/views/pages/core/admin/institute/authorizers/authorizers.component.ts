@@ -26,7 +26,6 @@ export class AuthorizersComponent implements OnInit{
     public error=0;
     public userDataList;
     public instituteDataList;
-    public table;
 
     public addAuthorizerForm: FormGroup;
     constructor(
@@ -46,6 +45,7 @@ export class AuthorizersComponent implements OnInit{
     }
 
     public loadTable(){
+
         setTimeout(function () {
             $('#authorizerTable').DataTable({
                 "language": {
@@ -54,6 +54,20 @@ export class AuthorizersComponent implements OnInit{
 
             });
         }, 2000);
+
+        
+    }
+
+    public destroyTable() {
+        var x = 0;
+
+        var table =  $('#authorizerTable').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x==1){
+            this.loadTable();
+        } 
     }
 
     private validateAuthorizerId(): void {
@@ -116,7 +130,6 @@ export class AuthorizersComponent implements OnInit{
             formData.authorizerNic
         ).subscribe(
             success => {
-                console.log('addAuthorizer ' + success);
                 this.error = success.error;
                 this.authorizerStatus = success.success;
                 this.addAuthorizerForm.reset();
@@ -135,7 +148,7 @@ export class AuthorizersComponent implements OnInit{
         ).subscribe(
             success => {
                 this.authorizersList = success.success;
-                this.loadTable();
+                this.destroyTable();
             }
             );
     }
@@ -150,13 +163,10 @@ export class AuthorizersComponent implements OnInit{
                 this.institute_id
             ).subscribe(
                 success => {
-                    console.log('succes ' + success);
                     this.error = success.error;
                     this.authorizerStatus = success.success;
                     this.hideAlert();
-                    
                     this.getAddedAuthorizers(this.institute_id);
-                    //this.loadTable();
                 }
                 );
         }
