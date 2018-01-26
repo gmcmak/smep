@@ -77,7 +77,7 @@ export class AppComponent {
 
     ngOnInit() {
 
-        this.getLoggedUserData();
+        
 
         // If there is no startup data received (maybe an error!)
         // navigate to error route
@@ -101,10 +101,15 @@ export class AppComponent {
             // if(this.loggedInUserList.token){
                 
             // }
+            
         }else{
             this.router.navigate(['/login']);
         }
-                    
+        this.getLoggedUserData();            
+    }
+
+    ngAfterViewInit(){
+        
     }
 
     /**
@@ -115,7 +120,7 @@ export class AppComponent {
             success => {
                 this.userDataList = success.success;
                 this.userRoleId = this.userDataList.role_id;
-                return this.userRoleId;
+                //return this.userRoleId;
                 //console.log("logged user role id "+this.userDataList.role_id);
             }
         );
