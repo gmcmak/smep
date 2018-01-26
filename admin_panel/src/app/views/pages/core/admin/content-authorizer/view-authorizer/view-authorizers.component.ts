@@ -29,9 +29,15 @@ export class ViewAuthorizersComponent implements OnInit {
 
     ngOnInit(): void {
        this.getAuthorizerDetails();
-       
+       this.loadTable();
+    }
+
+    /**
+     * load table
+     */
+    public loadTable(){
         setTimeout(
-            function() {
+            function () {
                 $('#dataTableAuthorizer').DataTable({
                     "language": {
                         "search": "Search by: (Authorizer's name/ Institute represented/ Subject area)"
@@ -39,6 +45,20 @@ export class ViewAuthorizersComponent implements OnInit {
                 });
             }, 2000
         );
+    }
+
+    /**
+     * delete table and load again
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#dataTableAuthorizer').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -108,6 +128,7 @@ export class ViewAuthorizersComponent implements OnInit {
                     this.error = success.error;
                     this.getAuthorizerDetails();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

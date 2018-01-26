@@ -27,13 +27,33 @@ export class ViewKeywordComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
-        setTimeout(function(){
+        this.getKeywords();
+        this.loadTable();
+    }
+
+    /**
+     * load table
+     */
+    public loadTable(){
+        setTimeout(function () {
             $('#keywordTable').DataTable({
 
-            }); 
+            });
         }, 2000);
+    }
 
-        this.getKeywords();
+    /**
+     * delete table and reload table
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#keywordTable').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -81,6 +101,7 @@ export class ViewKeywordComponent implements OnInit{
                     this.error = success.error;
                     this.getKeywords();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

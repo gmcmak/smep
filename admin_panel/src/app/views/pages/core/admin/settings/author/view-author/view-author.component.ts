@@ -23,17 +23,37 @@ export class ViewAuthorComponent implements OnInit{
         private AuthorService:AuthorService,
         private router: Router, 
         private localStorageService: LocalStorageStore,
-    ){}
+    ){
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+    }
 
     ngOnInit(): void {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        this.getAuthors();
+        this.loadTable(); 
+    }
 
-        setTimeout(function(){
+    /**
+     * load table
+     */
+    public loadTable(){
+        setTimeout(function () {
             $('#authorsTable').DataTable({
             });
         }, 2000);
+    }
 
-        this.getAuthors();
+    /**
+     * delete table and reload table
+     */
+    public deleteTable(){
+        var x=0;
+        var table = $('#authorsTable').DataTable();
+        if(table.destroy()){
+            var x = 1;
+        }
+        if(x==1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -83,6 +103,7 @@ export class ViewAuthorComponent implements OnInit{
                     this.error = success.error;
                     this.getAuthors();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

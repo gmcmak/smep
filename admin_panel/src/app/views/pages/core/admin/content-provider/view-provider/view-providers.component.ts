@@ -36,15 +36,34 @@ export class ViewProvidersComponent implements OnInit {
     ngOnInit(): void {
 
         this.getProvidersList();
-        
-        setTimeout(function(){
-            $('#dataTableProviders').DataTable({
-            "language": {
-                "search": "Search by: (Provider's name/ Institute represented/ Subject area)"
-            }
-        });
-        }, 2000);
+        this.loadTable();
+    }
 
+    /**
+     * load table
+     */
+    public loadTable(){
+        setTimeout(function () {
+            $('#dataTableProviders').DataTable({
+                "language": {
+                    "search": "Search by: (Provider's name/ Institute represented/ Subject area)"
+                }
+            });
+        }, 2000);
+    }
+
+    /**
+     * delete table and load again
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#dataTableProviders').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -149,6 +168,7 @@ export class ViewProvidersComponent implements OnInit {
                     this.error = success.error;
                     this.getProvidersList();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

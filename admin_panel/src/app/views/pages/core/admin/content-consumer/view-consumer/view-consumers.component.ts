@@ -18,20 +18,41 @@ export class ViewConsumersComponent implements OnInit {
     public error = 0;
     public statusId = 0;
 
-    ngOnInit(): void {
-        setTimeout(function(){
-            $('#dataTableConsumers').DataTable({
-                "language": {
-                    "search": "Search by: (Content consumer's name/ URL)"
-                }
-            });  
-        }, 2000);
+    ngOnInit(): void {  
         this.getConsumersList();
+        this.loadTable();
     }
 
     constructor(
         private consumerService: ConsumerService
     ) { }
+
+    /**
+     * load table
+     */
+    public loadTable(){
+        setTimeout(function () {
+            $('#dataTableConsumers').DataTable({
+                "language": {
+                    "search": "Search by: (Content consumer's name/ URL)"
+                }
+            });
+        }, 2000);
+    }
+
+    /**
+     * delete table and reload
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#dataTableConsumers').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
+    }
 
     /**
      * hide success alert
@@ -101,6 +122,7 @@ export class ViewConsumersComponent implements OnInit {
                     this.error = success.error;
                     this.getConsumersList();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

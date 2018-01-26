@@ -41,20 +41,43 @@ export class ViewUsersComponent implements OnInit{
         private localStorageService: LocalStorageStore,
         private activatedRoute: ActivatedRoute
     ) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
     }    
 
     ngOnInit(): void {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
-        this.getUsers();    
+        
+        this.getUsers();
+        this.loadTable();   
+        
+    }
+
+    /**
+     * load user table
+     */
+    public loadTable(){
         setTimeout(
-            function(){
+            function () {
                 $('#dataTableUsers').DataTable({
                     "language": {
                         "search": "Search by: (Name/ Email/ Role)"
                     }
-                });                
+                });
             }
             , 2000);
+    }
+
+    /**
+     * delete table
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#dataTableUsers').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
     
 
@@ -126,8 +149,9 @@ export class ViewUsersComponent implements OnInit{
                     this.error = success.error;
                     this.getUsers();
                     this.hideAlert();
-                }
-                );
+                    this.deleteTable();
+            }
+            );
         }
     }
 
