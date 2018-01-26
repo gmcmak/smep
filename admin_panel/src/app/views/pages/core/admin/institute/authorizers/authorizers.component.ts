@@ -18,11 +18,13 @@ export class AuthorizersComponent implements OnInit{
     public authorizerNic: string;
     public showDiv: string = 'kamal';
 
-    public institute_id = 19; //institute id
+    public user_id;
+    public institute_id; //institute id
     public authorizersList;
 
     public authorizerStatus;
     public error=0;
+    public userDataList;
     public instituteDataList;
 
     public addAuthorizerForm: FormGroup;
@@ -30,12 +32,21 @@ export class AuthorizersComponent implements OnInit{
         private formBuilder: FormBuilder,
         private instituteService: InstituteService,
         private userService: UserService
-    ) { }
+    ) {}
 
     ngOnInit(): void {
-        this.validateAuthorizerId();
 
-        setTimeout(function(){
+        this.getLoggedUserData();
+        this.validateAuthorizerId();
+        //this.getAddedAuthorizers();  
+
+        //this.loadTable();
+     
+    }
+
+    public loadTable(){
+
+        setTimeout(function () {
             $('#authorizerTable').DataTable({
                 "language": {
                     "search": "Search by: (ID/ Name/ Subject Areas)"
@@ -44,8 +55,19 @@ export class AuthorizersComponent implements OnInit{
             });
         }, 2000);
 
-        this.getAddedAuthorizers();
-        this.getLoggedUserData();
+        
+    }
+
+    public destroyTable() {
+        var x = 0;
+
+        var table =  $('#authorizerTable').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x==1){
+            this.loadTable();
+        } 
     }
 
     private validateAuthorizerId(): void {
@@ -66,8 +88,8 @@ export class AuthorizersComponent implements OnInit{
     }
 
     /**
-        * hide success alert
-        */
+    * hide success alert
+    */
     hideAlert() {
         $('#success_alert').show();
         setTimeout(function () {
@@ -92,8 +114,9 @@ export class AuthorizersComponent implements OnInit{
     getLoggedUserData() {
         this.userService.getLoggedUser().subscribe(
             success => {
-                this.instituteDataList = success.success;
-                console.log(this.instituteDataList.id); //logged user id
+                this.userDataList = success.success;
+                this.user_id = this.userDataList.id;
+                this.getInstituteId(this.user_id);
             }
         );
     }
@@ -103,16 +126,15 @@ export class AuthorizersComponent implements OnInit{
      */
     addAuthorizer(formData){
         this.instituteService.addAuthorizer(
-            this.institute_id = 19,
+            this.institute_id,
             formData.authorizerNic
         ).subscribe(
             success => {
-                console.log('addAuthorizer ' + success);
                 this.error = success.error;
                 this.authorizerStatus = success.success;
                 this.addAuthorizerForm.reset();
                 this.hideAlert();
-                this.getAddedAuthorizers();
+                this.getAddedAuthorizers(this.institute_id);
             }
         );
     }
@@ -120,12 +142,13 @@ export class AuthorizersComponent implements OnInit{
     /**
     * get added authorizers details 
     */
-    public getAddedAuthorizers() {
+    public getAddedAuthorizers(institute_id) {
         this.instituteService.getAddedAuthorizers(
-            this.institute_id
+            institute_id
         ).subscribe(
             success => {
                 this.authorizersList = success.success;
+                this.destroyTable();
             }
             );
     }
@@ -140,15 +163,26 @@ export class AuthorizersComponent implements OnInit{
                 this.institute_id
             ).subscribe(
                 success => {
-                    console.log('succes ' + success);
                     this.error = success.error;
                     this.authorizerStatus = success.success;
                     this.hideAlert();
-
-                    this.getAddedAuthorizers();
+                    this.getAddedAuthorizers(this.institute_id);
                 }
                 );
         }
+    }
+
+    public getInstituteId(user_id){
+        this.userService.loadInstituteId(
+            user_id
+        ).subscribe(
+            success => {
+                this.instituteDataList = success.success;
+                this.institute_id = this.instituteDataList[0].id;
+                console.log(this.institute_id);
+                this.getAddedAuthorizers(this.institute_id);   
+            }
+        );
     }
 
 }

@@ -160,6 +160,13 @@ import { UpdateSubmissionComponent } from './views/pages/core/content-provider/c
 import { SubmissionService } from './services/businessservices/core/submission/submission.service';
 import { ContentService } from './services/businessservices/core/content/content.service';
 import { TypeService } from './services/businessservices/core/type/type.service';
+import { EditContentComponent } from './views/pages/core/content-provider/cp-history/edit-content/edit-content.component';
+import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-type/add-type.component';
+import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
+import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
+import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
+import { CaProviderHistoryComponent } from './views/pages/core/content-authorizer/view-content-providers/ca-provider-history/ca-provider-history.component';
+import { EditInstituteProfileComponent } from './views/pages/core/admin/profile/edit-institute-profile/edit-institute-profile.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -192,6 +199,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     AddProvidersComponent, //admin add content providers
     ViewProvidersComponent, //admin add content providers
     UpdateProvidersComponent,
+    CpContentHistoryComponent,
     //ViewIndividualComponent,
     //AddIndividualComponent,
     ViewInstituteComponent,
@@ -222,11 +230,13 @@ export function startupServiceFactory(startupService: StartupService): Function 
     UpdateRoleComponent,
     ProfileComponent,
     EditProfileComponent,
+    EditInstituteProfileComponent,
 
     ContentAuthorizationComponent, //content authorizers
     AuthorizationHistoryComponent,
     ViewContentProvidersComponent,
     ProviderProfileComponent,
+    CaProviderHistoryComponent,
 
     ArticlesComponent,
     AudioClipComponent,
@@ -248,6 +258,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     SingleSubmissionComponent, //content provider
     MultipleSubmissionComponent,
     ContentProviderHistoryComponent,
+    EditContentComponent,
 
     CpArticlesComponent, //multiple submission component @ content provider
     CpAudioClipComponent,
@@ -269,7 +280,11 @@ export function startupServiceFactory(startupService: StartupService): Function 
 
     AddSubjectComponent,
     UpdateSubjectComponent,
-    ViewSubjectComponent
+    ViewSubjectComponent,
+
+    AddTypeComponent,
+    UpdateTypeComponent,
+    ViewTypeComponent
   ],
   imports: [
     BrowserModule,

@@ -36,12 +36,33 @@ class ContentController extends Controller
     		try{
     			$content_table = new Content();
 
+    			if(is_null($request->input('video_url'))){
+    				$videoUrl = '';
+    			}
+    			else{
+    				$videoUrl = $request->input('video_url');
+    			}
+
+    			if(is_null($request->input('freeform_keyword'))){
+    				$freeformKeyword = '';
+    			}
+    			else{
+    				$freeformKeyword = $request->input('freeform_keyword');
+    			}
+
+    			if(is_null($request->input('description'))){
+    				$description1 = '';
+    			}
+    			else{
+    				$description1 = $request->input('description');
+    			}
+
 	    		$content_update_data = [
 	    			'title' => $request->input('title'),
-	    			'description' => $request->input('description'),
-	    			'video_url' => $request->input('video_url'),
+	    			'description' => $description1,
+	    			'video_url' => $videoUrl,
 	    			'type_id' => $request->input('type'),
-	    			'freeform_keyword' => $request->input('freeform_keyword'),
+	    			'freeform_keyword' => $freeformKeyword,
 	    			'status' => $request->input('status'),
 	    			'updated_at' => now()
 	    		];
@@ -74,32 +95,93 @@ class ContentController extends Controller
 	    		
     		}
     		catch(\Illuminate\Database\QueryException $ex){
-    			return response()->json(['success'=>'Error occured', 'error'=>1]);
+    			return response()->json(['success'=>'Error occured1', 'error'=>1]);
     		}
     		
     	}
     }
 
-    //get content data to specific user
-    public function getContentInfo($user_id, $type_id){
-    	$content_data = Content::with(array(
-    			'submission' => function($query) use ($user_id){
-    				$query->where(['user_id'=> $user_id]);
-    			}
-    		))->where(['type_id'=>$type_id])->get();
+    //delete content details
+    public function deleteContent($id, $submission_id){
+        $content = Content::find($id);
+        $content->keyword()->detach();
+        $content->explore()->detach();
+        $content->category()->detach();
+        
+        $table = new Content();
+        $deleteData = DB::table('contents')->where(['id'=>$id, 'submission_id'=>$submission_id])->delete();
+        if($deleteData){
 
-    	return response()->json(['success'=>$content_data]);
+            return response()->json(['success'=>'Successfully deleted', 'error'=>0]);
+        }
+        else{
+            return response()->json(['success'=>'Error occured', 'error'=>1]);
+        }
+    }
+
+    //get all content details
+    public function getContentAll($user_id, $type_id){
+        $content_data = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->get();
+
+        return response()->json(['success'=>$content_data]);
+    }
+
+    //get content data to specific user
+    public function getContentInfo($user_id, $type_id, $status_id){
+        $content_data = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->get();
+
+        return response()->json(['success'=>$content_data]);
     }
 
     //get content details count
     public function getContentCount($user_id, $type_id){
-    	$content_count = Content::with(array(
-    			'submission' => function($query) use ($user_id){
-    				$query->where(['user_id'=> $user_id]);
-    			}
-    		))->where(['type_id'=>$type_id])->count();
+        $content_count = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->count();
 
-    	return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
+        return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
+    }
+
+    //get content approve,reject,pending,all count
+    public function getContentAllCount($user_id, $type_id, $status_id){
+        $content_count = Content::with('submission','keyword','explore','category')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->count();
+
+        return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
+    }
+
+    //get content details for edit on cp history
+    public function editContent($id, $submission_id){
+    	$data = Content::with('keyword', 'category', 'explore')->where(['id'=>$id, 'submission_id'=>$submission_id])->get();
+    	return response()->json(['success'=>$data]);
+    }
+
+    //get approved or rejected count
+    public function getCount($user_id, $status_id){
+
+        $userIds = array();
+        $userIds = explode(",",$user_id);
+        $contentCount = array();
+
+        for($i=0; $i<sizeof($userIds); $i++){
+
+            $userId = $userIds[$i];
+
+            $count = Content::with('submission')->whereHas('submission', function($query) use($userId){$query->where(['user_id'=>$userId]);})->where(['status'=>$status_id])->count();
+
+            $contentCount[$i] = $count;
+        }
+        // $count = Content::with('submission')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['status'=>$status_id])->count();
+
+        // $details = Content::with('submission')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['status'=>$status_id])->get();
+
+        //return response()->json(['count'=>$count, 'details'=>$details]);
+
+        return response()->json(['count'=>$contentCount]);
+    }
+
+    //get content history details (providers)
+    public function getContentHistory($user_id, $status_id){
+        $details = Content::with('submission')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['status'=>$status_id])->get();
+
+        return response()->json(['success'=>$details]);
     }
 
 }

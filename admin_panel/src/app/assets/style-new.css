@@ -239,3 +239,8 @@ div table{
     color: #38d574 !important;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
 } */
+
+/*links are in the tables*/
+.linkColor{
+    color: black;
+}

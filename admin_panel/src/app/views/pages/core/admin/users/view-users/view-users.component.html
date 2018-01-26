@@ -34,7 +34,7 @@
                     <tr *ngFor="let record of usersList; let i = index" [attr.data-index]="i">
                         <td>{{i+1}}</td>
                         <td>{{record.name}}</td>
-                        <td>{{record.email}}</td>
+                        <td><a class="linkColor" href="mailto:record.email">{{record.email}}</a></td>
                         <td>{{record.role.name}}</td>
                         <td align="center">
                             <label class="switch">

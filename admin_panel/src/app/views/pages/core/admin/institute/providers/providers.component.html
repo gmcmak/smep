@@ -4,7 +4,7 @@
         <a [routerLink]="['../../dashboard']">Home</a>
     </li>
     <li class="breadcrumb-item">
-        <a [routerLink]="['../../institute/view-institute']">Institute</a>
+        <a [routerLink]="['../../institute/authorizers']">Add Member</a>
     </li>
     <li class="breadcrumb-item">
         <a>Add Providers</a>
@@ -48,7 +48,7 @@
                         </div>
                         <div *ngIf="addProviderForm.controls['providerNic'].hasError('pattern') && addProviderForm.controls['providerNic'].touched"
                             class="row error">
-                            Entered invalid number !
+                            Entered invalid nic number !
                         </div>
 
                     </div>

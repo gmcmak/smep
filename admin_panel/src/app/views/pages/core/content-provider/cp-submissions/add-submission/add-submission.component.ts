@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubmissionService } from "../../../../../../services/businessservices/core/submission/submission.service";
+import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
 
 declare var $:any;
 declare var jQuery:any;
@@ -17,21 +18,37 @@ export class AddSubmissionComponent implements OnInit{
 
     public error = 0;
     public submissionForm: FormGroup;
+    private userDataList;
 
     public submission = new Submission();
 
     public submissionAddingStatus;
-    public user_id = 61; //user id should take from logged user
+    public user_id: number; //user id should take from logged user
     public status = 0;
 
     ngOnInit(): void {
+        this.getLoggedUserData();
         this.initializeSubmissionForm();
     }
 
     constructor(
         private formBuilder: FormBuilder,
-        private submissionService: SubmissionService
+        private submissionService: SubmissionService,
+        private userService: UserService
     ){}
+
+    /**
+     * get logged user data
+     */
+    getLoggedUserData() {
+        this.userService.getLoggedUser().subscribe(
+            success => {
+                this.userDataList = success.success;
+                //console.log(this.userDataList.id);
+                this.user_id = this.userDataList.id;
+            }
+        );
+    }
 
     /**
      * hide success alert

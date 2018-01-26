@@ -19,10 +19,12 @@ export class ProvidersComponent implements OnInit{
     public showDiv: string = '';
 
     public providerStatus;
-    public institute_id = 17; //institute id
+    public user_id: number; //logged user id
+    public institute_id: number; //institute id
     public error;
     public providerList;
     public instituteDataList;
+    public userDataList;
 
     public addProviderForm: FormGroup;
     constructor(
@@ -32,9 +34,12 @@ export class ProvidersComponent implements OnInit{
     ){  }
 
     ngOnInit(): void {
+        this.getLoggedUserData();
         this.validateProviderId();
-        
-        setTimeout(function(){
+    }
+
+    public loadTable(){
+        setTimeout(function () {
             $('#providerTable').DataTable({
                 "language": {
                     "search": "Search by: (ID/ Name/ Subject Areas)"
@@ -42,9 +47,19 @@ export class ProvidersComponent implements OnInit{
 
             });
         }, 2000);
+    }
 
-        this.getAddedProviders();
-        this.getLoggedUserData();
+    //destroy dataTable
+    public destroyTable() {
+        var x = 0;
+
+        var table = $('#providerTable').DataTable();
+        if (table.destroy()) {
+            x = 1;
+        }
+        if (x == 1) {
+            this.loadTable();
+        }
     }
 
     private validateProviderId(): void{
@@ -80,8 +95,9 @@ export class ProvidersComponent implements OnInit{
     getLoggedUserData() {
         this.userService.getLoggedUser().subscribe(
             success => {
-                this.instituteDataList = success.success;
-                console.log(this.instituteDataList.id);
+                this.userDataList = success.success;
+                this.user_id = this.userDataList.id;
+                this.getInstituteId(this.user_id);
             }
         );
     }
@@ -99,7 +115,7 @@ export class ProvidersComponent implements OnInit{
                 this.error = success.error;
                 this.addProviderForm.reset();
                 this.hideAlert();
-                this.getAddedProviders();
+                this.getAddedProviders(this.institute_id);
             }
             );
     }
@@ -108,20 +124,24 @@ export class ProvidersComponent implements OnInit{
      * change alert design
      */
     public changeAlertClass() {
-        return this.error === 0 ? 'alert-success' : 'alert-danger';
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        };
     }
 
     /**
     * get added providers details 
     */
-    public getAddedProviders() {
+    public getAddedProviders(institute_id) {
         this.instituteService.getAddedProviders(
-            this.institute_id
+            institute_id
         ).subscribe(
             success => {
                 this.providerList = success.success;
+                this.destroyTable();
             }
-            );
+        );
     }
 
     /**
@@ -137,10 +157,25 @@ export class ProvidersComponent implements OnInit{
                     this.providerStatus = success.success;
                     this.error = success.error;
                     this.hideAlert();
-                    this.getAddedProviders();
+                    this.getAddedProviders(this.institute_id);
                 }
                 );
         }
+    }
+
+    /**
+     * get institute id for logged user
+     */
+    public getInstituteId(user_id){
+        this.userService.loadInstituteId(
+            user_id
+        ).subscribe(
+            success => {
+                this.instituteDataList = success.success;
+                this.institute_id = this.instituteDataList[0].id;
+                this.getAddedProviders(this.institute_id);
+            }
+        );
     }
 
 }

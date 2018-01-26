@@ -23,14 +23,34 @@ export class ViewInstituteComponent implements OnInit{
 
     ngOnInit(): void {
         this.getInstitutes();
+        this.loadTable();
+    }
 
-        setTimeout(function(){
+    /**
+     * load table
+     */
+    public loadTable(){
+        setTimeout(function () {
             $('#instituteTable').DataTable({
                 "language": {
                     "search": "Search by: (Institute's name/ Registered date/ Address)"
                 }
             });
         }, 2000);
+    }
+
+    /**
+     * delete table and reload table
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#instituteTable').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -107,6 +127,7 @@ export class ViewInstituteComponent implements OnInit{
                     this.error = success.error;
                     this.getInstitutes();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

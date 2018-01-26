@@ -88,6 +88,13 @@ import { ProviderProfileComponent } from './views/pages/core/content-authorizer/
 import { AddSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/add-submission/add-submission.component';
 import { ViewSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/view-submission/view-submission.component';
 import { UpdateSubmissionComponent } from './views/pages/core/content-provider/cp-submissions/update-submission/update-submission.component';
+import { EditContentComponent } from './views/pages/core/content-provider/cp-history/edit-content/edit-content.component';
+import { AddTypeComponent } from './views/pages/core/admin/settings/type/add-type/add-type.component';
+import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-type/view-type.component';
+import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/update-type/update-type.component';
+import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
+import { CaProviderHistoryComponent } from './views/pages/core/content-authorizer/view-content-providers/ca-provider-history/ca-provider-history.component';
+import { EditInstituteProfileComponent } from './views/pages/core/admin/profile/edit-institute-profile/edit-institute-profile.component';
 
 
 export const routes: Routes = [
@@ -109,6 +116,7 @@ export const routes: Routes = [
   { path: 'content-authorizer/update-authorizers/:id', component: UpdateAuthorizersComponent },
   { path: 'content-provider/add-providers', component: AddProvidersComponent},
   { path: 'content-provider/view-providers', component: ViewProvidersComponent},
+  { path: 'content-provider/content-history/:user_id/:status_id', component: CpContentHistoryComponent },
   { path: 'content-provider/update-providers/:id', component: UpdateProvidersComponent },
   //{ path: 'content-provider/individual/view-individual', component: ViewIndividualComponent },
   //{ path: 'content-provider/individual/add-individual', component: AddIndividualComponent },
@@ -143,8 +151,12 @@ export const routes: Routes = [
   { path: 'settings/subject-area/add-subject', component: AddSubjectComponent },
   { path: 'settings/subject-area/view-subject', component: ViewSubjectComponent },
   { path: 'settings/subject-area/update-subject/:id', component: UpdateSubjectComponent },
+  { path: 'settings/type/add-type', component: AddTypeComponent },
+  { path: 'settings/type/view-type', component: ViewTypeComponent },
+  { path: 'settings/type/update-type/:id', component: UpdateTypeComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'edit-profile/:id', component: EditProfileComponent },
+  { path: 'edit-institute-profile/:id', component: EditInstituteProfileComponent },
   // content authorizer
   {
     path: 'ca-content-authorization', component: ContentAuthorizationComponent,
@@ -172,6 +184,7 @@ export const routes: Routes = [
   },
   { path: 'ca-content-providers', component: ViewContentProvidersComponent },
   { path: 'provider-profile/:id', component: ProviderProfileComponent},
+  { path: 'ca-content-providers/history/:user_id/:status_id', component: CaProviderHistoryComponent },
 
   //content provider
   { path: 'submissions/add', component: AddSubmissionComponent },
@@ -192,16 +205,17 @@ export const routes: Routes = [
   },
   {
     path: 'cp-history', component: ContentProviderHistoryComponent,
-    children: [
-      { path: 'cp-articles-history', component: CpArticlesHistoryComponent },
-      { path: 'cp-audio-clip-history', component: CpAudioClipHistoryComponent },
-      { path: 'cp-books-history', component: CpBooksHistoryComponent },
-      { path: 'cp-case-study-history', component: CpCaseStudyHistoryComponent },
-      { path: 'cp-images-history', component: CpImagesHistoryComponent },
-      { path: 'cp-video-clip-history', component: CpVideoClipHistoryComponent },
-      { path: '', redirectTo: 'cp-articles-history', pathMatch: 'full' }
-    ]
+    // children: [
+    //   { path: 'cp-articles-history', component: CpArticlesHistoryComponent },
+    //   { path: 'cp-audio-clip-history', component: CpAudioClipHistoryComponent },
+    //   { path: 'cp-books-history', component: CpBooksHistoryComponent },
+    //   { path: 'cp-case-study-history', component: CpCaseStudyHistoryComponent },
+    //   { path: 'cp-images-history', component: CpImagesHistoryComponent },
+    //   { path: 'cp-video-clip-history', component: CpVideoClipHistoryComponent },
+    //   { path: '', redirectTo: 'cp-articles-history', pathMatch: 'full' }
+    // ]
   },
+  { path: 'cp-history/edit-component/:id/:submission_id', component: EditContentComponent},
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

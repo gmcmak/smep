@@ -68,11 +68,13 @@
                                 <li>{{subject.name}}</li>
                             </ul>
                         </td>
-                        <td>
-                            10
+                        <td align="center">
+                            <a [routerLink]="['../ca-content-providers/history', record.id, 1]" *ngIf="approvedIds[i] != 0">{{approvedIds[i]}}</a>
+                            <a *ngIf="approvedIds[i] == 0" disabled>0</a>
                         </td>
-                        <td>
-                            20
+                        <td align="center">
+                            <a [routerLink]="['../ca-content-providers/history', record.id, 2]" *ngIf="rejectedIds[i] != 0">{{rejectedIds[i]}}</a>
+                            <a *ngIf="rejectedIds[i] == 0" disabled>0</a>
                         </td>
                         <td align="center">
                             <label class="switch">

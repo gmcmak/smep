@@ -31,7 +31,6 @@ export class UpdateRoleComponent implements OnInit{
     ) {}
 
     ngOnInit(): void {
-        this.initializeRoleForm();
 
         /**
          * get param id value from the router
@@ -41,6 +40,7 @@ export class UpdateRoleComponent implements OnInit{
         });
 
         this.editRole();
+        this.initializeRoleForm();
     }
 
     /**

@@ -28,12 +28,31 @@ export class ViewSubjectComponent implements OnInit{
     ngOnInit(): void {
 
         this.getSubjects();
+        this.loadTable();
+    }
 
+    /**
+     * load table
+     */
+    public loadTable(){
         setTimeout(() => {
             $('#subjectTable').DataTable({
             });
         }, 2000);
+    }
 
+    /**
+     * delete table and reload table
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#subjectTable').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -81,6 +100,7 @@ export class ViewSubjectComponent implements OnInit{
                     this.error = success.error;
                     this.getSubjects();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

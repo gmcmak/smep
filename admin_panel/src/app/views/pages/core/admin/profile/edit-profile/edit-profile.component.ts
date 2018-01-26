@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
-import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
+import { ActivatedRoute } from '@angular/router';
+import CustomValidators from '../../../../../../common/validation/CustomValidators';
+import { CountryService } from "../../../../../../services/businessservices/core/country/country.service";
+import { SubjectService } from "../../../../../../services/businessservices/core/subject-area/subject.service";
+import { AuthorizerService } from "../../../../../../services/businessservices/core/content-authorizer/authorizer.service";
 
 declare var $: any;
 declare var jQuery: any;
@@ -17,20 +20,39 @@ const MOBILE_REGEX = /^[0-9]{10}/;
 })
 
 export class EditProfileComponent implements OnInit{
-    public authorizer = new Authorizer();
 
-    public id;
-    public sub;
-    public editId;
+    public authorizer = new Authorizer();
+    public year;
+    public yearList = Array();
+
+    public countryList;
+    public subjectList;
+
+    public authorizerUpdatingStatus;
+    public editAuthorizerList;
+
+    public sub: any;
+    public id: number;
+    public editId; //get authorizer's details using id
+
+    private status = 0;
+    private deleted = 0;
+
+    public error = 0;
 
     ngOnInit(): void {
-        this.intializeAuthorizerUpdateForm();
+
+        this.intializeAuthorizerForm();
 
         $("#caDob").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.authorizer.caDob = e.target.value);
+
+        this.getCountry();
+        this.showYear();
+        this.getSubjectAreas();
 
         /**
          * get param id value from the router
@@ -39,18 +61,51 @@ export class EditProfileComponent implements OnInit{
             this.editId = +params['id'];
         });
 
+        this.editAuthorizer();
+
     }
 
+    /**
+     * hide success alert
+     */
+    hideAlert() {
+        $('#success_alert').show();
+        setTimeout(function () {
+            $('#success_alert').slideUp("slow");
+        }, 2000);
+    }
+
+    /**
+     * change alert class
+     */
+    public changeAlertClass() {
+        return {
+            'alert-success': this.error === 0,
+            'alert-danger': this.error != 0
+        }
+    }
+
+    /**
+     * show year dropdown
+     */
+    showYear() {
+        this.year = (new Date()).getFullYear();
+        for (let i = 0; i <= 20; i++) {
+            this.yearList[i] = this.year - i;
+        }
+    }
 
     public authorizerForm: FormGroup;
 
     constructor(
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private userService: UserService
-    ) {}
+        private countryService: CountryService,
+        private subjectService: SubjectService,
+        private authorizerService: AuthorizerService,
+        private route: ActivatedRoute
+    ) { }
 
-    private intializeAuthorizerUpdateForm(): void {
+    private intializeAuthorizerForm(): void {
         //get individual form input data
         this.authorizerForm = this.formBuilder.group({
             caName: new FormControl('', Validators.required),
@@ -61,8 +116,6 @@ export class EditProfileComponent implements OnInit{
             caDob: new FormControl('', Validators.required),
             caEmail: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
             caMobile: new FormControl('', [Validators.required, Validators.pattern(MOBILE_REGEX)]),
-            caPassword1: new FormControl('', Validators.required),
-            caPassword2: new FormControl('', Validators.required),
             highestQulification: new FormGroup({
                 highest_quali: new FormControl('', [Validators.required]),
                 highest_uni: new FormControl('', [Validators.required]),
@@ -100,26 +153,8 @@ export class EditProfileComponent implements OnInit{
                 courses: new FormControl(),
                 cpId: new FormControl(),
 
-            }),
-            check1: new FormControl('', Validators.required)
-        }, { validator: this.checkIfMatchingPasswords('caPassword1', 'caPassword2') });
-    }
-
-
-
-    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-        return (group: FormGroup) => {
-            let passwordInput = group.controls[passwordKey],
-                passwordConfirmationInput = group.controls[passwordConfirmationKey];
-            if (passwordInput.value !== passwordConfirmationInput.value) {
-                return passwordConfirmationInput.setErrors({ notEquivalent: true })
-            }
-            else {
-                if (passwordConfirmationInput.touched) {
-                    return passwordConfirmationInput.setErrors(null);
-                }
-            }
-        }
+            })
+        });
     }
 
     public isFieldValid(field: string) {
@@ -131,6 +166,32 @@ export class EditProfileComponent implements OnInit{
             'is-invalid': this.isFieldValid(field),
             'is-valid': this.isFieldValid(field)
         };
+    }
+
+    onSubmit() {
+        console.log(this.authorizerForm.value);
+    }
+
+    /**
+     * get country
+     */
+    getCountry() {
+        this.countryService.getCountryList().subscribe(
+            success => {
+                this.countryList = success.success
+            }
+        );
+    }
+
+    /**
+     * get subject areas
+     */
+    getSubjectAreas() {
+        this.subjectService.getSubjectsList().subscribe(
+            success => {
+                this.subjectList = success.success
+            }
+        );
     }
 
     //show professional qualification row2
@@ -150,12 +211,22 @@ export class EditProfileComponent implements OnInit{
     hide_row2() {
         $("#row_2").hide();
         $("#add_btn_row1").show();
+        this.authorizer.ProfessionalQualifications.pro_country_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_grade_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_institute_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_qualification_2 = null;
+        this.authorizer.ProfessionalQualifications.pro_year_2 = null;
     }
 
     //hide professional qualification row3
     hide_row3() {
         $("#row_3").hide();
         $("#add_btn_row2").show();
+        this.authorizer.ProfessionalQualifications.pro_country_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_grade_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_institute_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_qualification_3 = null;
+        this.authorizer.ProfessionalQualifications.pro_year_3 = null;
     }
 
     //add expertise subject dropdown2
@@ -180,6 +251,7 @@ export class EditProfileComponent implements OnInit{
         $("#remove_subject_btn2").hide();
         $("#add_subject_btn2").hide();
         $("#add_subject_btn1").show();
+        this.authorizer.SubjectAreas.expert2 = null;
     }
 
     //remove expertise dropdown3
@@ -187,6 +259,146 @@ export class EditProfileComponent implements OnInit{
         $("#expert_subject3").hide();
         $("#remove_subject_btn3").hide();
         $("#add_subject_btn1").show();
+        this.authorizer.SubjectAreas.expert3 = null;
+    }
+
+    /**
+     * get authorizer's details for update
+     */
+    editAuthorizer() {
+        this.authorizerService.editAuthorizer(
+            this.editId
+        ).subscribe(
+            success => {
+                this.editAuthorizerList = success.success;
+                this.authorizer.caDesignation = this.editAuthorizerList[0].designation;
+                this.authorizer.caDob = this.editAuthorizerList[0].birthday;
+                this.authorizer.caEmail = this.editAuthorizerList[0].email;
+                this.authorizer.caFullName = this.editAuthorizerList[0].name_with_initials;
+                this.authorizer.caGender = this.editAuthorizerList[0].gender;
+                this.authorizer.caMobile = this.editAuthorizerList[0].mobile;
+                this.authorizer.caName = this.editAuthorizerList[0].name;
+                this.authorizer.caNic = this.editAuthorizerList[0].nic;
+
+                this.authorizer.HighestQualifications.highest_quali = this.editAuthorizerList[0].highest_education.qualification;
+                this.authorizer.HighestQualifications.highest_Country = this.editAuthorizerList[0].highest_education.country_id;
+                this.authorizer.HighestQualifications.highest_grade = this.editAuthorizerList[0].highest_education.grade;
+                this.authorizer.HighestQualifications.highest_uni = this.editAuthorizerList[0].highest_education.university;
+                this.authorizer.HighestQualifications.highest_Year = this.editAuthorizerList[0].highest_education.year;
+
+                if (this.editAuthorizerList[0].professional_educations[0]) {
+                    if (this.editAuthorizerList[0].professional_educations[0].country_id != null || this.editAuthorizerList[0].professional_educations[0].grade != null || this.editAuthorizerList[0].professional_educations[0].university != null || this.editAuthorizerList[0].professional_educations[0].qualification != null || this.editAuthorizerList[0].professional_educations[0].year != null) {
+                        this.authorizer.ProfessionalQualifications.pro_country_1 = this.editAuthorizerList[0].professional_educations[0].country_id;
+                        this.authorizer.ProfessionalQualifications.pro_grade_1 = this.editAuthorizerList[0].professional_educations[0].grade;
+                        this.authorizer.ProfessionalQualifications.pro_institute_1 = this.editAuthorizerList[0].professional_educations[0].university;
+                        this.authorizer.ProfessionalQualifications.pro_qualification_1 = this.editAuthorizerList[0].professional_educations[0].qualification;
+                        this.authorizer.ProfessionalQualifications.pro_year_1 = this.editAuthorizerList[0].professional_educations[0].year;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].professional_educations[1]) {
+                    if (this.editAuthorizerList[0].professional_educations[1].country_id != null || this.editAuthorizerList[0].professional_educations[1].grade != null || this.editAuthorizerList[0].professional_educations[1].university != null || this.editAuthorizerList[0].professional_educations[1].qualification != null || this.editAuthorizerList[0].professional_educations[1].year != null) {
+                        $('#row_2').show();
+                        this.authorizer.ProfessionalQualifications.pro_country_2 = this.editAuthorizerList[0].professional_educations[1].country_id;
+                        this.authorizer.ProfessionalQualifications.pro_grade_2 = this.editAuthorizerList[0].professional_educations[1].grade;
+                        this.authorizer.ProfessionalQualifications.pro_institute_2 = this.editAuthorizerList[0].professional_educations[1].university;
+                        this.authorizer.ProfessionalQualifications.pro_qualification_2 = this.editAuthorizerList[0].professional_educations[1].qualification;
+                        this.authorizer.ProfessionalQualifications.pro_year_2 = this.editAuthorizerList[0].professional_educations[1].year;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].professional_educations[2]) {
+                    if (this.editAuthorizerList[0].professional_educations[2].country_id != null || this.editAuthorizerList[0].professional_educations[2].grade != null || this.editAuthorizerList[0].professional_educations[2].university != null || this.editAuthorizerList[0].professional_educations[2].qualification != null || this.editAuthorizerList[0].professional_educations[2].year != null) {
+                        $('#row_3').show();
+                        $('#add_btn_row2').hide();
+                        this.authorizer.ProfessionalQualifications.pro_country_3 = this.editAuthorizerList[0].professional_educations[2].country_id;
+                        this.authorizer.ProfessionalQualifications.pro_grade_3 = this.editAuthorizerList[0].professional_educations[2].grade;
+                        this.authorizer.ProfessionalQualifications.pro_institute_3 = this.editAuthorizerList[0].professional_educations[2].university;
+                        this.authorizer.ProfessionalQualifications.pro_qualification_3 = this.editAuthorizerList[0].professional_educations[2].qualification;
+                        this.authorizer.ProfessionalQualifications.pro_year_3 = this.editAuthorizerList[0].professional_educations[2].year;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].subject_areas[0]) {
+                    if (this.editAuthorizerList[0].subject_areas[0].id != null) {
+                        this.authorizer.SubjectAreas.expert1 = this.editAuthorizerList[0].subject_areas[0].id;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].subject_areas[1]) {
+                    if (this.editAuthorizerList[0].subject_areas[1].id != null) {
+                        $('#expert_subject2').show();
+                        $('#remove_subject_btn2').show();
+                        $('#add_subject_btn2').show();
+                        this.authorizer.SubjectAreas.expert2 = this.editAuthorizerList[0].subject_areas[1].id;
+                    }
+                }
+
+                if (this.editAuthorizerList[0].subject_areas[2]) {
+                    if (this.editAuthorizerList[0].subject_areas[2].id != null) {
+                        $('#expert_subject3').show();
+                        $('#remove_subject_btn3').show();
+                        $('#add_subject_btn2').hide();
+                        this.authorizer.SubjectAreas.expert3 = this.editAuthorizerList[0].subject_areas[2].id;
+                    }
+                }
+            }
+            );
+    }
+
+    /**
+     * update authorizer
+     */
+    updateAuthorizer(formData) {
+        this.authorizerService.updateAuthorizer(
+            this.editId,
+            formData.caName,
+            formData.caFullName,
+            formData.caGender,
+            formData.caNic,
+            formData.caDesignation,
+            formData.caDob,
+            formData.caEmail,
+            formData.caMobile,
+
+            formData.highestQulification.highest_quali,
+            formData.highestQulification.highest_uni,
+            formData.highestQulification.highest_grade,
+            formData.highestQulification.highest_Country,
+            formData.highestQulification.highest_Year,
+
+            formData.professionalQualification.pro_qualification_1,
+            formData.professionalQualification.pro_institute_1,
+            formData.professionalQualification.pro_grade_1,
+            formData.professionalQualification.pro_year_1,
+            formData.professionalQualification.pro_country_1,
+
+            formData.professionalQualification.pro_qualification_2,
+            formData.professionalQualification.pro_institute_2,
+            formData.professionalQualification.pro_grade_2,
+            formData.professionalQualification.pro_year_2,
+            formData.professionalQualification.pro_country_2,
+
+            formData.professionalQualification.pro_qualification_3,
+            formData.professionalQualification.pro_institute_3,
+            formData.professionalQualification.pro_grade_3,
+            formData.professionalQualification.pro_year_3,
+            formData.professionalQualification.pro_country_3,
+
+            formData.otherInfo.expert1,
+            formData.otherInfo.expert2,
+            formData.otherInfo.expert3,
+
+            this.status = 0,
+            this.deleted = 0
+        ).subscribe(
+            success => {
+                this.authorizerUpdatingStatus = success.success;
+                this.error = success.error;
+                this.authorizerForm.reset();
+                this.hideAlert();
+            }
+            );
     }
 }
 
@@ -200,10 +412,10 @@ export class Authorizer {
     public caDob: string;
     public caEmail: string;
     public caMobile: string;
-    public caPassword1: string;
-    public caPassword2: string;
 
     HighestQualifications = new AuthorizerHighestQualification();
+    ProfessionalQualifications = new AuthorizerProfessionalQualification();
+    SubjectAreas = new SubjectAreas();
 }
 
 export class AuthorizerHighestQualification {
@@ -212,4 +424,30 @@ export class AuthorizerHighestQualification {
     public highest_grade: string;
     public highest_Country: number;
     public highest_Year: number;
+}
+
+export class AuthorizerProfessionalQualification {
+    public pro_qualification_1: string;
+    public pro_institute_1: string;
+    public pro_grade_1: string;
+    public pro_year_1: number;
+    public pro_country_1: number;
+
+    public pro_qualification_2: string;
+    public pro_institute_2: string;
+    public pro_grade_2: string;
+    public pro_year_2: number;
+    public pro_country_2: number;
+
+    public pro_qualification_3: string;
+    public pro_institute_3: string;
+    public pro_grade_3: string;
+    public pro_year_3: number;
+    public pro_country_3: number;
+}
+
+export class SubjectAreas {
+    public expert1: number;
+    public expert2: number;
+    public expert3: number;
 }

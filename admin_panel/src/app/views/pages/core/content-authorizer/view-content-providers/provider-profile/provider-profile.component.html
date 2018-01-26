@@ -52,13 +52,13 @@
                 <div class="contenair col-md-7">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a data-toggle="tab" href="#home">Highest Qualification</a>
+                            <a data-toggle="tab" href="#home" *ngIf="providerDataList[0].highest_education != null">Highest Qualification</a>
                         </li>&emsp;&emsp;
                         <li>
-                            <a data-toggle="tab" href="#menu1">Professional Qualification</a>
+                            <a data-toggle="tab" href="#menu1" *ngIf="providerDataList[0].professional_educations != ''">Professional Qualification</a>
                         </li>&emsp;&emsp;
                         <li>
-                            <a data-toggle="tab" href="#menu2">Subject Area</a>
+                            <a data-toggle="tab" href="#menu2" *ngIf="providerDataList[0].subject_areas != ''">Subject Area</a>
                         </li>&emsp;&emsp;&emsp;
                     </ul>
 
@@ -66,7 +66,7 @@
                         <div id="home" class="tab-pane fade in active">
                             <br>
                             <h6>Highest Qualification</h6>
-                            <p>
+                            <p *ngIf="providerDataList && providerDataList[0] && providerDataList[0].highest_education">
                                 <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
                                 <span>{{providerDataList[0].highest_education.qualification}}</span>
                                 <br>

@@ -28,17 +28,35 @@ export class ViewRoleComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
+        this.getRoles();
+        this.loadTable();
+    }
 
-        setTimeout(function(){
+    /**
+     * load table
+     */
+    public loadTable(){
+        setTimeout(function () {
             $('#roleTable').DataTable({
                 "language": {
                     "search": "Search by: (Role Name)"
                 }
             });
         }, 2000);
-        
-        this.getRoles();
+    }
 
+    /**
+     * delete table and reload table
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#roleTable').DataTable();
+        if(table.destroy()){
+            x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -108,6 +126,7 @@ export class ViewRoleComponent implements OnInit{
                     this.error = success.error;
                     this.getRoles();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

@@ -191,4 +191,13 @@ class PassportController extends Controller
             return response()->json(['success'=>'Error occured', 'error'=>1]);
         }
     }
+
+    /**
+    * get institute id for logged user
+    */
+    public function getInstituteId($user_id){
+        $table = User::find($user_id);
+        $institute_user = $table->institues()->get();
+        return response()->json(['success'=>$institute_user]);
+    }
 }

@@ -177,4 +177,20 @@ export class ProviderService{
             .map((response: Response) => response.json());
     }
 
+    /**
+     * get provider's content history
+     */
+    public getContentHistory(user_id, status_id) {
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'get-history/' + user_id + '/' + status_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
 }

@@ -28,14 +28,32 @@ export class ViewCategoryComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
-
-        setTimeout(function(){
-            $('#categoryTable').DataTable({
-            });  
-        }, 2000);
-
         this.getCategories();
+        this.loadTable();
+    }
 
+    /**
+     * load table
+     */
+    public loadTable(){
+        setTimeout(function () {
+            $('#categoryTable').DataTable({
+            });
+        }, 2000);
+    }
+
+    /**
+     * delete table and reload table
+     */
+    public deleteTable(){
+        var x = 0;
+        var table = $('#categoryTable').DataTable();
+        if(table.destroy()){
+            var x = 1;
+        }
+        if(x == 1){
+            this.loadTable();
+        }
     }
 
     /**
@@ -105,6 +123,7 @@ export class ViewCategoryComponent implements OnInit{
                     this.error = success.error;
                     this.getCategories();
                     this.hideAlert();
+                    this.deleteTable();
                 }
                 );
         }

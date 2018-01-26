@@ -214,7 +214,7 @@ export class SingleSubmissionComponent implements OnInit{
             'sub_url': [''],
             'sub_type': ['', [Validators.required]],
             'sub_title': ['', [Validators.required]], 
-            'sub_video_url': ['', [Validators.pattern(URL_REGEX)]],
+            'sub_video_url': [null, [Validators.pattern(URL_REGEX)]],
             'sub_keywords': new FormGroup({
                 'sub_keyword': new FormControl([], Validators.required),
                 'sub_free': new FormControl('')
@@ -225,7 +225,7 @@ export class SingleSubmissionComponent implements OnInit{
             'sub_explores': new FormGroup({
                 'sub_explore': new FormControl([], Validators.required)
             }),
-            'sub_description': ['']
+            'sub_description': [null]
         });
     }
 

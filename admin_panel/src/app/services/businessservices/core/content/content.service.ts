@@ -69,4 +69,94 @@ export class ContentService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+    * get content provider all history
+    */
+    public getContentAllHistory(user_id, type_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'get-content-all/' + user_id + '/' + type_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+    * get content provider content history
+    */
+    public getContentHistory(user_id, type_id, status_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'get-content-info/' + user_id + '/' + type_id + '/' + status_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+    * get content provider content history count (approve,reject,pending,all)
+    */
+    public getContentAllCount(user_id, type_id, status_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'get-content-all-count/' + user_id + '/' + type_id + '/' + status_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+    * get a content details for edit
+    */
+    public editContent(id, submission_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'edit-content/' + id + '/' + submission_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+    * delete content
+    */
+    public deleteContent(id, submission_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        let body = '';
+        return this.http.get(this.API_ENDPOINT + 'delete-content/' + id + '/' + submission_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
+
+    /**
+    * get approved, rejected count for provider's table
+    */
+    public getCount(userIdArray, status_id) {
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        return this.http.get(this.API_ENDPOINT + 'get-count/' + userIdArray + '/' + status_id,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

@@ -42,6 +42,7 @@ body {
 div label{
     margin-top: 8px;
     margin-bottom: 10px;
+    font-size: 13px;
 }
 
 .tab{
@@ -64,6 +65,10 @@ div label{
 
 .arrow_btn{
     float:right;
+}
+
+.icon-cog {
+  color: black;
 }
   
   
