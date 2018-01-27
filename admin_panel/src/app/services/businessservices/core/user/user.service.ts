@@ -169,7 +169,7 @@ export class UserService {
      * get logged user details
      */
   public getLoggedUser() {
-
+    this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
     let headers = new Headers();
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
