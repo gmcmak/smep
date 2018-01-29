@@ -105,6 +105,7 @@ export class AppComponent {
             // }
             
         }else{
+            this.localStorageService.remove('userData');
             this.router.navigate(['/login']);
             console.log("hi dddddddddd");
             //this.getLoggedUserData();
