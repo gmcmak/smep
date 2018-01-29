@@ -160,15 +160,15 @@ export const routes: Routes = [
   // content authorizer
   {
     path: 'ca-content-authorization', component: ContentAuthorizationComponent,
-    children: [
-      { path: 'ca-articles', component: ArticlesComponent },
-      { path: 'ca-audio-clip', component: AudioClipComponent },
-      { path: 'ca-books', component: BooksComponent },
-      { path: 'ca-case-study', component: CaseStudyComponent },
-      { path: 'ca-images', component: ImagesComponent },
-      { path: 'ca-video-clip', component: VideoClipComponent },
-      { path: '', redirectTo: 'ca-articles', pathMatch: 'full' }
-    ]
+    // children: [
+    //   { path: 'ca-articles', component: ArticlesComponent },
+    //   { path: 'ca-audio-clip', component: AudioClipComponent },
+    //   { path: 'ca-books', component: BooksComponent },
+    //   { path: 'ca-case-study', component: CaseStudyComponent },
+    //   { path: 'ca-images', component: ImagesComponent },
+    //   { path: 'ca-video-clip', component: VideoClipComponent },
+    //   { path: '', redirectTo: 'ca-articles', pathMatch: 'full' }
+    // ]
   },
   {
     path: 'ca-authorization-history', component: AuthorizationHistoryComponent,

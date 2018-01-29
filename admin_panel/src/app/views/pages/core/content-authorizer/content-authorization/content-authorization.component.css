@@ -56,6 +56,57 @@ div label{
   padding-bottom: 4px;
   bottom: 1px;
 }
+
+/*table css*/
+div input{
+    margin-top: 8px;
+    margin-bottom: 10px;
+    /* //font-size: 12px; */
+}
+
+div select{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+div textarea{
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+#description1{
+    height: 100px;
+}
+
+div label{
+    margin-top: 10px;
+}
+
+.fontClz{
+    font-size: 13px;
+}
+
+.col_md_3_style{  
+    padding-right: 0px;
+}
+
+#submit_row{ 
+    margin-top: 50px;
+}
+
+/*table arrow buttons*/
+.arrow_btn_icon{
+    color:#808080;
+}
+
+.arrow_btn{
+    float:right;
+}
+
+#submit{
+    margin-top: 4px;
+}
+
   
   
   
