@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit{
                     let userInfo = { "name":success.success.name, "token":success.success.token};
                     this.localStorageService.put('userData', JSON.stringify(userInfo));
                     if(success.success.token){
-                        //window.location.reload();
+                        window.location.reload();
                         this.router.navigate(['/dashboard']); 
                     }
                 }

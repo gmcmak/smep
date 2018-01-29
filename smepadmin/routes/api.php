@@ -25,6 +25,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+    // search data
+    Route::get('search-explore/{id}/{token}/{lan}', 'API\SearchSubDataController@getExplore');
 
     Route::group(['middleware' => 'auth:api'], function(){
         
@@ -132,7 +134,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
         Route::get('remove-institute-authorizer/{user_id}/{institute_id}','API\InstituteController@removeInstituteAuthorizer');
         Route::get('remove-institute-provider/{user_id}/{institute_id}','API\InstituteController@removeInstituteProvider');
-
 
         /**
         * for authorizers

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 
 class RoleController extends Controller
-{   public $successStatus = 200;
+{   
+    public $successStatus = 200;
 
     /**
      * add new role

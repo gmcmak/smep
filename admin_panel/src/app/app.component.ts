@@ -97,7 +97,7 @@ export class AppComponent {
         
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         if(this.loggedInUserList){
-            this.username = this.loggedInUserList["name"];
+            this.username = this.loggedInUserList.name;
             console.log("hi dd");
             this.getLoggedUserData();    
             // if(this.loggedInUserList.token){
@@ -107,6 +107,8 @@ export class AppComponent {
         }else{
             this.localStorageService.remove('userData');
             this.router.navigate(['/login']);
+            console.log("hi dddddddddd");
+            //this.getLoggedUserData();
         }
                 
     }
