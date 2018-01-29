@@ -73,12 +73,12 @@ export class AppComponent {
             this.slimLoader.complete();
         });
 
+        
+
     }
 
     ngOnInit() {
-
         
-
         // If there is no startup data received (maybe an error!)
         // navigate to error route
         if (!this.startup.startupData) {
@@ -97,33 +97,35 @@ export class AppComponent {
         
         this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         if(this.loggedInUserList){
-            this.username = this.loggedInUserList.name;
+            this.username = this.loggedInUserList["name"];
+            console.log("hi dd");
+            this.getLoggedUserData();    
             // if(this.loggedInUserList.token){
                 
             // }
             
         }else{
+            this.localStorageService.remove('userData');
             this.router.navigate(['/login']);
         }
-        this.getLoggedUserData();            
-    }
-
-    ngAfterViewInit(){
-        
+                
     }
 
     /**
      * get logged user data
      */
-    getLoggedUserData() {
-        this.UserService.getLoggedUser().subscribe(
-            success => {
-                this.userDataList = success.success;
-                this.userRoleId = this.userDataList.role_id;
-                //return this.userRoleId;
-                //console.log("logged user role id "+this.userDataList.role_id);
-            }
-        );
+    public getLoggedUserData() {
+            this.UserService.getLoggedUser().subscribe(
+                success => {
+                    this.userDataList = success.success;
+                    this.userRoleId = this.userDataList.role_id;
+                    //return this.userRoleId;
+                    //console.log("logged user role id "+this.userDataList.role_id);
+                }
+            );
+
+        console.log('call logged user');
+        
     }
 
     /**
@@ -132,6 +134,7 @@ export class AppComponent {
     logout(){
         this.localStorageService.remove('userData');
         this.router.navigate(['/login']);
+        //this.userRoleId = 0;
     }
 
     ngOnDestroy(): any {

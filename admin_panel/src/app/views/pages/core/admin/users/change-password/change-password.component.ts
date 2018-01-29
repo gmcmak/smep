@@ -55,6 +55,8 @@ export class ChangePasswordComponent implements OnInit{
         };
     }
 
+    
+
     /**
      * clear form
      */
