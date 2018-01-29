@@ -26,5 +26,9 @@ class Content extends Model
     public function submission(){
         return $this->belongsTo('App\Submission');
     }  
+
+    public function type(){
+        return $this->belongsTo('App\Type');
+    }      
     
 }

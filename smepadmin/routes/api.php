@@ -27,6 +27,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
     // search data
     Route::get('search-explore/{id}/{token}/{lan}', 'API\SearchSubDataController@getExplore');
+    // elasticsearch handle
+    Route::get('elastic-data', 'API\ElasticSearchController@index');
 
     Route::group(['middleware' => 'auth:api'], function(){
         

@@ -89,7 +89,7 @@ class ContentController extends Controller
 		    		
 		    		return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
 	    		}
-	    		else{
+	    		else{ 
 	    			return response()->json(['success'=>'Error occured', 'error'=>1]);
 	    		}
 	    		

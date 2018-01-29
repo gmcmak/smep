@@ -66,25 +66,6 @@ class SearchSubDataController extends Controller
 
        return json_encode($mainMenu);
 
-// $exploreArray = array(
-//         array(
-//             'mainMenu' => "Grade",
-//             'subMenu' => array('Grade 1', 'Grade 2', 'Grade 3'),
-//         ),    
-//         array(
-//             'mainMenu' => "General",
-//             'subMenu' => array('Information Technology', 'Maths', 'Inovation Managment')
-//         ),
-//         array(
-//             'mainMenu' => "Other",
-//             'subMenu' => array('Banking', 'CIMA', 'CIM')
-//         )        
-        
-// );
-// return json_encode($exploreArray);
-
-        //echo 1;
-
     }
 
 }
