@@ -185,19 +185,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div formGroupName="sub_explores">
+                                        <div formGroupName="sub_authors">
                                             <div class="row">
                                                 <div class="col-md-3 col_md_3_style">
-                                                    <label for="sub_explore" class="fontClz">Author:
+                                                    <label for="sub_author" class="fontClz">Author:
                                                         <span class="required">*</span>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <angular2-multiselect [data]="ExploreItemList" formControlName="sub_explore" [(ngModel)]="singleSubmission.selectedExplore"
-                                                        [settings]="explore_setting" (onSelect)="onItemSelect3($event)" (onDeSelect)="onItemDeSelect3($event)" (onSelectAll)="onSelectAll3($event)"
-                                                        (onDeSelectAll)="onDeSelectAll3($event)">
+                                                    <angular2-multiselect [data]="AuthorItemList" formControlName="sub_author" [(ngModel)]="singleSubmission.selectedAuthor"
+                                                        [settings]="author_setting" (onSelect)="onItemSelect4($event)" (onDeSelect)="onItemDeSelect4($event)" (onSelectAll)="onSelectAll4($event)"
+                                                        (onDeSelectAll)="onDeSelectAll4($event)">
                                                     </angular2-multiselect>
-                                                    <div *ngIf="singleSubForm.controls['sub_explores'].controls['sub_explore'].hasError('required') && singleSubForm.controls['sub_explores'].controls['sub_explore'].touched"
+                                                    <div *ngIf="singleSubForm.controls['sub_authors'].controls['sub_author'].hasError('required') && singleSubForm.controls['sub_authors'].controls['sub_author'].touched"
                                                         class="error">
                                                         Author is required !
                                                     </div>

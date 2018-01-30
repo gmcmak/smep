@@ -13,7 +13,7 @@ class ContentController extends Controller
 {
     //get content details
     public function getContent($id){
-    	$content_data = Content::with('keyword','category','explore')->where(['submission_id'=>$id])->get();
+    	$content_data = Content::with('keyword','category','explore','author')->where(['submission_id'=>$id])->get();
     	return response()->json(['success'=>$content_data]);
     }
 
@@ -76,6 +76,9 @@ class ContentController extends Controller
 	    		$explore = $request->input('explore');
 	    		$exploreArray = explode(",",$explore);
 
+                $author = $request->input('author');
+                $authorArray = explode(",",$author);
+
 	    		$content_update = DB::table('contents')->where(['id'=>$id, 'submission_id'=>$submission_id])->update($content_update_data);
 
 	    		if($content_update){
@@ -86,6 +89,8 @@ class ContentController extends Controller
 		    		$insert_explore = $content_table_id->explore()->attach($exploreArray);
 		    		$content_table_id->category()->detach();
 		    		$insert_categories = $content_table_id->category()->attach($categoryArray);
+                    $content_table_id->author()->detach();
+                    $insert_authors = $content_table_id->author()->attach($authorArray);
 		    		
 		    		return response()->json(['success'=>'Successfully inserted', 'error'=>0]);
 	    		}
@@ -107,6 +112,7 @@ class ContentController extends Controller
         $content->keyword()->detach();
         $content->explore()->detach();
         $content->category()->detach();
+        $content->author()->detach();
         
         $table = new Content();
         $deleteData = DB::table('contents')->where(['id'=>$id, 'submission_id'=>$submission_id])->delete();
@@ -121,35 +127,35 @@ class ContentController extends Controller
 
     //get all content details
     public function getContentAll($user_id, $type_id){
-        $content_data = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->get();
+        $content_data = Content::with('submission','category','keyword','explore','author')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->get();
 
         return response()->json(['success'=>$content_data]);
     }
 
     //get content data to specific user
     public function getContentInfo($user_id, $type_id, $status_id){
-        $content_data = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->get();
+        $content_data = Content::with('submission','category','keyword','explore','author')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->get();
 
         return response()->json(['success'=>$content_data]);
     }
 
     //get content details count
     public function getContentCount($user_id, $type_id){
-        $content_count = Content::with('submission','category','keyword','explore')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->count();
+        $content_count = Content::with('submission','category','keyword','explore','author')->whereHas('submission', function($query) use ($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id])->count();
 
         return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
     }
 
     //get content approve,reject,pending,all count
     public function getContentAllCount($user_id, $type_id, $status_id){
-        $content_count = Content::with('submission','keyword','explore','category')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->count();
+        $content_count = Content::with('submission','keyword','explore','category','author')->whereHas('submission', function($query) use($user_id){$query->where(['user_id'=>$user_id]);})->where(['type_id'=>$type_id, 'status'=>$status_id])->count();
 
         return response()->json(['success'=>$content_count, 'type_id'=>$type_id]);
     }
 
     //get content details for edit on cp history
     public function editContent($id, $submission_id){
-    	$data = Content::with('keyword', 'category', 'explore')->where(['id'=>$id, 'submission_id'=>$submission_id])->get();
+    	$data = Content::with('keyword', 'category', 'explore','author')->where(['id'=>$id, 'submission_id'=>$submission_id])->get();
     	return response()->json(['success'=>$data]);
     }
 

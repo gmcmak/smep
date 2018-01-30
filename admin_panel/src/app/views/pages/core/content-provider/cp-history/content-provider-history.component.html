@@ -157,7 +157,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12" align="right">
                                                         <button type="submit" id="submit" name="submit" class="dlt_btn" *ngIf="pending_id == true">
-                                                            <a [routerLink]="['../cp-history/edit-component', contentHistoryList[index].id, contentHistoryList[index].submission_id]" data-toggle="tooltip" title="Edit" class="fa fa-pencil icon-cog"></a>
+                                                            <a [routerLink]="['../cp-history/edit-content', contentHistoryList[index].id, contentHistoryList[index].submission_id]" data-toggle="tooltip" title="Edit" class="fa fa-pencil icon-cog"></a>
                                                         </button>&emsp;
                                                         <button class="dlt_btn" (click)="deleteContent(contentHistoryList[index].id, contentHistoryList[index].submission_id)" *ngIf="deleted == true">
                                                             <li class="fa  fa-1x fa-trash icon-cog" data-toggle="tooltip" title="Delete">

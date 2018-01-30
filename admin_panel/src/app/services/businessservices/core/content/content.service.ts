@@ -33,7 +33,7 @@ export class ContentService{
     /**
     * add or update content data
     */
-    public addContentData(content_id, submission_id, sub_title1, sub_type1, sub_video_url1, keywordArray, sub_free1, categoryArray, exploreArray, sub_description1, status) {
+    public addContentData(content_id, submission_id, sub_title1, sub_type1, sub_video_url1, keywordArray, sub_free1, categoryArray, exploreArray, authorArray, sub_description1, status) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
@@ -48,6 +48,7 @@ export class ContentService{
         body.append('description', sub_description1);
         body.append('category', categoryArray);
         body.append('explore', exploreArray);
+        body.append('author', authorArray);
         return this.http.post(this.API_ENDPOINT + 'add-content/'+ content_id + '/' + submission_id, body,
             {
                 headers: headers
