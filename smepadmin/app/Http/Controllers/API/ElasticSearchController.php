@@ -11,38 +11,63 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Route;
-
+use DateTime;
 
 
 class ElasticSearchController extends Controller
 {
+    /**
+     *  Push data to elastic search
+     */
     public function index(){
-    	$content_data = Content::with('keyword','category','explore', 'type')->where(['status'=>1])->get();
+    	$content_data = Content::with('keyword','category','explore', 'type', 'author')->where(['status'=>1])->get();
 
         foreach($content_data as $row){
+
+           echo "<br/>";
+           echo "--------------------";
+           echo "<br/>"; 
+           echo $row->type->elastic_name;
+           echo "<br/>";           
            echo $row->title;
            echo "<br/>";
            echo $row->description;
-
+           echo "<br/>"; 
            echo $row->id;
-
+           echo "<br/>";
            echo $row->url;
-
+           echo "<br/>";
            echo $row->video_url;
-
-           echo $row->freeform_keyword;
-
+           echo "<br/>";
+           //echo $row->freeform_keyword;
+           //echo "<br/>";
+           $keywords = ""; 
            foreach($row->keyword as $key){
-                echo $key->en_name;
-                echo $key->si_name;
-                echo $key->ta_name;
+                $keywords .= $key->en_name.", ";
+                $keywords .= $key->si_name.", ";
+                $keywords .= $key->ta_name.", ";
            }  
-
+           echo $keywords."".$row->freeform_keyword;
+           echo "<br/>";           
+           $categories = ""; 
            foreach($row->category as $cat){
-                echo $cat->en_name;
-                echo $cat->si_name;
-                echo $cat->ta_name;
+                $categories .= $cat->en_name.", ";
+                $categories .= $cat->si_name.", ";
+                $categories .= $cat->ta_name.", ";
            }  
+           echo $categories;
+           echo "<br/>";
+           $authors = "";
+           foreach($row->author as $au){
+                $authors .= $au->en_name.", ";
+                $authors .= $au->si_name.", ";
+                $authors .= $au->ta_name.", ";            
+           }
+           echo $authors;
+           echo "<br/>";    
+           $dt = new DateTime($row->created_at);
+           $date = $dt->format('Y-m-d'); 
+           echo $date;                  
 
         }
 
@@ -68,7 +93,7 @@ class ElasticSearchController extends Controller
 
 
 
-    	return response()->json(['success'=>$content_data]);
+    	//return response()->json(['success'=>$content_data]);
     }
 }
 

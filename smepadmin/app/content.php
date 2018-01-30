@@ -36,4 +36,8 @@ class Content extends Model
         return $this->belongsTo('App\Type');
     }      
     
+    public function author(){
+        return $this->belongsToMany('App\Author');
+    }
+
 }
