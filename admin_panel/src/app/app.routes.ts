@@ -215,7 +215,7 @@ export const routes: Routes = [
     //   { path: '', redirectTo: 'cp-articles-history', pathMatch: 'full' }
     // ]
   },
-  { path: 'cp-history/edit-component/:id/:submission_id', component: EditContentComponent},
+  { path: 'cp-history/edit-content/:id/:submission_id', component: EditContentComponent},
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

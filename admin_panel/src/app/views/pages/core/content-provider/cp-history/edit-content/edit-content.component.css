@@ -31,7 +31,7 @@ div label{
 }
 
 #submit_row{ 
-    margin-top: 50px;
+    margin-top: 109px;
 }
 
 /*table arrow buttons*/
@@ -41,4 +41,8 @@ div label{
 
 .arrow_btn{
     float:right;
+}
+
+#sub_description{    
+    height: 129px;
 }

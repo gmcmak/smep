@@ -6,6 +6,7 @@ import { KeywordService } from "../../../../../../services/businessservices/core
 import { ActivatedRoute } from "@angular/router";
 import { ContentService } from "../../../../../../services/businessservices/core/content/content.service";
 import { TypeService } from "../../../../../../services/businessservices/core/type/type.service";
+import { AuthorService } from "../../../../../../services/businessservices/core/settings/author.service";
 
 const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}');
 
@@ -28,6 +29,7 @@ export class EditContentComponent implements OnInit{
     public categoryList;
     public exploreList;
     public keywordList;
+    public authorList;
     public typeList;
 
     public keywordItemList = new Array();
@@ -41,6 +43,10 @@ export class EditContentComponent implements OnInit{
     public ExploreItemList = new Array();
     selectedExplore1 = [];
     explore_setting = {};
+
+    public AuthorItemList = new Array();
+    selectedAuthor1 = [];
+    author_setting = {};
 
     public submission_id;
     public id;
@@ -56,6 +62,7 @@ export class EditContentComponent implements OnInit{
     public exploreArray = new Array();
     public keywordArray = new Array();
     public categoryArray = new Array();
+    public authorArray = new Array();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -64,7 +71,8 @@ export class EditContentComponent implements OnInit{
         private keywordService: KeywordService,
         private route: ActivatedRoute,
         private contentService: ContentService,
-        private typeService: TypeService
+        private typeService: TypeService,
+        private authorService: AuthorService
     ){}
     
     ngOnInit(): void {
@@ -80,6 +88,7 @@ export class EditContentComponent implements OnInit{
         this.getCategories();
         this.getExplores();
         this.getKeywords();
+        this.getAuthors();
         this.getTypes();
         this.getContentDetails(this.index);
 
@@ -108,6 +117,16 @@ export class EditContentComponent implements OnInit{
         //for explore drop down
         this.explore_setting = {
             text: "Select Explore",
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            enableSearchFilter: true,
+            badgeShowLimit: 3
+            // classes: "myclass custom-class"
+        };
+
+        //for author drop down
+        this.author_setting = {
+            text: "Select Author",
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             enableSearchFilter: true,
@@ -206,6 +225,36 @@ export class EditContentComponent implements OnInit{
         return this.singleSubmission.selectedExplore;
     }
 
+    //author drop down list functions
+    onItemSelect4(item: any) {
+        for (let i = 0; i < item.length; i++) {
+            this.singleSubmission.selectedAuthor[i] = new Array();
+            this.singleSubmission.selectedAuthor[i]['id'] = item[i].id;
+            this.singleSubmission.selectedAuthor[i]['itemName'] = item[i].itemName;
+        }
+        return this.singleSubmission.selectedExplore;
+    }
+    onItemDeSelect4(item: any) {
+        for (let i = 0; i < item.length; i++) {
+            this.singleSubmission.selectedAuthor[i] = new Array();
+            this.singleSubmission.selectedAuthor[i]['id'] = item[i].id;
+            this.singleSubmission.selectedAuthor[i]['itemName'] = item[i].itemName;
+        }
+        return this.singleSubmission.selectedExplore;
+    }
+    onSelectAll4(items: any) {
+        for (let i = 0; i < this.AuthorItemList.length; i++) {
+            this.singleSubmission.selectedAuthor[i] = new Array();
+            this.singleSubmission.selectedAuthor[i]['id'] = this.AuthorItemList[i].id;
+            this.singleSubmission.selectedAuthor[i]['itemName'] = this.AuthorItemList[i].itemName;
+        }
+        return this.singleSubmission.selectedAuthor;
+    }
+    onDeSelectAll4(items: any) {
+        this.singleSubmission.selectedAuthor = [];
+        return this.singleSubmission.selectedAuthor;
+    }
+
     private initializeSingleForm(): void {
         this.singleSubForm = this.formBuilder.group({
             'sub_url': [''],
@@ -221,6 +270,9 @@ export class EditContentComponent implements OnInit{
             }),
             'sub_explores': new FormGroup({
                 'sub_explore': new FormControl([], Validators.required)
+            }),
+            'sub_authors': new FormGroup({
+                'sub_author': new FormControl([], Validators.required)
             }),
             'sub_description': [null]
         });
@@ -301,6 +353,22 @@ export class EditContentComponent implements OnInit{
                     this.keywordItemList[i] = new Array();
                     this.keywordItemList[i]['id'] = this.keywordList[i].id;
                     this.keywordItemList[i]['itemName'] = this.keywordList[i].en_name;
+                }
+            }
+        );
+    }
+
+    /**
+     * get author details
+     */
+    public getAuthors() {
+        this.authorService.getAuthorsList().subscribe(
+            success => {
+                this.authorList = success.success;
+                for (let i = 0; i < this.authorList.length; i++) {
+                    this.AuthorItemList[i] = new Array();
+                    this.AuthorItemList[i]['id'] = this.authorList[i].id;
+                    this.AuthorItemList[i]['itemName'] = this.authorList[i].en_name;
                 }
             }
         );
@@ -389,6 +457,15 @@ export class EditContentComponent implements OnInit{
                         this.singleSubmission.selectedExplore[i]['itemName'] = this.contentDetails[x].explore[i].en_tag;
                     }
                 }
+
+                if (this.contentDetails[x].author.length > 0) {
+                    this.singleSubmission.selectedAuthor = new Array();
+                    for (let i = 0; i < this.contentDetails[x].author.length; i++) {
+                        this.singleSubmission.selectedAuthor[i] = {};
+                        this.singleSubmission.selectedAuthor[i]['id'] = this.contentDetails[x].author[i].id;
+                        this.singleSubmission.selectedAuthor[i]['itemName'] = this.contentDetails[x].author[i].en_name;
+                    }
+                }
             }
             );
     }
@@ -402,6 +479,7 @@ export class EditContentComponent implements OnInit{
         this.exploreArray = [];
         this.categoryArray = [];
         this.keywordArray = [];
+        this.authorArray = [];
 
         for (let i = 0; i < this.singleSubmission.selectedExplore.length; i++) {
 
@@ -419,6 +497,11 @@ export class EditContentComponent implements OnInit{
             this.categoryArray.push(this.singleSubmission.selectedCategory[i].id);
         }
 
+        for (let i = 0; i < this.singleSubmission.selectedAuthor.length; i++) {
+
+            this.authorArray.push(this.singleSubmission.selectedAuthor[i].id);
+        }
+
         this.contentService.addContentData(
             this.content_id,
             this.submission_id,
@@ -429,6 +512,7 @@ export class EditContentComponent implements OnInit{
             this.singleSubmission.sub_free1,
             this.categoryArray,
             this.exploreArray,
+            this.authorArray,
             this.singleSubmission.sub_description1,
             this.status
         ).subscribe(
@@ -452,5 +536,6 @@ export class SingleSubmission {
     public sub_free1: string;
     public selectedCategory = new Array();
     public selectedExplore = new Array();
+    public selectedAuthor = new Array();
     public sub_description1: string;
 }

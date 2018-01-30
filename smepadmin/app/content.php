@@ -23,6 +23,11 @@ class Content extends Model
         return $this->belongsToMany('App\Category');
     }
 
+    public function author()
+    {
+        return $this->belongsToMany('App\Author');
+    }
+
     public function submission(){
         return $this->belongsTo('App\Submission');
     }  
