@@ -63,7 +63,7 @@
                     <tr>
                         <th>#</th>
                         <th>Provider Name</th>
-                        <th>Article</th>
+                        <th>Title</th>
                         <th>Action</th>
                         <th>Action Date</th>
                         <th>Publish Date</th>
@@ -80,8 +80,8 @@
                         <td>{{item.title}}</td>
                         <td align="center">
                             <button class="btn btn-default table_btn" *ngIf="item.status==0" data-toggle="tooltip" disabled>Pending</button>
-                            <button class="btn btn-danger table_btn" *ngIf="item.status==1" disabled>Approved</button>
-                            <button class="btn btn-primary table_btn" *ngIf="item.status==2" disabled>Rejected</button>
+                            <button class="btn btn-success table_btn" *ngIf="item.status==1" disabled>Approved</button>
+                            <button class="btn btn-danger table_btn" *ngIf="item.status==2" disabled>Rejected</button>
                         </td>
                         <td align="center">{{item.created_at | date}}</td>
                         <td algn="center"><span *ngIf="showPublishDate == 1">{{item.updated_at | date}}</span>
