@@ -190,4 +190,69 @@ class ContentController extends Controller
         return response()->json(['success'=>$details]);
     }
 
+    //get content details for provider's history
+    public function getContentDetail(Request $request){
+        $status_id = $request->input('status_id');
+        $fromDate = $request->input('fromDate');
+        $toDate = $request->input('toDate');
+
+        if($status_id != null && $fromDate != null && $toDate != null){
+            if($status_id == 0){
+                $data = Content::with('submission.user')->where('status', '=', $status_id)->whereBetween('created_at', [$fromDate, $toDate])->get();
+                return response()->json(['success'=>$data]);
+            }
+            else{
+                $data = Content::with('submission.user')->where(['status'=>$status_id])->whereBetween('updated_at', [$fromDate, $toDate])->get();
+                return response()->json(['success'=>$data]);
+            }
+        }
+
+        if($status_id != null && $fromDate != null && $toDate == null){
+            if($status_id == 0){
+                $data = Content::with('submission.user')->where('status', '=', $status_id)->where('created_at', '>=', $fromDate)->get();
+                return response()->json(['success'=>$data]);
+            }
+            else{
+                $data = Content::with('submission.user')->where(['status'=>$status_id])->where('updated_at', '>=', $fromDate)->get();
+                return response()->json(['success'=>$data]);
+            }
+        }
+
+        if($status_id != null && $fromDate == null && $toDate != null){
+            if($status_id == 0){
+                $data = Content::with('submission.user')->where('status', '=', $status_id)->where('created_at', '<', $toDate)->get();
+                return response()->json(['success'=>$data]);
+            }
+            else{
+                $data = Content::with('submission.user')->where('status', '=', $status_id)->where('updated_at', '<', $toDate)->get();
+                return response()->json(['success'=>$data]);
+            }
+        }
+
+        if($status_id != null && $fromDate == null && $toDate == null){
+            $data = Content::with('submission.user')->where('status', '=', $status_id)->get();
+            return response()->json(['success'=>$data]);
+        }
+
+        if($status_id == null && $fromDate != null && $toDate != null){
+            $data = Content::with('submission.user')->whereBetween('updated_at', [$fromDate,$toDate])->get();
+            return response()->json(['success'=>$data]);
+        }
+
+        if($status_id == null && $fromDate == null && $toDate != null){
+            $data = Content::with('submission.user')->where('updated_at', '<', $toDate)->get();
+            return response()->json(['success'=>$data]);
+        }
+
+        if($status_id == null && $fromDate != null && $toDate == null){
+            $data = Content::with('submission.user')->where('updated_at', '>=', $fromDate)->get();
+            return response()->json(['success'=>$data]);
+        }
+        
+        if($status_id == null && $fromDate == null && $toDate == null){
+            $data = Content::with('submission.user')->get();
+            return response()->json(['success'=>$data]);
+        }
+    }
+
 }

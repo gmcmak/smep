@@ -167,6 +167,7 @@ import { ViewTypeComponent } from './views/pages/core/admin/settings/type/view-t
 import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
 import { CaProviderHistoryComponent } from './views/pages/core/content-authorizer/view-content-providers/ca-provider-history/ca-provider-history.component';
 import { EditInstituteProfileComponent } from './views/pages/core/admin/profile/edit-institute-profile/edit-institute-profile.component';
+import { PagerService } from './_services/index';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -343,6 +344,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ToastService,
     ToastCommunicationService,
     DialogsService,
+    PagerService,
     SubmissionService,
     LocalStorageStore
   ],

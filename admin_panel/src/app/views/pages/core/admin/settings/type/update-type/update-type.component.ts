@@ -63,7 +63,8 @@ export class UpdateTypeComponent implements OnInit{
     private initializeTypeForm(): void {
         this.typeForm = this.formBuilder.group({
             'type_name': [null, [Validators.required]],
-            'type_description': [null, [Validators.required]]
+            'type_description': [null, [Validators.required]],
+            'type_elastic_name': [null, [Validators.required]]
         });
     }
 
@@ -89,6 +90,7 @@ export class UpdateTypeComponent implements OnInit{
                 this.typeList = success.success;
                 this.type.typeName = this.typeList[0].name;
                 this.type.typeDescription = this.typeList[0].description;
+                this.type.typeElasticName = this.typeList[0].elastic_name;
             }
             );
     }
@@ -100,7 +102,8 @@ export class UpdateTypeComponent implements OnInit{
         this.typeService.updateTypeData(
             this.id,
             formData.type_name,
-            formData.type_description
+            formData.type_description,
+            formData.type_elastic_name
         ).subscribe(
             success => {
                 this.typeUpdatingStatus = success.success;
@@ -115,4 +118,5 @@ export class UpdateTypeComponent implements OnInit{
 export class Type {
     public typeName: string;
     public typeDescription: string;
+    public typeElasticName: string;
 }

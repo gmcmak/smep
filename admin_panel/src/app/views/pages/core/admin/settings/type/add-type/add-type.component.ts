@@ -49,7 +49,8 @@ export class AddTypeComponent implements OnInit{
     private initializeTypeForm(): void {
         this.typeForm = this.formBuilder.group({
             'type_name': [null, [Validators.required]],
-            'type_description': [null, [Validators.required]]
+            'type_description': [null, [Validators.required]],
+            'type_elastic_name': [null, Validators.required]
         });
     }
 
@@ -67,7 +68,8 @@ export class AddTypeComponent implements OnInit{
     addType(dataForm) {
         this.typeService.insertTypeData(
             dataForm.type_name,
-            dataForm.type_description
+            dataForm.type_description,
+            dataForm.type_elastic_name
         ).subscribe(
             success => {
                 this.typeAddingStatus = success.success;
@@ -82,4 +84,5 @@ export class AddTypeComponent implements OnInit{
 export class Type {
     public typeName: string;
     public typeDescription: string;
+    public typeElasticName: string;
 }

@@ -214,6 +214,25 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div formGroupName="sub_authors">
+                                        <div class="row">
+                                            <div class="col-md-3 col_md_3_style">
+                                                <label for="sub_author" class="fontClz">Author:
+                                                    <span class="required">*</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <angular2-multiselect [data]="AuthorItemList" formControlName="sub_author" [(ngModel)]="singleSubmission.selectedAuthor"
+                                                    [settings]="author_setting" (onSelect)="onItemSelect3($event)" (onDeSelect)="onItemDeSelect3($event)" (onSelectAll)="onSelectAll3($event)"
+                                                    (onDeSelectAll)="onDeSelectAll3($event)">
+                                                </angular2-multiselect>
+                                                <div *ngIf="singleSubForm.controls['sub_authors'].controls['sub_author'].hasError('required') && singleSubForm.controls['sub_authors'].controls['sub_author'].touched"
+                                                    class="error">
+                                                    Author is required !
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
@@ -225,19 +244,19 @@
                                     <div class="row">
                                         <!-- <div class="col-md-12"> -->
                                             <div class="col-md-3" align="center">
-                                                <input type="radio" name="status" id="all" checked>
-                                                <label>&emsp;Pending</label>
+                                                <label class="radio-inline"><input type="radio" name="status" id="all" checked>
+                                                &emsp;Pending</label>
                                             </div>
                                             <div class="col-md-3" align="center">
-                                                <input type="radio" name="status" id="approve">
-                                                <label>&emsp;Approve</label>
+                                                <label class="radio-inline"><input type="radio" name="status" id="approve">
+                                                &emsp;Approve</label>
                                             </div>
                                             <div class="col-md-3" align="center">
-                                                <input type="radio" name="status" id="reject">
-                                                <label>&emsp;Reject</label>
+                                                <label class="radio-inline"><input type="radio" name="status" id="reject">
+                                                &emsp;Reject</label>
                                             </div>
                                             <div class="col-md-3" align="right">
-                                                <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!singleSubForm.valid" (click)="addContents()">Submit</button>
+                                                <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!singleSubForm.valid">Submit</button> <!--(click)="addContents()" -->
                                             </div>
                                         <!-- </div> -->
                                     </div>  

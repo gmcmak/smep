@@ -25,13 +25,13 @@ export class ContentAuthorizerReportComponent implements OnInit{
         this.authorizerSearch();
 
         $("#caFromDate").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.authorizerInfo.caFromDate = e.target.value);
 
         $("#caToDate").datepicker({
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
         }).on('change', e => this.authorizerInfo.caToDate = e.target.value);

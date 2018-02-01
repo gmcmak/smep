@@ -22,7 +22,8 @@ class TypeController extends Controller
     public function insertType(Request $request){
     	$validator = Validator::make($request->all(), [
     		'name' => 'required',
-    		'description' => 'required'
+    		'description' => 'required',
+            'elastic_name' => 'required'
     	]);
 
     	if($validator->fails()){
@@ -33,6 +34,7 @@ class TypeController extends Controller
     		$table = new Type();
     		$table->name = $request->input('name');
     		$table->description = $request->input('description');
+            $table->elastic_name = $request->input('elastic_name');
     		$table->created_at = now();
     		$table->updated_at = now();
     		$table->save();
@@ -57,7 +59,8 @@ class TypeController extends Controller
     public function updateType(Request $request, $id){
     	$validator = Validator::make($request->all(), [
     		'name' => 'required',
-    		'description' => 'required'
+    		'description' => 'required',
+            'elastic_name' => 'required'
     	]);
 
     	if($validator->fails()){
@@ -71,6 +74,7 @@ class TypeController extends Controller
     			$update = [
     			'name' => $request->input('name'),
     			'description' => $request->input('description'),
+                'elastic_name' => $request->input('elastic_name'),
     			'updated_at' => now()
     			];
 

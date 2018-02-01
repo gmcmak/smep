@@ -34,7 +34,7 @@ export class TypeService{
     /**
     * insert type data
     */
-    public insertTypeData(name, description) {
+    public insertTypeData(name, description, elastic_name) {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -43,6 +43,7 @@ export class TypeService{
         let body = new URLSearchParams;
         body.append('name', name);
         body.append('description', description);
+        body.append('elastic_name', elastic_name);
         return this.http.post(this.API_ENDPOINT + 'insert-type', body,
             {
                 headers: headers
@@ -69,7 +70,7 @@ export class TypeService{
     /**
     * update type data
     */
-    public updateTypeData(id, name, description) {
+    public updateTypeData(id, name, description, elastic_name) {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
@@ -78,6 +79,7 @@ export class TypeService{
         let body = new URLSearchParams;
         body.append('name', name);
         body.append('description', description);
+        body.append('elastic_name', elastic_name);
         return this.http.post(this.API_ENDPOINT + 'update-type/' +id, body,
             {
                 headers: headers
