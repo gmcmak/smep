@@ -44,7 +44,7 @@
                         placeholder="YYYY-MM-DD">
                 </div>
                 <div class="col-md-1">
-                    <button type="submit" class="btn-primary search_btn" style="margin-top: 30px;" (click)="searchContents(providerInfo.cpStatus,providerInfo.cpFromDate,providerInfo.cpToDate)">Search</button>
+                    <button type="button" class="btn-primary search_btn" style="margin-top: 30px;" (click)="searchContents(providerInfo.cpStatus,providerInfo.cpFromDate,providerInfo.cpToDate)">Search</button>
                 </div>
                 <div class="col-md-1"></div>
             </div>
@@ -56,45 +56,6 @@
             </div>
 
             <br>
-
-            <!-- <div class="table-responsive">
-                <table class="table table-bordered" id="providerHistoryTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Provider Name</th>
-                            <th>Article</th>
-                            <th>Action</th>
-                            <th>Action Date</th>
-                            <th>Publish Date</th>
-                            <th data-orderable="false">View</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        
-                    </tfoot>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mr. Sunimal Sapumal</td>
-                            <td>Angular 4 tutorial</td>
-                            <td align="center">Approved</td>
-                            <td align="center">2017.10.02</td>
-                            <td align="center">2017.10.25</td>
-                            <td align="center"><a href=""><li class="fa  fa-1x fa-link"></li></a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Mr. Ananda Gunasena</td>
-                            <td>Angular JS tutorial</td>
-                            <td align="center">Rejected</td>
-                            <td align="center">2017.09.02</td>
-                            <td align="center">-</td>
-                            <td align="center"><a href=""><li class="fa  fa-1x fa-link"></li></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
         </form>
         <div class="text-center">
             <table class="table table-bordered" width="100%" cellspacing="0">
@@ -105,7 +66,7 @@
                         <th>Article</th>
                         <th>Action</th>
                         <th>Action Date</th>
-                        <th *ngIf="providerInfo.cpStatus == 1">Publish Date</th>
+                        <th>Publish Date</th>
                         <th data-orderable="false">View</th>
                     </tr>
                 </thead>
@@ -123,7 +84,8 @@
                             <button class="btn btn-primary table_btn" *ngIf="item.status==2" disabled>Rejected</button>
                         </td>
                         <td align="center">{{item.created_at | date}}</td>
-                        <td *ngIf="providerInfo.cpStatus == 1" algn="center">{{item.updated_at | date}}</td>
+                        <td algn="center"><span *ngIf="showPublishDate == 1">{{item.updated_at | date}}</span>
+                            <span *ngIf="showPublishDate != 1">-</span></td>
                         <td align="center">
                             <a href="{{item.url}}" target="_blank">
                                 <li class="fa  fa-1x fa-link"></li>

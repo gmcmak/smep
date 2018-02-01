@@ -18,6 +18,7 @@ export class ContentProviderReportComponent implements OnInit{
 
     public providerInfo = new ProviderInfo();
     public dataArray = new Array();
+    public showPublishDate = 0; //variable value for show hide publish date
 
     public searchProvider: FormGroup;
 
@@ -85,6 +86,12 @@ export class ContentProviderReportComponent implements OnInit{
     }
 
     public searchContents(cpStatus, cpFromDate, cpToDate){
+        if (cpStatus == 1) {
+            this.showPublishDate = 1;
+        }
+        else{
+            this.showPublishDate = 0;
+        }
         this.allItems = [];
         this.pager = {};
         this.pagedItems =[];
