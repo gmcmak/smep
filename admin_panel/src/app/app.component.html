@@ -125,21 +125,6 @@
           </ul>
         </li>
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#reportList" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file-text"></i>&nbsp;
-            <span class="nav-link-text" [routerLink]="['reports/content-authorizer-report']">Reports</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="reportList">
-            <li>
-              <a [routerLink]="['reports/content-authorizer-report']">Content Authorizer</a>
-            </li>
-            <li>
-              <a [routerLink]="['reports/content-provider-report']">Content Provider</a>
-            </li>
-          </ul>
-        </li>
-
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings" *ngIf="userRoleId == 1 || userRoleId == 2"><!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#settingList" data-parent="#exampleAccordion">
             <i class="fa fa-cog"></i>&nbsp;
@@ -282,6 +267,22 @@
                   </li> -->
                 </ul>
               </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports" *ngIf="userRoleId == 1 || userRoleId == 2">
+          <!--*ngIf="userRoleId == 1 || userRoleId == 2"-->
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#reportList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file-text"></i>&nbsp;
+            <span class="nav-link-text" [routerLink]="['reports/content-authorizer-report']">Reports</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="reportList">
+            <li>
+              <a [routerLink]="['reports/content-authorizer-report']">Content Authorizer</a>
+            </li>
+            <li>
+              <a [routerLink]="['reports/content-provider-report']">Content Provider</a>
+            </li>
           </ul>
         </li>
 

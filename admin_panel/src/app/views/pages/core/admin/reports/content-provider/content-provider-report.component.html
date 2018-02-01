@@ -79,7 +79,7 @@
                         <td>{{item.submission.user.name}}</td>
                         <td>{{item.title}}</td>
                         <td align="center">
-                            <button class="btn btn-default table_btn" *ngIf="item.status==0" data-toggle="tooltip" disabled>Pending</button>
+                            <button class="btn btn-primary table_btn" *ngIf="item.status==0" data-toggle="tooltip" disabled>Pending</button>
                             <button class="btn btn-success table_btn" *ngIf="item.status==1" disabled>Approved</button>
                             <button class="btn btn-danger table_btn" *ngIf="item.status==2" disabled>Rejected</button>
                         </td>
