@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use Route;
 use DateTime;
+use Elasticsearch;
+
 
 
 class ElasticSearchController extends Controller
@@ -22,74 +24,60 @@ class ElasticSearchController extends Controller
     public function index(){
     	$content_data = Content::with('keyword','category','explore', 'type', 'author')->where(['status'=>1])->get();
 
+        $client = Elasticsearch\ClientBuilder::create()
+                    ->setHosts(["localhost:9200"])
+                    ->build();
+
         foreach($content_data as $row){
 
-           echo "<br/>";
-           echo "--------------------";
-           echo "<br/>"; 
-           echo $row->type->elastic_name;
-           echo "<br/>";           
-           echo $row->title;
-           echo "<br/>";
-           echo $row->description;
-           echo "<br/>"; 
-           echo $row->id;
-           echo "<br/>";
-           echo $row->url;
-           echo "<br/>";
-           echo $row->video_url;
-           echo "<br/>";
-           //echo $row->freeform_keyword;
-           //echo "<br/>";
-           $keywords = ""; 
-           foreach($row->keyword as $key){
+            $elasticId = $row->id+1000;
+            $fullDate = str_replace(" ", "T", $row->created_at);
+            $keywords = ""; 
+            foreach($row->keyword as $key){
                 $keywords .= $key->en_name.", ";
                 $keywords .= $key->si_name.", ";
                 $keywords .= $key->ta_name.", ";
-           }  
-           echo $keywords."".$row->freeform_keyword;
-           echo "<br/>";           
-           $categories = ""; 
-           foreach($row->category as $cat){
+            }  
+            $categories = ""; 
+            foreach($row->category as $cat){
                 $categories .= $cat->en_name.", ";
                 $categories .= $cat->si_name.", ";
                 $categories .= $cat->ta_name.", ";
-           }  
-           echo $categories;
-           echo "<br/>";
-           $authors = "";
-           foreach($row->author as $au){
+            }  
+            $authors = "";
+            foreach($row->author as $au){
                 $authors .= $au->en_name.", ";
                 $authors .= $au->si_name.", ";
                 $authors .= $au->ta_name.", ";            
-           }
-           echo $authors;
-           echo "<br/>";    
-           $dt = new DateTime($row->created_at);
-           $date = $dt->format('Y-m-d'); 
-           echo $date;                  
+            }
+            $dt = new DateTime($row->created_at);
+            $date = $dt->format('Y-m-d'); 
 
-        }
+            $params = array();
+            $params['index'] = 'smart';
+            $params['type']  = $row->type->elastic_name;
+            $params['id']  = $elasticId;
+            $params['body']  = array(
+                "id"=> $elasticId,
+                "url"=> $row->url,
+                "title"=> $row->title,
+                "video"=> $row->video_url,
+                "description"=> $row->description,
+                "keywords"=> $keywords."".$row->freeform_keyword,
+                "content_type"=> $categories,
+                "author"=> $authors,
+                "rate"=> 0,
+                "ratedBy"=> 0,
+                "datePublished"=> $fullDate,
+                "publishedDate"=> $date            
+            );
+
+            $response = $client->index($params);
+
+       }
 
 
-        // $params = array();
-        // $params['index'] = 'smart';
-        // $params['type']  = $type;
-        // $params['size'] = $size;
-        // $params['from']  = $from; 
 
-        // $params['body']['query']['query_string'] = array(
-        //     "query"=> "(url:$q OR title:$q OR description:$q OR keywords:$q OR content_type:$q OR author:$q)"
-        // );        
-
-        // if(isset($_GET['content_type'])){
-        //     if($_GET['content_type'] != "null" && $_GET['content_type'] != "" && $_GET['content_type'] != " "){
-        //         $params['body'] = array();
-        //         $params['body']['query']['query_string'] = array(
-        //             "query"=> "(url:$q OR title:$q OR description:$q OR keywords:$q OR author:$q) AND (content_type:$content_type)"
-        //         );              
-        //     }
-        // }
 
 
 
