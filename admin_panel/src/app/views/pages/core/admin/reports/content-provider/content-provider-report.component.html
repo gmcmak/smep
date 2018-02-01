@@ -112,9 +112,9 @@
                 <tfoot>
             
                 </tfoot>
-                <tbody>
+                <tbody *ngIf="pager.pages">
                     <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
-                        <td>{{i+1}}</td>
+                        <td>{{i+1+(pager.currentPage-1)*10}}</td>
                         <td>{{item.submission.user.name}}</td>
                         <td>{{item.title}}</td>
                         <td align="center">
@@ -123,7 +123,7 @@
                             <button class="btn btn-primary table_btn" *ngIf="item.status==2" disabled>Rejected</button>
                         </td>
                         <td align="center">{{item.created_at | date}}</td>
-                        <td *ngIf="providerInfo.cpStatus == 1" algn="center">{{item.updated_at}}</td>
+                        <td *ngIf="providerInfo.cpStatus == 1" algn="center">{{item.updated_at | date}}</td>
                         <td align="center">
                             <a href="{{item.url}}" target="_blank">
                                 <li class="fa  fa-1x fa-link"></li>

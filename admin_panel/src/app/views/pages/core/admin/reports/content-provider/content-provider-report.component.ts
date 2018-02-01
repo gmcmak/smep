@@ -5,8 +5,6 @@ import * as _ from 'underscore';
 import { PagerService } from "../../../../../../_services/index";
 import { ContentService } from "../../../../../../services/businessservices/core/content/content.service";
 
-//import { PagerService } from '../../../../../../../app/_services/index'
-
 declare var $: any;
 declare var jQuery: any;
 
@@ -87,9 +85,6 @@ export class ContentProviderReportComponent implements OnInit{
     }
 
     public searchContents(cpStatus, cpFromDate, cpToDate){
-        console.log('status = '+cpStatus);
-        console.log('From Date = ' + cpFromDate);
-        console.log('To Date = ' + cpToDate);
         this.allItems = [];
         this.pager = {};
         this.pagedItems =[];
