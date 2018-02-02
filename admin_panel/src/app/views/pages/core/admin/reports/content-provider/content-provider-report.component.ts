@@ -19,6 +19,7 @@ export class ContentProviderReportComponent implements OnInit{
     public providerInfo = new ProviderInfo();
     public dataArray = new Array();
     public showPublishDate = 0; //variable value for show hide publish date
+    public showRejectedDate = 0;
 
     public searchProvider: FormGroup;
 
@@ -90,6 +91,12 @@ export class ContentProviderReportComponent implements OnInit{
         }
         else{
             this.showPublishDate = 0;
+        }
+        if(cpStatus == 2){
+            this.showRejectedDate = 1;
+        }
+        else{
+            this.showRejectedDate = 0;
         }
         this.allItems = [];
         this.pager = {};

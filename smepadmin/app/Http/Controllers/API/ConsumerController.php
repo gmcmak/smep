@@ -155,10 +155,10 @@ class ConsumerController extends Controller
       $data = DB::table('consumers')->whereIn('id', [$id])->update($update);
       if($data){
         if($status == 1){
-          return response()->json(['success'=>'Succesfully approved', 'error'=>0]);
+          return response()->json(['success'=>'Succesfully enabled', 'error'=>0]);
         }
         else{
-          return response()->json(['success'=>'Successfully rejected', 'error'=>0]);
+          return response()->json(['success'=>'Successfully disabled', 'error'=>0]);
         }
       }
       else{
