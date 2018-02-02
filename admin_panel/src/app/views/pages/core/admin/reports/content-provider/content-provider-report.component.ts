@@ -41,6 +41,7 @@ export class ContentProviderReportComponent implements OnInit{
     ngOnInit(): void {
         this.initializeProviderSearch();
         this.providerInfo.cpStatus = 0;
+        this.searchContents(0, null, null); 
 
         $("#cpFromDate").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -52,9 +53,7 @@ export class ContentProviderReportComponent implements OnInit{
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true
-        }).on('change', e => this.providerInfo.cpToDate = e.target.value);
-
-        this.searchContents(0,null,null);      
+        }).on('change', e => this.providerInfo.cpToDate = e.target.value);     
             
     }
 

@@ -214,14 +214,6 @@ div textarea {
     resize: none; /* Remove this if you want the user to resize the textarea */
 }
 
-.error {
-    color: red;
-    font-size: 13px;
-    font-style: bold;
-    text-align: right;
-    /* background-color: #acf; */
- }
-
  div text {
      font-size: 12px;
  }

@@ -1,5 +1,5 @@
 .pagination a {
-    border-color: blue;
+    border-color: #007bff;
     color: black;
     float: right;
     padding: 8px 16px;
@@ -9,9 +9,11 @@
     padding-bottom: 3px;
 }
 
-.pagination a:active{
-    background-color: #4CAF50;
-    color: white;
+.page-item.active .page-link {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
 a {
