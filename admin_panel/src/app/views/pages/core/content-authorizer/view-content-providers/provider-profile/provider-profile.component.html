@@ -20,34 +20,61 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="contenair col-md-3">
-                    <div class="col-md-12">
-                        <h6>{{providerDataList[0].name}}</h6>
-                    </div>
-                    <div class="col-md-12">
-                        <i class="fa fa-envelope-o"></i>&emsp;
-                        <span>{{providerDataList[0].email}}</span>
-                    </div>
-                    <div class="col-md-12">
-                        <i class="fa fa-id-card-o"></i>&emsp;
-                        <span>{{providerDataList[0].nic}}</span>
-                    </div>
-                    <div class="col-md-12">
-                        <i class="fa fa-user-o"></i>&emsp;
-                        <span>{{providerDataList[0].designation}}</span>
-                    </div>
-                    <div class="col-md-12">
-                        <i class="fa fa-phone"></i>&emsp;
-                        <span>{{providerDataList[0].mobile}}</span>
-                    </div>
-                    <div class="col-md-12">
-                        <i class="fa fa-venus-mars"></i>&emsp;
-                        <span>{{providerDataList[0].gender}}</span>
-                    </div>
-                    <div class="col-md-12">
-                        <i class="fa fa-calendar-o"></i>&emsp;
-                        <span>{{providerDataList[0].birthday}}</span>
-                    </div>
-
+                    <table>
+                        <tr>
+                            <th colspan="2">
+                                <h6>{{providerDataList[0].name}}</h6>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-envelope-o"></i>&emsp;
+                            </td>
+                            <td>
+                                <span>{{providerDataList[0].email}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-id-card-o"></i>&emsp;
+                            </td>
+                            <td>
+                                <span>{{providerDataList[0].nic}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-user-o"></i>&emsp;
+                            </td>
+                            <td>
+                                <span>{{providerDataList[0].designation}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-phone"></i>&emsp;
+                            </td>
+                            <td>
+                                <span>{{providerDataList[0].mobile}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-venus-mars"></i>&emsp;
+                            </td>
+                            <td>
+                                <span>{{providerDataList[0].gender}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-calendar-o"></i>&emsp;
+                            </td>
+                            <td>
+                                <span>{{providerDataList[0].birthday}}</span>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="contenair col-md-7">
                     <ul class="nav nav-tabs">
@@ -65,54 +92,107 @@
                     <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                             <br>
-                            <h6>Highest Qualification</h6>
-                            <p *ngIf="providerDataList && providerDataList[0] && providerDataList[0].highest_education">
-                                <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{providerDataList[0].highest_education.qualification}}</span>
-                                <br>
-                                <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{providerDataList[0].highest_education.university}}</span>
-                                <br>
-                                <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{providerDataList[0].highest_education.grade}}</span>
-                                <br>
-                                <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{providerDataList[0].highest_education.country.name}}</span>
-                                <br>
-                                <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
-                                <span>{{providerDataList[0].highest_education.year}}</span>
-                                <br>
-                            </p>
+                            <h6>
+                                <i>Highest Qualification</i>
+                            </h6>
+                            <table *ngIf="providerDataList && providerDataList[0] && providerDataList[0].highest_education">
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
+                                    </td>
+                                    <td>
+                                        <span>{{providerDataList[0].highest_education.qualification}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
+                                    </td>
+                                    <td>
+                                        <span>{{providerDataList[0].highest_education.university}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
+                                    </td>
+                                    <td>
+                                        <span>{{providerDataList[0].highest_education.grade}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
+                                    </td>
+                                    <td>
+                                        <span>{{providerDataList[0].highest_education.country.name}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
+                                    </td>
+                                    <td>
+                                        <span>{{providerDataList[0].highest_education.year}}</span>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                         <div id="menu1" class="tab-pane fade">
                             <br>
-                            <h6>Professional Qualification</h6>
+                            <h6><i>Professional Qualification</i></h6>
+                            <table>
                             <ol *ngIf="providerDataList && providerDataList[0].professional_educations">
                                 <li *ngFor="let profEdu of providerDataList[0].professional_educations">
-                                    <p>
-                                        <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>{{profEdu.qualification}}</span>
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-graduation-cap" aria-hidden="true" align="center"></i>&emsp;
+                                            </td>
+                                            <td>
+                                                <span>{{profEdu.qualification}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
+                                            </td>
+                                            <td>
+                                                <span>{{profEdu.university}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
+                                            </td>
+                                            <td>
+                                                <span>{{profEdu.grade}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
+                                            </td>
+                                            <td>
+                                                <span>{{profEdu.country.name}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
+                                            </td>
+                                            <td>
+                                                <span>{{profEdu.year}}</span>
+                                            </td>
+                                        </tr>
                                         <br>
-                                        <i class="fa fa-university" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>{{profEdu.university}}</span>
-                                        <br>
-                                        <i class="fa fa-certificate" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>{{profEdu.grade}}</span>
-                                        <br>
-                                        <i class="fa fa-globe" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>{{profEdu.country.name}}</span>
-                                        <br>
-                                        <i class="fa fa-calendar" aria-hidden="true" align="center"></i>&emsp;
-                                        <span>{{profEdu.year}}</span>
-                                        <br>
-                                    </p>
                                 </li>
                             </ol>
-
+                            </table>
+                            
                         </div>
                         <div id="menu2" class="tab-pane fade" *ngIf="providerDataList && providerDataList[0].subject_areas">
                             <br>
-                            <h6>Subject Areas</h6>
+                            <h6><i>Subject Areas</i></h6>
                             <ul class="list" *ngFor="let record of providerDataList[0].subject_areas">
                                 <li>{{record.name}}</li>
                             </ul>

@@ -75,7 +75,11 @@ div textarea{
 }
 
 #description1{
-    height: 100px;
+    height: 188px;
+}
+
+#sub_description{
+    height: 85px;
 }
 
 div label{

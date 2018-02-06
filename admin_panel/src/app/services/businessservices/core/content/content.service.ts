@@ -160,4 +160,23 @@ export class ContentService{
             })
             .map((response: Response) => response.json());
     }
+
+    /**
+     * provider content history
+     */
+    public providerContentsHistory(cpStatus, cpFromDate, cpToDate){
+        let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        //let body = '';
+        let body = new URLSearchParams;
+        body.append('status_id', cpStatus);
+        body.append('fromDate', cpFromDate);
+        body.append('toDate', cpToDate);
+        return this.http.post(this.API_ENDPOINT + 'get-content-detail', body,
+            {
+                headers: headers
+            })
+            .map((response: Response) => response.json());
+    }
 }

@@ -22,45 +22,31 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <label for="caName">Provider's Name: </label>
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control form-control-sm" id="cpName" [(ngModel)]="cpName" formControlName="cpName" placeholder="Namal Gunasinghe">
-                </div>
-                <div class="col-md-1">
-                    <label>Status:</label>
-                </div>
-                <div class="col-md-2">
-                    <select id="cpStatus" class="form-control form-control-sm quali1" [(ngModel)]="cpStatus" formControlName="cpStatus">
-                        <option [ngValue]="approved">Approved</option>
-                        <option [ngValue]="rejected">Rejected</option>
-                        <option [ngValue]="pending">Pending</option>
+                    <label for="cpStatus">Status: </label>
+                    <select id="cpStatus" class="form-control form-control-sm quali1" [(ngModel)]="providerInfo.cpStatus" formControlName="cpStatus">
+                        <option [value]="0">Pending</option>
+                        <option [value]="1">Approved</option>
+                        <option [value]="2">Rejected</option>
                     </select>
                 </div>
                 <div class="col-md-1"></div>
-                <div class="col-md-2"></div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-1">
-                    <label>From:</label>
-                </div>
                 <div class="col-md-2">
-                    <input type="text" class="form-control form-control-sm" id="cpFromDate" [(ngModel)]="cpFromDate" formControlName="cpFromDate" placeholder="dd/mm/yy">
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-1">
-                    <label>To:</label>
-                </div>
-                <div class="col-md-2">
-                        <input type="text" class="form-control form-control-sm" id="cpToDate" [(ngModel)]="cpToDate" formControlName="cpToDate" placeholder="dd/mm/yy">
+                    <label for="cpFromDate">From: </label>
+                    <input type="text" class="form-control form-control-sm" id="cpFromDate" [(ngModel)]="providerInfo.cpFromDate" formControlName="cpFromDate"
+                        placeholder="YYYY-MM-DD">
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
-                        <button type="submit" class="btn-primary search_btn">Search</button>
+                    <label for="cpToDate">To: </label>
+                    <input type="text" class="form-control form-control-sm" id="cpToDate" [(ngModel)]="providerInfo.cpToDate" formControlName="cpToDate"
+                        placeholder="YYYY-MM-DD">
                 </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn-primary search_btn" style="margin-top: 30px;" (click)="searchContents(providerInfo.cpStatus,providerInfo.cpFromDate,providerInfo.cpToDate)">Search</button>
+                </div>
+                <div class="col-md-1"></div>
             </div>
 
             <div class="row">
@@ -70,48 +56,71 @@
             </div>
 
             <br>
-
-            <div class="table-responsive">
-                <table class="table table-bordered" id="providerHistoryTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Provider Name</th>
-                            <th>Article</th>
-                            <th>Action</th>
-                            <th>Action Date</th>
-                            <th>Publish Date</th>
-                            <th data-orderable="false">View</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        
-                    </tfoot>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mr. Sunimal Sapumal</td>
-                            <td>Angular 4 tutorial</td>
-                            <td align="center">Approved</td>
-                            <td align="center">2017.10.02</td>
-                            <td align="center">2017.10.25</td>
-                            <td align="center"><a href=""><li class="fa  fa-1x fa-link"></li></a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Mr. Ananda Gunasena</td>
-                            <td>Angular JS tutorial</td>
-                            <td align="center">Rejected</td>
-                            <td align="center">2017.09.02</td>
-                            <td align="center">-</td>
-                            <td align="center"><a href=""><li class="fa  fa-1x fa-link"></li></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </form>
+        <div class="text-center">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Provider Name</th>
+                        <th>Title</th>
+                        <th>Action</th>
+                        <th>Action Date</th>
+                        <th><span *ngIf="showPublishDate == 1">Publish Date</span>
+                            <span *ngIf="showRejectedDate == 1">Rejected Date</span>
+                            <span *ngIf="showPublishDate != 1 && showRejectedDate != 1">Publish Date</span></th>
+                        <th data-orderable="false">View</th>
+                    </tr>
+                </thead>
+                <tfoot>
+            
+                </tfoot>
+                <tbody *ngIf="pager.pages">
+                    <tr *ngFor="let item of pagedItems; let i = index" [attr.data-index]="i">
+                        <td>{{i+1+(pager.currentPage-1)*10}}</td>
+                        <td>{{item.submission.user.name}}</td>
+                        <td>{{item.title}}</td>
+                        <td align="center">
+                            <button class="btn btn-primary table_btn" *ngIf="item.status==0" data-toggle="tooltip" disabled>Pending</button>
+                            <button class="btn btn-success table_btn" *ngIf="item.status==1" disabled>Approved</button>
+                            <button class="btn btn-danger table_btn" *ngIf="item.status==2" disabled>Rejected</button>
+                        </td>
+                        <td align="center">{{item.created_at | date}}</td>
+                        <td algn="center"><span *ngIf="showPublishDate == 1 || showRejectedDate == 1">{{item.updated_at | date}}</span>
+                            <span *ngIf="showPublishDate != 1 && showRejectedDate != 1">-</span></td>
+                        <td align="center">
+                            <a href="{{item.url}}" target="_blank">
+                                <li class="fa  fa-1x fa-link"></li>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <nav aria-label="Page navigation example">
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination pagination-sm justify-content-end">
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a class="page-link" (click)="setPage(1)">First</a>
+                </li>
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a class="page-link" (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a class="page-link" (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a class="page-link" (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a class="page-link" (click)="setPage(pager.totalPages)">Last</a>
+                </li>
+            </ul>
+        </nav>
+            
+
+        </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
 <br>
 <br>

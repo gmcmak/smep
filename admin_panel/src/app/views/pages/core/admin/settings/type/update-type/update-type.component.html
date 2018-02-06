@@ -51,7 +51,7 @@
                     </label>
                 </div>
                 <div class="col-md-5">
-                    <textarea class="form-control form-control-sm" id="typeDescription" name="type_description" formControlName="type_description" [(ngModel)]="type.typeDescription"
+                    <textarea class="form-control form-control-sm textAreaStyle" id="typeDescription" name="type_description" formControlName="type_description" [(ngModel)]="type.typeDescription"
                         placeholder="Video type" [ngClass]="displayFieldCss('type_description')" rows="3"></textarea>
             
                     <div *ngIf="typeForm.controls['type_description'].hasError('required') && typeForm.controls['type_description'].touched" class="error">
@@ -61,7 +61,24 @@
                 <div class="col-md-2"></div>
             </div>
             <br>
-
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <label for="elasticName">Field Name:
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control form-control-sm" id="elasticName" type="text" name="type_elastic_name" formControlName="type_elastic_name" [(ngModel)]="type.typeElasticName"
+                        placeholder="video" [ngClass]="displayFieldCss('type_elastic_name')">
+            
+                    <div *ngIf="typeForm.controls['type_elastic_name'].hasError('required') && typeForm.controls['type_elastic_name'].touched" class="error">
+                        Field name is required !
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-3"></div>

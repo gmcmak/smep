@@ -184,6 +184,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
         Route::get('get-count/{user_id}/{status_id}', 'API\ContentController@getCount');
         Route::get('get-history/{user_id}/{status_id}', 'API\ContentController@getContentHistory');
 
+        //get content details for content provider history
+        Route::post('get-content-detail', 'API\ContentController@getContentDetail');
+
 
         /**
         * for submission

@@ -398,6 +398,7 @@ export class SingleSubmissionComponent implements OnInit{
             this.singleSubmission.selectedKeyword = [];
             this.singleSubmission.selectedCategory = [];
             this.singleSubmission.selectedExplore = [];
+            this.singleSubmission.selectedAuthor = [];
             this.getContentDetails(this.index);
         } 
     }
@@ -411,6 +412,7 @@ export class SingleSubmissionComponent implements OnInit{
             this.singleSubmission.selectedKeyword = [];
             this.singleSubmission.selectedCategory = [];
             this.singleSubmission.selectedExplore = [];
+            this.singleSubmission.selectedAuthor = [];
             this.getContentDetails(this.index);
         }  
     }

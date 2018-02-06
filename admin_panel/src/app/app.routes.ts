@@ -172,15 +172,15 @@ export const routes: Routes = [
   },
   {
     path: 'ca-authorization-history', component: AuthorizationHistoryComponent,
-    children: [
-      { path: 'ca-articles-history', component: ArticlesHistoryComponent },
-      { path: 'ca-audio-clip-history', component: AudioClipHistoryComponent },
-      { path: 'ca-books-history', component: BooksHistoryComponent },
-      { path: 'ca-case-study-history', component: CaseStudyHistoryComponent },
-      { path: 'ca-images-history', component: ImagesHistoryComponent },
-      { path: 'ca-video-clip-history', component: VideoClipHistoryComponent },
-      { path: '', redirectTo: 'ca-articles-history', pathMatch: 'full' }
-    ]
+    // children: [
+    //   { path: 'ca-articles-history', component: ArticlesHistoryComponent },
+    //   { path: 'ca-audio-clip-history', component: AudioClipHistoryComponent },
+    //   { path: 'ca-books-history', component: BooksHistoryComponent },
+    //   { path: 'ca-case-study-history', component: CaseStudyHistoryComponent },
+    //   { path: 'ca-images-history', component: ImagesHistoryComponent },
+    //   { path: 'ca-video-clip-history', component: VideoClipHistoryComponent },
+    //   { path: '', redirectTo: 'ca-articles-history', pathMatch: 'full' }
+    // ]
   },
   { path: 'ca-content-providers', component: ViewContentProvidersComponent },
   { path: 'provider-profile/:id', component: ProviderProfileComponent},
@@ -191,18 +191,18 @@ export const routes: Routes = [
   { path: 'submissions/view', component: ViewSubmissionComponent },
   { path: 'submissions/update/:id/:user_id', component: UpdateSubmissionComponent },
   { path: 'submissions/content-submission/:id/:level', component: SingleSubmissionComponent },
-  {
-    path: 'submissions/cp-multiple-submission', component: MultipleSubmissionComponent,
-    children: [
-      { path: 'cp-articles', component: CpArticlesComponent },
-      { path: 'cp-audio-clip', component: CpAudioClipComponent },
-      { path: 'cp-books', component: CpBooksComponent },
-      { path: 'cp-case-study', component: CpCaseStudyComponent },
-      { path: 'cp-images', component: CpImagesComponent },
-      { path: 'cp-video-clip', component: CpVideoClipComponent },
-      { path: '', redirectTo: 'cp-articles', pathMatch: 'full' }
-    ]
-  },
+  // {
+  //   path: 'submissions/cp-multiple-submission', component: MultipleSubmissionComponent,
+  //   children: [
+  //     { path: 'cp-articles', component: CpArticlesComponent },
+  //     { path: 'cp-audio-clip', component: CpAudioClipComponent },
+  //     { path: 'cp-books', component: CpBooksComponent },
+  //     { path: 'cp-case-study', component: CpCaseStudyComponent },
+  //     { path: 'cp-images', component: CpImagesComponent },
+  //     { path: 'cp-video-clip', component: CpVideoClipComponent },
+  //     { path: '', redirectTo: 'cp-articles', pathMatch: 'full' }
+  //   ]
+  // },
   {
     path: 'cp-history', component: ContentProviderHistoryComponent,
     // children: [
