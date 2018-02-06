@@ -25,10 +25,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-    // search data
+    // explore data
     Route::get('search-explore/{id}/{token}/{lan}', 'API\SearchSubDataController@getExplore');
-    // elasticsearch handle
+    // elasticsearch data push
     Route::get('elastic-data', 'API\ElasticSearchController@index');
+    // elastic search all records
+    Route::get('search/{searchText}/{sortOrder}/{type}/{size}/{from}/{content_type}/{content_dates}/{from_date}/{to_date}/{as_q_1}/{as_q_2}/{as_ty_1}/{as_ty_2}/{as_op}/{id}/{token}', 'API\SearchSubDataController@index');    
+    // related search
+    Route::get('related-search/{searchText}/{id}/{token}/{lan}', 'API\SearchSubDataController@relatedSearch');
+
 
     Route::group(['middleware' => 'auth:api'], function(){
         

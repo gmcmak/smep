@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Route;
-
+use DateTime;
+use Elasticsearch;
 
 
 class SearchSubDataController extends Controller
 {
+    private $client;
 
     public function __construct(Request $request){
         $id = $request->id;
@@ -32,8 +34,205 @@ class SearchSubDataController extends Controller
            exit;
         }
 
+        $this->client = Elasticsearch\ClientBuilder::create()
+                    ->setHosts(["localhost:9200"])
+                    ->build();
+
     }
 
+
+    public function index($searchText,$sortOrder,$type,$size,$from,$content_type,$content_dates,$from_date,$to_date,$as_q_1,$as_q_2,$as_ty_1,$as_ty_2,$as_op,$id,$token){
+        $q = $searchText;
+        $sortOrder = $sortOrder;
+        $type = $type;
+        $from = $from;
+        $size = $size;
+        $_GET['as_q_1'] = $as_q_1;
+        $_GET['as_ty_1'] = $as_ty_1;
+        $_GET['as_q_2'] = $as_q_2;
+        $_GET['as_ty_2'] = $as_ty_2;
+        $_GET['as_op'] = $as_op;
+        $_GET['content_type'] = $content_type;
+        $_GET['content_dates'] = $content_dates;
+        $_GET['from_date'] = $from_date;
+        $_GET['to_date'] = $to_date;
+        
+        $orderBy = "";
+        if($sortOrder == 'n'){
+            $orderBy = 'desc';
+        }
+        if($sortOrder == 'o'){
+            $orderBy = 'asc';
+        }
+
+        
+        $content_type = NULL;
+        if(isset($_GET['content_type'])){
+            if($_GET['content_type'] != "null" && $_GET['content_type'] != "" && $_GET['content_type'] != " "){
+                $content_type = $_GET['content_type'];
+            }
+        }
+
+       
+        $content_dates = NULL;
+        $fromAndToActive = 0;
+        $advancedSearch = 0;
+        $as_q_1 = "";
+        $as_ty_1 = "";
+        $as_q_2 = "";
+        $as_ty_2 = "";
+        $as_op = "";
+        if(isset($_GET['content_dates'])){
+            if($_GET['content_dates'] != "null" && $_GET['content_dates'] != "" && $_GET['content_dates'] != " "){
+                    $content_dates = $_GET['content_dates'];
+                    if($content_dates == "All"){
+                        $content_dates = "All";
+                    }
+
+                    if($content_dates == "Last 3 Months"){
+                        $from_date = date('Y-m-d');
+
+                        $datetime = Datetime::createFromFormat('Y-m-d', $content_dates);
+                        $datetime->modify('-3 months');                
+                        $to_date = $datetime->format('Y-m-d');
+                    }
+                    if($content_dates == "Last 6 Months"){
+                        $from_date = date('Y-m-d');
+
+                        $datetime = Datetime::createFromFormat('Y-m-d', $content_dates);
+                        $datetime->modify('-6 months');                
+                        $to_date = $datetime->format('Y-m-d');
+                    }            
+                    if($content_dates == "All"){
+                        $content_dates = "All";
+                    }              
+                    $toDateQuery = "";          
+                    if($content_dates == 0){
+                        $fromAndToActive = 1;
+                    }
+
+                    $advancedSearch = 1;
+                    //advanced search query expload
+                    $as_q_1 = $_GET['as_q_1'];
+                    $as_ty_1 = $_GET['as_ty_1'];
+                    $as_q_2 = $_GET['as_q_2'];
+                    $as_ty_2 = $_GET['as_ty_2'];
+
+                    $queryPart2 = "";
+                    if($as_ty_2 == 'null'){
+                        $queryPart2="";
+                    }else{
+                        if($as_q_2 != 'null'){
+                            $queryPart2= $as_ty_2.":".$as_q_2;
+                        }
+                    }
+
+                    $as_op = $_GET['as_op'];
+                    if($as_op == 'null'){
+                        $as_op = "";
+                    }
+                    $contentMerge = "";
+                    if($content_type == "All"){
+                        $contentMerge = "content_type:'Book' OR content_type:'Case Study' OR content_type:'Article'";
+                    }        
+                    if($content_type == "Book"){
+                        $contentMerge = "content_type:'Book'";
+                    }  
+                    if($content_type == "Case Study"){
+                        $contentMerge = "content_type:'Case Study'";
+                    }  
+                    if($content_type == "Article"){
+                        $contentMerge = "content_type:'Article'";
+                    }                                          
+            }
+        }
+
+        if($fromAndToActive == 1){
+            
+            $from_date = NULL;
+            if(isset($_GET['from_date'])){
+                if($_GET['from_date'] != "null" && $_GET['from_date'] != "" && $_GET['from_date'] != " "){
+                    $from_date = $_GET['from_date'];
+                }
+            }
+            
+            $to_date = NULL;
+            if(isset($_GET['to_date'])){
+                if($_GET['to_date'] != "null" && $_GET['to_date'] != "" && $_GET['to_date'] != " "){
+                    $to_date = $_GET['to_date'];
+                }
+            }
+        }
+
+
+
+        if(isset($q)){
+
+
+            $params = array();
+            $params['index'] = 'smart';
+            $params['type']  = $type;
+            $params['size'] = $size;
+            $params['from']  = $from; 
+
+            $params['body']['query']['query_string'] = array(
+                "query"=> "(url:$q OR title:$q OR description:$q OR keywords:$q OR content_type:$q OR author:$q)"
+            );        
+
+            if(isset($_GET['content_type'])){
+                if($_GET['content_type'] != "null" && $_GET['content_type'] != "" && $_GET['content_type'] != " "){
+                    $params['body'] = array();
+                    $params['body']['query']['query_string'] = array(
+                        "query"=> "(url:$q OR title:$q OR description:$q OR keywords:$q OR author:$q) AND (content_type:$content_type)"
+                    );              
+                }
+            }
+
+            if($advancedSearch == 1){
+                if($content_dates != "All"){
+                    $contentDateQuery = "AND publishedDate:[$from_date TO $to_date]";
+                }else{
+                    $contentDateQuery = "";
+                }
+                $params['body'] = array();
+                $params['body']['query']['query_string'] = array(
+                    "query"=> "($as_ty_1:$as_q_1 $as_op $queryPart2) AND ($contentMerge) $contentDateQuery"
+                );   
+            }
+
+
+            if($orderBy != ""){
+                $params['sort']= 'publishedDate:'.$orderBy;
+            }
+            
+
+        // echo "<pre>";
+        // print_r($params);
+        // echo "</pre>";
+
+            $query = $this->client->search($params);
+
+        }
+
+
+        echo json_encode($query);
+    }
+
+
+    public function relatedSearch(){
+        $data = array(
+            'How to '.$_GET['searchText'], 
+            'Images '.$_GET['searchText'], 
+            'Define '.$_GET['searchText'],
+            'News '.$_GET['searchText'],
+            'Videos '.$_GET['searchText']
+        );
+        echo json_encode($data);        
+    }
+
+    /**
+    *
+    */
     public function getExplore($id, $token, $language){
         $language = $language."_tag";
         $explore = Explore::where([
@@ -41,8 +240,6 @@ class SearchSubDataController extends Controller
             ['status', '=', '1'],
             ['parent_id', '=', '0'],
         ])->get(['id','parent_id',$language]);
-        //return response()->json(['success'=>$explore]);
-
 
        $mainMenu = array(); 
        foreach($explore as $item){
