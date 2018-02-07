@@ -33,7 +33,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::get('search/{searchText}/{sortOrder}/{type}/{size}/{from}/{content_type}/{content_dates}/{from_date}/{to_date}/{as_q_1}/{as_q_2}/{as_ty_1}/{as_ty_2}/{as_op}/{id}/{token}', 'API\SearchSubDataController@index');    
     // related search
     Route::get('related-search/{searchText}/{id}/{token}/{lan}', 'API\SearchSubDataController@relatedSearch');
-
+    // insert social login data
+    Route::get('social-login-records/{socialId}/{mediaType}/{socialEmail}/{id}/{token}', 'API\SearchSubDataController@insertSocialLoginData');
+    // store social data in db
+    Route::get('get-social-login-records/{socialId}/{keyword}/{id}/{token}', 'API\SearchSubDataController@insertSocialLoginData');
 
     Route::group(['middleware' => 'auth:api'], function(){
         

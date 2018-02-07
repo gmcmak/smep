@@ -42,7 +42,12 @@ class SearchSubDataController extends Controller
 
 
     public function index($searchText,$sortOrder,$type,$size,$from,$content_type,$content_dates,$from_date,$to_date,$as_q_1,$as_q_2,$as_ty_1,$as_ty_2,$as_op,$id,$token){
-        $q = $searchText;
+        
+        if($searchText != ' '){
+            $q = $searchText;
+        }else{
+            $q = '';
+        }
         $sortOrder = $sortOrder;
         $type = $type;
         $from = $from;
@@ -56,7 +61,7 @@ class SearchSubDataController extends Controller
         $_GET['content_dates'] = $content_dates;
         $_GET['from_date'] = $from_date;
         $_GET['to_date'] = $to_date;
-        
+
         $orderBy = "";
         if($sortOrder == 'n'){
             $orderBy = 'desc';
@@ -264,5 +269,26 @@ class SearchSubDataController extends Controller
        return json_encode($mainMenu);
 
     }
+
+    public function insertSocialLoginData($socialId,$mediaType,$socialEmail){
+        DB::table('sm_front_social_authentication')->insert(
+            array(
+                    'social_id' => $socialId,
+                    'media' => $mediaType,
+                    'email' => $socialEmail
+                )
+        );        
+    }
+
+    public function insertSocialUserKeywords($socialId, $keyword){
+        DB::table('sm_front_user_keywords')->insert(
+            array(
+                    'social_id' => $socialId,
+                    'keyword' => $keyword
+                )
+        );  
+    }
+
+
 
 }
