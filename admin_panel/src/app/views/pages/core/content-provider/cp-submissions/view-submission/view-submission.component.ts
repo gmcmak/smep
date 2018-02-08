@@ -19,6 +19,7 @@ export class ViewSubmissionComponent implements OnInit{
 
     ngOnInit(): void {
         this.getLoggedUserData();
+        //this.displayToolTips();
         //this.loadSubmissionData();
 
     }
@@ -27,6 +28,10 @@ export class ViewSubmissionComponent implements OnInit{
         private submissionService: SubmissionService,
         private userService: UserService
     ){}
+
+    // public displayToolTips(){
+    //     $('[data-toggle="tooltip"]').tooltip();  
+    // }
 
     public loadTable(){
         setTimeout(
