@@ -224,13 +224,13 @@ class SearchSubDataController extends Controller
     }
 
 
-    public function relatedSearch(){
+    public function relatedSearch($searchText){
         $data = array(
-            'How to '.$_GET['searchText'], 
-            'Images '.$_GET['searchText'], 
-            'Define '.$_GET['searchText'],
-            'News '.$_GET['searchText'],
-            'Videos '.$_GET['searchText']
+            'How to '.$searchText, 
+            'Images '.$searchText, 
+            'Define '.$searchText,
+            'News '.$searchText,
+            'Videos '.$searchText
         );
         echo json_encode($data);        
     }
@@ -289,6 +289,47 @@ class SearchSubDataController extends Controller
         );  
     }
 
+    public function getSocialUserKeywords($socialId){
+        $results = DB::table('sm_front_user_keywords')->where('social_id', $socialId)->orderBy('user_keyword_id', 'desc')->skip(0)->take(10)->get();
+        $data = array();
+        foreach($results as $row){
+            $data[]=$row->keyword;
+        }
+        $data = array_unique($data);
+        echo json_encode($data);
+    }
 
+    public function updateRatings($rate,$recordId,$type){
+        $params = array();
+        $params['index'] = 'smart';
+        $params['type']  = $type;
+
+        $params['body']['query']['query_string'] = array(
+            "query"=> "(id:$recordId)"
+        );        
+
+        $query = $this->client->search($params);
+
+        $currentRate = $query['hits']['hits'][0]['_source']['rate'];
+        $currentRatedBy = $query['hits']['hits'][0]['_source']['ratedBy'];
+
+        $updatedRate = $currentRate*$currentRatedBy;
+        $updatedRate = $updatedRate+$rate;
+        $updatedRate = $updatedRate/($currentRatedBy+1);
+        $updatedRate = floor($updatedRate);
+
+        // update rate
+        $indexed = $this->client->update([
+            'index'=>'smart',
+            'type'=> $type,
+            'id'=> $recordId,
+            'body'=> [
+                'doc' => [
+                'rate'=>$updatedRate,
+                'ratedBy'=>$currentRatedBy+1
+                ]
+            ]
+        ]);
+    }
 
 }

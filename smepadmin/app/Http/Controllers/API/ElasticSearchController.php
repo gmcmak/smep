@@ -75,34 +75,7 @@ class ElasticSearchController extends Controller
             $response = $client->index($params);
 
        }
-
-
-
-
-
-
-    	//return response()->json(['success'=>$content_data]);
     }
 }
 
 
-// {
-//     "_index": "smart",
-//     "_type": "all",
-//     "_id": "4",
-//     "_version": 9,
-//     "found": true,
-//     "_source": {
-//         "id": "4",
-//         "url": "https://www.pwc.lk/academy/",
-//         "title": "PwC's Academy",
-//         "description": "PwC Srilanka's training academy provides international level corporate coaching \r\n\t\t\t\tand training courses on strategic planning, leadership, and business strategy. We have been developing our own people for over 100 years and our ability to recruit, retain and grow talent has made us one of the largest and most successful professional services firms in the world.\r\nIt is this deep experience of developing young professionals right through to successful business leaders that is built into all PwC’s Academy programmes. ",
-//         "keywords": "academy, sri lanka, training",
-//         "content_type": "Book",
-//         "author": "M A Silva",
-//         "rate": 2,
-//         "ratedBy": 12,
-//         "datePublished": "2017-04-15'T'09:15:10",
-//         "publishedDate": "2017-04-15"
-//     }
-// }

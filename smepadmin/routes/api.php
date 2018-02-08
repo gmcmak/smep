@@ -36,7 +36,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     // insert social login data
     Route::get('social-login-records/{socialId}/{mediaType}/{socialEmail}/{id}/{token}', 'API\SearchSubDataController@insertSocialLoginData');
     // store social data in db
-    Route::get('get-social-login-records/{socialId}/{keyword}/{id}/{token}', 'API\SearchSubDataController@insertSocialLoginData');
+    Route::get('insert-social-login-records/{socialId}/{keyword}/{id}/{token}', 'API\SearchSubDataController@insertSocialUserKeywords');
+    // get recent keywords accourding to social user
+    Route::get('get-social-login-records/{socialId}/{id}/{token}', 'API\SearchSubDataController@getSocialUserKeywords');
+    // update rating
+    Route::get('update-ratings/{rate}/{recordId}/{type}/{id}/{token}', 'API\SearchSubDataController@updateRatings');
 
     Route::group(['middleware' => 'auth:api'], function(){
         
