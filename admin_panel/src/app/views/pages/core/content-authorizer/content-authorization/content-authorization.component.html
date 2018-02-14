@@ -222,7 +222,7 @@
                                                 </label>
                                             </div>
                                             <div class="col-md-9">
-                                                <angular2-multiselect [data]="AuthorItemList" formControlName="sub_author" [(ngModel)]="singleSubmission.selectedAuthor"
+                                                <angular2-multiselect [data]="authorItemList" formControlName="sub_author" [(ngModel)]="singleSubmission.selectedAuthor"
                                                     [settings]="author_setting" (onSelect)="onItemSelect3($event)" (onDeSelect)="onItemDeSelect3($event)" (onSelectAll)="onSelectAll3($event)"
                                                     (onDeSelectAll)="onDeSelectAll3($event)">
                                                 </angular2-multiselect>

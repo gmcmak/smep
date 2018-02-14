@@ -39,15 +39,15 @@ export class ContentAuthorizationComponent implements OnInit{
     selectedKeyword1 = [];
     keyword_setting = {};
 
-    public CategoryItemList = new Array();
+    public categoryItemList = new Array();
     selectedCategory1 = [];
     category_setting = {};
 
-    public ExploreItemList = new Array();
+    public exploreItemList = new Array();
     selectedExplore1 = [];
     explore_setting = {};
 
-    public AuthorItemList = new Array();
+    public authorItemList = new Array();
     selectedAuthor1 = [];
     author_setting = {};
 
@@ -179,10 +179,10 @@ export class ContentAuthorizationComponent implements OnInit{
         return this.singleSubmission.selectedCategory;
     }
     onSelectAll2(items: any) {
-        for (let i = 0; i < this.CategoryItemList.length; i++) {
+        for (let i = 0; i < this.categoryItemList.length; i++) {
             this.singleSubmission.selectedCategory[i] = new Array();
-            this.singleSubmission.selectedCategory[i]['id'] = this.CategoryItemList[i].id;
-            this.singleSubmission.selectedCategory[i]['itemName'] = this.CategoryItemList[i].itemName;
+            this.singleSubmission.selectedCategory[i]['id'] = this.categoryItemList[i].id;
+            this.singleSubmission.selectedCategory[i]['itemName'] = this.categoryItemList[i].itemName;
         }
         return this.singleSubmission.selectedCategory;
     }
@@ -209,10 +209,10 @@ export class ContentAuthorizationComponent implements OnInit{
         return this.singleSubmission.selectedExplore;
     }
     onSelectAll3(items: any) {
-        for (let i = 0; i < this.ExploreItemList.length; i++) {
+        for (let i = 0; i < this.exploreItemList.length; i++) {
             this.singleSubmission.selectedExplore[i] = new Array();
-            this.singleSubmission.selectedExplore[i]['id'] = this.ExploreItemList[i].id;
-            this.singleSubmission.selectedExplore[i]['itemName'] = this.ExploreItemList[i].itemName;
+            this.singleSubmission.selectedExplore[i]['id'] = this.exploreItemList[i].id;
+            this.singleSubmission.selectedExplore[i]['itemName'] = this.exploreItemList[i].itemName;
         }
         return this.singleSubmission.selectedExplore;
     }
@@ -239,10 +239,10 @@ export class ContentAuthorizationComponent implements OnInit{
         return this.singleSubmission.selectedAuthor;
     }
     onSelectAll4(items: any) {
-        for (let i = 0; i < this.AuthorItemList.length; i++) {
+        for (let i = 0; i < this.authorItemList.length; i++) {
             this.singleSubmission.selectedAuthor[i] = new Array();
-            this.singleSubmission.selectedAuthor[i]['id'] = this.AuthorItemList[i].id;
-            this.singleSubmission.selectedAuthor[i]['itemName'] = this.AuthorItemList[i].itemName;
+            this.singleSubmission.selectedAuthor[i]['id'] = this.authorItemList[i].id;
+            this.singleSubmission.selectedAuthor[i]['itemName'] = this.authorItemList[i].itemName;
         }
         return this.singleSubmission.selectedAuthor;
     }
@@ -331,9 +331,9 @@ export class ContentAuthorizationComponent implements OnInit{
             success => {
                 this.categoryList = success.success;
                 for (let i = 0; i < this.categoryList.length; i++) {
-                    this.CategoryItemList[i] = new Array();
-                    this.CategoryItemList[i]['id'] = this.categoryList[i].id;
-                    this.CategoryItemList[i]['itemName'] = this.categoryList[i].en_name;
+                    this.categoryItemList[i] = new Array();
+                    this.categoryItemList[i]['id'] = this.categoryList[i].id;
+                    this.categoryItemList[i]['itemName'] = this.categoryList[i].en_name;
                 }
             }
 
@@ -348,9 +348,9 @@ export class ContentAuthorizationComponent implements OnInit{
             success => {
                 this.exploreList = success.success;
                 for (let i = 0; i < this.exploreList.length; i++) {
-                    this.ExploreItemList[i] = new Array();
-                    this.ExploreItemList[i]['id'] = this.exploreList[i].id;
-                    this.ExploreItemList[i]['itemName'] = this.exploreList[i].en_tag;
+                    this.exploreItemList[i] = new Array();
+                    this.exploreItemList[i]['id'] = this.exploreList[i].id;
+                    this.exploreItemList[i]['itemName'] = this.exploreList[i].en_tag;
                 }
             }
         );
@@ -555,7 +555,7 @@ export class SingleSubmission {
     public sub_free1: string;
     public selectedCategory = new Array();
     public selectedExplore = new Array();
-    public seletedAuthor = new Array();
+    public selectedAuthor = new Array();
     public sub_description1: string;
     public providerId: string;
 }

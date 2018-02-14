@@ -53,9 +53,9 @@
                         </li>
                     </ul>
                 </td>
-                <td align="center"><a [routerLink]="['../../content-provider/content-history', record.id, 1]" *ngIf="approvedIds[i] != 0">{{approvedIds[i]}}</a>
+                <td align="center"><a [routerLink]="['../../content-provider/content-history', record.id, 1]" *ngIf="approvedIds[i] != 0" [skipLocationChange]="true">{{approvedIds[i]}}</a>
                     <a *ngIf="approvedIds[i] == 0" disabled>0</a></td>
-                <td align="center"><a [routerLink]="['../../content-provider/content-history', record.id, 2]" *ngIf="rejectedIds[i] != 0">{{rejectedIds[i]}}</a>
+                <td align="center"><a [routerLink]="['../../content-provider/content-history', record.id, 2]" *ngIf="rejectedIds[i] != 0" [skipLocationChange]="true">{{rejectedIds[i]}}</a>
                     <a *ngIf="rejectedIds[i] == 0" disabled>0</a></td>
                 <td align="center">
                     <label class="switch">
@@ -63,7 +63,7 @@
                         <span class="slider round"></span>
                     </label>
                 </td>
-                <td align="center"><a [routerLink]="['../../content-provider/update-providers', record.id]" class="fa fa-1x fa-pencil-square-o"></a></td>
+                <td align="center"><a [routerLink]="['../../content-provider/update-providers', record.id]" class="fa fa-1x fa-pencil-square-o" [skipLocationChange]="true"></a></td>
                 <!-- <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td> -->
                 <td align="center">
                     <button class="dlt_btn" (click)="deleteProvider(record.id,record.name)">

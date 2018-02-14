@@ -85,13 +85,13 @@ export class SingleSubmissionComponent implements OnInit{
             this.submission_level = +params['level'];
         });
 
-        this.initializeSingleForm();
+        this.getContentDetails(this.index);
         this.getCategories();
         this.getExplores();
         this.getKeywords();
         this.getAuthors();
         this.getTypes();
-        this.getContentDetails(this.index);
+        this.initializeSingleForm();
 
         //for keyword drop down
         this.keyword_setting = {
