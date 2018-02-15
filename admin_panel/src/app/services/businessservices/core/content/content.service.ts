@@ -6,13 +6,13 @@ import { LocalStorageService } from "angular-2-local-storage";
 
 export class ContentService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService
     ) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
     }
 
     /**
@@ -21,7 +21,7 @@ export class ContentService{
     public getContentList(submission_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-content/' + submission_id,
             {
@@ -36,7 +36,7 @@ export class ContentService{
     public addContentData(content_id, submission_id, sub_title1, sub_type1, sub_video_url1, keywordArray, sub_free1, categoryArray, exploreArray, authorArray, sub_description1, status) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('title', sub_title1);
@@ -62,7 +62,7 @@ export class ContentService{
     public getContentCount(user_id,type_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-content-count/' + user_id + '/' + type_id,
             {
@@ -77,7 +77,7 @@ export class ContentService{
     public getContentAllHistory(user_id, type_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-content-all/' + user_id + '/' + type_id,
             {
@@ -92,7 +92,7 @@ export class ContentService{
     public getContentHistory(user_id, type_id, status_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-content-info/' + user_id + '/' + type_id + '/' + status_id,
             {
@@ -107,7 +107,7 @@ export class ContentService{
     public getContentAllCount(user_id, type_id, status_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-content-all-count/' + user_id + '/' + type_id + '/' + status_id,
             {
@@ -122,7 +122,7 @@ export class ContentService{
     public editContent(id, submission_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-content/' + id + '/' + submission_id,
             {
@@ -137,7 +137,7 @@ export class ContentService{
     public deleteContent(id, submission_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-content/' + id + '/' + submission_id,
             {
@@ -152,7 +152,7 @@ export class ContentService{
     public getCount(userIdArray, status_id) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-count/' + userIdArray + '/' + status_id,
             {
@@ -167,7 +167,7 @@ export class ContentService{
     public providerContentsHistory(cpStatus, cpFromDate, cpToDate){
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('status_id', cpStatus);

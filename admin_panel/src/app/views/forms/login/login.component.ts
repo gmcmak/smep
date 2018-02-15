@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit{
             .subscribe( 
                 success => {
                     let userInfo = { "name":success.success.name, "token":success.success.token};
-                    this.localStorageService.put('userData', JSON.stringify(userInfo));
+                    this.localStorageService.put('userData', JSON.stringify(userInfo).toString()); //add toString
                     if(success.success.token){
                         window.location.reload();
                         this.router.navigate(['/dashboard']); 

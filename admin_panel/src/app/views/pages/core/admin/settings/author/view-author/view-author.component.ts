@@ -24,7 +24,7 @@ export class ViewAuthorComponent implements OnInit{
         private router: Router, 
         private localStorageService: LocalStorageStore,
     ){
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        //this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
     }
 
     ngOnInit(): void {

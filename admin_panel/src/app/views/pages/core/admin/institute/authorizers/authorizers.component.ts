@@ -179,7 +179,7 @@ export class AuthorizersComponent implements OnInit{
             success => {
                 this.instituteDataList = success.success;
                 this.institute_id = this.instituteDataList[0].id;
-                console.log(this.institute_id);
+                //console.log(this.institute_id);
                 this.getAddedAuthorizers(this.institute_id);   
             }
         );

@@ -107,3 +107,7 @@ md-sidenav-container{
 .linktoclick{
   cursor: pointer;
 }
+
+#userName{
+   color:aliceblue;
+}
