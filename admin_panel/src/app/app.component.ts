@@ -94,21 +94,22 @@ export class AppComponent {
                 
             });
         
-        
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
-        if(this.loggedInUserList){
-            this.username = this.loggedInUserList["name"];
-            this.getLoggedUserData();    
-            // if(this.loggedInUserList.token){
-                
-            // }
-            
-        }else{
-            this.localStorageService.remove('userData');
-            this.router.navigate(['/login']);
-            //this.getLoggedUserData();
-        }
-                
+        if (this.localStorageService.get('userData')) {
+            this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
+
+            if (this.loggedInUserList) {
+                this.username = this.loggedInUserList["name"];
+                this.getLoggedUserData();
+                // if(this.loggedInUserList.token){
+
+                // }
+
+            } else {
+                this.localStorageService.remove('userData');
+                this.router.navigate(['/login']);
+                //this.getLoggedUserData();
+            }
+        }         
     }
 
     /**

@@ -15,7 +15,10 @@ export class UserService {
       private http: Http,
       private localStorageService: LocalStorageStore
     ) {
-      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString()); 
+      if (this.localStorageService.get('userData')){
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString()); 
+      }
+      
     }
    
     /**
