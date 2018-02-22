@@ -6,22 +6,24 @@ import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.
 
 export class AuthorizerService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService
-    ){}
+    ){
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
+    }
 
     /**
     * get all authorizers list
     * @return authorizerList
     */
     public getAuthorizersList() {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+       
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'view-authorizers',
             {
@@ -34,11 +36,10 @@ export class AuthorizerService{
      * add authorizer's details
      */
     public addAuthorizers(caName, caFullName, caGender, caNic, caDesignation, caDob, caEmail, caMobile, caPassword1, caPassword2, highest_quali, highest_uni, highest_grade, highest_Country, highest_Year, pro_qualification_1, pro_institute_1, pro_grade_1, pro_year_1, pro_country_1, pro_qualification_2, pro_institute_2, pro_grade_2, pro_year_2, pro_country_2, pro_qualification_3, pro_institute_3, pro_grade_3, pro_year_3, pro_country_3, expert1, expert2, expert3, status, deleted) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', caName);
@@ -93,10 +94,9 @@ export class AuthorizerService{
     * get authorizer's details for update
     */
     public editAuthorizer(editId) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-authorizer/'+ editId,
             {
@@ -109,11 +109,10 @@ export class AuthorizerService{
      * add authorizer's details
      */
     public updateAuthorizer(id, caName, caFullName, caGender, caNic, caDesignation, caDob, caEmail, caMobile, highest_quali, highest_uni, highest_grade, highest_Country, highest_Year, pro_qualification_1, pro_institute_1, pro_grade_1, pro_year_1, pro_country_1, pro_qualification_2, pro_institute_2, pro_grade_2, pro_year_2, pro_country_2, pro_qualification_3, pro_institute_3, pro_grade_3, pro_year_3, pro_country_3, expert1, expert2, expert3, status, deleted) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', caName);
@@ -166,10 +165,9 @@ export class AuthorizerService{
     * delete authorizer
     */
     public deleteAuthorizer(deleteId) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-provider/'+ deleteId,
             {
@@ -182,10 +180,9 @@ export class AuthorizerService{
     * update authorizer's status
     */
     public updateAuthorizerStatus(id, statusId) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'authorizer-status/' + id + '/' + statusId,
             {

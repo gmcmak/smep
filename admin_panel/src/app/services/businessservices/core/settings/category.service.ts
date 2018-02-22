@@ -6,9 +6,12 @@ import { Http, Response, RequestOptions, Headers, URLSearchParams } from "@angul
 
 export class CategoryService{
     public API_ENDPOINT = 'http://localhost:8000/api/';
-    private loggedInUserList;
-    constructor(private http: Http, private localStorageService: LocalStorageService){
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+    private loggedInUserList = new Array();
+    constructor(
+        private http: Http,
+        private localStorageService: LocalStorageService
+    ){
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
     }
 
     /**
@@ -17,7 +20,7 @@ export class CategoryService{
     public getCategoriesList() {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'view-category',
             {
@@ -33,7 +36,7 @@ export class CategoryService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams();
         body.append('en_name', english_name);
@@ -53,7 +56,7 @@ export class CategoryService{
     public editCategoriesList(editId) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-category/'+ editId,
             {
@@ -69,7 +72,7 @@ export class CategoryService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams();
         body.append('en_name', english_name);
@@ -89,7 +92,7 @@ export class CategoryService{
     public deleteCategory(deleteId) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-category/' + deleteId,
             {
@@ -104,7 +107,7 @@ export class CategoryService{
     public updateCategoryStatus(id,statusId) {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'status-category/' + id + '/' + statusId,
             {

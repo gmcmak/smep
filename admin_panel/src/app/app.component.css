@@ -107,3 +107,12 @@ md-sidenav-container{
 .linktoclick{
   cursor: pointer;
 }
+
+#userName{
+   color:aliceblue;
+}
+
+.sidebar[_ngcontent-c3] .list-group[_ngcontent-c3] a.router-link-active[_ngcontent-c3] {
+    background: #151515;
+    color: #fff;
+}

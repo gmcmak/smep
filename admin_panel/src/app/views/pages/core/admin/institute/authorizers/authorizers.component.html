@@ -130,8 +130,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Authorizer Id</th>
                                     <th>Name</th>
+                                    <th>N.I.C</th>
                                     <th>Subject Areas</th>
                                     <th data-orderable="false" align="center">Delete</th>
                                 </tr>
@@ -142,8 +142,8 @@
                             <tbody *ngIf="authorizersList && authorizersList[0] && authorizersList[0].institute_users">
                                 <tr *ngFor="let record of authorizersList[0].institute_users;  let i = index" [attr.data-index]="i">
                                     <td>{{i+1}}</td>
-                                    <td>{{record.id}}</td>
                                     <td>{{record.name}}</td>
+                                    <td>{{record.nic}}</td>
                                     <td>
                                         <ul *ngFor="let subject of record.subject_areas">
                                             <li>

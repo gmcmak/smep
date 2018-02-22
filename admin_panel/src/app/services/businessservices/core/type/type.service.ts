@@ -6,13 +6,13 @@ import { LocalStorageService } from "angular-2-local-storage";
 
 export class TypeService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService
     ) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
     }
 
     /**
@@ -22,7 +22,7 @@ export class TypeService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-type',
             {
@@ -38,7 +38,7 @@ export class TypeService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', name);
@@ -58,7 +58,7 @@ export class TypeService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-type/' +id,
             {
@@ -74,7 +74,7 @@ export class TypeService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', name);

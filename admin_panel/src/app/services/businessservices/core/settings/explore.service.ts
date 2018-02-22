@@ -6,12 +6,12 @@ import { LocalStorageService } from "angular-2-local-storage";
 
 export class ExploreService{
     public API_ENDPOINT = 'http://localhost:8000/api/';
-    private loggedInUserList;
+    private loggedInUserList = new Array();
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService
     ) { 
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
     }
 
     /**
@@ -21,7 +21,7 @@ export class ExploreService{
         
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-explore',
             {
@@ -38,7 +38,7 @@ export class ExploreService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('en_tag', english_name);
@@ -61,7 +61,7 @@ export class ExploreService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-explore/'+ editId,
             {
@@ -78,7 +78,7 @@ export class ExploreService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('parent_id', parent_id);
@@ -102,7 +102,7 @@ export class ExploreService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-explore/' +deleteId,
             {
@@ -119,7 +119,7 @@ export class ExploreService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'status-explore/' + id + '/' + statusId,
             {

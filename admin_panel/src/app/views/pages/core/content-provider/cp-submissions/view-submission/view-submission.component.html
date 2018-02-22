@@ -52,10 +52,10 @@
                             <button class="btn btn-success table_btn" *ngIf="record.status==3" title="Your contents are accepted" disabled>Done</button>
                         </td>
                         <td align="center">
-                            <a [routerLink]="['../../submissions/update', record.id, record.user_id]" class="fa fa-1x fa-pencil-square-o"></a>
+                            <a [routerLink]="['../../submissions/update', record.id, record.user_id]" class="fa fa-1x fa-pencil-square-o" [skipLocationChange]="true"></a>
                         </td>
                         <td align="center">
-                            <a *ngIf="record.status==2" [routerLink]="['../../submissions/content-submission', record.id, record.level]" class="fa fa-1x fa-plus-circle"></a>
+                            <a *ngIf="record.status==2" [routerLink]="['../../submissions/content-submission', record.id, record.level]" class="fa fa-1x fa-plus-circle" [skipLocationChange]="true"></a>
                             <!-- <a *ngIf="record.status==2" [routerLink]="['../../submissions/cp-multiple-submission']" class="fa fa-1x fa-plus-circle"></a> -->
                         </td>
                     </tr>

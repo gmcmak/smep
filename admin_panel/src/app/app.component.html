@@ -384,17 +384,17 @@
       <ul class="navbar-nav ml-auto">
         <ul class="nav pull-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle logger_name" data-toggle="dropdown">Hi, {{username}}
+            <a id="userName" class="dropdown-toggle logger_name" data-toggle="dropdown">Hi, {{username}}
               <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu" style="background:#343a40;">
+            <ul class="dropdown-menu" style="background:#343a40; width:auto;">
               <li>
                 <a class="nav-link" [routerLink]="['users/change-password']">
-                  <i class="fa fa-fw fa-expeditedssl"></i>Change Password</a>
+                  <i class="fa fa-fw fa-expeditedssl"></i>&nbsp;Password</a>
               </li>
               <li>
                 <a class="nav-link linktoclick" data-toggle="modal" data-target="#exampleModal" (click)="logout()">
-                  <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                  <i class="fa fa-fw fa-sign-out"></i>&nbsp;Logout</a>
               </li>
             </ul>
           </li>

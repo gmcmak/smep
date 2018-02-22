@@ -7,14 +7,14 @@ import { Router } from "@angular/router";
 
 export class CountryService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService,
         private router: Router
     ){
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData')); 
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString()); 
     }
 
     /**
@@ -25,7 +25,7 @@ export class CountryService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-country',
             {

@@ -44,7 +44,7 @@
                         <td>{{record.si_name}}</td>
                         <td>{{record.ta_name}}</td>
                         <td align="center">
-                            <a [routerLink]="['../../../settings/author/update-author', record.id]" class="fa fa-1x fa-pencil-square-o"></a>
+                            <a [routerLink]="['../../../settings/author/update-author', record.id]" class="fa fa-1x fa-pencil-square-o" [skipLocationChange]="true"></a>
                         </td>
                         <!-- <td align="center">
                             <a data-toggle="modal" data-target="#deleteModal">

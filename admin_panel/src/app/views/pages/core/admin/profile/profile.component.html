@@ -217,14 +217,14 @@
             <div class="row" *ngIf="userDataList">
                 <div class="col-md-12" align="right" *ngIf="userDataList.role_id != 5">
 
-                    <a [routerLink]="['../edit-profile', userDataList.id]" class="fa fa-1x fa-pencil-square-o"></a>
+                    <a [routerLink]="['../edit-profile', userDataList.id]" class="fa fa-1x fa-pencil-square-o" [skipLocationChange]="true"></a>
 
                 </div>
             </div>
             <div class="row" *ngIf="userDataList">
                 <div class="col-md-12" align="right" *ngIf="userDataList.role_id == 5">
             
-                    <a [routerLink]="['../edit-institute-profile', userDataList.id]" class="fa fa-1x fa-pencil-square-o"></a>
+                    <a [routerLink]="['../edit-institute-profile', userDataList.id]" class="fa fa-1x fa-pencil-square-o" [skipLocationChange]="true"></a>
             
                 </div>
             </div>

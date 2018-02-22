@@ -1,21 +1,24 @@
 import { Injectable } from "@angular/core";
 import { Http, Response, RequestOptions } from "@angular/http";
 import { Headers } from '@angular/http';
-import { LocalStorageStore } from '../../../../services/storage/local-storage.service';
 import { URLSearchParams } from '@angular/http';
+import { LocalStorageStore } from "../../../storage/local-storage.service";
 
 @Injectable()
 
 export class UserService {
 
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
     constructor(
       private http: Http,
       private localStorageService: LocalStorageStore
     ) {
-      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData')); 
+      if (this.localStorageService.get('userData')){
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString()); 
+      }
+      
     }
    
     /**
@@ -46,7 +49,7 @@ export class UserService {
        
       let headers = new Headers();
       headers.append('Accept', 'application/json');
-      headers.append('Authorization', 'Bearer '+this.loggedInUserList.token);
+      headers.append('Authorization', 'Bearer '+this.loggedInUserList["token"]);
       let body = '';
       return this.http.get(this.API_ENDPOINT + 'get-all-users', 
           {
@@ -59,11 +62,10 @@ export class UserService {
      * get all roles list
      * @return rolelist
      */
-    getRolesList(){
-      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));  
+    getRolesList(){ 
       let headers = new Headers();
       headers.append('Accept', 'application/json');
-      headers.append('Authorization', 'Bearer '+this.loggedInUserList.token);
+      headers.append('Authorization', 'Bearer '+this.loggedInUserList["token"]);
       let body = '';
       return this.http.get(this.API_ENDPOINT+'view-role', 
           {
@@ -79,7 +81,7 @@ export class UserService {
       let headers = new Headers();
       headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       headers.append('Accept', 'application/json');
-      headers.append('Authorization', 'Bearer '+this.loggedInUserList.token);      
+      headers.append('Authorization', 'Bearer '+this.loggedInUserList["token"]);      
       //let body = '';
       let body = new URLSearchParams();
       body.append('name', name);
@@ -107,10 +109,9 @@ export class UserService {
      * 
      */
     public editUsersList(editId) {
-      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
       let headers = new Headers();
       headers.append('Accept', 'application/json');
-      headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+      headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
       let body = '';
       return this.http.get(this.API_ENDPOINT + 'edit-details/' + editId,
         {
@@ -123,10 +124,9 @@ export class UserService {
      * update user's details
      */
   updateUserList(editId, role_id, user_fullName, user_nameWithInitials, user_email, user_nic, user_mobile, user_designation, user_gender, user_dob, user_status, deleted) {
-      this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
       let headers = new Headers();
       headers.append('Accept', 'application/json');
-      headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+      headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
       //let body = '';
       let body = new URLSearchParams;
       body.append('name', user_fullName);
@@ -153,10 +153,9 @@ export class UserService {
    * 
    */
   public deleteUser(deleteId) {
-    this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
     let headers = new Headers();
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
     let body = '';
     return this.http.get(this.API_ENDPOINT + 'delete-details/' + deleteId,
       {
@@ -169,10 +168,9 @@ export class UserService {
      * get logged user details
      */
   public getLoggedUser() {
-    this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
     let headers = new Headers();
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
     let body = '';
     return this.http.get(this.API_ENDPOINT + 'get-details',
       {
@@ -188,7 +186,7 @@ export class UserService {
 
     let headers = new Headers();
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
     let body = '';
     return this.http.get(this.API_ENDPOINT + 'status-details/' + id + '/' + statusId,
       {
@@ -204,7 +202,7 @@ export class UserService {
 
     let headers = new Headers();
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+    headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
     let body = '';
     return this.http.get(this.API_ENDPOINT + 'get-institute-id/' +user_id,
       {

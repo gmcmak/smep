@@ -6,13 +6,13 @@ import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.
 
 export class ConsumerService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService
     ){
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData')); 
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString()); 
     }
 
     /**
@@ -23,7 +23,7 @@ export class ConsumerService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-consumer',
             {
@@ -40,7 +40,7 @@ export class ConsumerService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', caName);
@@ -62,7 +62,7 @@ export class ConsumerService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-consumer/'+editId,
             {
@@ -79,7 +79,7 @@ export class ConsumerService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', caName);
@@ -100,7 +100,7 @@ export class ConsumerService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-consumer/'+ deleteId,
             {
@@ -116,7 +116,7 @@ export class ConsumerService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'status-consumer/' + id + '/' + statusId,
             {

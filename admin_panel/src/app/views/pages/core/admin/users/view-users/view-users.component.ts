@@ -6,7 +6,7 @@ import { StartupService } from '../../../../../../services/settings/application-
 
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { ToastCommunicationService } from '../../../../../../services/toast/toast-communication.service';
-import { UserService } from "../../../../../../services/businessservices/core/user/user.service";
+import { UserService} from "../../../../../../services/businessservices/core/user/user.service";
 
 import { FormGroup, Validators, FormControl} from '@angular/forms';
 import { LocalStorageStore } from '../../../../../../services/storage/local-storage.service';
@@ -25,6 +25,7 @@ export class ViewUsersComponent implements OnInit{
     private token;
     private loggedInUserList;
     private usersList;
+    public userDataList;
 
     public error = 0;
     public statusId = 0;
@@ -41,13 +42,12 @@ export class ViewUsersComponent implements OnInit{
         private localStorageService: LocalStorageStore,
         private activatedRoute: ActivatedRoute
     ) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        //this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
     }    
 
     ngOnInit(): void {
         
-        this.getUsers();
-        this.loadTable();   
+        this.getLoggedUserData();   
         
     }
 
@@ -100,6 +100,19 @@ export class ViewUsersComponent implements OnInit{
             'alert-danger': this.error != 0
         }
     }
+
+    /**
+     * get logged user data
+     */
+    getLoggedUserData() {
+        this.UserService.getLoggedUser().subscribe(
+            success => {
+                this.userDataList = success.success;
+                this.getUsers();
+                //console.log(this.userDataList.id);
+            }
+        );
+    }
  
     /**
      * user data list
@@ -110,6 +123,7 @@ export class ViewUsersComponent implements OnInit{
             .subscribe( 
                 success => {
                     this.usersList = success.success;
+                    this.loadTable();
                 }
             );      
     }

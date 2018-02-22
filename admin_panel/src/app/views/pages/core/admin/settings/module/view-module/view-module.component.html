@@ -37,7 +37,7 @@
                         <td>{{i+1}}</td>
                         <td>{{record.module_name}}</td>
                         <td align="center">
-                            <a [routerLink]="['../../../settings/module/update-module', record.id]" class="fa fa-1x fa-pencil-square-o">
+                            <a [routerLink]="['../../../settings/module/update-module', record.id]" class="fa fa-1x fa-pencil-square-o" [skipLocationChange]="true">
                             </a>
                         </td>
                     </tr>

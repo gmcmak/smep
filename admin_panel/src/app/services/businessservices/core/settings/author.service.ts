@@ -8,12 +8,12 @@ import { URLSearchParams } from '@angular/http';
 
 export class AuthorService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
     constructor(
         private http: Http,
         private localStorageService: LocalStorageStore
     ) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
      }
 
     /**
@@ -23,7 +23,7 @@ export class AuthorService{
        
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'view-author',
             {
@@ -40,7 +40,7 @@ export class AuthorService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams();
         body.append('en_name', english_name);
@@ -60,7 +60,7 @@ export class AuthorService{
        
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-author/'+ editId,
             {
@@ -77,7 +77,7 @@ export class AuthorService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams();
         body.append('en_name', english_name);
@@ -97,7 +97,7 @@ export class AuthorService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-author/' + deleteId,
             {

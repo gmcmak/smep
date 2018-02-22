@@ -37,12 +37,12 @@
                         <td><a class="linkColor" href="mailto:record.email">{{record.email}}</a></td>
                         <td>{{record.role.name}}</td>
                         <td align="center">
-                            <label class="switch">
+                            <label class="switch" *ngIf="record.id != userDataList.id">
                                 <input type="checkbox" [(ngModel)]="record.status" [value]="record.status" (ngModelChange)="changeStatus(record.id,record.status)">
                                 <span class="slider round"></span>
                             </label>
                         </td>
-                        <td align="center"><a [routerLink]="['../../users/update-users', record.id]"><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
+                        <td align="center"><a [routerLink]="['../../users/update-users', record.id]" [skipLocationChange]="true"><li class="fa  fa-1x fa-pencil-square-o"></li></a></td>
                         <td align="center"><button class="dlt_btn" (click)="deleteUser(record.id,record.name)">
                             <li class="fa  fa-1x fa-trash">
                         </button></td>

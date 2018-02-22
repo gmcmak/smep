@@ -6,13 +6,13 @@ import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.
 
 export class SubjectService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
     constructor(
         private http: Http,
         private localStorageService: LocalStorageService
     ){
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData')); 
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString()); 
     }
 
     /**
@@ -23,7 +23,7 @@ export class SubjectService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'view-subject-area',
             {
@@ -39,7 +39,7 @@ export class SubjectService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', subject_area);
@@ -58,7 +58,7 @@ export class SubjectService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-subject-area/'+ editId,
             {
@@ -74,7 +74,7 @@ export class SubjectService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', subject_area);
@@ -93,7 +93,7 @@ export class SubjectService{
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-subject-area/' + deleteId,
             {

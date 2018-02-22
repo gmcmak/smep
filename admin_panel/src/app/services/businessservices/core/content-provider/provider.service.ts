@@ -6,19 +6,22 @@ import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.
 
 export class ProviderService{
     public API_ENDPOINT = "http://localhost:8000/api/";
-    private loggedInUserList;
+    private loggedInUserList = new Array();
 
-    constructor(private http:Http, private localStorageService: LocalStorageService){}
+    constructor(
+        private http:Http, private localStorageService: LocalStorageService
+    ){
+        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData').toString());
+    }
 
     /**
     * get all providers list
     * @return providerList
     */
     public getProvidersList() {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'view-providers',
             {
@@ -31,10 +34,9 @@ export class ProviderService{
      * insert provider details
      */
     public insertProvider(cpName, cpFullName, gender, cpNic, cpDesignation, cpDob, cpEmail, cpMobile, cpPassword1, cpPassword2, highest_quali, highest_uni, highest_grade, highest_Country, highest_Year, pro_qualification_1, pro_institute_1, pro_grade_1, pro_year_1, pro_country_1, pro_qualification_2, pro_institute_2, pro_grade_2, pro_year_2, pro_country_2, pro_qualification_3, pro_institute_3, pro_grade_3, pro_year_3, pro_country_3, expert1, expert2, expert3, deleted, status) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', cpName);
@@ -83,10 +85,9 @@ export class ProviderService{
     * get specific provider's details for edit
     */
     public editProvider(id) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'edit-provider/'+id,
             {
@@ -99,10 +100,9 @@ export class ProviderService{
      * update provider details
      */
     public updateProvider(editId, cpName, cpFullName, gender, cpNic, cpDesignation, cpDob, cpEmail, cpMobile, highest_quali, highest_uni, highest_grade, highest_Country, highest_Year, pro_qualification_1, pro_institute_1, pro_grade_1, pro_year_1, pro_country_1, pro_qualification_2, pro_institute_2, pro_grade_2, pro_year_2, pro_country_2, pro_qualification_3, pro_institute_3, pro_grade_3, pro_year_3, pro_country_3, expert1, expert2, expert3, deleted, status) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         //let body = '';
         let body = new URLSearchParams;
         body.append('name', cpName);
@@ -149,10 +149,9 @@ export class ProviderService{
     * delete provider
     */
     public deleteProvider(deleteId) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'delete-provider/'+ deleteId,
             {
@@ -165,10 +164,9 @@ export class ProviderService{
     * update provider's status
     */
     public updateProviderStatus(id,statusId) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'provider-status/' + id + '/' + statusId,
             {
@@ -181,10 +179,9 @@ export class ProviderService{
      * get provider's content history
      */
     public getContentHistory(user_id, status_id) {
-        this.loggedInUserList = JSON.parse(this.localStorageService.get('userData'));
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Authorization', 'Bearer ' + this.loggedInUserList.token);
+        headers.append('Authorization', 'Bearer ' + this.loggedInUserList["token"]);
         let body = '';
         return this.http.get(this.API_ENDPOINT + 'get-history/' + user_id + '/' + status_id,
             {

@@ -20,10 +20,11 @@ class PassportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password'),'status'=>1])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['name'] =  $user->name;
+            $success['role_id'] = $user->role_id;
             return response()->json(['success' => $success], $this->successStatus);
         }
         else{
