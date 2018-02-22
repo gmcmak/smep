@@ -271,13 +271,15 @@ class SearchSubDataController extends Controller
     }
 
     public function insertSocialLoginData($socialId,$mediaType,$socialEmail){
-        DB::table('sm_front_social_authentication')->insert(
-            array(
-                    'social_id' => $socialId,
-                    'media' => $mediaType,
-                    'email' => $socialEmail
-                )
-        );        
+        try {
+            DB::table('sm_front_social_authentication')->insert(
+                array(
+                        'social_id' => $socialId,
+                        'media' => $mediaType,
+                        'email' => $socialEmail
+                    )
+            );   
+        }catch (Illuminate\Database\QueryException $e){}     
     }
 
     public function insertSocialUserKeywords($socialId, $keyword){
@@ -295,7 +297,7 @@ class SearchSubDataController extends Controller
         foreach($results as $row){
             $data[]=$row->keyword;
         }
-        $data = array_unique($data);
+        $data = array_values(array_unique($data));
         echo json_encode($data);
     }
 
