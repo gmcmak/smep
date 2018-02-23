@@ -395,7 +395,7 @@ export class ContentAuthorizationComponent implements OnInit{
         this.typeService.getTypeData().subscribe(
             success => {
                 this.typeList = success.success;
-                console.log(this.typeList);
+                //console.log(this.typeList);
             }
         );
     }

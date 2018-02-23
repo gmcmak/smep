@@ -3,12 +3,13 @@ import { Http, Response, RequestOptions } from "@angular/http";
 import { Headers } from '@angular/http';
 import { URLSearchParams } from '@angular/http';
 import { LocalStorageStore } from "../../../storage/local-storage.service";
+import * as globalData from "../globals";
 
 @Injectable()
 
 export class UserService {
 
-    public API_ENDPOINT = "http://localhost:8000/api/";
+    public API_ENDPOINT = globalData.api_endpoint;
     private loggedInUserList = new Array();
 
     constructor(

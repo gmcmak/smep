@@ -32,6 +32,7 @@ export class EditInstituteProfileComponent{
     public instituteDataList;
     public editId;
     public instituteList;
+    public instStatus = 1;
     //public id=19;
 
     constructor(
@@ -99,7 +100,7 @@ export class EditInstituteProfileComponent{
             adrz: new FormControl(null, [Validators.required]),
             mobileNum: new FormControl(null, [Validators.required, Validators.pattern(MOBILE_REGEX)]),
             instEmail: new FormControl(null, [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-            instStatus: new FormControl(null, [Validators.required]),
+            // instStatus: new FormControl(null, [Validators.required]),
             //instId: new FormControl('', []),
             //check2: new FormControl('', [Validators.required]),
             userInfo: new FormGroup({
@@ -156,7 +157,7 @@ export class EditInstituteProfileComponent{
                 this.instituteDataList = success.success;
                 this.editInstitute(this.instituteDataList[0].id);
                 this.editId = this.instituteDataList[0].id
-                console.log(this.editId);
+                //console.log(this.editId);
                 return this.editId;
                 
 
@@ -177,7 +178,7 @@ export class EditInstituteProfileComponent{
                 this.institute.adrz = this.instituteList[0].address;
                 this.institute.dateOfReg = this.instituteList[0].registered_date;
                 this.institute.instEmail = this.instituteList[0].email;
-                this.institute.instStatus = this.instituteList[0].status;
+                //this.institute.instStatus = this.instituteList[0].status;
                 this.institute.mobileNum = this.instituteList[0].contact_number;
                 this.institute.regNo = this.instituteList[0].registration_number;
                 this.institute.instUser.fullName = this.instituteList[0].institute_users[0].name;
@@ -205,7 +206,7 @@ export class EditInstituteProfileComponent{
             formData.adrz,
             formData.mobileNum,
             formData.instEmail,
-            formData.instStatus,
+            this.instStatus,
             this.deleted = 0,
             formData.userInfo.user_fullName,
             formData.userInfo.user_nameWithInitials,
@@ -235,7 +236,7 @@ export class Institute {
     public adrz: string;
     public mobileNum: string;
     public instEmail: string;
-    public instStatus: boolean;
+    //public instStatus: boolean;
     public instId: string;
 
     public instUser = new InstUser();

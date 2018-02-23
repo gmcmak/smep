@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.service";
 import { Http, Response, RequestOptions, Headers, URLSearchParams } from "@angular/http";
+import * as globalData from "../globals";
 
 @Injectable()
 
 export class CategoryService{
-    public API_ENDPOINT = 'http://localhost:8000/api/';
+    public API_ENDPOINT = globalData.api_endpoint;
     private loggedInUserList = new Array();
     constructor(
         private http: Http,

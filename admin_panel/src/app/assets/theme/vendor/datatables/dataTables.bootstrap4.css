@@ -88,6 +88,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
   font-size: 14px;
+  cursor: pointer;
   /* border-radius: 0.2rem; */
 }
 
@@ -103,6 +104,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   color: #fff;
   background-color: #007bff;
   border-color: #007bff;
+  /* cursor: pointer; */
 }
 
 .next{
@@ -117,6 +119,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   border-bottom-right-radius: .25rem;
   color: #007bff;
   font-size: 14px;
+  cursor: pointer;
 }
 .paginate_button{
   position: relative;
@@ -128,6 +131,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   padding-top: 8px;
   padding-bottom: 8px;
   border: 1px solid #007bff;
+  cursor: pointer;
 }
 
 .dataTables_info{

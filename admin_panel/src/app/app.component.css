@@ -116,3 +116,7 @@ md-sidenav-container{
     background: #151515;
     color: #fff;
 }
+
+.navbar-nav{
+  cursor: pointer;
+}
