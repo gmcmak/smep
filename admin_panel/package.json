@@ -7,11 +7,10 @@
     "watch": "npm run build -- --watch",
     "server": "webpack-dev-server --inline --progress --port 3000 --content-base src",
     "start": "npm run server",
-    "webpack-prod": "npm run ../node_modules/.bin/ngc -p tsconfig.aot.json && webpack"
+    "webpack-prod": "npm run /node_modules/.bin/ngc -p tsconfig.aot.json && webpack"
   },
   "contributors": [
-    "Dilan Perera <dilan.perera@premiasoft.com>",
-    "Nadeeshani Senevirathna <nadeeshani.senevirathna@lk.pwc.com>"
+
   ],
   "license": "MIT",
   "dependencies": {
@@ -79,8 +78,6 @@
     "angular2-template-project"
   ],
   "repository": {
-    "type": "git",
-    "url": "git+http://user@10.161.121.2/IECD_DEVELOPERS/angular2-template-project.git"
   },
   "bugs": {
     "url": ""
