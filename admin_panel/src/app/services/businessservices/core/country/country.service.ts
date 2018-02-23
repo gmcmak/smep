@@ -2,11 +2,12 @@ import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import { LocalStorageService } from "angular-2-local-storage/dist/local-storage.service";
 import { Router } from "@angular/router";
+import * as globalData from "../globals";
 
 @Injectable()
 
 export class CountryService{
-    public API_ENDPOINT = "http://localhost:8000/api/";
+    public API_ENDPOINT = globalData.api_endpoint;
     private loggedInUserList = new Array();
 
     constructor(
