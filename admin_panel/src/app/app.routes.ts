@@ -95,6 +95,9 @@ import { UpdateTypeComponent } from './views/pages/core/admin/settings/type/upda
 import { CpContentHistoryComponent } from './views/pages/core/admin/content-provider/cp-content-history/cp-content-history.component';
 import { CaProviderHistoryComponent } from './views/pages/core/content-authorizer/view-content-providers/ca-provider-history/ca-provider-history.component';
 import { EditInstituteProfileComponent } from './views/pages/core/admin/profile/edit-institute-profile/edit-institute-profile.component';
+import { AddAdvertisementComponent } from './views/pages/core/admin/advertisement/add-advertisement/add-advertisement.component';
+import { EditAdvertisementComponent } from './views/pages/core/admin/advertisement/edit-advertisement/edit-advertisement.component';
+import { ViewAdvertisementComponent } from './views/pages/core/admin/advertisement/view-advertisement/view-advertisement.component';
 
 
 export const routes: Routes = [
@@ -215,6 +218,9 @@ export const routes: Routes = [
     //   { path: '', redirectTo: 'cp-articles-history', pathMatch: 'full' }
     // ]
   },
+  {path: 'add-ad', component: AddAdvertisementComponent},
+  {path: 'edit-ad', component: EditAdvertisementComponent},
+  {path: 'view-ad', component: ViewAdvertisementComponent},
   { path: 'cp-history/edit-content/:id/:submission_id', component: EditContentComponent},
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
