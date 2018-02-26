@@ -168,6 +168,9 @@ import { CpContentHistoryComponent } from './views/pages/core/admin/content-prov
 import { CaProviderHistoryComponent } from './views/pages/core/content-authorizer/view-content-providers/ca-provider-history/ca-provider-history.component';
 import { EditInstituteProfileComponent } from './views/pages/core/admin/profile/edit-institute-profile/edit-institute-profile.component';
 import { PagerService } from './_services/index';
+import { AddAdvertisementComponent } from './views/pages/core/admin/advertisement/add-advertisement/add-advertisement.component';
+import { EditAdvertisementComponent } from './views/pages/core/admin/advertisement/edit-advertisement/edit-advertisement.component';
+import { ViewAdvertisementComponent } from './views/pages/core/admin/advertisement/view-advertisement/view-advertisement.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -285,7 +288,11 @@ export function startupServiceFactory(startupService: StartupService): Function 
 
     AddTypeComponent,
     UpdateTypeComponent,
-    ViewTypeComponent
+    ViewTypeComponent,
+
+    AddAdvertisementComponent,
+    EditAdvertisementComponent,
+    ViewAdvertisementComponent
   ],
   imports: [
     BrowserModule,
