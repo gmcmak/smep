@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token');
 
 use Illuminate\Http\Request;
 
