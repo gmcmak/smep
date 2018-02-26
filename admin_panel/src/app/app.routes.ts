@@ -218,9 +218,9 @@ export const routes: Routes = [
     //   { path: '', redirectTo: 'cp-articles-history', pathMatch: 'full' }
     // ]
   },
-  {path: 'add-ad', component: AddAdvertisementComponent},
-  {path: 'edit-ad', component: EditAdvertisementComponent},
-  {path: 'view-ad', component: ViewAdvertisementComponent},
+  {path: 'advertisement/add-ad', component: AddAdvertisementComponent},
+  {path: 'advertisement/edit-ad', component: EditAdvertisementComponent},
+  {path: 'advertisement/view-ad', component: ViewAdvertisementComponent},
   { path: 'cp-history/edit-content/:id/:submission_id', component: EditContentComponent},
   { path: 'login', component: LoginComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }

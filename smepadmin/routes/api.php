@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token');
+//header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token');
 
 use Illuminate\Http\Request;
 
@@ -194,6 +194,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
         //get content details for content provider history
         Route::post('get-content-detail', 'API\ContentController@getContentDetail');
+
+        /**
+         * for advertisement
+         */
+        Route::post('add-advertisement', 'API\AdvertisementController@addAdvertisement');
+        Route::get('get-advertisement', 'API\AdvertisementController@getAdvertisement');
 
 
         /**

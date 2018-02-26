@@ -171,6 +171,7 @@ import { PagerService } from './_services/index';
 import { AddAdvertisementComponent } from './views/pages/core/admin/advertisement/add-advertisement/add-advertisement.component';
 import { EditAdvertisementComponent } from './views/pages/core/admin/advertisement/edit-advertisement/edit-advertisement.component';
 import { ViewAdvertisementComponent } from './views/pages/core/admin/advertisement/view-advertisement/view-advertisement.component';
+import { AdvertisementService } from './services/businessservices/core/advertisement/advertisement.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: Http) {
@@ -353,6 +354,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     DialogsService,
     PagerService,
     SubmissionService,
+    AdvertisementService,
     LocalStorageStore
   ],
   exports: [

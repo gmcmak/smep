@@ -287,6 +287,21 @@
           </ul>
         </li>
 
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Advertisement" *ngIf="userRoleId == 1 || userRoleId == 2">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#advertisementsList" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-television"></i>&nbsp;
+            <span class="nav-link-text" [routerLink]="['advertisement/view-ad']">Advertisement</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="advertisementsList">
+            <li>
+              <a [routerLink]="['advertisement/view-ad']">View Advertisement</a>
+            </li>
+            <li>
+              <a [routerLink]="['advertisement/add-ad']">Add Advertisement</a>
+            </li>
+          </ul>
+        </li>
+
         <!--Content Institutes-->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Institutes_add" *ngIf="userRoleId == 5">
           <!--*ngIf="userRoleId == 5"-->
