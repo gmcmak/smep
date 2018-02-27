@@ -356,15 +356,6 @@ export class EditAdvertisementComponent implements OnInit{
                         this.advertisement.selectedExplore[i]['itemName'] = this.advertisementData[x].explore[i].en_tag;
                     }
                 }
-
-                if (this.advertisementData[x].author.length > 0) {
-                    this.advertisement.selectedAuthor = new Array();
-                    for (let i = 0; i < this.advertisementData[x].author.length; i++) {
-                        this.advertisement.selectedAuthor[i] = {};
-                        this.advertisement.selectedAuthor[i]['id'] = this.advertisementData[x].author[i].id;
-                        this.advertisement.selectedAuthor[i]['itemName'] = this.advertisementData[x].author[i].en_name;
-                    }
-                }
             }
         );
     }
