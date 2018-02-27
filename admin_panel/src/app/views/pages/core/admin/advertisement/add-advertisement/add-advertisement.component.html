@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-8">
                                 <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="advertisement.sub_type1"
-                                    [ngClass]="displayFieldCss('sub_type')">
+                                    [ngClass]="displayFieldCss('sub_type')" (change)="showVideoUrl(advertisement.sub_type1)">
                                     <option *ngFor="let record of typeList" [value]="record.id">{{record.name}}</option>
                                 </select>
                                 <div *ngIf="advertisementForm.controls['sub_type'].hasError('required') && advertisementForm.controls['sub_type'].touched" class="error">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="videoUrl == true">
                     <div class="col-md-1 col_md_3_style">
                         <label for="sub_video_url" class="fontClz">Video Url:</label>
                     </div>

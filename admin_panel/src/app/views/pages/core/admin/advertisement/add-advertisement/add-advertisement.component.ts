@@ -21,8 +21,6 @@ declare var jQuery: any;
 export class AddAdvertisementComponent{
 
     public advertisement = new Advertisement();
-    //public index = 0; //content submission form page index
-    //public contentArrayLength = 0;
 
     public advertisementForm: FormGroup;
     public categoryList;
@@ -42,8 +40,6 @@ export class AddAdvertisementComponent{
     selectedExplore1 = [];
     explore_setting = {};
 
-    //public contentDetails;
-    //public content_id;
     public status = 1;
     public insertAdvertisementStatus;
     public error = 0;
@@ -51,6 +47,8 @@ export class AddAdvertisementComponent{
     public exploreArray = new Array();
     public keywordArray = new Array();
     public categoryArray = new Array();
+
+    public videoUrl:boolean = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -359,6 +357,19 @@ export class AddAdvertisementComponent{
 
             }
         );
+    }
+
+    /**
+     * show and hide video url input box
+     */
+    public showVideoUrl(index){
+        if(index == 3){
+            this.videoUrl = true;
+        }
+        else{
+            this.videoUrl = false;
+            this.advertisement.sub_video_url1 = "";
+        }
     }
 }
 

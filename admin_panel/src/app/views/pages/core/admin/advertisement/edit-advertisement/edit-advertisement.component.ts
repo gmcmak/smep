@@ -53,6 +53,8 @@ export class EditAdvertisementComponent implements OnInit{
     public keywordArray = new Array();
     public categoryArray = new Array();
 
+    public videoUrl: boolean = false;
+
     constructor(
         private formBuilder: FormBuilder,
         private categoryService: CategoryService,
@@ -356,6 +358,13 @@ export class EditAdvertisementComponent implements OnInit{
                         this.advertisement.selectedExplore[i]['itemName'] = this.advertisementData[x].explore[i].en_tag;
                     }
                 }
+
+                if (this.advertisement.sub_type1 == 3){
+                    this.videoUrl = true;
+                }
+                else{
+                    this.videoUrl = false;
+                }
             }
         );
     }
@@ -408,6 +417,19 @@ export class EditAdvertisementComponent implements OnInit{
 
             }
         );
+    }
+
+    /**
+    * show and hide video url input box
+    */
+    public showVideoUrl(index) {
+        if (index == 3) {
+            this.videoUrl = true;
+        }
+        else {
+            this.videoUrl = false;
+            this.advertisement.sub_video_url1 = "";
+        }
     }
 }
 
