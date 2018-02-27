@@ -200,6 +200,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
          */
         Route::post('add-advertisement', 'API\AdvertisementController@addAdvertisement');
         Route::get('get-advertisement', 'API\AdvertisementController@getAdvertisement');
+        Route::get('advertisement-status/{id}/{status}', 'API\AdvertisementController@advertisementStatus');
+        Route::get('advertisement-delete/{id}', 'API\AdvertisementController@advertisementDelete');
+        Route::post('add-advertisement', 'API\AdvertisementController@addAdvertisement');
+        Route::get('edit-advertisement/{id}', 'API\AdvertisementController@editAdvertisement');
+        Route::post('update-advertisement/{id}', 'API\AdvertisementController@updateAdvertisement');
 
 
         /**

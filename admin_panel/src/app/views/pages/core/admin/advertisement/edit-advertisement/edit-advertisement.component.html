@@ -1,1 +1,188 @@
-<h1>Edit Advertisement</h1>
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../dashboard']">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a [routerLink]="['../../../advertisement/view-ad']">Advertisement</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a>Update Advertisement</a>
+    </li>
+</ol>
+
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="updateAdvertisementStatus">
+    <strong>{{updateAdvertisementStatus}} !</strong>
+</div>
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-file-text-o"></i>&emsp;
+        <b>Advertisement Updating Form</b>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <form id="advertisementForm" name="advertisementForm" [formGroup]="advertisementForm">
+                <div class="row">
+                    <div class="col-md-1">
+                        <label for="sub_title" class="fontClz">Title:
+                            <span class="required">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input class="form-control form-control-sm fontClz" id="sub_title" name="sub_title" type="text" formControlName="sub_title"
+                            [(ngModel)]="advertisement.sub_title1" placeholder="" [ngClass]="displayFieldCss('sub_title')">
+                        <div *ngIf="advertisementForm.controls['sub_title'].hasError('required') && advertisementForm.controls['sub_title'].touched"
+                            class="error">
+                            Title is required !
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-4 col_md_3_style">
+                                <label for="sub_type" class="fontClz">Type:
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-8">
+                                <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="advertisement.sub_type1"
+                                    [ngClass]="displayFieldCss('sub_type')">
+                                    <option *ngFor="let record of typeList" [value]="record.id">{{record.name}}</option>
+                                </select>
+                                <div *ngIf="advertisementForm.controls['sub_type'].hasError('required') && advertisementForm.controls['sub_type'].touched"
+                                    class="error">
+                                    Type is required !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 col_md_3_style">
+                        <label for="sub_url" class="fontClz">Url:
+                            <span class="required">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-11">
+                        <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="advertisement.sub_url1"
+                            placeholder="" [ngClass]="displayFieldCss('sub_url')">
+                        <div *ngIf="advertisementForm.controls['sub_url'].hasError('required') && advertisementForm.controls['sub_url'].touched"
+                            class="error">
+                            URL is required !
+                        </div>
+                        <div *ngIf="advertisementForm.controls['sub_url'].hasError('pattern') && advertisementForm.controls['sub_url'].touched" class="error">
+                            URL is not valid !
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 col_md_3_style">
+                        <label for="sub_video_url" class="fontClz">Video Url:</label>
+                    </div>
+                    <div class="col-md-11">
+                        <input class="form-control form-control-sm fontClz" id="sub_video_url" name="sub_video_url" type="text" formControlName="sub_video_url"
+                            [(ngModel)]="advertisement.sub_video_url1" placeholder="" [ngClass]="displayFieldCss('sub_video_url')">
+                        <div *ngIf="advertisementForm.controls['sub_video_url'].hasError('pattern') && advertisementForm.controls['sub_video_url'].touched"
+                            class="error">
+                            Video url is not valid !
+                        </div>
+                    </div>
+                </div>
+                <div formGroupName="sub_keywords">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-3 col_md_3_style">
+                                    <label for="sub_keyword" class="fontClz">Keyword:
+                                        <span class="required">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <angular2-multiselect [data]="keywordItemList" formControlName="sub_keyword" name="keywords" [(ngModel)]="advertisement.selectedKeyword"
+                                        [settings]="keyword_setting" (onSelect)="onItemSelect1($event)" (onDeSelect)="onItemDeSelect1($event)"
+                                        (onSelectAll)="onSelectAll1($event)" (onDeSelectAll)="onDeSelectAll1($event)" class="form-control form-control-sm drop fontClz">
+                                    </angular2-multiselect>
+                                    <div *ngIf="advertisementForm.controls['sub_keywords'].controls['sub_keyword'].hasError('required') && advertisementForm.controls['sub_keywords'].controls['sub_keyword'].touched"
+                                        class="error">
+                                        Keyword is required !
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-5 col_md_3_style" align="right">
+                                    <label for="sub_free" class="fontClz">Free keywords: ( Type comma seperately )</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input class="form-control form-control-sm fontClz" id="sub_free" name="sub_free" type="text" formControlName="sub_free"
+                                        [(ngModel)]="advertisement.sub_free1" placeholder="keyword1,keyword2" [ngClass]="displayFieldCss('sub_keywords.sub_free')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div formGroupName="sub_categories">
+                            <div class="row">
+                                <div class="col-md-3 col_md_3_style">
+                                    <label for="sub_category" class="fontClz">Category:
+                                        <span class="required">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <angular2-multiselect [data]="CategoryItemList" formControlName="sub_category" [(ngModel)]="advertisement.selectedCategory"
+                                        [settings]="category_setting" (onSelect)="onItemSelect2($event)" (onDeSelect)="onItemDeSelect2($event)"
+                                        (onSelectAll)="onSelectAll2($event)" (onDeSelectAll)="onDeSelectAll2($event)" class="form-control form-control-sm drop fontClz">
+                                    </angular2-multiselect>
+                                    <div *ngIf="advertisementForm.controls['sub_categories'].controls['sub_category'].hasError('required') && advertisementForm.controls['sub_categories'].controls['sub_category'].touched"
+                                        class="error">
+                                        Category is required !
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div formGroupName="sub_explores">
+                            <div class="row">
+                                <div class="col-md-3 col_md_3_style">
+                                    <label for="sub_explore" class="fontClz">Explore:
+                                        <span class="required">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <angular2-multiselect [data]="ExploreItemList" formControlName="sub_explore" [(ngModel)]="advertisement.selectedExplore"
+                                        [settings]="explore_setting" (onSelect)="onItemSelect3($event)" (onDeSelect)="onItemDeSelect3($event)"
+                                        (onSelectAll)="onSelectAll3($event)" (onDeSelectAll)="onDeSelectAll3($event)">
+                                    </angular2-multiselect>
+                                    <div *ngIf="advertisementForm.controls['sub_explores'].controls['sub_explore'].hasError('required') && advertisementForm.controls['sub_explores'].controls['sub_explore'].touched"
+                                        class="error">
+                                        Explore is required !
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea id="sub_description" class="form-control form-control-sm" rows="3" id="sub_description" name="sub_description"
+                            type="text" formControlName="sub_description" [(ngModel)]="advertisement.sub_description1" placeholder="A brief description of the content:"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" align="right">
+                        <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!advertisementForm.valid" (click)="updateAdvertisement()">Submit</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 important_right">
+                        ( Important: Required fields are mentioned by * )
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>

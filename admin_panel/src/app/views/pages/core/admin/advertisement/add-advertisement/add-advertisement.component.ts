@@ -4,9 +4,8 @@ import { CategoryService } from "../../../../../../services/businessservices/cor
 import { ExploreService } from "../../../../../../services/businessservices/core/settings/explore.service";
 import { KeywordService } from "../../../../../../services/businessservices/core/settings/keyword.service";
 import { ActivatedRoute } from "@angular/router";
-import { ContentService } from "../../../../../../services/businessservices/core/content/content.service";
 import { TypeService } from "../../../../../../services/businessservices/core/type/type.service";
-import { AuthorService } from "../../../../../../services/businessservices/core/settings/author.service";
+import { AdvertisementService } from "../../../../../../services/businessservices/core/advertisement/advertisement.service";
 
 const URL_REGEX = ('https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,}');
 
@@ -21,15 +20,14 @@ declare var jQuery: any;
 
 export class AddAdvertisementComponent{
 
-    public singleSubmission = new SingleSubmission();
-    public index = 0; //content submission form page index
-    public contentArrayLength = 0;
+    public advertisement = new Advertisement();
+    //public index = 0; //content submission form page index
+    //public contentArrayLength = 0;
 
-    public singleSubForm: FormGroup;
+    public advertisementForm: FormGroup;
     public categoryList;
     public exploreList;
     public keywordList;
-    public authorList;
     public typeList;
 
     public keywordItemList = new Array();
@@ -44,24 +42,15 @@ export class AddAdvertisementComponent{
     selectedExplore1 = [];
     explore_setting = {};
 
-    public AuthorItemList = new Array();
-    selectedAuthor1 = [];
-    author_setting = {};
-
-    public submission_id;
-    public sub;
-    public submission_level;
-
-    public contentDetails;
-    public content_id;
-    public status = 0;
-    public insertContentStatus;
+    //public contentDetails;
+    //public content_id;
+    public status = 1;
+    public insertAdvertisementStatus;
     public error = 0;
 
     public exploreArray = new Array();
     public keywordArray = new Array();
     public categoryArray = new Array();
-    public authorArray = new Array();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -69,9 +58,8 @@ export class AddAdvertisementComponent{
         private exploreService: ExploreService,
         private keywordService: KeywordService,
         private route: ActivatedRoute,
-        private contentService: ContentService,
         private typeService: TypeService,
-        private authorService: AuthorService
+        private advertisementService: AdvertisementService
     ) { }
 
     ngOnInit(): void {
@@ -79,16 +67,14 @@ export class AddAdvertisementComponent{
         /**
         * get param id value from the router
         */
-        this.sub = this.route.params.subscribe(params => {
-            this.submission_id = +params['id'];
-            this.submission_level = +params['level'];
-        });
+        // this.sub = this.route.params.subscribe(params => {
+        //     this.submission_id = +params['id'];
+        //     this.submission_level = +params['level'];
+        // });
 
-        this.getContentDetails(this.index);
         this.getCategories();
         this.getExplores();
         this.getKeywords();
-        this.getAuthors();
         this.getTypes();
         this.initializeSingleForm();
 
@@ -123,143 +109,101 @@ export class AddAdvertisementComponent{
             badgeShowLimit: 3
             // classes: "myclass custom-class"
         };
-
-        //for author drop down
-        this.author_setting = {
-            text: "Select Author",
-            selectAllText: 'Select All',
-            unSelectAllText: 'UnSelect All',
-            enableSearchFilter: true,
-            badgeShowLimit: 3
-            // classes: "myclass custom-class"
-        };
-
-
     }
 
     //keyword drop down list functions
     onItemSelect1(item: any) {
         for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedKeyword[i] = new Array();
-            this.singleSubmission.selectedKeyword[i]['id'] = item[i].id;
-            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i].itemName;
+            this.advertisement.selectedKeyword[i] = new Array();
+            this.advertisement.selectedKeyword[i]['id'] = item[i].id;
+            this.advertisement.selectedKeyword[i]['itemName'] = item[i].itemName;
         }
-        return this.singleSubmission.selectedKeyword;
+        return this.advertisement.selectedKeyword;
     }
     onItemDeSelect1(item: any) {
         for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedKeyword[i] = new Array();
-            this.singleSubmission.selectedKeyword[i]['id'] = item[i].id;
-            this.singleSubmission.selectedKeyword[i]['itemName'] = item[i].itemName;
+            this.advertisement.selectedKeyword[i] = new Array();
+            this.advertisement.selectedKeyword[i]['id'] = item[i].id;
+            this.advertisement.selectedKeyword[i]['itemName'] = item[i].itemName;
         }
-        return this.singleSubmission.selectedKeyword;
+        return this.advertisement.selectedKeyword;
     }
     onSelectAll1(items: any) {
         for (let i = 0; i < this.keywordItemList.length; i++) {
-            this.singleSubmission.selectedKeyword[i] = new Array();
-            this.singleSubmission.selectedKeyword[i]['id'] = this.keywordItemList[i].id;
-            this.singleSubmission.selectedKeyword[i]['itemName'] = this.keywordItemList[i].itemName;
+            this.advertisement.selectedKeyword[i] = new Array();
+            this.advertisement.selectedKeyword[i]['id'] = this.keywordItemList[i].id;
+            this.advertisement.selectedKeyword[i]['itemName'] = this.keywordItemList[i].itemName;
         }
-        return this.singleSubmission.selectedKeyword;
+        return this.advertisement.selectedKeyword;
     }
     onDeSelectAll1(items: any) {
-        this.singleSubmission.selectedKeyword = [];
-        return this.singleSubmission.selectedKeyword;
+        this.advertisement.selectedKeyword = [];
+        return this.advertisement.selectedKeyword;
     }
 
     //category drop down list functions
     onItemSelect2(item: any) {
         for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedCategory[i] = new Array();
-            this.singleSubmission.selectedCategory[i]['id'] = item[i].id;
-            this.singleSubmission.selectedCategory[i]['itemName'] = item[i].itemName;
+            this.advertisement.selectedCategory[i] = new Array();
+            this.advertisement.selectedCategory[i]['id'] = item[i].id;
+            this.advertisement.selectedCategory[i]['itemName'] = item[i].itemName;
         }
-        return this.singleSubmission.selectedCategory;
+        return this.advertisement.selectedCategory;
     }
     onItemDeSelect2(item: any) {
         for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedCategory[i] = new Array();
-            this.singleSubmission.selectedCategory[i]['id'] = item[i].id;
-            this.singleSubmission.selectedCategory[i]['itemName'] = item[i].itemName;
+            this.advertisement.selectedCategory[i] = new Array();
+            this.advertisement.selectedCategory[i]['id'] = item[i].id;
+            this.advertisement.selectedCategory[i]['itemName'] = item[i].itemName;
         }
-        return this.singleSubmission.selectedCategory;
+        return this.advertisement.selectedCategory;
     }
     onSelectAll2(items: any) {
         for (let i = 0; i < this.CategoryItemList.length; i++) {
-            this.singleSubmission.selectedCategory[i] = new Array();
-            this.singleSubmission.selectedCategory[i]['id'] = this.CategoryItemList[i].id;
-            this.singleSubmission.selectedCategory[i]['itemName'] = this.CategoryItemList[i].itemName;
+            this.advertisement.selectedCategory[i] = new Array();
+            this.advertisement.selectedCategory[i]['id'] = this.CategoryItemList[i].id;
+            this.advertisement.selectedCategory[i]['itemName'] = this.CategoryItemList[i].itemName;
         }
-        return this.singleSubmission.selectedCategory;
+        return this.advertisement.selectedCategory;
     }
     onDeSelectAll2(items: any) {
-        this.singleSubmission.selectedCategory = [];
-        return this.singleSubmission.selectedCategory;
+        this.advertisement.selectedCategory = [];
+        return this.advertisement.selectedCategory;
     }
 
     //explore drop down list functions
     onItemSelect3(item: any) {
         for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedExplore[i] = new Array();
-            this.singleSubmission.selectedExplore[i]['id'] = item[i].id;
-            this.singleSubmission.selectedExplore[i]['itemName'] = item[i].itemName;
+            this.advertisement.selectedExplore[i] = new Array();
+            this.advertisement.selectedExplore[i]['id'] = item[i].id;
+            this.advertisement.selectedExplore[i]['itemName'] = item[i].itemName;
         }
-        return this.singleSubmission.selectedExplore;
+        return this.advertisement.selectedExplore;
     }
     onItemDeSelect3(item: any) {
         for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedExplore[i] = new Array();
-            this.singleSubmission.selectedExplore[i]['id'] = item[i].id;
-            this.singleSubmission.selectedExplore[i]['itemName'] = item[i].itemName;
+            this.advertisement.selectedExplore[i] = new Array();
+            this.advertisement.selectedExplore[i]['id'] = item[i].id;
+            this.advertisement.selectedExplore[i]['itemName'] = item[i].itemName;
         }
-        return this.singleSubmission.selectedExplore;
+        return this.advertisement.selectedExplore;
     }
     onSelectAll3(items: any) {
         for (let i = 0; i < this.ExploreItemList.length; i++) {
-            this.singleSubmission.selectedExplore[i] = new Array();
-            this.singleSubmission.selectedExplore[i]['id'] = this.ExploreItemList[i].id;
-            this.singleSubmission.selectedExplore[i]['itemName'] = this.ExploreItemList[i].itemName;
+            this.advertisement.selectedExplore[i] = new Array();
+            this.advertisement.selectedExplore[i]['id'] = this.ExploreItemList[i].id;
+            this.advertisement.selectedExplore[i]['itemName'] = this.ExploreItemList[i].itemName;
         }
-        return this.singleSubmission.selectedExplore;
+        return this.advertisement.selectedExplore;
     }
     onDeSelectAll3(items: any) {
-        this.singleSubmission.selectedExplore = [];
-        return this.singleSubmission.selectedExplore;
-    }
-
-    //author drop down list functions
-    onItemSelect4(item: any) {
-        for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedAuthor[i] = new Array();
-            this.singleSubmission.selectedAuthor[i]['id'] = item[i].id;
-            this.singleSubmission.selectedAuthor[i]['itemName'] = item[i].itemName;
-        }
-        return this.singleSubmission.selectedAuthor;
-    }
-    onItemDeSelect4(item: any) {
-        for (let i = 0; i < item.length; i++) {
-            this.singleSubmission.selectedAuthor[i] = new Array();
-            this.singleSubmission.selectedAuthor[i]['id'] = item[i].id;
-            this.singleSubmission.selectedAuthor[i]['itemName'] = item[i].itemName;
-        }
-        return this.singleSubmission.selectedAuthor;
-    }
-    onSelectAll4(items: any) {
-        for (let i = 0; i < this.AuthorItemList.length; i++) {
-            this.singleSubmission.selectedAuthor[i] = new Array();
-            this.singleSubmission.selectedAuthor[i]['id'] = this.AuthorItemList[i].id;
-            this.singleSubmission.selectedAuthor[i]['itemName'] = this.AuthorItemList[i].itemName;
-        }
-        return this.singleSubmission.selectedAuthor;
-    }
-    onDeSelectAll4(items: any) {
-        this.singleSubmission.selectedAuthor = [];
-        return this.singleSubmission.selectedAuthor;
+        this.advertisement.selectedExplore = [];
+        return this.advertisement.selectedExplore;
     }
 
     private initializeSingleForm(): void {
-        this.singleSubForm = this.formBuilder.group({
-            'sub_url': [''],
+        this.advertisementForm = this.formBuilder.group({
+            'sub_url': ['', [Validators.required, Validators.pattern(URL_REGEX)]],
             'sub_type': ['', [Validators.required]],
             'sub_title': ['', [Validators.required]],
             'sub_video_url': [null, [Validators.pattern(URL_REGEX)]],
@@ -273,15 +217,12 @@ export class AddAdvertisementComponent{
             'sub_explores': new FormGroup({
                 'sub_explore': new FormControl([], Validators.required)
             }),
-            'sub_authors': new FormGroup({
-                'sub_author': new FormControl([], Validators.required)
-            }),
             'sub_description': [null]
         });
     }
 
     public isFieldValid(field: string) {
-        return !this.singleSubForm.get(field).valid && this.singleSubForm.get(field).touched;
+        return !this.advertisementForm.get(field).valid && this.advertisementForm.get(field).touched;
     }
 
     public displayFieldCss(field: string) {
@@ -361,22 +302,6 @@ export class AddAdvertisementComponent{
     }
 
     /**
-     * get author details
-     */
-    public getAuthors() {
-        this.authorService.getAuthorsList().subscribe(
-            success => {
-                this.authorList = success.success;
-                for (let i = 0; i < this.authorList.length; i++) {
-                    this.AuthorItemList[i] = new Array();
-                    this.AuthorItemList[i]['id'] = this.authorList[i].id;
-                    this.AuthorItemList[i]['itemName'] = this.authorList[i].en_name;
-                }
-            }
-        );
-    }
-
-    /**
      * get type details
      */
     public getTypes() {
@@ -389,147 +314,55 @@ export class AddAdvertisementComponent{
     }
 
     /**
-     * increase index using arrow button
-     */
-    public increaseIndex() {
-        if (this.index < this.contentDetails.length) {
-            this.index = this.index + 1;
-            this.singleSubmission.selectedKeyword = [];
-            this.singleSubmission.selectedCategory = [];
-            this.singleSubmission.selectedExplore = [];
-            this.singleSubmission.selectedAuthor = [];
-            this.getContentDetails(this.index);
-        }
-    }
-
-    /**
-     * increase index using arrow button
-     */
-    public decreaseIndex() {
-        if (this.index >= 1) {
-            this.index = this.index - 1;
-            this.singleSubmission.selectedKeyword = [];
-            this.singleSubmission.selectedCategory = [];
-            this.singleSubmission.selectedExplore = [];
-            this.singleSubmission.selectedAuthor = [];
-            this.getContentDetails(this.index);
-        }
-    }
-
-    /**
-     * get content data
-     */
-    public getContentDetails(x) {
-        this.contentService.getContentList(
-            this.submission_id
-        ).subscribe(
-            success => {
-                this.contentDetails = success.success;
-                this.contentArrayLength = this.contentDetails.length;
-                this.content_id = this.contentDetails[x].id;
-                this.singleSubmission.sub_url1 = this.contentDetails[x].url;
-                this.singleSubmission.sub_description1 = this.contentDetails[x].description;
-                this.singleSubmission.sub_title1 = this.contentDetails[x].title;
-                this.singleSubmission.sub_video_url1 = this.contentDetails[x].video_url;
-                this.singleSubmission.sub_type1 = this.contentDetails[x].type_id;
-                this.singleSubmission.sub_free1 = this.contentDetails[x].freeform_keyword;
-
-                if (this.contentDetails[x].keyword.length > 0) {
-                    this.singleSubmission.selectedKeyword = new Array();
-                    for (let i = 0; i < this.contentDetails[x].keyword.length; i++) {
-                        this.singleSubmission.selectedKeyword[i] = {};
-                        this.singleSubmission.selectedKeyword[i].id = this.contentDetails[x].keyword[i].id;
-                        this.singleSubmission.selectedKeyword[i].itemName = this.contentDetails[x].keyword[i].en_name;
-                    }
-                }
-
-                if (this.contentDetails[x].category.length > 0) {
-                    this.singleSubmission.selectedCategory = new Array();
-                    for (let i = 0; i < this.contentDetails[x].category.length; i++) {
-                        this.singleSubmission.selectedCategory[i] = {};
-                        this.singleSubmission.selectedCategory[i]['id'] = this.contentDetails[x].category[i].id;
-                        this.singleSubmission.selectedCategory[i]['itemName'] = this.contentDetails[x].category[i].en_name;
-                    }
-                }
-
-                if (this.contentDetails[x].explore.length > 0) {
-                    this.singleSubmission.selectedExplore = new Array();
-                    for (let i = 0; i < this.contentDetails[x].explore.length; i++) {
-                        this.singleSubmission.selectedExplore[i] = {};
-                        this.singleSubmission.selectedExplore[i]['id'] = this.contentDetails[x].explore[i].id;
-                        this.singleSubmission.selectedExplore[i]['itemName'] = this.contentDetails[x].explore[i].en_tag;
-                    }
-                }
-
-                if (this.contentDetails[x].author.length > 0) {
-                    this.singleSubmission.selectedAuthor = new Array();
-                    for (let i = 0; i < this.contentDetails[x].author.length; i++) {
-                        this.singleSubmission.selectedAuthor[i] = {};
-                        this.singleSubmission.selectedAuthor[i]['id'] = this.contentDetails[x].author[i].id;
-                        this.singleSubmission.selectedAuthor[i]['itemName'] = this.contentDetails[x].author[i].en_name;
-                    }
-                }
-            }
-        );
-    }
-
-    /**
-     * add or update contents
+     * add advertisement
      * @param formData 
      */
-    public addContents() {
+    public addAdvertisement() {
 
         this.exploreArray = [];
         this.categoryArray = [];
         this.keywordArray = [];
-        this.authorArray = [];
 
-        for (let i = 0; i < this.singleSubmission.selectedExplore.length; i++) {
+        for (let i = 0; i < this.advertisement.selectedExplore.length; i++) {
 
-            this.exploreArray.push(this.singleSubmission.selectedExplore[i].id);
-            //this.exploreArray[i] = this.singleSubmission.selectedExplore[i].id;
+            this.exploreArray.push(this.advertisement.selectedExplore[i].id);
+            //this.exploreArray[i] = this.advertisement.selectedExplore[i].id;
         }
 
-        for (let i = 0; i < this.singleSubmission.selectedKeyword.length; i++) {
+        for (let i = 0; i < this.advertisement.selectedKeyword.length; i++) {
 
-            this.keywordArray.push(this.singleSubmission.selectedKeyword[i].id);
+            this.keywordArray.push(this.advertisement.selectedKeyword[i].id);
         }
 
-        for (let i = 0; i < this.singleSubmission.selectedCategory.length; i++) {
+        for (let i = 0; i < this.advertisement.selectedCategory.length; i++) {
 
-            this.categoryArray.push(this.singleSubmission.selectedCategory[i].id);
+            this.categoryArray.push(this.advertisement.selectedCategory[i].id);
         }
 
-        for (let i = 0; i < this.singleSubmission.selectedAuthor.length; i++) {
-
-            this.authorArray.push(this.singleSubmission.selectedAuthor[i].id);
-        }
-
-        this.contentService.addContentData(
-            this.content_id,
-            this.submission_id,
-            this.singleSubmission.sub_title1,
-            this.singleSubmission.sub_type1,
-            this.singleSubmission.sub_video_url1,
+        this.advertisementService.addAdvertisement(
+            this.advertisement.sub_title1,
+            this.advertisement.sub_description1,
+            this.advertisement.sub_url1,
+            this.advertisement.sub_video_url1,
+            this.advertisement.sub_free1,
+            this.status,
+            this.advertisement.sub_type1, 
             this.keywordArray,
-            this.singleSubmission.sub_free1,
             this.categoryArray,
-            this.exploreArray,
-            this.authorArray,
-            this.singleSubmission.sub_description1,
-            this.status
+            this.exploreArray
         ).subscribe(
             success => {
-                this.insertContentStatus = success.success;
+                this.insertAdvertisementStatus = success.success;
                 this.error = success.error;
                 this.hideAlert();
+                this.advertisementForm.reset();
 
             }
         );
     }
 }
 
-export class SingleSubmission {
+export class Advertisement {
     public sub_url1: string;
     public sub_type1: number;
     public sub_title1: string;

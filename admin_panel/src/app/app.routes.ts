@@ -219,7 +219,7 @@ export const routes: Routes = [
     // ]
   },
   {path: 'advertisement/add-ad', component: AddAdvertisementComponent},
-  {path: 'advertisement/edit-ad', component: EditAdvertisementComponent},
+  {path: 'advertisement/edit-ad/:id', component: EditAdvertisementComponent},
   {path: 'advertisement/view-ad', component: ViewAdvertisementComponent},
   { path: 'cp-history/edit-content/:id/:submission_id', component: EditContentComponent},
   { path: 'login', component: LoginComponent},

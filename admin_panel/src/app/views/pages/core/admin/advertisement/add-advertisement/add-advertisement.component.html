@@ -11,8 +11,8 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="insertContentStatus">
-    <strong>{{insertContentStatus}} !</strong>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="insertAdvertisementStatus">
+    <strong>{{insertAdvertisementStatus}} !</strong>
 </div>
 
 
@@ -23,7 +23,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <form id="singleSubForm" name="singleSubForm" [formGroup]="singleSubForm">
+            <form id="advertisementForm" name="advertisementForm" [formGroup]="advertisementForm">
                 <div class="row">
                     <div class="col-md-1">
                         <label for="sub_title" class="fontClz">Title:
@@ -32,8 +32,8 @@
                     </div>
                     <div class="col-md-8">
                         <input class="form-control form-control-sm fontClz" id="sub_title" name="sub_title" type="text" formControlName="sub_title"
-                            [(ngModel)]="singleSubmission.sub_title1" placeholder="" [ngClass]="displayFieldCss('sub_title')">
-                        <div *ngIf="singleSubForm.controls['sub_title'].hasError('required') && singleSubForm.controls['sub_title'].touched" class="error">
+                            [(ngModel)]="advertisement.sub_title1" placeholder="" [ngClass]="displayFieldCss('sub_title')">
+                        <div *ngIf="advertisementForm.controls['sub_title'].hasError('required') && advertisementForm.controls['sub_title'].touched" class="error">
                             Title is required !
                         </div>
                     </div>
@@ -45,11 +45,11 @@
                                 </label>
                             </div>
                             <div class="col-md-8">
-                                <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="singleSubmission.sub_type1"
+                                <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="advertisement.sub_type1"
                                     [ngClass]="displayFieldCss('sub_type')">
                                     <option *ngFor="let record of typeList" [value]="record.id">{{record.name}}</option>
                                 </select>
-                                <div *ngIf="singleSubForm.controls['sub_type'].hasError('required') && singleSubForm.controls['sub_type'].touched" class="error">
+                                <div *ngIf="advertisementForm.controls['sub_type'].hasError('required') && advertisementForm.controls['sub_type'].touched" class="error">
                                     Type is required !
                                 </div>
                             </div>
@@ -63,12 +63,12 @@
                         </label>
                     </div>
                     <div class="col-md-11">
-                        <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="singleSubmission.sub_url1"
+                        <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="advertisement.sub_url1"
                             placeholder="" [ngClass]="displayFieldCss('sub_url')">
-                        <div *ngIf="singleSubForm.controls['sub_url'].hasError('required') && singleSubForm.controls['sub_url'].touched" class="error">
+                        <div *ngIf="advertisementForm.controls['sub_url'].hasError('required') && advertisementForm.controls['sub_url'].touched" class="error">
                             URL is required !
                         </div>
-                        <div *ngIf="singleSubForm.controls['sub_url'].hasError('pattern') && singleSubForm.controls['sub_url'].touched" class="error">
+                        <div *ngIf="advertisementForm.controls['sub_url'].hasError('pattern') && advertisementForm.controls['sub_url'].touched" class="error">
                             URL is not valid !
                         </div>
                     </div>
@@ -79,8 +79,8 @@
                     </div>
                     <div class="col-md-11">
                         <input class="form-control form-control-sm fontClz" id="sub_video_url" name="sub_video_url" type="text" formControlName="sub_video_url"
-                            [(ngModel)]="singleSubmission.sub_video_url1" placeholder="" [ngClass]="displayFieldCss('sub_video_url')">
-                        <div *ngIf="singleSubForm.controls['sub_video_url'].hasError('pattern') && singleSubForm.controls['sub_video_url'].touched"
+                            [(ngModel)]="advertisement.sub_video_url1" placeholder="" [ngClass]="displayFieldCss('sub_video_url')">
+                        <div *ngIf="advertisementForm.controls['sub_video_url'].hasError('pattern') && advertisementForm.controls['sub_video_url'].touched"
                             class="error">
                             Video url is not valid !
                         </div>
@@ -96,11 +96,11 @@
                                     </label>
                                 </div>
                                 <div class="col-md-9">
-                                    <angular2-multiselect [data]="keywordItemList" formControlName="sub_keyword" name="keywords" [(ngModel)]="singleSubmission.selectedKeyword"
+                                    <angular2-multiselect [data]="keywordItemList" formControlName="sub_keyword" name="keywords" [(ngModel)]="advertisement.selectedKeyword"
                                         [settings]="keyword_setting" (onSelect)="onItemSelect1($event)" (onDeSelect)="onItemDeSelect1($event)"
                                         (onSelectAll)="onSelectAll1($event)" (onDeSelectAll)="onDeSelectAll1($event)" class="form-control form-control-sm drop fontClz">
                                     </angular2-multiselect>
-                                    <div *ngIf="singleSubForm.controls['sub_keywords'].controls['sub_keyword'].hasError('required') && singleSubForm.controls['sub_keywords'].controls['sub_keyword'].touched"
+                                    <div *ngIf="advertisementForm.controls['sub_keywords'].controls['sub_keyword'].hasError('required') && advertisementForm.controls['sub_keywords'].controls['sub_keyword'].touched"
                                         class="error">
                                         Keyword is required !
                                     </div>
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <input class="form-control form-control-sm fontClz" id="sub_free" name="sub_free" type="text" formControlName="sub_free"
-                                        [(ngModel)]="singleSubmission.sub_free1" placeholder="keyword1,keyword2" [ngClass]="displayFieldCss('sub_keywords.sub_free')">
+                                        [(ngModel)]="advertisement.sub_free1" placeholder="keyword1,keyword2" [ngClass]="displayFieldCss('sub_keywords.sub_free')">
                                 </div>
                             </div>
                         </div>
@@ -131,11 +131,11 @@
                                     </label>
                                 </div>
                                 <div class="col-md-9">
-                                    <angular2-multiselect [data]="CategoryItemList" formControlName="sub_category" [(ngModel)]="singleSubmission.selectedCategory"
+                                    <angular2-multiselect [data]="CategoryItemList" formControlName="sub_category" [(ngModel)]="advertisement.selectedCategory"
                                         [settings]="category_setting" (onSelect)="onItemSelect2($event)" (onDeSelect)="onItemDeSelect2($event)"
                                         (onSelectAll)="onSelectAll2($event)" (onDeSelectAll)="onDeSelectAll2($event)" class="form-control form-control-sm drop fontClz">
                                     </angular2-multiselect>
-                                    <div *ngIf="singleSubForm.controls['sub_categories'].controls['sub_category'].hasError('required') && singleSubForm.controls['sub_categories'].controls['sub_category'].touched"
+                                    <div *ngIf="advertisementForm.controls['sub_categories'].controls['sub_category'].hasError('required') && advertisementForm.controls['sub_categories'].controls['sub_category'].touched"
                                         class="error">
                                         Category is required !
                                     </div>
@@ -150,45 +150,26 @@
                                     </label>
                                 </div>
                                 <div class="col-md-9">
-                                    <angular2-multiselect [data]="ExploreItemList" formControlName="sub_explore" [(ngModel)]="singleSubmission.selectedExplore"
+                                    <angular2-multiselect [data]="ExploreItemList" formControlName="sub_explore" [(ngModel)]="advertisement.selectedExplore"
                                         [settings]="explore_setting" (onSelect)="onItemSelect3($event)" (onDeSelect)="onItemDeSelect3($event)"
                                         (onSelectAll)="onSelectAll3($event)" (onDeSelectAll)="onDeSelectAll3($event)">
                                     </angular2-multiselect>
-                                    <div *ngIf="singleSubForm.controls['sub_explores'].controls['sub_explore'].hasError('required') && singleSubForm.controls['sub_explores'].controls['sub_explore'].touched"
+                                    <div *ngIf="advertisementForm.controls['sub_explores'].controls['sub_explore'].hasError('required') && advertisementForm.controls['sub_explores'].controls['sub_explore'].touched"
                                         class="error">
                                         Explore is required !
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div formGroupName="sub_authors">
-                            <div class="row">
-                                <div class="col-md-3 col_md_3_style">
-                                    <label for="sub_author" class="fontClz">Author:
-                                        <span class="required">*</span>
-                                    </label>
-                                </div>
-                                <div class="col-md-9">
-                                    <angular2-multiselect [data]="AuthorItemList" formControlName="sub_author" [(ngModel)]="singleSubmission.selectedAuthor"
-                                        [settings]="author_setting" (onSelect)="onItemSelect4($event)" (onDeSelect)="onItemDeSelect4($event)"
-                                        (onSelectAll)="onSelectAll4($event)" (onDeSelectAll)="onDeSelectAll4($event)">
-                                    </angular2-multiselect>
-                                    <div *ngIf="singleSubForm.controls['sub_authors'].controls['sub_author'].hasError('required') && singleSubForm.controls['sub_authors'].controls['sub_author'].touched"
-                                        class="error">
-                                        Author is required !
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-md-7">
-                        <textarea id="sub_description" class="form-control form-control-sm" rows="4" id="sub_description" name="sub_description"
-                            type="text" formControlName="sub_description" [(ngModel)]="singleSubmission.sub_description1" placeholder="A brief description of the content:"></textarea>
+                    <div class="col-md-8">
+                        <textarea id="sub_description" class="form-control form-control-sm" rows="3" id="sub_description" name="sub_description"
+                            type="text" formControlName="sub_description" [(ngModel)]="advertisement.sub_description1" placeholder="A brief description of the content:"></textarea>
                     </div>
-                    <div class="col-md-1" align="left">
-                        <div class="row" id="submit_row">
-                            <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!singleSubForm.valid" (click)="addContents()">Submit</button>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" align="right">
+                        <button type="submit" id="submit" name="submit" class="btn-primary search_btn" [disabled]="!advertisementForm.valid" (click)="addAdvertisement()">Submit</button>
                     </div>
                 </div>
                 <br>

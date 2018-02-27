@@ -11,8 +11,8 @@
     </li>
 </ol>
 
-<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="providerDeletingStatus">
-    <strong>{{providerDeletingStatus}} !</strong>
+<div id="success_alert" class="alert alert-success" [ngClass]="changeAlertClass()" *ngIf="advertisementDeletingStatus">
+    <strong>{{advertisementDeletingStatus}} !</strong>
 </div>
 
 <div class="card mb-3">
@@ -33,6 +33,7 @@
                         <th>Keyword</th>
                         <th data-orderable="false">Enable/ Disable</th>
                         <th data-orderable="false">View</th>
+                        <th data-orderable="false">Delete</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -44,28 +45,25 @@
                         <td>{{record.title}}</td>
                         <td>{{record.description}}</td>
                         <td>
-                            <ul *ngFor="let institute of record.institues">
+                            <ul *ngFor="let keywords of record.keyword">
                                 <li>
-                                    {{institute.name}}
+                                    {{keywords.en_name}}
                                 </li>
                             </ul>
                         </td>
                         <td>
-                            <ul *ngFor="let subject of record.subject_areas">
+                            <ul *ngFor="let categories of record.category">
                                 <li>
-                                    {{subject.name}}
+                                    {{categories.en_name}}
                                 </li>
                             </ul>
                         </td>
-                        <td align="center">
-                            <a [routerLink]="['../../content-provider/content-history', record.id, 1]" *ngIf="approvedIds[i] != 0"
-                                [skipLocationChange]="true">{{approvedIds[i]}}</a>
-                            <a *ngIf="approvedIds[i] == 0" disabled>0</a>
-                        </td>
-                        <td align="center">
-                            <a [routerLink]="['../../content-provider/content-history', record.id, 2]" *ngIf="rejectedIds[i] != 0"
-                                [skipLocationChange]="true">{{rejectedIds[i]}}</a>
-                            <a *ngIf="rejectedIds[i] == 0" disabled>0</a>
+                        <td>
+                            <ul *ngFor="let explores of record.explore">
+                                <li>
+                                    {{explores.en_tag}}
+                                </li>
+                            </ul>
                         </td>
                         <td align="center">
                             <label class="switch">
@@ -74,12 +72,12 @@
                             </label>
                         </td>
                         <td align="center">
-                            <a [routerLink]="['../../content-provider/update-providers', record.id]" class="fa fa-1x fa-pencil-square-o"
+                            <a [routerLink]="['../../advertisement/edit-ad', record.id]" class="fa fa-1x fa-pencil-square-o"
                                 [skipLocationChange]="true"></a>
                         </td>
                         <!-- <td align="center"><a data-toggle="modal" data-target="#deleteModal"><li class="fa  fa-1x fa-trash"></li></a></td> -->
                         <td align="center">
-                            <button class="dlt_btn" (click)="deleteProvider(record.id,record.name)">
+                            <button class="dlt_btn" (click)="deleteAdvertisement(record.id, record.title)">
                                 <li class="fa  fa-1x fa-trash">
                             </button>
                         </td>

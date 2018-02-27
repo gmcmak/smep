@@ -25,7 +25,8 @@ class ContentController extends Controller
     		'type' => 'required',
     		'keyword' => 'required',
     		'category' => 'required',
-    		'explore' => 'required'
+            'explore' => 'required',
+            'author' => 'required'
     	]);
 
     	if($validator->fails()){
