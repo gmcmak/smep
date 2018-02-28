@@ -24,23 +24,6 @@
         <div class="table-responsive">
             <form id="singleSubForm" name="singleSubForm" [formGroup]="singleSubForm">
                 <div class="row">
-                    <div class="col-md-1 col_md_3_style">
-                        <label for="sub_url" class="fontClz">Url:
-                            <span class="required">*</span>
-                        </label>
-                    </div>
-                    <div class="col-md-11">
-                        <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="singleSubmission.sub_url1"
-                            placeholder="" [ngClass]="displayFieldCss('sub_url')" readonly>
-                        <div *ngIf="singleSubForm.controls['sub_url'].hasError('required') && singleSubForm.controls['sub_url'].touched" class="error">
-                            URL is required !
-                        </div>
-                        <div *ngIf="singleSubForm.controls['sub_url'].hasError('pattern') && singleSubForm.controls['sub_url'].touched" class="error">
-                            URL is not valid !
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-1">
                         <label for="sub_title" class="fontClz">Title:
                             <span class="required">*</span>
@@ -62,7 +45,7 @@
                             </div>
                             <div class="col-md-8">
                                 <select id="sub_type" name="sub_type" class="form-control form-control-sm drop fontClz" formControlName="sub_type" [(ngModel)]="singleSubmission.sub_type1"
-                                    [ngClass]="displayFieldCss('sub_type')">
+                                    [ngClass]="displayFieldCss('sub_type')" (change)="showVideoUrl(singleSubmission.sub_type1)">
                                     <option *ngFor="let record of typeList" [value]="record.id">{{record.name}}</option>
                                 </select>
                                 <div *ngIf="singleSubForm.controls['sub_type'].hasError('required') && singleSubForm.controls['sub_type'].touched" class="error">
@@ -74,15 +57,46 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1 col_md_3_style">
+                        <label for="sub_url" class="fontClz">Url:
+                            <span class="required">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control form-control-sm fontClz" id="sub_url" name="sub_url" type="text" formControlName="sub_url" [(ngModel)]="singleSubmission.sub_url1"
+                            placeholder="" [ngClass]="displayFieldCss('sub_url')" readonly>
+                        <div *ngIf="singleSubForm.controls['sub_url'].hasError('required') && singleSubForm.controls['sub_url'].touched" class="error">
+                            URL is required !
+                        </div>
+                        <div *ngIf="singleSubForm.controls['sub_url'].hasError('pattern') && singleSubForm.controls['sub_url'].touched" class="error">
+                            URL is not valid !
+                        </div>
+                    </div>
+                    <div class="col-md-1 linkStyle">
+                        <span>
+                            <a href="{{singleSubmission.sub_url1}}" target="_blank" title="Go to link">
+                                <li class="fa  fa-1x fa-link"></li>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row" *ngIf="videoUrl == true">
+                    <div class="col-md-1 col_md_3_style">
                         <label for="sub_video_url" class="fontClz">Video Url:</label>
                     </div>
-                    <div class="col-md-11">
+                    <div class="col-md-10">
                         <input class="form-control form-control-sm fontClz" id="sub_video_url" name="sub_video_url" type="text" formControlName="sub_video_url"
-                            [(ngModel)]="singleSubmission.sub_video_url1" placeholder="" [ngClass]="displayFieldCss('sub_video_url')">
+                            [(ngModel)]="singleSubmission.sub_video_url1" placeholder="" [ngClass]="displayFieldCss('sub_video_url')" (input)="showVideoLink(singleSubmission.sub_video_url1)">
                         <div *ngIf="singleSubForm.controls['sub_video_url'].hasError('pattern') && singleSubForm.controls['sub_video_url'].touched"
                             class="error">
                             Video url is not valid !
                         </div>
+                    </div>
+                    <div class="col-md-1 linkStyle" *ngIf="showLink == true">
+                        <span>
+                            <a href="{{singleSubmission.sub_video_url1}}" target="_blank" title="Go to video link">
+                                <li class="fa  fa-1x fa-link"></li>
+                            </a>
+                        </span>
                     </div>
                 </div>
                 <div formGroupName="sub_keywords">

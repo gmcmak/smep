@@ -88,13 +88,13 @@
                     </div>
                     <div class="col-md-10">
                         <input class="form-control form-control-sm fontClz" id="sub_video_url" name="sub_video_url" type="text" formControlName="sub_video_url"
-                            [(ngModel)]="advertisement.sub_video_url1" placeholder="" [ngClass]="displayFieldCss('sub_video_url')">
+                            [(ngModel)]="advertisement.sub_video_url1" placeholder="" [ngClass]="displayFieldCss('sub_video_url')" (input)="showVideoLink(advertisement.sub_video_url1)">
                         <div *ngIf="advertisementForm.controls['sub_video_url'].hasError('pattern') && advertisementForm.controls['sub_video_url'].touched"
                             class="error">
                             Video url is not valid !
                         </div>
                     </div>
-                    <div class="col-md-1 linkStyle">
+                    <div class="col-md-1 linkStyle" *ngIf="showLink == true">
                         <span>
                             <a href="{{advertisement.sub_video_url1}}" target="_blank" title="Go to video link">
                                 <li class="fa  fa-1x fa-link"></li>

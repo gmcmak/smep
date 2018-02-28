@@ -25,6 +25,8 @@ export class SingleSubmissionComponent implements OnInit{
     public singleSubmission = new SingleSubmission();
     public index = 0; //content submission form page index
     public contentArrayLength = 0;
+    private videoUrl: boolean = false;
+    private showLink: boolean = false;
 
     public singleSubForm: FormGroup;
     public categoryList;
@@ -435,6 +437,21 @@ export class SingleSubmissionComponent implements OnInit{
                 this.singleSubmission.sub_type1 = this.contentDetails[x].type_id;
                 this.singleSubmission.sub_free1 = this.contentDetails[x].freeform_keyword;
 
+                if(this.singleSubmission.sub_type1 == 3){
+                    this.videoUrl = true;
+                }
+                else{
+                    this.videoUrl = false;
+                    this.singleSubmission.sub_video_url1 = "";
+                }
+
+                if (this.singleSubmission.sub_video_url1 != ''){
+                    this.showLink = true;
+                }
+                else{
+                    this.showLink = false;
+                }
+
                 if (this.contentDetails[x].keyword.length > 0){
                     this.singleSubmission.selectedKeyword = new Array();
                     for (let i = 0; i < this.contentDetails[x].keyword.length; i++) {
@@ -527,6 +544,31 @@ export class SingleSubmissionComponent implements OnInit{
 
             }
         );
+    }
+
+    /**
+     * show and hide video url text box
+     */
+    private showVideoUrl(type_id){
+        if(type_id == 3){
+            this.videoUrl = true;
+        }
+        else{
+            this.videoUrl = false;
+            this.singleSubmission.sub_video_url1 = "";
+        }
+    }
+
+    /**
+     * show and hide video link
+     */
+    public showVideoLink(inputValue){
+        if(inputValue != ''){
+            this.showLink = true;
+        }
+        else{
+            this.showLink = false;
+        }
     }
 }
 
